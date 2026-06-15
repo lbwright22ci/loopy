@@ -3,3 +3,23 @@
 'Montserrat Alternatives' for majority of text 
 */
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+/* Variables */
+:root {
+    --primary-font:'Montserrat Alternates', sans-serif;
+    --heading-font: 'Dancing Script', sans-serif;
+    --primary-background-color: #fff;
+    --primary-text-color: #2c0f06;
+    --hyperlink-color: #990099;
+    --hyperlink-hover-color: #009999;
+    --decorative-color: #06b1a0; 
+    --background-highlight-color: #c4b031;
+    --error-color: #b44145; 
+    --success-color: #448848; 
+    --shadow-color: #e9e7de;
+}
+
+/* Generic style rules*/
+html{
+    font-size: 10px;
+}
