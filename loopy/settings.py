@@ -11,9 +11,9 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 import os
 import sys
+import dj_database_url
 
 from django.contrib.messages import constants as messages
-import dj_database_url
 
 from pathlib import Path
 
@@ -34,7 +34,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    "*.herokuapp.com",
+    ".herokuapp.com",
 ]
 
 
@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -82,8 +84,8 @@ TEMPLATES = [
 ]
 
 
-# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
-# CRISPY_TEMPLATE_PACK = "bootstrap5"
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = 'loopy.wsgi.application'
 
@@ -158,6 +160,9 @@ SOCIALACCOUNT_PROVIDERS = {
             'profile',
             'email',
         ],
+        "auth_params": {
+            "access_type": "online",
+        },
     },
 }
 
