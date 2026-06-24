@@ -6,7 +6,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse align-items-start pb-2 pt-2" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mt-2">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,7 +81,7 @@
         </li>
         </ul>
         <ul class="navbar-nav ms-auto me-4">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown mt-2">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user nav-icon"></i>
           </a>
@@ -99,14 +99,13 @@
             {% endif %}
           </ul>
         </li>
-        <li class="nav-item " id="basket">
+        <li class="nav-item mt-2 mb-2" id="basket">
           <a class="nav-link " aria-label=""><span><i class="fa-solid fa-basket-shopping position-relative nav-icon">
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill basket-counter small-text">
                 0
                 <span class="visually-hidden">Number of items in your basket </span>
             </span>
           </i></span></a>
-          <p>£ total</p>
         </li>
     </ul>
 
