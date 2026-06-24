@@ -23,3 +23,49 @@
 html{
     font-size: 10px;
 }
+
+body{
+    font-size: 1.6rem;
+    color: var(--primary-text-color);
+    font-family: var(--primary-font);
+}
+
+a{
+    color: var(--hyperlink-color);
+}
+
+a:hover {
+    color:var(--hyperlink-hover-color);
+}
+.small-text{
+    font-size: 1.4rem;
+}
+
+
+/* Nav bar */
+
+#header-logo{
+    height:5rem;
+    padding-left: 4rem;
+}
+
+nav .dropdown-menu{
+    width:80vw;
+}
+
+.nav-icon{
+    font-size:2.4rem;
+    padding-right:2rem;
+}
+
+nav .dropdown-menu[data-bs-popper]{
+    margin-top:1.5rem;
+    left:-5vw;
+}
+
+.basket-counter{
+    background-color: var(--hyperlink-hover-color);
+    color:var(--primary-background-color);
+}
+
+/* Media Queries */
