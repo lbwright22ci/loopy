@@ -17,6 +17,7 @@
     --error-color: #b44145; 
     --success-color: #448848; 
     --shadow-color: #e9e7de;
+    --shadow-semi:#e9e7deaa;
 }
 
 /* Generic style rules*/
@@ -38,9 +39,56 @@ a:hover {
     color:var(--hyperlink-hover-color);
 }
 .small-text{
-    font-size: 1.4rem;
+    font-size: 1.2rem;
 }
 
+.uppercase-text{
+    text-transform: uppercase;
+}
+
+.form-control{
+    font-size:1.6rem;
+}
+
+.form-control:focus{
+    border-color:var(--primary-text-color);
+    box-shadow: 0 0 0 0.25rem var(--shadow-color) ;
+}
+.search-box{
+    border:1px solid var(--primary-text-color);
+}
+
+.search-sudo-button{
+    padding-top:0.5rem;
+}
+
+.search-sudo-button:hover{
+    color:var(--hyperlink-hover-color);
+}
+
+.btn-secondary{
+    color:var(--primary-text-color);
+    border:1px solid var(--primary-text-color);
+    background-color: var(--primary-background-color);
+}
+
+.btn-secondary:hover{
+    color:var(--primary-text-color);
+    border:1px solid var(--primary-background-color);
+    background-color: var(--primary-background-color);
+}
+
+/* Announcement banner */
+#announcements{
+    background-color: var(--primary-text-color);
+    color:var(--primary-background-color);
+    text-transform: uppercase;
+    text-align: center;
+}
+#announcements p{
+    margin-bottom:0.2rem;
+    margin-top:0.2rem;
+}
 
 /* Nav bar */
 
@@ -51,11 +99,47 @@ a:hover {
 
 nav .dropdown-menu{
     width:80vw;
+    padding:2rem;
+    border: none;
+    border-radius:2rem;
+    box-shadow: 0.5rem 0.5rem 0.5rem 0.25rem var(--shadow-color);
+    font-size:1.6rem;
+}
+
+nav #menu-account{
+    width:10vw;
 }
 
 .nav-icon{
     font-size:2.4rem;
+} 
+
+.nav-link{
+    color:var(--primary-text-color);
+    font-size:1.6rem;
+}
+
+.nav-link:hover{
+    color:var(--hyperlink-hover-color);
+}
+
+.dropdown-item{
+    padding:0;
+}
+
+.dropdown-item:hover{
+    background-color: var(--shadow-semi);
+    color:var(--hyperlink-hover-color);
+}
+
+li .sub-menu-item{
+    list-style: none;
+    font-size: 1.2rem;
+}
+
+#basket{
     padding-right:2rem;
+    padding-left:2rem;
 }
 
 nav .dropdown-menu[data-bs-popper]{

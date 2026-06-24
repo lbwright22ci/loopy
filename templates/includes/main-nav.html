@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo" id="header-logo" class="d-none d-lg-block"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,60 +13,64 @@
             Shop Yarn
           </a>
           <ul class="dropdown-menu">
-            <div class="row justify-content-end">
-              <div class="col-lg-3">
-                <form class="d-flex" role="search">
-                  <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                  <button class="btn btn-outline-success" type="submit">Search</button>
+            <div class=" row mb-4">
+              <div class="col-lg-6 ">
+                <li><a class="dropdown-item" href="#" aria-label="go to a list of all yarns for sale">All yarn</a></li>
+                <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn on promotion">Promotions</a></li>
+            </div>
+
+                <div class="col-lg-3">
+                <form class="d-flex" role="search" method="GET" action="">
+                  <input class="form-control me-2 search-box" type="search" name="q" placeholder="Find your yarn!" aria-label="Search"/>
+                  <span class="search-sudo-button" type="submit"><i class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                 </form>
-              </div>
-            </div>
-            <div class=" row">
-              <div class="col-lg-3">
-                <li><a href="#" aria-label="go to a list of all yarns for sale"></a>All yarn</li>
-                <li><a  href="#" aria-label="filter to show only yarn on promotion"></a>Promotions</li>
-                <li> </li>
-                <li>Brands</li>
+                </div>
+
+                </div>
+                <div class="row mt-4">
+                <div class="col-lg-3">
+                <li class="uppercase-text">Brands</li>
                 <ul>
-                  <li><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
-                <li>Thickness</li>
+                <li class="uppercase-text">Thickness</li>
                 <ul>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 2 ply">2 ply</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 4 ply">4 ply</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness double knit">Double Knit</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness aran">Aran</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness chunky"> Chunky</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness super chunky"> Super Chunky</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 2 ply">2 ply</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 4 ply">4 ply</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness double knit">Double Knit</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness aran">Aran</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness chunky"> Chunky</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness super chunky"> Super Chunky</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
-                <li>Fibre</li>
+                <li class="uppercase-text">Fibre</li>
                 <ul>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing alpaca yarn"> Alpaca</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Acrylic</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Cotton</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool">Merino</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Wool</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> 100% Natural fibres</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing alpaca yarn"> Alpaca</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Acrylic</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Cotton</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool">Merino</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Wool</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> 100% Natural fibres</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
-                <li>Colour</li>
+                <li class="uppercase-text">Colour</li>
                 <ul>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only varigated coloured yarn"> Multi</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Neutral (greys, beiges, browns)</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Blue</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool"> Green</a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Reds (red, pink, purple) </a></li>
-                  <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> Yellows (yellow, orange) </a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only varigated coloured yarn"> Multi</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Neutral (greys, beiges, browns)</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Blue</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool"> Green</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Reds (red, pink, purple) </a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> Yellows (yellow, orange) </a></li>
                 </ul>
               </div>
             </div>
+            
           </ul>
         </li>
         <li class="nav-item">
@@ -77,10 +81,25 @@
         </li>
         </ul>
         <ul class="navbar-nav ms-auto me-4">
-        <li class="nav-item">
-          <a class="nav-link " aria-label=""><i class="fa-regular fa-user nav-icon"></i></a>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa-regular fa-user nav-icon"></i>
+          </a>
+          <ul class="dropdown-menu" id="menu-account">
+            {% if user.is_authenticated %}
+            <li><a class="dropdown-item" href="#" aria-label="Goes to account page with account information,
+                 past orders and favourites">My Account</a></li>
+                 {% if user.is_staff %}
+                 <li><a class="dropdown-item" href="#" aria-label="goes to shop management area">Shop Management</a></li>
+                 {% endif %}
+            <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Logout of my account">Logout</a></li>
+            {% else %}
+            <li><a class="dropdown-item" href="{% url 'account_login' %}" aria-label="Login to your Loopy yarns account">Login</a></li>
+            <li><a class="dropdown-item" href="{% url 'account_signup' %}" aria-label="Register for a Loopy yarns account">Register</a></li>
+            {% endif %}
+          </ul>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item" id="basket">
           <a class="nav-link " aria-label=""><span><i class="fa-solid fa-basket-shopping position-relative nav-icon">
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill basket-counter small-text">
                 0
