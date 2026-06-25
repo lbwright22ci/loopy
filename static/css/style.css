@@ -111,8 +111,7 @@ nav #menu-account{
     width:10vw;
 }
 
-.nav-icon,
-.footer-icon{
+.nav-icon{
     font-size:2.4rem;
 } 
 
@@ -172,19 +171,26 @@ nav .dropdown-menu[data-bs-popper]{
 
 /* Footer */
 
-.footer-icon{
-    color:var(--primary-text-color);
-    padding-left:2rem;
-}
-.footer-icon:hover{
-    color:var(--hyperlink-hover-color);
-}
-
 .footer{
     height:4rem;
     position: relative;
 }
 
+#footer-base{
+    background-color: var(--primary-text-color);
+    padding-top:0.4rem;
+    color:var(--primary-background-color);
+    font-size: 1rem;
+}
+
+.footer-icon{
+    color:var(--primary-background-color);
+    padding-left:2rem;
+    font-size:1.6rem;
+}
+.footer-icon:hover{
+    color:var(--background-highlight-color);
+}
 .footer-box {
     position:absolute;
     z-index: -1;
