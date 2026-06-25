@@ -7,8 +7,8 @@
                 <li class="nav-item dropdown">
                         <span class="navbar-toggler-icon" id="mobile-hamburger"></span></a></li>
                         <!--this is the drop down menu on mobile-->
-                <div class="col-6 col-md-3 dropdown-menu" id="expand-hambuger">
-                    <p class="dropdown-item"><i class="fa-solid fa-house"></i> Home</p>
+                <div class=" dropdown-menu exp-h" id="expand-hambuger">
+                    <p class="dropdown-item"><i class="fa-solid fa-house nav-icon"></i> Home</p>
                     <p class="dropdown-item" id="yarn-menu-mobile"> Shop yarn <i class="fa-solid fa-arrow-right"></i>
                     </p>
                     <p><a class="dropdown-item" href="#" aria-label="takes you to buy a gift voucher"> Gift
@@ -74,36 +74,24 @@
                             </i></span></a>
                 </li>
             </ul>
-
-            <!-- 
-            Shop Yarn
-          </a>
-          <ul class="dropdown-menu">
-            <div class=" row mb-4">
-              <div class="col-lg-6 ">
-                <li><a class="dropdown-item" href="#" aria-label="go to a list of all yarns for sale">All yarn</a></li>
-                <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn on promotion">Promotions</a></li>
-            </div>
-
-                <div class="col-lg-3">
+            <div class="exp-h dropdown-menu" id="yarn-mobile-filter">
+                <p class="dropdown-item" id="mob-back-filter"> <i class="fa-solid fa-arrow-left"></i> Back </p>
+                <p><a class="dropdown-item" href="#" aria-label="go to a list of all yarns for sale">All yarn</a></p>
+                <p><a class="dropdown-item" href="#" aria-label="filter to show only yarn on promotion">Promotions</a></p>
+            
                 <form class="d-flex" role="search" method="GET" action="">
                   <input class="form-control me-2 search-box" type="search" name="q" placeholder="Find your yarn!" aria-label="Search"/>
                   <span class="search-sudo-button" type="submit"><i class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                 </form>
-                </div>
-
-                </div>
-                <div class="row mt-4">
-                <div class="col-lg-3">
-                <li class="uppercase-text">Brands</li>
+                
+                <p class="uppercase-text">Brands</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a></li>
                 </ul>
-              </div>
-              <div class="col-lg-3">
-                <li class="uppercase-text">Thickness</li>
+              
+                <p class="uppercase-text">Thickness</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 2 ply">2 ply</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 4 ply">4 ply</a></li>
@@ -112,9 +100,8 @@
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness chunky"> Chunky</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness super chunky"> Super Chunky</a></li>
                 </ul>
-              </div>
-              <div class="col-lg-3">
-                <li class="uppercase-text">Fibre</li>
+              
+                <p class="uppercase-text">Fibre</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing alpaca yarn"> Alpaca</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Acrylic</a></li>
@@ -123,9 +110,8 @@
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Wool</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> 100% Natural fibres</a></li>
                 </ul>
-              </div>
-              <div class="col-lg-3">
-                <li class="uppercase-text">Colour</li>
+              
+                <p class="uppercase-text">Colour</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only varigated coloured yarn"> Multi</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Neutral (greys, beiges, browns)</a></li>
@@ -134,6 +120,13 @@
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Reds (red, pink, purple) </a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> Yellows (yellow, orange) </a></li>
                 </ul>
+
+            </div>
+
+            <!-- 
+            Shop Yarn
+          </a>
+          
               </div>
             </div>
             

@@ -26,8 +26,21 @@ $(document).ready(function(){
 
     $(document).mouseup(function(e){
         if($("#expand-hambuger").hasClass("show")){
+            $("#yarn-menu-mobile").on("click", function(){
+                $('#expand-hambuger').removeClass("show");
+                $('#yarn-mobile-filter').addClass("show");
+            });
             if($(e.target).closest("#expand-hambuger").length===0){
                 $('#expand-hambuger').removeClass("show");
+            };
+        };
+        if($("#yarn-mobile-filter").hasClass("show")){
+            $("#mob-back-filter").on("click", function(){
+                $('#yarn-mobile-filter').removeClass("show");
+                $('#expand-hambuger').addClass("show");
+            });
+            if($(e.target).closest("#yarn-mobile-filter").length===0){
+                $('#yarn-mobile-filter').removeClass("show");
             };
         };
     });

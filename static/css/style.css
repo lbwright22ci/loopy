@@ -182,7 +182,7 @@ li .sub-menu-item{
 
 /*mobile and tablet menus */
 
-nav #expand-hambuger{
+nav .exp-h{
     width:fit-content;
     height:fit-content;
     padding-left:2rem;
@@ -196,14 +196,13 @@ nav #expand-hambuger{
     position: fixed;
     top:6rem;
     left:0;
-    z-index:-5 !important;
 }
 
 #user-toggle-reveal{
     display: none;
 }
 #user-toggle-reveal.show{
-    display:grid;
+    display:block;
 }
 
 /* Footer */
