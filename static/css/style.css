@@ -69,6 +69,7 @@ a:hover {
 
 .btn-secondary{
     color:var(--primary-text-color);
+    font-size: 1.6rem;
     border:1px solid var(--primary-text-color);
     background-color: var(--primary-background-color);
 }
@@ -78,6 +79,14 @@ a:hover {
     border:1px solid var(--primary-background-color);
     background-color: var(--primary-background-color);
 }
+
+.table>:not(caption)>*>*{
+    color:var(--primary-text-color);
+}
+th .table{
+    color:var(--primary-text-color);
+}
+
 
 /* Announcement banner */
 #announcements{
@@ -202,4 +211,10 @@ nav .dropdown-menu[data-bs-popper]{
     radial-gradient(68.82px at 50% calc(100% - 96px),#000 99%,#0000 101%) calc(50% - 80px) 0/160px 100%,
     radial-gradient(68.82px at 50% calc(100% + 56px),#0000 99%,#000 101%) 50% calc(100% - 40px)/160px 100% repeat-x;
 }
+
+/* Delivery modal*/
+.fade{
+    background-color: var(--shadow-semi);
+}
+
 /* Media Queries */
