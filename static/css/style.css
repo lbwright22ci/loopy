@@ -32,6 +32,7 @@ body{
     font-family: var(--primary-font);
 }
 
+
 a{
     color: var(--hyperlink-color);
 }
@@ -98,6 +99,7 @@ th .table{
 #announcements p{
     margin-bottom:0.2rem;
     margin-top:0.2rem;
+    font-size: 0.9rem;
 }
 
 /* Nav bar */
@@ -107,18 +109,23 @@ th .table{
     padding-left: 4rem;
 }
 
-nav .dropdown-menu{
+nav #menu-account{
+    width:10vw;
+}
+
+    nav .dropdown-menu{
     width:80vw;
+    height:auto;
     padding:2rem;
     border: none;
     border-radius:2rem;
     box-shadow: 0.5rem 0.5rem 0.5rem 0.25rem var(--shadow-color);
     font-size:1.6rem;
-}
-
-nav #menu-account{
-    width:10vw;
-}
+    }
+    nav .dropdown-menu[data-bs-popper]{
+    margin-top:0.5rem;
+    left:-5vw;
+    }
 
 .nav-icon{
     font-size:2.4rem;
@@ -152,11 +159,6 @@ li .sub-menu-item{
     padding-left:2rem;
 }
 
-nav .dropdown-menu[data-bs-popper]{
-    margin-top:0.5rem;
-    left:-5vw;
-}
-
 .basket-counter{
     background-color: var(--hyperlink-hover-color);
     color:var(--primary-background-color);
@@ -176,6 +178,32 @@ nav .dropdown-menu[data-bs-popper]{
   mask: 
     radial-gradient(68.82px at 50% 96px,#000 99%,#0000 101%) calc(50% - 80px) 0/160px 100%,
     radial-gradient(68.82px at 50% -56px,#0000 99%,#000 101%) 50% 40px/160px 100% repeat-x;
+}
+
+/*mobile and tablet menus */
+
+nav #expand-hambuger{
+    width:fit-content;
+    height:fit-content;
+    padding-left:2rem;
+    padding-top:4rem;
+    padding-right:5rem;
+    padding-bottom:5rem;
+    border: none;
+    border-radius:2rem;
+    box-shadow: 0.5rem 0.5rem 0.5rem 0.25rem var(--shadow-color);
+    font-size:1.6rem;
+    position: fixed;
+    top:6rem;
+    left:0;
+    z-index:-5 !important;
+}
+
+#user-toggle-reveal{
+    display: none;
+}
+#user-toggle-reveal.show{
+    display:grid;
 }
 
 /* Footer */
@@ -218,3 +246,20 @@ nav .dropdown-menu[data-bs-popper]{
 }
 
 /* Media Queries */
+/* for sizes md and above in Bootstrap */
+@media screen and (min-width:576px){
+    #announcements p{
+        font-size: 1.2rem;
+    }
+
+    nav #expand-hamburger{
+        width:10vw;
+        padding-right:3rem;
+    }
+
+
+}
+/* for sizes lg and above in Bootstrap */
+@media screen and (min-width:992px){
+
+}

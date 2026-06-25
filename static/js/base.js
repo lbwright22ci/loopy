@@ -9,5 +9,27 @@ $(document).ready(function(){
         $("ul:first-of-type").removeClass("show");
     });
 
+    $("#mobile-hamburger").on("click", function(){
+        $("#expand-hambuger").toggleClass("show");
+    });
+
+    $("#user-toggle").on("click", function(){
+        $("#user-toggle-reveal").toggleClass("show");
+        $(this).toggleClass("show");
+        state = $(this).attr('aria-expanded');
+        if (state ==='true'){
+            $(this).attr('aria-expanded','false');
+        } else{
+            $(this).attr('aria-expanded','true');
+        };
+    });
+
+    $(document).mouseup(function(e){
+        if($("#expand-hambuger").hasClass("show")){
+            if($(e.target).closest("#expand-hambuger").length===0){
+                $('#expand-hambuger').removeClass("show");
+            };
+        };
+    });
 
 });
