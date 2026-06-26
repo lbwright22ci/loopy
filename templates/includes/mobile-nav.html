@@ -1,169 +1,121 @@
 {% load static %}
 
-<nav class="navbar navbar-expand fixed-top d-block d-lg-none">
-    <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mt-2 ms-1">
-                <li class="nav-item dropdown">
-                        <span class="navbar-toggler-icon" id="mobile-hamburger"></span></a></li>
-                        <!--this is the drop down menu on mobile-->
-                <div class=" dropdown-menu exp-h" id="expand-hambuger">
-                    <p class="dropdown-item"><i class="fa-solid fa-house nav-icon"></i> Home</p>
-                    <p class="dropdown-item" id="yarn-menu-mobile"> Shop yarn <i class="fa-solid fa-arrow-right"></i>
-                    </p>
-                    <p><a class="dropdown-item" href="#" aria-label="takes you to buy a gift voucher"> Gift
-                            vouchers</a></p>
-                    <p><a class="dropdown-item" href="#" aria-label="takes you to our contact page"> Get in touch!</a>
-                    </p>
-                    <hr class="mb-2 mt-2">
-                    <p class="d-block d-md-none mt-4 nav-item dropdown">
-                        <a id="user-toggle" 
-                        class="nav-link dropdown-toggle" href="#" role="button" 
-                        aria-expanded="false"><i class="fa-regular fa-user nav-icon" ></i></a></p>
-                    <ul id="user-toggle-reveal">
-                        {% if user.is_authenticated %}
-                        <li class="d-block d-md-none"><a class="dropdown-item" href="#" aria-label="Goes to account page with account information,
-                 past orders and favourites">My Account</a></li>
-                        {% if user.is_staff %}
-                        <li class="d-block d-md-none"><a class=" dropdown-item" href="#"
-                            aria-label="goes to shop management area">Shop Management</a></li>
-                        {% endif %}
-                        <li class="d-block d-md-none"><a class="dropdown-item" href="{% url 'account_logout' %}"
-                                aria-label="Logout of my account">Logout</a></li>
-                        {% else %}
-                        <li class="d-block d-md-none"><a class="dropdown-item" href="{% url 'account_login' %}"
-                                aria-label="Login to your Loopy yarns account">Login</a></li>
-                        <li class="d-block d-md-none"><a class="dropdown-item" href="{% url 'account_signup' %}"
-                                aria-label="Register for a Loopy yarns account">Register</a></li>
-                        {% endif %}
-                    </ul>
+<nav>
+        <div class="container-fluid fixed-top d-block d-lg-none" id="mobile-nav">
+                <div class="row justify-content-between">
+                        <div class="col-6 text-start">
+                                <a data-bs-toggle="offcanvas" href="#expand-hambuger" role="button"
+                                        aria-controls="expand-hambuger">
+                                        <span id="mobile-hamburger"><i class="fa-solid fa-bars nav-icon"></i></span>
+                                </a>
+                        </div>
+                        <div class="col-6 text-end" id="basket">
+                                <a href="#" aria-label="">
+                                        <span>
+                                                <i class="fa-solid fa-basket-shopping position-relative nav-icon">
+                                                        <span class="position-absolute top-0 start-100 
+                                                        translate-middle badge rounded-pill basket-counter 
+                                                        small-text">0
+                                                                <span class="visually-hidden">
+                                                                        Number of items in your basket
+                                                                </span>
+                                                        </span>
+                                                </i>
+                                        </span>
+                                </a>
+                        </div>
                 </div>
-            </ul>
-            <ul class="navbar-nav ms-auto mt-2">
-                <li class="nav-item dropdown mt-2 d-none d-md-block">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        <i class="fa-regular fa-user nav-icon"></i>
-                    </a>
-                    <ul class="dropdown-menu" id="menu-account">
-                        {% if user.is_authenticated %}
-                        <li><a class="dropdown-item" href="#" aria-label="Goes to account page with account information,
-                 past orders and favourites">My Account</a></li>
-                        {% if user.is_staff %}
-                        <li><a class="dropdown-item" href="#" aria-label="goes to shop management area">Shop
-                                Management</a></li>
-                        {% endif %}
-                        <li><a class="dropdown-item" href="{% url 'account_logout' %}"
-                                aria-label="Logout of my account">Logout</a></li>
-                        {% else %}
-                        <li><a class="dropdown-item" href="{% url 'account_login' %}"
-                                aria-label="Login to your Loopy yarns account">Login</a></li>
-                        <li><a class="dropdown-item" href="{% url 'account_signup' %}"
-                                aria-label="Register for a Loopy yarns account">Register</a></li>
-                        {% endif %}
-                    </ul>
-                </li>
-                <li class="nav-item" id="basket">
-                    <a class="nav-link " aria-label=""><span><i
-                                class="fa-solid fa-basket-shopping position-relative nav-icon">
-                                <span
-                                    class="position-absolute top-0 start-100 translate-middle badge rounded-pill basket-counter small-text">
-                                    0
-                                    <span class="visually-hidden">Number of items in your basket </span>
-                                </span>
-                            </i></span></a>
-                </li>
-            </ul>
-            <div class="exp-h dropdown-menu" id="yarn-mobile-filter">
-                <p class="dropdown-item" id="mob-back-filter"> <i class="fa-solid fa-arrow-left"></i> Back </p>
-                <p><a class="dropdown-item" href="#" aria-label="go to a list of all yarns for sale">All yarn</a></p>
-                <p><a class="dropdown-item" href="#" aria-label="filter to show only yarn on promotion">Promotions</a></p>
-            
-                <form class="d-flex" role="search" method="GET" action="">
-                  <input class="form-control me-2 search-box" type="search" name="q" placeholder="Find your yarn!" aria-label="Search"/>
-                  <span class="search-sudo-button" type="submit"><i class="fa-solid fa-magnifying-glass nav-icon"></i></span>
-                </form>
-                
-                <p class="uppercase-text">Brands</p>
-                <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a></li>
-                </ul>
-              
-                <p class="uppercase-text">Thickness</p>
-                <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 2 ply">2 ply</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 4 ply">4 ply</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness double knit">Double Knit</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness aran">Aran</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness chunky"> Chunky</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness super chunky"> Super Chunky</a></li>
-                </ul>
-              
-                <p class="uppercase-text">Fibre</p>
-                <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing alpaca yarn"> Alpaca</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Acrylic</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Cotton</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool">Merino</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Wool</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> 100% Natural fibres</a></li>
-                </ul>
-              
-                <p class="uppercase-text">Colour</p>
-                <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only varigated coloured yarn"> Multi</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Neutral (greys, beiges, browns)</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Blue</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool"> Green</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Reds (red, pink, purple) </a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> Yellows (yellow, orange) </a></li>
-                </ul>
-
-            </div>
-
-            <!-- 
-            Shop Yarn
-          </a>
-          
-              </div>
-            </div>
-            
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " aria-label="">Gift Vouchers</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " aria-label="">Get in Touch</a>
-        </li>
-        </ul>
-        <ul class="navbar-nav ms-auto me-4">
-        <li class="nav-item dropdown mt-2">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-regular fa-user nav-icon"></i>
-          </a>
-          <ul class="dropdown-menu" id="menu-account">
-            {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="#" aria-label="Goes to account page with account information,
-                 past orders and favourites">My Account</a></li>
-                 {% if user.is_staff %}
-                 <li><a class="dropdown-item" href="#" aria-label="goes to shop management area">Shop Management</a></li>
-                 {% endif %}
-            <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Logout of my account">Logout</a></li>
-            {% else %}
-            <li><a class="dropdown-item" href="{% url 'account_login' %}" aria-label="Login to your Loopy yarns account">Login</a></li>
-            <li><a class="dropdown-item" href="{% url 'account_signup' %}" aria-label="Register for a Loopy yarns account">Register</a></li>
-            {% endif %}
-          </ul>
-        </li>
-
-    </ul> -->
-
         </div>
-    </div>
-
+        <div class="container-fluid box">
+        </div>
 </nav>
-<div class="container-fluid box">
+
+<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" aria-label="mobile menu"
+        data-bs-scroll="true">
+        <div class="container">
+                <div class="row text-end">
+                        <div class="col-6 ms-auto">
+                                <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
+                                        id="mob-header-logo"></a>
+                        </div>
+                        <div class="col-6">
+                                <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                                                class="fa-solid fa-x"></i></a>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-12">
+
+                        </div>
+                        <div class="col-12">
+                                <p class="dropdown-item"><a href="{% url 'home' %}"
+                                                aria-label="takes you to the home page">
+                                                <i class="fa-solid fa-house nav-icon me-4"></i>Home</a>
+                                </p>
+                        </div>
+
+                        <hr class="mt-2 mb-4">
+
+                </div>
+                <div class="row" id="yarn-menu-mobile">
+                        <div class="col-12">
+                                <p class="dropdown-item"> Shop yarn <i class="fa-solid fa-arrow-right ms-4"></i>
+                                </p>
+                                <hr class="mt-2 mb-4">
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-12">
+                                <p><a class="dropdown-item" href="#" aria-label="takes you to buy a gift voucher"> Gift
+                                                vouchers</a></p>
+                                <hr class="mt-2 mb-4">
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-12">
+                                <p><a class="dropdown-item" href="#" aria-label="takes you to our contact page">
+                                                Get in touch!</a>
+                                </p>
+                                <hr class="mt-2 mb-4">
+                        </div>
+                </div>
+                <div class="row mt-2">
+                        <div class="col-12 dropdown">
+                                <a class="dropdown-toggle" href="#" role="button" aria-expanded="false"
+                                        data-bs-toggle="dropdown"><i class="fa-regular fa-user nav-icon"></i></a>
+                                <ul class="dropdown-menu mt-4">
+                                        {% if user.is_authenticated %}
+                                        <li><a class="dropdown-item small-text" href="#" aria-label="Goes to account page with account information,
+                 past orders and favourites">My Account</a></li>
+                                        {% if user.is_staff %}
+                                        <li><a class=" dropdown-item small-text" href="#"
+                                                        aria-label="goes to shop management area">Shop Management</a>
+                                        </li>
+                                        {% endif %}
+                                        <li><a class="dropdown-item small-text" href="{% url 'account_logout' %}"
+                                                        aria-label="Logout of my account">Logout</a></li>
+                                        {% else %}
+                                        <li><a class="dropdown-item small-text" href="{% url 'account_login' %}"
+                                                        aria-label="Login to your Loopy yarns account">Login</a></li>
+                                        <li><a class="dropdown-item small-text" href="{% url 'account_signup' %}"
+                                                        aria-label="Register for a Loopy yarns account">Register</a>
+                                        </li>
+                                        {% endif %}
+                                </ul>
+                        </div>
+                </div>
+        </div>
+</div>
+
+
+
+
+
+<!-- <hr class="mb-2 mt-2">
+        <div class="d-block d-md-none mt-4 dropdown">
+                <a id="user-toggle" class="dropdown-toggle" href="#" role="button" aria-expanded="false"
+                        data-bs-toggle="dropdown"><i class="fa-regular fa-user nav-icon"></i></a>
+        </div>
+         -->
+
 </div>

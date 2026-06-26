@@ -129,14 +129,19 @@ nav #menu-account{
 
 .nav-icon{
     font-size:2.4rem;
+    font-weight: 400;
 } 
 
-.nav-link{
+.nav-link,
+#mobile-nav a,
+.offcanvas.offcanvas-start a{
     color:var(--primary-text-color);
     font-size:1.6rem;
+    text-decoration: none;
 }
 
-.nav-link:hover{
+.nav-link:hover,
+#mobile-nav a:hover{
     color:var(--hyperlink-hover-color);
 }
 
@@ -170,7 +175,7 @@ li .sub-menu-item{
 
 .box {
     position:fixed;
-    z-index: -1;
+    z-index: 500;
     top:5rem;
     background-image:linear-gradient(180deg, var(--shadow-semi), transparent);
     height:8rem;
@@ -182,34 +187,34 @@ li .sub-menu-item{
 
 /*mobile and tablet menus */
 
-nav .exp-h{
-    width:fit-content;
-    height:fit-content;
-    padding-left:2rem;
-    padding-top:4rem;
-    padding-right:5rem;
-    padding-bottom:5rem;
-    border: none;
-    border-radius:2rem;
-    box-shadow: 0.5rem 0.5rem 0.5rem 0.25rem var(--shadow-color);
-    font-size:1.6rem;
-    position: fixed;
-    top:6rem;
-    left:0;
+#mobile-nav{
+    margin-top:4.2rem;
+    padding-left:1rem;
+    padding-right:1rem;
 }
 
-#user-toggle-reveal{
-    display: none;
+#mob-header-logo{
+    height:5rem;
+    padding-bottom:2rem;
 }
-#user-toggle-reveal.show{
-    display:block;
+.offcanvas.offcanvas-start{
+    max-width:200px;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-top:1rem;
 }
 
+
+
+.offcanvas.offcanvas-start .dropdown-menu{
+    border:none;
+}
 /* Footer */
 
 .footer{
     height:4rem;
     position: relative;
+    z-index: 101;
 }
 
 #footer-base{
@@ -229,7 +234,7 @@ nav .exp-h{
 }
 .footer-box {
     position:absolute;
-    z-index: -1;
+    z-index: 100;
     bottom:2rem;
     background-image:linear-gradient(180deg, transparent, var(--shadow-semi));
     height:8rem;
@@ -245,6 +250,15 @@ nav .exp-h{
 }
 
 /* Media Queries */
+/* for sizes sm and above */
+@media screen and (min-width:350px):{
+    #mobile-nav{
+        margin-top:3.2rem;
+        padding-left:2rem;
+        padding-right:2rem;
+    }
+}
+
 /* for sizes md and above in Bootstrap */
 @media screen and (min-width:576px){
     #announcements p{
