@@ -33,12 +33,12 @@
 <div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" aria-label="mobile menu"
         data-bs-scroll="true">
         <div class="container">
-                <div class="row text-end">
-                        <div class="col-6 ms-auto">
+                <div class="row ">
+                        <div class="col-6 text-start ms-auto">
                                 <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
                                         id="mob-header-logo"></a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 text-end">
                                 <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
                                                 class="fa-solid fa-x"></i></a>
                         </div>
@@ -109,12 +109,12 @@
 <div class="offcanvas offcanvas-start" id="mob-yarn-filter-menu" tabindex="-1" aria-label="yarn-filter selection menu"
         data-bs-scroll="true">
         <div class="container">
-                <div class="row text-end">
-                        <div class="col-6 ms-auto">
+                <div class="row">
+                        <div class="col-6 text-start ms-auto">
                                 <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
                                         id="mob-header-logo"></a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 text-end">
                                 <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
                                                 class="fa-solid fa-x"></i></a>
                         </div>
@@ -139,9 +139,12 @@
                 </div>
                 <div class="row mt-4 mb-4">
                         <div class="col-12">
-                                <input class="form-control me-2 search-box" type="search" name="q"
+                                <form class="d-flex mb-4" role="search" method="GET" action="">
+                                <span><input class="form-control me-2 search-box" type="search" name="q"
                                         placeholder="Find your yarn!" aria-label="Search">
-                                <span class="search-sudo-button" type="submit"><i
+                                </span>
+                                <span class="search-sudo-button ms-4" type="submit">
+                                        <i
                                                 class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                                 </form>
                         </div>
@@ -229,7 +232,7 @@
                                                 </li>
                                                 <li><a class="small-text" href="#"
                                                                 aria-label="Filter to show only natural yarn">100%
-                                                                natural
+                                                                Natural
                                                                 fibres</a>
                                                 </li>
                                         </ul>

@@ -48,6 +48,10 @@ a:hover {
     text-transform: uppercase;
 }
 
+.text-link{
+    cursor: pointer;
+}
+
 .form-control{
     font-size:1.6rem;
 }
@@ -129,7 +133,6 @@ nav #menu-account{
 
 .nav-icon{
     font-size:2.4rem;
-    font-weight: 400;
 } 
 
 .nav-link,
