@@ -5,7 +5,7 @@
                 <div class="row justify-content-between">
                         <div class="col-6 text-start">
                                 <a data-bs-toggle="offcanvas" href="#expand-hambuger" role="button"
-                                        aria-controls="expand-hambuger">
+                                        aria-label="takes you to expanded menu options on mobile">
                                         <span id="mobile-hamburger"><i class="fa-solid fa-bars nav-icon"></i></span>
                                 </a>
                         </div>
@@ -45,9 +45,6 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-
-                        </div>
-                        <div class="col-12">
                                 <p class="dropdown-item"><a href="{% url 'home' %}"
                                                 aria-label="takes you to the home page">
                                                 <i class="fa-solid fa-house nav-icon me-4"></i>Home</a>
@@ -57,10 +54,12 @@
                         <hr class="mt-2 mb-4">
 
                 </div>
-                <div class="row" id="yarn-menu-mobile">
+                <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"> Shop yarn <i class="fa-solid fa-arrow-right ms-4"></i>
-                                </p>
+                                <p class="dropdown-item"><a data-bs-toggle="offcanvas" href="#mob-yarn-filter-menu"
+                                                role="button" aria-label="takes you to choice of yarn menu"> Shop yarn
+                                                <i class="fa-solid fa-arrow-right ms-4"></i>
+                                        </a></p>
                                 <hr class="mt-2 mb-4">
                         </div>
                 </div>
@@ -107,7 +106,152 @@
         </div>
 </div>
 
+<div class="offcanvas offcanvas-start" id="mob-yarn-filter-menu" tabindex="-1" aria-label="yarn-filter selection menu"
+        data-bs-scroll="true">
+        <div class="container">
+                <div class="row text-end">
+                        <div class="col-6 ms-auto">
+                                <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
+                                        id="mob-header-logo"></a>
+                        </div>
+                        <div class="col-6">
+                                <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                                                class="fa-solid fa-x"></i></a>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-12">
+                                <p class="dropdown-item"><a data-bs-toggle="offcanvas" href="#expand-hambuger"
+                                                role="button" aria-label="takes you to main menu on mobile"> <i
+                                                        class="fa-solid fa-arrow-left me-4"></i>Back
+                                        </a></p>
+                                <hr class="mt-2 mb-4">
+                        </div>
+                </div>
+                <div class="row mb-4">
+                        <div class="col-12">
+                                <p><a class="dropdown-item" href="#" aria-label="go to a list of all yarns for sale">All
+                                                yarn</a></p>
+                                <p><a class="dropdown-item" href="#"
+                                                aria-label="filter to show only yarn on promotion">Promotions</a>
+                                </p>
+                        </div>
+                </div>
+                <div class="row mt-4 mb-4">
+                        <div class="col-12">
+                                <input class="form-control me-2 search-box" type="search" name="q"
+                                        placeholder="Find your yarn!" aria-label="Search">
+                                <span class="search-sudo-button" type="submit"><i
+                                                class="fa-solid fa-magnifying-glass nav-icon"></i></span>
+                                </form>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-12 dropdown">
+                                <p class="uppercase-text"></p><a class="dropdown-toggle" href="#" role="button" aria-expanded="false"
+                                        data-bs-toggle="dropdown">
+                                        Brands
+                                </a></p>
+                                <ul class="dropdown-menu mt-4">
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only yarn with brand 'Drops'">Drops</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a>
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="col-12 dropdown">
+                                <p class="uppercase-text"></p><a class="dropdown-toggle" href="#" role="button" aria-expanded="false"
+                                        data-bs-toggle="dropdown">
+                                        Thickness
+                                </a></p>
+                                <ul class="dropdown-menu mt-4">
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only 2 ply yarn">2 ply</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only 4 ply yarn">4 ply</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only double knit yarn">Double knit</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only aran">Aran</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only chunky yarn">Chunky</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only super chunky yarn">Super Chunky</a>
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+                                <div class="row">
+                        <div class="col-12 dropdown">
+                                <p class="uppercase-text"></p><a class="dropdown-toggle" href="#" role="button" aria-expanded="false"
+                                        data-bs-toggle="dropdown">
+                                        Fibre
+                                </a></p>
+                                <ul class="dropdown-menu mt-4">
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only alpaca yarn">Alpaca</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only acrylic yarn">Acrylic</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only cotton yarn">Cotton</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only merino yarn">Merino</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only wool yarn">Wool</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only natural yarn">100% natural fibres</a>
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+                                <div class="row">
+                        <div class="col-12 dropdown">
+                                <p class="uppercase-text"></p><a class="dropdown-toggle" href="#" role="button" aria-expanded="false"
+                                        data-bs-toggle="dropdown">
+                                        Colour
+                                </a></p>
+                                <ul class="dropdown-menu mt-4">
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only varigated coloured yarn">Multi</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only neutral coloured yarn">Neutral</a>
+                                        </li>
+                                        <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only blue yarn">Blue</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only green yarn">Green</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only red yarn">Red</a>
+                                        </li>
+                                                                                <li class="sub-menu-item"><a class="dropdown-item" href="#"
+                                                        aria-label="Filter to show only yellow yarn">Yellow</a>
+                                        </li>
+                                </ul>
+                        </div>
+                </div>
+        </div>
 
+</div>
 
 
 
