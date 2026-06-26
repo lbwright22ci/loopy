@@ -154,7 +154,8 @@ nav #menu-account{
     color:var(--hyperlink-hover-color);
 }
 
-li .sub-menu-item{
+li .sub-menu-item,
+.accord-list li{
     list-style: none;
     font-size: 1.2rem;
 }
@@ -203,12 +204,27 @@ li .sub-menu-item{
     padding-right:1rem;
     padding-top:1rem;
 }
-
-
+.accordion-button{
+    padding-left:0;
+    padding-right:0;
+}
+.accordion-item{
+    color:var(--primary-text-color);
+    border:none;
+}
+.accordion-button:not(.collapsed){
+    background-color: var(--primary-background-color);
+}
 
 .offcanvas.offcanvas-start .dropdown-menu{
     border:none;
 }
+.accordion-button::after,
+.accordion-button:not(.collapsed)::after,
+.accordion-button.collapsed::after{
+    background-image: none;
+}
+
 /* Footer */
 
 .footer{
@@ -265,11 +281,9 @@ li .sub-menu-item{
         font-size: 1.2rem;
     }
 
-    nav #expand-hamburger{
-        width:10vw;
-        padding-right:3rem;
-    }
-
+.offcanvas.offcanvas-start{
+    max-width:350px;
+}
 
 }
 /* for sizes lg and above in Bootstrap */
