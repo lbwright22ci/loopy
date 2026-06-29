@@ -59,13 +59,13 @@
                             <tbody>
                                 <tr>
                                     <td> Small parcel </td>
-                                    <td> £ {{ small_first_class|floatformat:2 }}</td>
-                                    <td> £ {{ small_second_class|floatformat:2 }}</td>
+                                    <td> £ {{ small_first_class.postage_cost|floatformat:2 }}</td>
+                                    <td> £ {{ small_second_class.postage_cost|floatformat:2 }}</td>
                                 </tr>
                                 <tr>
                                     <td> Large parcel </td>
-                                    <td> £ {{ large_first_class|floatformat:2 }}</td>
-                                    <td> £ {{ large_second_class|floatformat:2 }}</td>
+                                    <td> £ {{ large_first_class.postage_cost|floatformat:2 }}</td>
+                                    <td> £ {{ large_second_class.postage_cost|floatformat:2 }}</td>
                                 </tr>
                             </tbody>
                         </table>

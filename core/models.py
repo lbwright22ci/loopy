@@ -59,7 +59,14 @@ class Announcements(models.Model):
     """ Used to control text in the annoucement banner at the top of all pages as
     well as conditions for bulk buy discounts
     
-    fields in this model are:
+    fields in this model are: `bulk buy`, `lower ball num`, `lower discount`, 
+    `upper ball num`, `upper discount`, `active`, `updated on`
+
+    Announcement displayed is the most recently updated instance of this model.
+    If bulk buy = false, free shipping is offered on orders containing more than
+    `upper ball num` balls of yarn.
+    If `bulk buy` = true, lower discount% for orders over lower ball num balls of yarn
+    and upper discount% for orders over upper ball num balls of yarn
     """
 
     bulk_buy = models.BooleanField(default= True)
@@ -69,6 +76,19 @@ class Announcements(models.Model):
     upper_discount = models.IntegerField(verbose_name= "percentage discount for large bulk buy", blank = True) 
     active = models.BooleanField(default = False)
     updated_on = models.DateTimeField(auto_now = True)
+
+    class Meta:
+        ordering = ['-updated_on']
+
+class SaleSettings(models.Model):
+    """ 
+    Used to set the discount rate for sale items.
+
+    Fields in this model are `sales percent`, `active` and `updated on`
+    """
+    sale_percent= models.IntegerField(default = 0, verbose_name = "percentage discount for sale items")
+    active= models.BooleanField(default = False)
+    updated_on= models.DateTimeField(auto_now = True)
 
     class Meta:
         ordering = ['-updated_on']

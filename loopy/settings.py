@@ -85,6 +85,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processor.postage_settings',
                 'core.context_processor.announcement_banner',
+                'core.context_processor.sale_rate',
             ],
         },
     },
