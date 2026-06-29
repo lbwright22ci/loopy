@@ -54,6 +54,7 @@ class Postage(models.Model):
 
     class Meta:
         ordering = ['-updated_on']
+        verbose_name_plural = "Postage"
 
 class Announcements(models.Model):
     """ Used to control text in the annoucement banner at the top of all pages as
@@ -79,6 +80,7 @@ class Announcements(models.Model):
 
     class Meta:
         ordering = ['-updated_on']
+        verbose_name_plural = "Announcements"
 
 class SaleSettings(models.Model):
     """ 
@@ -92,6 +94,7 @@ class SaleSettings(models.Model):
 
     class Meta:
         ordering = ['-updated_on']
+        verbose_name_plural = "Sale Settings"
 
 class ShopContactInfo(models.Model):
     """"
@@ -113,3 +116,18 @@ class ShopContactInfo(models.Model):
 
     class Meta:
         ordering = ['-updated_on']
+        verbose_name_plural = "Shop Contact Information"
+
+class HomePageSlides(models.Model):
+    """ Stores images and text displayed on home page carousel
+
+    Fields available are `image`, `title`, `subtitle` and `updated on`
+    """
+    image = models.ImageField(blank = True, null=True)
+    imageURL = models.URLField(max_length=1024, blank=True, null = True)
+    title = models.CharField(max_length=400, blank = True)
+    subtitle = models.CharField(max_length=400, blank=True)
+    updated_on = models.DateTimeField(auto_now= True)
+
+    class Meta:
+        ordering =['-updated_on']

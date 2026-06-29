@@ -72,6 +72,21 @@ a:hover {
     color:var(--hyperlink-hover-color);
 }
 
+.btn-primary{
+    color:var(--primary-background-color);
+    font-size: 1.6rem;
+    border:1px solid var(--primary-text-color);
+    background-color: var(--primary-text-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active{
+    color:var(--background-highlight-color);
+    border:1px solid var(--primary-text-color);
+    background-color: var(--primary-text-color);
+}
+
 .btn-secondary{
     color:var(--primary-text-color);
     font-size: 1.6rem;
