@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand-lg fixed-top d-none d-lg-block ">
   <div class="container-fluid">
     <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo" id="header-logo" class="d-none d-lg-block"></a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -17,18 +17,18 @@
               <div class="col-lg-6 ">
                 <li><a class="dropdown-item" href="#" aria-label="go to a list of all yarns for sale">All yarn</a></li>
                 <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn on promotion">Promotions</a></li>
-            </div>
+              </div>
 
-                <div class="col-lg-3">
+              <div class="col-lg-3">
                 <form class="d-flex" role="search" method="GET" action="">
                   <input class="form-control me-2 search-box" type="search" name="q" placeholder="Find your yarn!" aria-label="Search">
                   <span class="search-sudo-button" type="submit"><i class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                 </form>
-                </div>
+              </div>
 
-                </div>
-                <div class="row mt-4">
-                <div class="col-lg-3">
+            </div>
+            <div class="row mt-4">
+              <div class="col-lg-3">
                 <li class="uppercase-text">Brands</li>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
@@ -70,7 +70,7 @@
                 </ul>
               </div>
             </div>
-            
+
           </ul>
         </li>
         <li class="nav-item">
@@ -79,41 +79,41 @@
         <li class="nav-item">
           <a class="nav-link " aria-label="">Get in Touch</a>
         </li>
-        </ul>
-        <ul class="navbar-nav ms-auto me-4">
+      </ul>
+      <ul class="navbar-nav ms-auto me-4">
         <li class="nav-item dropdown mt-2">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user nav-icon"></i>
           </a>
           <ul class="dropdown-menu" id="menu-account">
             {% if user.is_authenticated %}
-            <li><a class="dropdown-item" href="#" aria-label="Goes to account page with account information,
-                 past orders and favourites">My Account</a></li>
-                 {% if user.is_staff %}
-                 <li><a class="dropdown-item" href="#" aria-label="goes to shop management area">Shop Management</a></li>
-                 {% endif %}
-            <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Logout of my account">Logout</a></li>
+              <li><a class="dropdown-item" href="#" aria-label="Goes to account page with account information,
+                                                                past orders and favourites">My Account</a></li>
+              {% if user.is_staff %}
+                <li><a class="dropdown-item" href="#" aria-label="goes to shop management area">Shop Management</a></li>
+              {% endif %}
+              <li><a class="dropdown-item" href="{% url 'account_logout' %}" aria-label="Logout of my account">Logout</a></li>
             {% else %}
-            <li><a class="dropdown-item" href="{% url 'account_login' %}" aria-label="Login to your Loopy yarns account">Login</a></li>
-            <li><a class="dropdown-item" href="{% url 'account_signup' %}" aria-label="Register for a Loopy yarns account">Register</a></li>
+              <li><a class="dropdown-item" href="{% url 'account_login' %}" aria-label="Login to your Loopy yarns account">Login</a></li>
+              <li><a class="dropdown-item" href="{% url 'account_signup' %}" aria-label="Register for a Loopy yarns account">Register</a></li>
             {% endif %}
           </ul>
         </li>
         <li class="nav-item mt-2 mb-2" id="basket">
           <a class="nav-link " aria-label=""><span><i class="fa-solid fa-basket-shopping position-relative nav-icon">
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill basket-counter small-text">
-                0
-                <span class="visually-hidden">Number of items in your basket </span>
+              0
+              <span class="visually-hidden">Number of items in your basket </span>
             </span>
           </i></span></a>
         </li>
-    </ul>
+      </ul>
 
     </div>
   </div>
 
 
 </nav>
-    <div class="container-fluid box">
-  </div>
+<div class="container-fluid box">
+</div>
 

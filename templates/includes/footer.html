@@ -1,88 +1,88 @@
 
 
 <footer class="mt-auto footer container-fluid">
-<div class="container-fluid footer-box">
-</div>
+    <div class="container-fluid footer-box">
+    </div>
     <div class="row align-items-center justify-content-center">
         <div class="col-10 col-md-6 col-lg-4 text-center">
             <p class="small-text uppercase-text text-link" data-bs-toggle="modal" data-bs-target="#deliveryModal"> delivery information</p>
-            </div>
-            <div class="col-10 col-md-6 col-lg-4 text-center">
+        </div>
+        <div class="col-10 col-md-6 col-lg-4 text-center">
             <p class="small-text uppercase-text"> Contact us:</p>
             <p class="small-text"> <i class="fa-solid fa-envelope"></i> loopyyarnsuk@gmail.com</p>
             <p class="small-text"> <i class="fa-solid fa-phone-flip"></i> 01234 789 654</p>
         </div>
-            <div class="row" id="footer-base">
-                <div class="col-12 text-center">
+        <div class="row" id="footer-base">
+            <div class="col-12 text-center">
                 <a href="https://www.instagram.com" target="_blank"
-                    aria-label="Visit my Instagram page (opens in a new tab)" rel="noopener"><i
-                        class="fa-brands fa-square-instagram footer-icon"></i></a>
+                   aria-label="Visit my Instagram page (opens in a new tab)" rel="noopener"><i
+                    class="fa-brands fa-square-instagram footer-icon"></i></a>
                 <a href="https://www.facebook.com" target="_blank"
-                    aria-label="Visit my Facebook page (opens in a new tab)" rel="noopener"><i
-                        class="fa-brands fa-square-facebook footer-icon"></i></a>
+                   aria-label="Visit my Facebook page (opens in a new tab)" rel="noopener"><i
+                    class="fa-brands fa-square-facebook footer-icon"></i></a>
                 <a href="https://www.ravelry.com/" target="_blank"
-                    aria-label="Visit my Ravelry profile (opens in a new tab)" rel="noopener"><i
-                        class="fa-brands fa-ravelry footer-icon"></i></a>
+                   aria-label="Visit my Ravelry profile (opens in a new tab)" rel="noopener"><i
+                    class="fa-brands fa-ravelry footer-icon"></i></a>
             </div>
             <div class="col-12 text-center">
                 <p class="text-small">For educational purposes only. Copyright loopyyarnsuk, Louise Wright</p>
             </div>
-            </div>
         </div>
-    </footer>
+    </div>
+</footer>
 
 <!-- Delivery modal-->
  <!-- Vertically centered modal -->
 <div class="modal fade" id="deliveryModal" tabindex="-1" aria-labelledby="deliveryModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 class="modal-title" id="deliveryModalLabel">Delivery Information</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row justify-content-center">
-            <div class="col-12">
-                <p> All orders will be sent to you via Royal Mail.  Tracking details for parcels
-                    are available on request.
-                </p>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="deliveryModalLabel">Delivery Information</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <p> All orders will be sent to you via Royal Mail.  Tracking details for parcels
+                            are available on request.
+                        </p>
+                    </div>
+                    <div class="col-10">
+                        <table class="table table-hover table-small">
+                            <thead>
+                                <tr>
+                                    <td></td>
+                                    <th scope="col">1st class</th>
+                                    <th scope="col">2nd class</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td> Small parcel </td>
+                                    <td> £{{ small_first_class|floatformat:2 }}</td>
+                                    <td> £{{ small_second_class|floatformat:2 }}</td>
+                                </tr>
+                                <tr>
+                                    <td> Large parcel </td>
+                                    <td> £{{ large_first_class|floatformat:2 }}</td>
+                                    <td> £{{ large_second_class|floatformat:2 }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12">
+                        <p class="small-text"> Parcel size is calculated at checkout based on the contents of your shopping basket.</p>
+                        <p class="small-text"> We are only able to deliver to UK addresses.</p>
+                        <p class="small-text"> We aim to pack and dispatch orders within 72 hours. During busy periods (such as the run up to
+                            Christmas) it may take longer- please get in touch if you need your yarn urgently.
+                        </p>
+                    </div>
                 </div>
-                <div class="col-10">
-                <table class="table table-hover table-small">
-                    <thead>
-                        <tr>
-                            <td></td>
-                            <th scope="col">1st class</th>
-                            <th scope="col">2nd class</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td> Small parcel </td>
-                            <td> £{{ small_first_class|floatformat:2 }}</td>
-                            <td> £{{ small_second_class|floatformat:2 }}</td>
-                        </tr>
-                                                <tr>
-                            <td> Large parcel </td>
-                            <td> £{{ large_first_class|floatformat:2 }}</td>
-                            <td> £{{ large_second_class|floatformat:2 }}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                </div>
-                <div class="col-12">
-                <p class="small-text"> Parcel size is calculated at checkout based on the contents of your shopping basket.</p>
-                <p class="small-text"> We are only able to deliver to UK addresses.</p>
-                <p class="small-text"> We aim to pack and dispatch orders within 72 hours. During busy periods (such as the run up to 
-                    Christmas) it may take longer- please get in touch if you need your yarn urgently.
-                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
     </div>
-  </div>
 </div>
