@@ -126,10 +126,12 @@ nav #menu-account{
     box-shadow: 0.5rem 0.5rem 0.5rem 0.25rem var(--shadow-color);
     font-size:1.6rem;
     }
-    nav .dropdown-menu[data-bs-popper]{
+nav .dropdown-menu[data-bs-popper],
+nav .dropdown-menu{
     margin-top:0.5rem;
     left:-5vw;
     }
+
 
 .nav-icon{
     font-size:2.4rem;
