@@ -1,13 +1,7 @@
 from django.db.models import Q
-from .models import Postage
+from .models import Postage, Announcements
 
 def postage_settings(request):
-    # return{
-    #    'small_first_class':0,
-    #    'small_second_class': 0,
-    #    'large_first_class':0,
-    #    'large_second_class':0,
-# }
 
     query_sm_first = Q(parcel_size=0) & Q(postage_class=1)
     small_first_class = Postage.objects.filter(query_sm_first)[0].postage_cost
@@ -27,4 +21,12 @@ def postage_settings(request):
         'small_second_class':small_second_class,
         'large_first_class':large_first_class,
         'large_second_class':large_second_class,
- }
+    }
+
+def announcement_banner(request):
+
+    data = Announcements.objects.all()[0]
+
+    return{
+        'announcement':data,
+    }

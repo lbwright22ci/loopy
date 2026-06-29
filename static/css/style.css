@@ -114,7 +114,7 @@ th .table{
 }
 
 nav #menu-account{
-    width:10vw;
+    width:fit-content;
 }
 
     nav .dropdown-menu{

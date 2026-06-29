@@ -84,6 +84,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'core.context_processor.postage_settings',
+                'core.context_processor.announcement_banner',
             ],
         },
     },
@@ -200,9 +201,3 @@ ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
-
-## Global constants
-SMALL_SECOND_CLASS=4.00
-SMALL_FIRST_CLASS=5.00
-LARGE_SECOND_CLASS=6.00
-LARGE_FIRST_CLASS=7.00

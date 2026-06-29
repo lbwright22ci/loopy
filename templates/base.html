@@ -48,7 +48,13 @@
     <body class="d-flex flex-column min-vh-100">
     <!-- announcements banner-->
         <div class="container-fluid fixed-top" id="announcements">
-            <p class="small-text"> Buy 10+ balls for a 5% discount or 20+ balls for a 10% discount! </p>
+            {% if announcement.bulk_buy and announcement.active %}
+            <p class="small-text"> Buy {{ announcement.lower_ball_num }}+ balls for a
+                 {{ announcement.lower_discount}}% discount or {{ announcement.upper_ball_num}}+
+                  balls for a {{ announcement.upper_discount }}% discount! </p>
+            {% else %}
+            <p class="small-text"> Buy {{ announcement.upper_ball_num }}+ balls for free shipping! </p>
+            {% endif %}
         </div>
 
     <!-- Navigation-->

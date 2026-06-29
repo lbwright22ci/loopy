@@ -54,3 +54,21 @@ class Postage(models.Model):
 
     class Meta:
         ordering = ['-updated_on']
+
+class Announcements(models.Model):
+    """ Used to control text in the annoucement banner at the top of all pages as
+    well as conditions for bulk buy discounts
+    
+    fields in this model are:
+    """
+
+    bulk_buy = models.BooleanField(default= True)
+    lower_ball_num = models.IntegerField(blank = True , verbose_name = "number of balls in small bulk buy")
+    lower_discount = models.IntegerField(verbose_name= "percentage discount for small bulk buy", blank = True) 
+    upper_ball_num = models.IntegerField(blank = True, verbose_name = "number of balls for large bulk buy")
+    upper_discount = models.IntegerField(verbose_name= "percentage discount for large bulk buy", blank = True) 
+    active = models.BooleanField(default = False)
+    updated_on = models.DateTimeField(auto_now = True)
+
+    class Meta:
+        ordering = ['-updated_on']
