@@ -92,3 +92,24 @@ class SaleSettings(models.Model):
 
     class Meta:
         ordering = ['-updated_on']
+
+class ShopContactInfo(models.Model):
+    """"
+    Stores Shop contact information
+
+    Fields in this model are `shop email`, `shop phone`, `shop street address1`, 
+    `shop street address 2`, `shop town`, `shop county`, `shop country`, 
+    `shop postcode`, `updated on`
+    """
+    shop_email = models.EmailField(blank = True) 
+    shop_phone = models.IntegerField(blank = True ) 
+    shop_street_address1 = models.CharField(max_length = 80, blank = True )
+    shop_street_address2 = models.CharField(max_length = 80, blank = True  )
+    shop_town = models.CharField(max_length = 50, blank = True )
+    shop_county = models.CharField(max_length = 40, blank = True )
+    shop_country = models.CharField(default = "GB"  )
+    shop_postcode = models.CharField(max_length= 9, blank = True )
+    updated_on = models.DateTimeField(auto_now = True )
+
+    class Meta:
+        ordering = ['-updated_on']

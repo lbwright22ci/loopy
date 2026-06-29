@@ -86,6 +86,7 @@ TEMPLATES = [
                 'core.context_processor.postage_settings',
                 'core.context_processor.announcement_banner',
                 'core.context_processor.sale_rate',
+                'core.context_processor.shop_address',
             ],
         },
     },

@@ -1,5 +1,5 @@
 from django.db.models import Q
-from .models import Postage, Announcements, SaleSettings
+from .models import Postage, Announcements, SaleSettings, ShopContactInfo
 
 def postage_settings(request):
     """
@@ -66,4 +66,19 @@ def sale_rate(request):
 
     return{
         'rate':rate,
+    }
+
+def shop_address(request):
+    """
+    Function returns the most recently updated instance of the :model:`ShopContactInfo`
+
+    **Context**
+    `contact`
+    Contact information for the business
+    
+    """
+    contact = ShopContactInfo.objects.all()[0]
+
+    return{
+        'contact': contact,
     }
