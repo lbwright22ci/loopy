@@ -6,8 +6,12 @@ from django.dispatch import receiver
 # Create your models here.
 
 class UserProfile(models.Model):
-    """ UserProfile model extends the Django `User` model.
+    """ UserProfile model is related to :model:`User`
     
+    The fields of this model are `default phone`, `default street address1`,
+    `default street address 2`, `default town`, `default county`, 
+    `default postcode`, `default country`, `temporary basket`
+
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     default_phone = models.CharField(max_length=20, null=True, blank=True)
@@ -24,9 +28,29 @@ class UserProfile(models.Model):
     
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
-    """ create or update user profile """
+    """ When :model:`User` is updated or created, :model:`UserProfile`
+     is also either created or updated """
+
     if created:
         UserProfile.objects.create(user=instance)
-    #Exisiting users: just save the profile
+    
     instance.userprofile.save()
 
+class Postage(models.Model):
+    """ Used to create and store postage rates for different sized parcels.
+
+    Fields of this model are `postage cost`, `postage class`, `parcel size`,
+    `max weight`, `max no balls` and `updated on`
+    """
+    PCLASS = ((0, "2nd class"), (1, "1st class"))
+    PSIZE = ((0, "small"), (1, "medium"))
+
+    postage_cost = models.DecimalField(max_digits= 5, decimal_places = 2, blank= False)
+    postage_class = models.IntegerField(choices = PCLASS, default = 0)
+    parcel_size = models.IntegerField(choices = PSIZE, default = 0)
+    max_weight = models.IntegerField(default =2, verbose_name = "max weight in kg")
+    max_no_balls = models.IntegerField(verbose_name = "max number of balls for parcel size", default = 50)
+    updated_on = models.DateTimeField(auto_now = True)
+
+    class Meta:
+        ordering = ['-updated_on']
