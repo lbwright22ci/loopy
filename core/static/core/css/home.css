@@ -1,3 +1,5 @@
 .home-carousel{
-    
+    height:80vh;
+    aspect-ratio: 5/4;
+    object-fit: cover;
 }

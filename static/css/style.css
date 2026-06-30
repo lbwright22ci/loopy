@@ -32,6 +32,9 @@ body{
     font-family: var(--primary-font);
 }
 
+main{
+    z-index:50;
+}
 
 a{
     color: var(--hyperlink-color);
@@ -114,6 +117,7 @@ th .table{
     color:var(--primary-background-color);
     text-transform: uppercase;
     text-align: center;
+    z-index: 2000;
 }
 #announcements p{
     margin-bottom:0.2rem;
@@ -191,27 +195,33 @@ li .sub-menu-item,
 }
 
 .navbar{
+    background-image: linear-gradient(180deg, #fff , #f7f7f3);
     margin-top:2.2rem;
+    padding-bottom: 0;
 }
 
 .box {
     position:fixed;
     z-index: 500;
-    top:5rem;
-    background-image:linear-gradient(180deg, var(--shadow-semi), transparent);
+    top:6rem;
+    background-image:linear-gradient(-180deg, white, var(--shadow-color));
     height:8rem;
-    /* mask comes from CSS Gnerators */
-  mask: 
-    radial-gradient(68.82px at 50% 96px,#000 99%,#0000 101%) calc(50% - 80px) 0/160px 100%,
-    radial-gradient(68.82px at 50% -56px,#0000 99%,#000 101%) 50% 40px/160px 100% repeat-x;
+    /* mask comes from CSS Generators */
+  mask:
+  radial-gradient(68.82px at 50% calc(100% - 96px),#000 99%,#0000 101%) calc(50% - 80px) 0/160px 100%,
+    radial-gradient(68.82px at 50% calc(100% + 56px),#0000 99%,#000 101%) 50% calc(100% - 40px)/160px 100% repeat-x; 
+
 }
 
 /*mobile and tablet menus */
 
 #mobile-nav{
-    margin-top:4.2rem;
+    position:fixed;
+    top:1.75rem;
+    padding-top:3rem;
     padding-left:1rem;
     padding-right:1rem;
+    background-image: linear-gradient(180deg, #fff , #f7f7f3);
 }
 
 #mob-header-logo{
@@ -270,14 +280,14 @@ li .sub-menu-item,
 }
 .footer-box {
     position:absolute;
-    z-index: 100;
-    bottom:2rem;
-    background-image:linear-gradient(180deg, transparent, var(--shadow-semi));
+    z-index: -1;
+    bottom:1.25rem;
+    background-image:linear-gradient(180deg, var(--shadow-color), var(--primary-background-color));
     height:8rem;
     /* mask comes from CSS Gnerators */
   mask: 
-    radial-gradient(68.82px at 50% calc(100% - 96px),#000 99%,#0000 101%) calc(50% - 80px) 0/160px 100%,
-    radial-gradient(68.82px at 50% calc(100% + 56px),#0000 99%,#000 101%) 50% calc(100% - 40px)/160px 100% repeat-x;
+    radial-gradient(68.82px at 50% 96px,#000 99%,#0000 101%) calc(50% - 80px) 0/160px 100%,
+    radial-gradient(68.82px at 50% -56px,#0000 99%,#000 101%) 50% 40px/160px 100% repeat-x;  
 }
 
 /* Delivery modal*/

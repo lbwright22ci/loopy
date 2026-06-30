@@ -1,44 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 
-        {% block extracss %}
-            <link rel="stylesheet" href="{% static 'core/css/checkout.css' %}">
-        {% endblock %}
+{% block extracss %}
+<link rel="stylesheet" href="{% static 'core/css/home.css' %}">
+{% endblock %}
 
 {% block content %}
 
 <div class="container-fluid">
-<div id="carouselHomePage" class="carousel slide fade home-carousel" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselHomePage" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselHomePage" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselHomePage" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    <button type="button" data-bs-target="#carouselHomePage" data-bs-slide-to="3" aria-label="Slide 4"></button>
-    <button type="button" data-bs-target="#carouselHomePage" data-bs-slide-to="4" aria-label="Slide 5"></button>
-  </div>
-  
-  <div class="carousel-inner">
-    <!-- {% for slide in slides %} -->
-    <div class="carousel-item active" data-bs-interval="4000">
-      <img src="{% static 'images/colourful-balls.webp' %}" class="d-block w-100" alt="...">
-      <div class="carousel-caption d-block">
-        {% if slide.title %}<h5>{{ slide.title }}</h5>{% endif %}
-        <p>{{ slide.subtitle }}</p>
-        <a class="btn btn-primary" href="#" role="button">Shop</a>
-      </div>
-    </div>
-    <!-- {% endfor %} -->
-  </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselHomePage" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselHomePage" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
 
+
+    {% for slide in slides %}
+    <img src="{{ slide.image.url }}" alt="photo of yarn" class="w-100 d-block home-carousel">
+    {% endfor %}
+
+    {{ MEDIA_URL }}
 </div>
 
 {% endblock %}
