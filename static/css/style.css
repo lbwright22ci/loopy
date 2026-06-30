@@ -303,6 +303,17 @@ li .sub-menu-item,
     max-width:40rem;
 }
 
+/* AllAuth pages */
+.account-container{
+    margin-top:5rem;
+    margin-bottom:5rem;
+    padding:2rem;
+    border: 0.5px solid var(--primary-text-color);
+    box-shadow: 0.5rem 0.5rem 0.5rem 0.25rem var(--shadow-color);
+    border-radius:2rem;
+}
+
+
 /* Media Queries */
 /* for sizes sm and above */
 @media screen and (min-width:350px):{
