@@ -131,3 +131,4 @@ class HomePageSlides(models.Model):
 
     class Meta:
         ordering =['updated_on']
+        verbose_name_plural = "Home Page Slides"

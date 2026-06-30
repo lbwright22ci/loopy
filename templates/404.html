@@ -1,0 +1,22 @@
+{% extends base.html %}
+{% load static %}
+
+{% block contents %}
+
+<div class="container">
+    <div class="row align-items-md-center">
+        <div class="col-12 col-md-6 text-center">
+            <h1 class="carousel-heading"> Oops!</h1>
+            <p> The page you were trying to find doesn't exist.</p>
+            <a class="btn btn-main" role="button" aria-label="takes you back to the home page" href="{% url 'home' %}">
+                Home </a>
+        </div>
+        <div class="col-12 col-md-6">
+            <img src="{% static 'css/logo.webp' %}" alt="Loopy Yarns logo" id="not-found-page">
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -296,6 +296,13 @@ li .sub-menu-item,
     background-color: var(--shadow-semi);
 }
 
+/* 404 page logo */
+#not-found-page{
+    padding:4rem;
+    width:50vw;
+    max-width:40rem;
+}
+
 /* Media Queries */
 /* for sizes sm and above */
 @media screen and (min-width:350px):{
