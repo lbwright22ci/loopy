@@ -40,6 +40,7 @@ a{
     color: var(--hyperlink-color);
 }
 
+
 a:hover {
     color:var(--hyperlink-hover-color);
 }
@@ -221,7 +222,7 @@ li .sub-menu-item,
     padding-top:3rem;
     padding-left:1rem;
     padding-right:1rem;
-    background-image: linear-gradient(180deg, #fff , #f7f7f3);
+    background-image: linear-gradient(180deg, #fff , #fbfaf9);
 }
 
 #mob-header-logo{
@@ -232,7 +233,7 @@ li .sub-menu-item,
     max-width:200px;
     padding-left:1rem;
     padding-right:1rem;
-    padding-top:1rem;
+    padding-top:3rem;
 }
 .accordion-button{
     padding-left:0;
@@ -319,4 +320,7 @@ li .sub-menu-item,
 /* for sizes lg and above in Bootstrap */
 @media screen and (min-width:992px){
 
+    #mobile-nav{
+        background-image: linear-gradient(180deg, #fff , #f7f7f3);
+    }
 }

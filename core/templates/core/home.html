@@ -7,14 +7,54 @@
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="container-fluid" id="home-page">
 
-
+    <div id="carouselHome" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="4" aria-label="Slide 5"></button>
+  </div>
+        <div class="carousel-inner">
     {% for slide in slides %}
-    <img src="{{ slide.image.url }}" alt="photo of yarn" class="w-100 d-block home-carousel">
-    {% endfor %}
 
-    {{ MEDIA_URL }}
+    {% if forloop.counter == 1 %} 
+            <div class="carousel-item active" data-bs-interval="8000">
+        <img src="{{ slide.image.url }}" alt="photo of yarn" class="w-100 d-block home-carousel">
+        <div class="carousel-caption d-block">
+            {% if slide.title %} <h1 class="carousel-heading"> {{ slide.title }} </h1> {% endif %}
+            <p class="carousel-subtitle"> {{ slide.subtitle }} </p>
+            <a href="#" class="btn btn-primary btn-carousel" aria-label="takes you to yarn shop">Shop</a>
+        </div>
+            </div>
+    {% else %}
+            <div class="carousel-item " data-bs-interval="8000">
+    <img src="{{ slide.image.url }}" alt="photo of yarn" class="w-100 d-block home-carousel">
+        <div class="carousel-caption d-block">
+            {% if slide.title %} <h1 class="carousel-heading"> {{ slide.title }} </h1> 
+            {% else %} 
+            <h1 class="carousel-heading"> Loopy </h1>
+            {% endif %}
+            <p class="carousel-subtitle"> {{ slide.subtitle }} </p>
+            <a href="#" class="btn btn-primary btn-carousel" aria-label="takes you to yarn shop">Shop</a>
+    </div>
+            </div>
+    {% endif %}
+    {% endfor %}
+        
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+    </div>
+    
 </div>
 
 {% endblock %}

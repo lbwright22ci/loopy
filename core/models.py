@@ -130,4 +130,4 @@ class HomePageSlides(models.Model):
     updated_on = models.DateTimeField(auto_now= True)
 
     class Meta:
-        ordering =['-updated_on']
+        ordering =['updated_on']
