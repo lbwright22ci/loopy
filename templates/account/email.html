@@ -1,9 +1,13 @@
 {% extends "account/base_manage_email.html" %}
 {% load static allauth i18n %}
+{% load crispy_forms_tags %}
 {% block head_title %}
     {% trans "Email Addresses" %}
 {% endblock head_title %}
 {% block content %}
+<div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-8 col-lg-6 account-container">
     {% element h1 %}
         {% trans "Email Addresses" %}
     {% endelement %}
@@ -62,8 +66,8 @@
         {% element form form=form method="post" action=action_url tags="email,add" %}
             {% slot body %}
                 {% csrf_token %}
-                {% element fields form=form %}
-                {% endelement %}
+                {{ form|crispy }}
+                
             {% endslot %}
             {% slot actions %}
                 {% element button name="action_add" type="submit" %}
@@ -72,6 +76,9 @@
             {% endslot %}
         {% endelement %}
     {% endif %}
+    </div>
+    </div>
+    </div>
 {% endblock content %}
 {% block extra_body %}
     <script src="{% static 'account/js/account.js' %}"></script>

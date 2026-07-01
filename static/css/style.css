@@ -89,10 +89,12 @@ input:-internal-autofill-selected{
 
 .btn-primary:hover,
 .btn-primary:focus,
-.btn-primary:active{
+.btn-primary:active,
+.btn-primary:disabled{
     color:var(--background-highlight-color);
     border:1px solid var(--primary-text-color);
     background-color: var(--primary-text-color);
+    shadow: 0 0 0 transparent;
 }
 
 .btn-secondary{

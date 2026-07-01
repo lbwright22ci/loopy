@@ -1,7 +1,11 @@
 {% extends "account/base_entrance.html" %}
 {% load i18n %}
 {% load allauth account %}
+{% load crispy_forms_tags %}
 {% block content %}
+<div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-10 col-md-8 col-lg-6 account-container">
     {% setvar title_ %}
         {% block title %}{% endblock %}
     {% endsetvar %}
@@ -29,8 +33,8 @@
     {% element form form=verify_form method="post" action=action_url tags=form_tags %}
         {% slot body %}
             {% csrf_token %}
-            {% element fields form=verify_form unlabeled=True %}
-            {% endelement %}
+            {{ form|crispy }}
+            
             {{ redirect_field }}
         {% endslot %}
         {% slot actions %}
@@ -80,8 +84,8 @@
                 {% element form form=change_form method="post" action=action_url %}
                     {% slot body %}
                         {% csrf_token %}
-                        {% element fields form=change_form unlabeled=True %}
-                        {% endelement %}
+                        {{ form| crispy }}
+                        
                         {{ redirect_field }}
                     {% endslot %}
                     {% slot actions %}
@@ -93,4 +97,7 @@
             {% endslot %}
         {% endelement %}
     {% endif %}
+    </div>
+    </div>
+    </div>
 {% endblock content %}
