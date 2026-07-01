@@ -302,6 +302,48 @@ li .sub-menu-item,
     background-color: var(--shadow-semi);
 }
 
+/* message container */
+.message-container{
+    position:fixed;
+    bottom:2rem;
+    right:0;
+    z-index: 6000;
+}
+
+.toast{
+    font-size:1.4rem;
+    background-color: transparent;
+}
+
+.logo-toast{
+    width:5rem;
+}
+
+.toast-container{
+    background-color: transparent;
+}
+
+.toast-body{
+    background-color: var(--primary-background-color);
+    opacity: 80%;
+    box-shadow: 0.2rem 0.2rem 0.2rem 0.1rem var(--shadow-color);
+    font-size: 1.6rem;
+    border-radius: 2rem 0 0 2rem;
+    margin-right:0;
+    padding-left:2rem;
+    padding-right:2rem;
+}
+
+.toast-body .toast-success{
+    border: 0.1rem solid var(--success-color);
+}
+
+.toast-body .toast-error{
+    border: 0.1rem solid var(--error-color);
+}
+
+
+
 /* 404 page logo */
 #not-found-page{
     padding:4rem;

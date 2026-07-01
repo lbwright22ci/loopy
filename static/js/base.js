@@ -9,4 +9,6 @@ $(document).ready(function(){
         $("ul:first-of-type").removeClass("show");
     });
 
+    $('.toast').toast('show');
+
 });

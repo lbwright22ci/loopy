@@ -1,0 +1,20 @@
+{% load static %}
+
+  <div class="toast-container p-3 message-container" >
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="15000" >
+      <div class="toast-body toast-success">
+        <div class="row ">
+          <div class="col-1 ms-auto">
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+        </div>
+        <div class="row align-contents-center text-start">
+          <div class="col-3">
+            <img src="{% static 'images/green.png' %}" class="logo-toast" alt="Logo in success colours">
+          </div>
+          <div class="col-9">
+            {{ message | safe }}
+          </div>
+      </div>
+    </div>
+  </div>
