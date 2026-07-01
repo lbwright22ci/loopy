@@ -24,7 +24,7 @@ class UserProfile(models.Model):
     temporary_basket = models.CharField(max_length=600, blank = True)
 
     def __str__(self):
-        return self.user.first_name
+        return f"{self.user.first_name} {self.user.last_name}"
     
 @receiver(post_save, sender=User)
 def create_or_update_user_profile(sender, instance, created, **kwargs):
@@ -56,6 +56,9 @@ class Postage(models.Model):
         ordering = ['-updated_on']
         verbose_name_plural = "Postage"
 
+    def __str__(self):
+        return f"Class: {self.get_postage_class_display()} Size: {self.get_parcel_size_display()}"
+
 class Announcements(models.Model):
     """ Used to control text in the annoucement banner at the top of all pages as
     well as conditions for bulk buy discounts
@@ -82,6 +85,12 @@ class Announcements(models.Model):
         ordering = ['-updated_on']
         verbose_name_plural = "Announcements"
 
+    def __str__(self):
+        return f" Announcement: lower {self.lower_ball_num}balls with \
+        {self.lower_discount}% discount \
+        and upper {self.upper_ball_num}balls with {self.upper_discount}% \
+        discount"
+
 class SaleSettings(models.Model):
     """ 
     Used to set the discount rate for sale items.
@@ -95,6 +104,9 @@ class SaleSettings(models.Model):
     class Meta:
         ordering = ['-updated_on']
         verbose_name_plural = "Sale Settings"
+
+    def __str__(self):
+        return f" Discount {self.sale_percent}% active = {self.active}"
 
 class ShopContactInfo(models.Model):
     """"
@@ -117,6 +129,8 @@ class ShopContactInfo(models.Model):
     class Meta:
         ordering = ['-updated_on']
         verbose_name_plural = "Shop Contact Information"
+    def __str__(self):
+        return f"Shop address with postcode {self.shop_postcode}, email {self.shop_email} & phone {self.shop_phone}"
 
 class HomePageSlides(models.Model):
     """ Stores images and text displayed on home page carousel
@@ -128,7 +142,12 @@ class HomePageSlides(models.Model):
     title = models.CharField(max_length=400, blank = True)
     subtitle = models.CharField(max_length=400, blank=True)
     updated_on = models.DateTimeField(auto_now= True)
+    alt_text = models.CharField(max_length=400, blank = True)
 
     class Meta:
-        ordering =['updated_on']
-        verbose_name_plural = "Home Page Slides"
+        ordering =['-updated_on']
+        verbose_name_plural = "Promotional Images"
+        verbose_name="Promotional images"
+
+    def __str__(self):
+        return f"{self.alt_text}"
