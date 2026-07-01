@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -58,6 +59,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'core',
+    'get_in_touch',
 ]
 
 MIDDLEWARE = [
