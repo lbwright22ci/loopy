@@ -56,8 +56,12 @@ a:hover {
     cursor: pointer;
 }
 
-.form-control{
+.form-control,
+input:-internal-autofill-selected{
     font-size:1.6rem;
+    color:var(--primary-text-color) !important;
+    background-color: var(--primary-background-color) !important;
+    border-color: var(--primary-text-color);
 }
 
 .form-control:focus{
@@ -311,6 +315,18 @@ li .sub-menu-item,
     border: 0.5px solid var(--primary-text-color);
     box-shadow: 0.5rem 0.5rem 0.5rem 0.25rem var(--shadow-color);
     border-radius:2rem;
+}
+
+a[title="Google"]{
+    display: block;
+    width: 18rem;
+    height: 4rem;
+    margin-top:1rem;
+    background: url('../images/google-button.png') no-repeat center center/cover;
+}
+.social-list-login{
+    list-style-type: none;
+    justify-self: center;
 }
 
 
