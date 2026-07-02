@@ -1,0 +1,24 @@
+.contact-page-image{
+    width:80vw;
+    max-width: 35rem;
+    aspect-ratio: 3/2;
+    border-radius:2rem;
+    object-fit:cover;
+}
+
+/*Media queries*/
+
+/* for sizes md and above in Bootstrap */
+@media screen and (min-width:576px){
+    .contact-page-image{
+    width:40vw;
+    aspect-ratio: 1/1;
+    display:block;
+    margin-left:auto;
+    margin-right:auto;
+}
+}
+/* for sizes lg and above in Bootstrap */
+@media screen and (min-width:992px){
+    
+}

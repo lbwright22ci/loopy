@@ -47,9 +47,24 @@ a:hover {
 .small-text{
     font-size: 1.2rem;
 }
+.very-small-text{
+    font-size:1rem;
+}
 
 .uppercase-text{
     text-transform: uppercase;
+}
+
+.page-heading{
+    font-size:3.6rem;
+}
+
+.subtitles{
+    font-size:2.4rem;
+}
+
+.subtitle2{
+    font-size:2.0rem;
 }
 
 .text-link{
@@ -57,6 +72,7 @@ a:hover {
 }
 
 .form-control,
+.form-select,
 input:-internal-autofill-selected{
     font-size:1.6rem;
     color:var(--primary-text-color) !important;
@@ -64,10 +80,18 @@ input:-internal-autofill-selected{
     border-color: var(--primary-text-color);
 }
 
-.form-control:focus{
+.form-control:focus,
+.form-select:focus{
     border-color:var(--primary-text-color);
     box-shadow: 0 0 0 0.25rem var(--shadow-color) ;
 }
+
+option{
+    width:fit-content !important;
+    padding-right:1rem !important;
+    font-size: 1.6rem !important;
+}
+
 .search-box{
     border:1px solid var(--primary-text-color);
 }
@@ -117,6 +141,10 @@ th .table{
     color:var(--primary-text-color);
 }
 
+
+.top-padding{
+    height:5rem;
+}
 
 /* Announcement banner */
 #announcements{

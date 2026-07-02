@@ -11,8 +11,8 @@ def contact_page(request):
     """ Renders contact page containing a single instance of :form:`Contact Form`
     to capture inform"""
 
-    top_image = HomePageSlides.objects.all()[1:1]
-    bottom_image = HomePageSlides.objects.all()[2:2]
+    top_image = HomePageSlides.objects.all()[1]
+    bottom_image = HomePageSlides.objects.all()[2]
 
     form = ContactForm()
 
