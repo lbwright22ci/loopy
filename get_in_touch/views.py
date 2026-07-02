@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 
 from .models import Contact
@@ -30,17 +31,21 @@ def contact_page(request):
                 ' "spam" or "junk" folder if you have not heard from us'
                 ' within 2 working days.'
             )
-            send_mail(
-                "Thank you for contacting Loopy Yarns!",
-                render_to_string(
-                    'get_in_touch/email/contact_received.txt',
-                    { 'in_touch': in_touch,
-                      'phone': phone},
-                ),
+            email_subject ="Thank you for contacting Loopy Yarns!"
+            html_message = render_to_string('get_in_touch/email/contact_received.html', 
+                                            { 'in_touch': in_touch, 'phone': phone},
+                                            )
+            plain_message = strip_tags(html_message)
+
+            msg= EmailMultiAlternatives(
+                email_subject,
+                plain_message,
                 settings.DEFAULT_FROM_EMAIL,
                 [ in_touch.email ],
-                fail_silently=False,
+                
             )
+            msg.attach_alternative(html_message, "text/html")
+            msg.send()
             in_touch.save()
 
     form = ContactForm()
