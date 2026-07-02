@@ -18,10 +18,10 @@
 <div class="row px-1">
     <h1 class="page-heading"> Get in touch! </h1>
 
-    <p class="small-text"> If you have a query about a product, order or anything yarn related,
+    <p > If you have a query about a product, order or anything yarn related,
          we're the people to ask!  Drop us a message below or get in touch via email,
         phone or snail mail.</p>
-    <p class="very-small-text"> We endeavour to answer all queries within 48 hours Mon-Fri. Please check your
+    <p class="small-text"> We endeavour to answer all queries within 48 hours Mon-Fri. Please check your
          spam folder if you haven't heard from us.</p>
 </div>
 <div class="row align-items-center  mx-4">
@@ -41,18 +41,18 @@
 <div class="row align-items-center m-4">
     <div class="col-12 col-md-6  order-md-2 p-4">
         <h2 class="subtitle pb-2"> Contact us:</h2>
-            <p > <i class="fa-solid fa-envelope pe-4"></i> {{ contact.shop_email }}</p>
-            <p > <i class="fa-solid fa-phone-flip pe-4"></i> {{ contact.shop_phone }}</p>
+            <p > <i class="fa-solid fa-envelope pe-4"></i> {{ shop_contact.shop_email }}</p>
+            <p > <i class="fa-solid fa-phone-flip pe-4"></i> {{ shop_contact.shop_phone }}</p>
             <div class="row">
                 <div class="col-1 pt-2">
                     <p > <i class="fa-solid fa-location-dot "></i></p>
                 </div>
                 <div class="col-10">
-                    <p >  {{ contact.shop_street_address1 }}</p>
-            <p >  {{ contact.shop_street_address2 }}</p>
-            <p >  {{ contact.shop_town }}</p>
-            <p >  {{ contact.shop_county }}</p>
-            <p >  {{ contact.shop_postcode }}</p>
+                    <p >  {{ shop_contact.shop_street_address1 }}</p>
+            <p >  {{ shop_contact.shop_street_address2 }}</p>
+            <p >  {{ shop_contact.shop_town }}</p>
+            <p >  {{ shop_contact.shop_county }}</p>
+            <p >  {{ shop_contact.shop_postcode }}</p>
                 </div>
             </div>
             

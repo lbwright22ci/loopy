@@ -1,0 +1,19 @@
+Hi {{ in_touch.name }}
+
+Thank you for contacting Loopy Yarns!  We will endeavour to reply to all messages within 48 hours Monday-Friday.
+
+If your inquiry is urgent then please phone us on {{ phone }}.
+
+----
+
+Email: {{ in_touch.email }}
+
+Subject: {{ in_touch.get_subject_display }}
+
+Message: {{ in_touch.message }}
+
+----
+
+Kind regards
+
+Loopy Yarns UK

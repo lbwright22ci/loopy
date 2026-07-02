@@ -80,5 +80,5 @@ def shop_address(request):
     contact = ShopContactInfo.objects.all()[0]
 
     return{
-        'contact': contact,
+        'shop_contact': contact,
     }

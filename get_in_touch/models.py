@@ -23,4 +23,4 @@ class Contact(models.Model):
         verbose_name = "Customer contact message"
 
     def __str__(self):
-        return f"Message from {self.name}, about {self.get_subject_display()}. Read = {self.read}"
+        return f"Message from {self.name}, about {self.get_subject_display()}. Read = {self.read} Date = {self.created_on}"
