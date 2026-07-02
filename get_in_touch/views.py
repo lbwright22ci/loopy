@@ -14,8 +14,19 @@ def contact_page(request):
     top_image = HomePageSlides.objects.all()[1]
     bottom_image = HomePageSlides.objects.all()[2]
 
-    form = ContactForm()
+    if request.method == "POST":
+        form = ContactForm(data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.add_message(
+                request, messages.SUCCESS,
+                'Thank you for contacting Loopy Yarns UK.  We will'
+                ' be in touch as soon as possible.  Please check your'
+                ' "spam" or "junk" folder if you have not heard from us'
+                ' within 2 working days.'
+            )
 
+    form = ContactForm()
 
     context ={ 
         'form': form,
