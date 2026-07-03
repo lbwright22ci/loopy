@@ -19,24 +19,25 @@
   </div>
         <div class="carousel-inner">
     {% for slide in slides %}
-
-    {% if forloop.counter == 1 %} 
-            <div class="carousel-item active" data-bs-interval="12000">
+{% if slide.title %}
+    <div class="carousel-item active" data-bs-interval="12000">
         <img src="{{ slide.image.url }}" alt="{{ slide.alt_text }}" class="w-100 d-block home-carousel">
         <div class="carousel-caption d-block">
-            {% if slide.title %} <h1 class="carousel-heading"> {{ slide.title }} </h1> {% endif %}
+             <h1 class="carousel-heading"> {{ slide.title }} </h1> 
             <p class="carousel-subtitle"> {{ slide.subtitle }} </p>
             <a href="#" class="btn btn-main btn-carousel" aria-label="takes you to yarn shop">Shop</a>
         </div>
             </div>
-    {% else %}
+            {% endif %}
+            {% endfor %}
+            {% for slide in slides %}
+    {% if not slide.title %} 
             <div class="carousel-item " data-bs-interval="8000">
     <img src="{{ slide.image.url }}" alt="{{ slide.alt_text }}" class="w-100 d-block home-carousel">
         <div class="carousel-caption d-block">
-            {% if slide.title %} <h1 class="carousel-heading"> {{ slide.title }} </h1> 
-            {% else %} 
-            <h1 class="carousel-heading"> Loopy </h1>
-            {% endif %}
+        
+            <h2 class="carousel-heading"> Loopy </h2>
+            
             <p class="carousel-subtitle"> {{ slide.subtitle }} </p>
             <a href="#" class="btn btn-main btn-carousel" aria-label="takes you to yarn shop">Shop</a>
     </div>

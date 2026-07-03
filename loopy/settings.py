@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'crispy_forms',
     'crispy_bootstrap5',
+    'storages',
     'core',
     'get_in_touch',
 ]
@@ -162,6 +163,28 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
+
+if "USE_AWS" in os.environ:
+    # Cache static files
+    AWS_S3_OBJECT_PARAMETERS ={
+        'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+        'CacheControl': 'max-age=94000000',
+    }
+    # Bucket Config
+    AWS_STORAGE_BUCKET_NAME="loopy-yarns-uk"
+    AWS_S3_REGION_NAME ="us-east-1"
+    AWS_ACCESS_KEY_ID= os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY= os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    # Static and media files
+    STATICFILES_STORAGE = 'custom_storage.StaticStorage'
+    STATICFILES_LOCATION = 'static'
+    MEDIAFILES_STORAGE= 'custom_storage.MediaStorage'
+    MEDIAFILES_LOCATION = 'media'
+    # Override static and media URL in production
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 

@@ -78,7 +78,9 @@ def shop_address(request):
     
     """
     contact = ShopContactInfo.objects.all()[0]
+    phone_num = f'0{contact.shop_phone}'
 
     return{
         'shop_contact': contact,
+        'phone_num':phone_num
     }

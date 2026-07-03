@@ -41,8 +41,10 @@
 <div class="row align-items-center m-4">
     <div class="col-12 col-md-6  order-md-2 p-4">
         <h2 class="subtitle pb-2"> Contact us:</h2>
-            <p > <i class="fa-solid fa-envelope pe-4"></i> {{ shop_contact.shop_email }}</p>
-            <p > <i class="fa-solid fa-phone-flip pe-4"></i> {{ shop_contact.shop_phone }}</p>
+            <p > <i class="fa-solid fa-envelope pe-4"></i> <a href="mailto:{{ shop_contact.shop_email }}" 
+                aria-label="send an email to loopy yarns uk"> {{ shop_contact.shop_email }}</a> </p>
+            <p > <i class="fa-solid fa-phone-flip pe-4"></i><a href="tel:0{{ shop_contact.shop_phone }}" 
+                aria-label = "phone loopy yarns">{{ phone_num }}</a></p>
             <div class="row">
                 <div class="col-1 pt-2">
                     <p > <i class="fa-solid fa-location-dot "></i></p>

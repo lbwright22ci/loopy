@@ -9,8 +9,10 @@
         </div>
         <div class="col-10 col-md-6 col-lg-4 text-center">
             <p class="small-text uppercase-text"> Contact us:</p>
-            <p class="small-text"> <i class="fa-solid fa-envelope"></i> {{ shop_contact.shop_email }}</p>
-            <p class="small-text"> <i class="fa-solid fa-phone-flip"></i> {{ shop_contact.shop_phone }}</p>
+            <p class="small-text"> <i class="fa-solid fa-envelope"></i><a href="mailto:{{ shop_contact.shop_email }}" 
+                aria-label="send an email to loopy yarns uk"> {{ shop_contact.shop_email }}</a></p>
+            <p class="small-text"> <i class="fa-solid fa-phone-flip"></i> <a href="tel:0{{ shop_contact.shop_phone }}" 
+                aria-label = "phone loopy yarns">{{ phone_num }}</a></p>
         </div>
         <div class="row" id="footer-base">
             <div class="col-12 text-center">

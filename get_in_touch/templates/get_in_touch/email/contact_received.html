@@ -1,42 +1,60 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html>
+
 <head>
     <!-- Inline styles created using htmlmail.io -->
 </head>
+
 <body style="background-color: #fff; margin: 16px; padding: 16px;">
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
         <tr>
             <td>
-<p style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">Hi {{ in_touch.name }}</p>
+                <p
+                    style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    Hi {{ in_touch.name }}</p>
 
-<p style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">Thank you for contacting Loopy Yarns!  We will endeavour to reply to all messages within 48 hours Monday-Friday.</p>
+                <p
+                    style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    Thank you for contacting Loopy Yarns! We will endeavour to reply to all messages within 48 hours
+                    Monday-Friday.</p>
 
-<p style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06; padding-bottom: 16px;">If your inquiry is urgent then please phone us on {{ phone }}.</p>
+                <p
+                    style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06; padding-bottom: 16px;">
+                    If your inquiry is urgent then please phone us on {{ phone }}.</p>
             </td>
         </tr>
         <tr>
-            <td class="message" style="background-color: #e9e7deaa; margin: 48px; padding: 32px; border-radius: 32px;" bgcolor="#e9e7deaa">
-<p style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;"><span class="bold-text"">Email:</span> {{ in_touch.email }}</p>
+            <td class="message" style="background-color: #e9e7deaa; margin: 48px; padding: 32px; border-radius: 32px;"
+                bgcolor="#e9e7deaa">
+                <p
+                    style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    <span class="bold-text"">Email:</span> {{ in_touch.email }}</p>
 
-<p style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;"><span class="bold-text"">Subject:</span> {{ in_touch.get_subject_display }}</p>
+<p style=" font-family: 'Montserrat ' , sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom:
+                        8px; color: #2c0f06;"><span class="bold-text"">Subject:</span> {{ in_touch.get_subject_display }}</p>
 
-<p style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;"><span class="bold-text"">Message:</span> {{ in_touch.message }}</p>
+<p style=" font-family: 'Montserrat ' , sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom:
+                            8px; color: #2c0f06;"><span class="bold-text"">Message:</span> {{ in_touch.message }}</p>
             </td>
         </tr>
         <tr>
             <td>
-<p style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06; padding-top: 16px;">Kind regards</p>
+<p style=" font-family: 'Montserrat ' , sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom:
+                                8px; color: #2c0f06; padding-top: 16px;">Kind regards</p>
 
-<p style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">Loopy Yarns UK </p>
+                <p
+                    style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    Loopy Yarns UK </p>
             </td>
         </tr>
-<tr>
-<td align="center">
-<img src="{% static 'images/logo.webp' %}" alt="Loopy yarns logo" width="193.33" height="110">
-</td>
-</tr>
+        <tr>
+            <td align="center">
+                <img src="https://loopy-yarns-uk.s3.us-east-1.amazonaws.com/static/images/cropped-logo.png"
+                    alt="Loopy yarns logo" width="300" height="111.5">
+            </td>
+        </tr>
     </table>
 
-</body></html>
+</body>
+
+</html>

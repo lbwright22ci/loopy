@@ -18,7 +18,7 @@ def contact_page(request):
 
     top_image = HomePageSlides.objects.all()[1]
     bottom_image = HomePageSlides.objects.all()[2]
-    phone = ShopContactInfo.objects.all()[0].shop_phone
+    phone = f'0{ShopContactInfo.objects.all()[0].shop_phone}'
 
     if request.method == "POST":
         form = ContactForm(data=request.POST)
