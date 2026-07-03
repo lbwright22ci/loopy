@@ -24,4 +24,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('core.urls')),
     path('get_in_touch/', include('get_in_touch.urls')),
+    path('yarns/', include('product.urls')),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

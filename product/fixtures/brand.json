@@ -1,0 +1,20 @@
+[
+    {
+        "model":  "product.brand",
+        "pk":  "1",
+        "fields": { "name":  "DROPS",
+	"manufacturer_patterns": "https://www.garnstudio.com/search.php"
+    }},
+    {
+        "model":  "product.brand",
+        "pk":  "2",
+        "fields": { "name":  "Sirdar",
+"manufacturer_patterns": "https://sirdar.com/en/Patterns-and-Project-Builder"
+    }},
+    {
+        "model":  "product.brand",
+        "pk":  "3",
+        "fields": { "name":  "Stylecraft",
+"manufacturer_patterns": "https://www.stylecraft-yarns.co.uk/patterns"
+    }}
+]

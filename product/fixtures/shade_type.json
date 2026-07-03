@@ -1,0 +1,50 @@
+[
+  {
+    "model": "product.shade_type" , "pk": 1,
+    "field": {  "name": "black"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 2,
+    "field": {  "name": "blue"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 3,
+    "field": { "name": "brown"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 4,
+    "field": { "name": "green"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 5,
+    "field": { "name": "grey"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 6,
+    "field": { "name": "multi"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 7,
+    "field": { "name": "neutral"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 8,
+    "field": { "name": "orange"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 9,
+    "field": { "name": "pink"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 10,
+    "field": { "name": "purple"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 11,
+    "field": { "name": "red"
+  }},
+  {
+    "model": "product.shade_type" , "pk": 12,
+    "field": {  "name": "yellow"
+  }}
+]

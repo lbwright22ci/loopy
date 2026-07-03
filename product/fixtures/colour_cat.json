@@ -1,0 +1,506 @@
+[
+  {
+    "model": "product.colour" , "pk": 1,
+    "fields": { "colour_name": "sweet apricot",
+    "image": "sweetapricot.jpeg",
+    "shade_type_id": 8
+  }},
+  {
+    "model": "product.colour" , "pk": 2,
+    "fields": { "colour_name": "almond",
+    "image": "almond.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 3,
+    "fields": { "colour_name": "apple green",
+    "image": "applegreen.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 4,
+    "fields": { "colour_name": "aquamarine",
+    "image": "aquamarine.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 5,
+    "fields": { "colour_name": "autumn spice",
+    "image": "autumnspice.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 6,
+    "fields": { "colour_name": "baby pink",
+    "image": "babypink.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 7,
+    "fields": { "colour_name": "bark",
+    "image": "bark.jpeg",
+    "shade_type_id": 3
+  }},
+  {
+    "model": "product.colour" , "pk": 8,
+    "fields": { "colour_name": "black",
+    "image": "black.jpeg",
+    "shade_type_id": 1
+  }},
+  {
+    "model": "product.colour" , "pk": 9,
+    "fields": { "colour_name": "blue shadow",
+    "image": "blueshadow.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 10,
+    "fields": { "colour_name": "bright olive",
+    "image": "brightolive.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 11,
+    "fields": { "colour_name": "cacao bits",
+    "image": "cacaobits.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 12,
+    "fields": { "colour_name": "chalk",
+    "image": "chalk.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 13,
+    "fields": { "colour_name": "christmas red",
+    "image": "christmasred.jpeg",
+    "shade_type_id": 11
+  }},
+  {
+    "model": "product.colour" , "pk": 14,
+    "fields": { "colour_name": "cobalt blue",
+    "image": "cobaltblue.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 15,
+    "fields": { "colour_name": "colour carnival",
+    "image": "colourcarnival.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 16,
+    "fields": { "colour_name": "copper",
+    "image": "copper.jpeg",
+    "shade_type_id": 8
+  }},
+  {
+    "model": "product.colour" , "pk": 17,
+    "fields": { "colour_name": "coral",
+    "image": "coral.jpeg",
+    "shade_type_id": 8
+  }},
+  {
+    "model": "product.colour" , "pk": 18,
+    "fields": { "colour_name": "crimson red",
+    "image": "crimsonred.jpeg",
+    "shade_type_id": 11
+  }},
+  {
+    "model": "product.colour" , "pk": 19,
+    "fields": { "colour_name": "curry",
+    "image": "curry.jpeg",
+    "shade_type_id": 12
+  }},
+  {
+    "model": "product.colour" , "pk": 20,
+    "fields": { "colour_name": "dandelion",
+    "image": "dandelion.jpeg",
+    "shade_type_id": 12
+  }},
+  {
+    "model": "product.colour" , "pk": 21,
+    "fields": { "colour_name": "dark blue",
+    "image": "darkblue.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 22,
+    "fields": { "colour_name": "dark brown",
+    "image": "darkbrown.jpeg",
+    "shade_type_id": 3
+  }},
+  {
+    "model": "product.colour" , "pk": 23,
+    "fields": { "colour_name": "dark grape",
+    "image": "darkgrape.jpeg",
+    "shade_type_id": 10
+  }},
+  {
+    "model": "product.colour" , "pk": 24,
+    "fields": { "colour_name": "dark grey",
+    "image": "darkgrey.jpeg",
+    "shade_type_id": 5
+  }},
+  {
+    "model": "product.colour" , "pk": 25,
+    "fields": { "colour_name": "dark ivy",
+    "image": "darkivy.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 26,
+    "fields": { "colour_name": "dark moss",
+    "image": "darkmoss.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 27,
+    "fields": { "colour_name": "dark navy",
+    "image": "darknavy.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 28,
+    "fields": { "colour_name": "dark petrol",
+    "image": "darkpetrol.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 29,
+    "fields": { "colour_name": "dusty brown",
+    "image": "dustybrown.jpeg",
+    "shade_type_id": 3
+  }},
+  {
+    "model": "product.colour" , "pk": 30,
+    "fields": { "colour_name": "electric sprinkles",
+    "image": "electricsprinkles.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 31,
+    "fields": { "colour_name": "fairytale",
+    "image": "fairytale.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 32,
+    "fields": { "colour_name": "fog",
+    "image": "fog.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 33,
+    "fields": { "colour_name": "garden party",
+    "image": "gardenparty.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 34,
+    "fields": { "colour_name": "grape",
+    "image": "grape.jpeg",
+    "shade_type_id": 10
+  }},
+  {
+    "model": "product.colour" , "pk": 35,
+    "fields": { "colour_name": "green haze",
+    "image": "greenhaze.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 36,
+    "fields": { "colour_name": "grey whisper",
+    "image": "greywhisper.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 37,
+    "fields": { "colour_name": "hot green",
+    "image": "hotgreen.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 38,
+    "fields": { "colour_name": "hot pink",
+    "image": "hotpink.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 39,
+    "fields": { "colour_name": "ink spots",
+    "image": "inkspots.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 40,
+    "fields": { "colour_name": "lavender",
+    "image": "lavender.jpeg",
+    "shade_type_id": 10
+  }},
+  {
+    "model": "product.colour" , "pk": 41,
+    "fields": { "colour_name": "lavender frost",
+    "image": "lavenderfrost.jpeg",
+    "shade_type_id": 10
+  }},
+  {
+    "model": "product.colour" , "pk": 42,
+    "fields": { "colour_name": "lemonade",
+    "image": "lemonade.jpeg",
+    "shade_type_id": 12
+  }},
+  {
+    "model": "product.colour" , "pk": 43,
+    "fields": { "colour_name": "light beige",
+    "image": "lightbeige.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 44,
+    "fields": { "colour_name": "light blue",
+    "image": "lightblue.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 45,
+    "fields": { "colour_name": "light grey",
+    "image": "lightgrey.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 46,
+    "fields": { "colour_name": "light peach",
+    "image": "lightpeach.jpeg",
+    "shade_type_id": 8
+  }},
+  {
+    "model": "product.colour" , "pk": 47,
+    "fields": { "colour_name": "magenta",
+    "image": "magenta.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 48,
+    "fields": { "colour_name": "marble",
+    "image": "marble.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 49,
+    "fields": { "colour_name": "maroon",
+    "image": "maroon.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 50,
+    "fields": { "colour_name": "marshmallow",
+    "image": "marshmallow.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 51,
+    "fields": { "colour_name": "medium grey",
+    "image": "mediumgrey.jpeg",
+    "shade_type_id": 5
+  }},
+  {
+    "model": "product.colour" , "pk": 52,
+    "fields": { "colour_name": "midnight shadow",
+    "image": "midnightshadow.jpeg",
+    "shade_type_id": 5
+  }},
+  {
+    "model": "product.colour" , "pk": 53,
+    "fields": { "colour_name": "moonlight",
+    "image": "moonlight.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 54,
+    "fields": { "colour_name": "morning mist",
+    "image": "morningmist.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 55,
+    "fields": { "colour_name": "mulberry purple",
+    "image": "mulberrypurple.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 56,
+    "fields": { "colour_name": "navy blue",
+    "image": "navyblue.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 57,
+    "fields": { "colour_name": "north sea",
+    "image": "northsea.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 58,
+    "fields": { "colour_name": "nougat",
+    "image": "nougat.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 59,
+    "fields": { "colour_name": "oat milk",
+    "image": "oatmilk.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 60,
+    "fields": { "colour_name": "off white",
+    "image": "offwhite.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 61,
+    "fields": { "colour_name": "old pink",
+    "image": "oldpink.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 62,
+    "fields": { "colour_name": "orange",
+    "image": "orange.jpeg",
+    "shade_type_id": 8
+  }},
+  {
+    "model": "product.colour" , "pk": 63,
+    "fields": { "colour_name": "parrot green",
+    "image": "parrotgreen.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 64,
+    "fields": { "colour_name": "pastel blue",
+    "image": "pastelblue.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 65,
+    "fields": { "colour_name": "pastel pink",
+    "image": "pastelpink.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 66,
+    "fields": { "colour_name": "peach pink",
+    "image": "peachpink.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 67,
+    "fields": { "colour_name": "peacock blue",
+    "image": "peacockblue.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 68,
+    "fields": { "colour_name": "peony pink",
+    "image": "peonypink.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 69,
+    "fields": { "colour_name": "petrol",
+    "image": "petrol.jpeg",
+    "shade_type_id": 2
+  }},
+  {
+    "model": "product.colour" , "pk": 70,
+    "fields": { "colour_name": "pistachio ice cream",
+    "image": "pistachioicecream.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 71,
+    "fields": { "colour_name": "plum wine",
+    "image": "plumwine.jpeg",
+    "shade_type_id": 3
+  }},
+  {
+    "model": "product.colour" , "pk": 72,
+    "fields": { "colour_name": "powder",
+    "image": "powder.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 73,
+    "fields": { "colour_name": "powder pink",
+    "image": "powderpink.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 74,
+    "fields": { "colour_name": "rainbow sprinkles",
+    "image": "rainbowsprinkles.jpeg",
+    "shade_type_id": 6
+  }},
+  {
+    "model": "product.colour" , "pk": 75,
+    "fields": { "colour_name": "red",
+    "image": "red.jpeg",
+    "shade_type_id": 11
+  }},
+  {
+    "model": "product.colour" , "pk": 76,
+    "fields": { "colour_name": "rose petal",
+    "image": "rosepetal.jpeg",
+    "shade_type_id": 9
+  }},
+  {
+    "model": "product.colour" , "pk": 77,
+    "fields": { "colour_name": "ruby red",
+    "image": "rubyred.jpeg",
+    "shade_type_id": 11
+  }},
+  {
+    "model": "product.colour" , "pk": 78,
+    "fields": { "colour_name": "rust oak",
+    "image": "rustoak.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 79,
+    "fields": { "colour_name": "sage green",
+    "image": "sagegreen.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 80,
+    "fields": { "colour_name": "sea green",
+    "image": "seagreen.jpeg",
+    "shade_type_id": 4
+  }},
+  {
+    "model": "product.colour" , "pk": 81,
+    "fields": { "colour_name": "tangerine",
+    "image": "tangerine.jpeg",
+    "shade_type_id": 8
+  }},
+  {
+    "model": "product.colour" , "pk": 82,
+    "fields": { "colour_name": "toffee",
+    "image": "toffee.jpeg",
+    "shade_type_id": 3
+  }},
+  {
+    "model": "product.colour" , "pk": 83,
+    "fields": { "colour_name": "winter fog",
+    "image": "winterfog.jpeg",
+    "shade_type_id": 7
+  }},
+  {
+    "model": "product.colour" , "pk": 84,
+    "fields": { "colour_name": "yellow",
+    "image": "yellow.jpeg",
+    "shade_type_id": 12
+  }}
+]

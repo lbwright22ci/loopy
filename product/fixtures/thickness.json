@@ -1,0 +1,56 @@
+[
+    {
+        "model":  "product.thickness",
+        "pk":  "1",
+        "fields": { "name" :  "2 ply",
+"alt_names": "lace"
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "2",
+        "fields": { "name" :  "3 ply",
+"alt_names": ""
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "3",
+        "fields": { "name" :  "4 ply",
+"alt_names": "fingering"
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "4",
+        "fields": { "name" :  "5 ply",
+"alt_names":"sports"
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "5",
+        "fields": { "name" :  "Aran",
+"alt_names": "worsted"
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "6",
+        "fields": { "name" :  "Chunky",
+"alt_names": "bulky"
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "7",
+        "fields": { "name" :  "DK",
+"alt_names":"double knit"
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "8",
+        "fields": { "name" :  "Super Bulky",
+"alt_names": "super chunky"
+    }},
+    {
+        "model":  "product.thickness",
+        "pk":  "9",
+        "fields": { "name" :  "Super Chunky",
+"alt_names": "super bulky"
+    }}
+]

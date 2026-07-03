@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'storages',
     'core',
     'get_in_touch',
+    'product',
 ]
 
 MIDDLEWARE = [
