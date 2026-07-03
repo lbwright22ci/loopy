@@ -1,50 +1,50 @@
 [
   {
     "model": "product.shade_type" , "pk": 1,
-    "field": {  "name": "black"
+    "fields": {  "name": "black"
   }},
   {
     "model": "product.shade_type" , "pk": 2,
-    "field": {  "name": "blue"
+    "fields": {  "name": "blue"
   }},
   {
     "model": "product.shade_type" , "pk": 3,
-    "field": { "name": "brown"
+    "fields": { "name": "brown"
   }},
   {
     "model": "product.shade_type" , "pk": 4,
-    "field": { "name": "green"
+    "fields": { "name": "green"
   }},
   {
     "model": "product.shade_type" , "pk": 5,
-    "field": { "name": "grey"
+    "fields": { "name": "grey"
   }},
   {
     "model": "product.shade_type" , "pk": 6,
-    "field": { "name": "multi"
+    "fields": { "name": "multi"
   }},
   {
     "model": "product.shade_type" , "pk": 7,
-    "field": { "name": "neutral"
+    "fields": { "name": "neutral"
   }},
   {
     "model": "product.shade_type" , "pk": 8,
-    "field": { "name": "orange"
+    "fields": { "name": "orange"
   }},
   {
     "model": "product.shade_type" , "pk": 9,
-    "field": { "name": "pink"
+    "fields": { "name": "pink"
   }},
   {
     "model": "product.shade_type" , "pk": 10,
-    "field": { "name": "purple"
+    "fields": { "name": "purple"
   }},
   {
     "model": "product.shade_type" , "pk": 11,
-    "field": { "name": "red"
+    "fields": { "name": "red"
   }},
   {
     "model": "product.shade_type" , "pk": 12,
-    "field": {  "name": "yellow"
+    "fields": {  "name": "yellow"
   }}
 ]

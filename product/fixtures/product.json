@@ -1,7 +1,7 @@
 [
   {
     "model": "product.product", "pk": 1,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 5,
     "name": "Air",
     "summary": "A medium thick blow yarn made of baby alpaca and merino wool",
@@ -24,7 +24,7 @@
   }},
   {
     "model": "product.product", "pk": 2,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 5,
     "name": "Alaska",
     "summary": "A wool classic!",
@@ -47,7 +47,7 @@
   }},
   {
     "model": "product.product", "pk": 3,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 4,
     "name": "Alpaca",
     "summary": "An all time favorite made purely from soft alpaca",
@@ -70,7 +70,7 @@
   }},
   {
     "model": "product.product", "pk": 4,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 8,
     "name": "Andes",
     "summary": "A soft and chunky blend of alpaca and wool",
@@ -93,7 +93,7 @@
   }},
   {
     "model": "product.product", "pk": 5,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Belle",
     "summary": "Everyday luxury!",
@@ -116,7 +116,7 @@
   }},
   {
     "model": "product.product", "pk": 6,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 5,
     "name": "Big Merino",
     "summary": "Superwash treated extra fine merino wool",
@@ -139,7 +139,7 @@
   }},
   {
     "model": "product.product", "pk": 7,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 5,
     "name": "Bomull-Lin",
     "summary": "Rustic elegance in cotton and linen",
@@ -162,7 +162,7 @@
   }},
   {
     "model": "product.product", "pk": 8,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Cotton Light",
     "summary": "A cool cotton yarn for summer!",
@@ -185,7 +185,7 @@
   }},
   {
     "model": "product.product", "pk": 9,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Cotton Merino",
     "summary": "A superwash yarn for all seasons!",
@@ -208,7 +208,7 @@
   }},
   {
     "model": "product.product", "pk": 10,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Daisy",
     "summary": "Everyday softness in pure merino wool",
@@ -231,7 +231,7 @@
   }},
   {
     "model": "product.product", "pk": 11,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 3,
     "name": "Fabel",
     "summary": "Superwash treated sock wool",
@@ -254,7 +254,7 @@
   }},
   {
     "model": "product.product", "pk": 12,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Fiesta",
     "summary": "Superwash treated sock wool",
@@ -277,7 +277,7 @@
   }},
   {
     "model": "product.product", "pk": 13,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 3,
     "name": "Flora",
     "summary": "Everyday comfort in alpaca and wool",
@@ -300,7 +300,7 @@
   }},
   {
     "model": "product.product", "pk": 14,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Karisma",
     "summary": "A superwash treated wool classic",
@@ -323,7 +323,7 @@
   }},
   {
     "model": "product.product", "pk": 15,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 1,
     "name": "Kid-Silk",
     "summary": "A wonderful mix of super kid mohair and silk",
@@ -346,7 +346,7 @@
   }},
   {
     "model": "product.product", "pk": 16,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Lima",
     "summary": "The perfect every day yarn!",
@@ -369,7 +369,7 @@
   }},
   {
     "model": "product.product", "pk": 17,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 4,
     "name": "Loves You 7",
     "summary": "Classic 8/4 cotton",
@@ -392,7 +392,7 @@
   }},
   {
     "model": "product.product", "pk": 18,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 4,
     "name": "Loves You 9",
     "summary": "Colourful and fun in recycled cotton",
@@ -415,7 +415,7 @@
   }},
   {
     "model": "product.product", "pk": 19,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Muskat",
     "summary": "Mercerized cotton with a colorful shine!",
@@ -438,7 +438,7 @@
   }},
   {
     "model": "product.product", "pk": 20,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 5,
     "name": "Nepal",
     "summary": "The perfect every day yarn!",
@@ -461,7 +461,7 @@
   }},
   {
     "model": "product.product", "pk": 21,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 3,
     "name": "Nord",
     "summary": "Soft and durable in alpaca, wool and polyamide",
@@ -484,7 +484,7 @@
   }},
   {
     "model": "product.product", "pk": 22,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 5,
     "name": "Paris",
     "summary": "Fun and easy to knit cotton!",
@@ -507,7 +507,7 @@
   }},
   {
     "model": "product.product", "pk": 23,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 8,
     "name": "Polaris",
     "summary": "Excellent for felting!",
@@ -530,7 +530,7 @@
   }},
   {
     "model": "product.product", "pk": 24,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Puna",
     "summary": "Pure alpaca softness",
@@ -553,7 +553,7 @@
   }},
   {
     "model": "product.product", "pk": 25,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 4,
     "name": "Safran",
     "summary": "Egyptian combed cotton in every colour!",
@@ -576,7 +576,7 @@
   }},
   {
     "model": "product.product", "pk": 26,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 8,
     "name": "Snow",
     "summary": "Excellent for felting!",
@@ -599,7 +599,7 @@
   }},
   {
     "model": "product.product", "pk": 27,
-    "field" : { "brand_id": 1,
+    "fields" : { "brand_id": 1,
     "thickness_id": 7,
     "name": "Soft Tweed",
     "summary": "A tweed classic in Superfine Alpaca and Merino Wool",
@@ -622,7 +622,7 @@
   }},
   {
     "model": "product.product", "pk": 28,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Wonderland",
     "summary": "Wonderland is unique in that lurex thread appears only in certain parts of the pattern repeat, to add a little magic to your Christmas knits.",
@@ -645,7 +645,7 @@
   }},
   {
     "model": "product.product", "pk": 29,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 9,
     "name": "Winter Magic",
     "summary": "Winter Magic XL has random flecks of sparkle throughout.  The perfect way to create a bit of extra twinkle to those Christmas makes.",
@@ -668,7 +668,7 @@
   }},
   {
     "model": "product.product", "pk": 30,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "That Colour Vibe",
     "summary": "The blend of acrylic and merino, makes this a beautifully soft and cosy yarn and its chunky weight is perfect for those quick knit projects.",
@@ -691,7 +691,7 @@
   }},
   {
     "model": "product.product", "pk": 31,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Sweet Dreams",
     "summary": "The perfect yarn for baby s delicate skin, Sweet Dreams is so soft, it s hard to believe it is 100% premium acrylic.  This also makes it a perfectly practical yarn that is not only beautifully soft but machine washable too.",
@@ -714,7 +714,7 @@
   }},
   {
     "model": "product.product", "pk": 32,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Squeeze Me",
     "summary": "Following the trend for home comforts and the popularity of touchy-feely yarns, Stylecraft has introduced Squeeze Me, a luxurious chenille yarn which is velvety soft and irresistibly tactile   it just begs to be squeezed and cuddled. There are 20 exquisite colours giving crocheters a huge choice for the most ambitious colour work project. The shades ranging from serene neutrals and soothing pastels to lively and energetic brights.",
@@ -737,7 +737,7 @@
   }},
   {
     "model": "product.product", "pk": 33,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 9,
     "name": "Special XL Tweed",
     "summary": "Now with added tweed effect, Special XL Tweed is ideal for beginner knitters and those who are looking for quick makes.  The tweed effect comes from the addition of a viscose nepp.  Colours are fun and energetic.  Stylecraft's Special yarns are class leaders, arguably the best 100% premium acrylic yarn on the market with a huge number of colours to choose from. This yarn has a super soft handle, is naturally anti pilling and tough enough to handle being thrown in the washing machine. The Special range includes 4-ply, DK, Aran, Chunky, XL and Baby qualities in a fabulous range of colours to meet every knitter (and crocheters) needs.",
@@ -760,7 +760,7 @@
   }},
   {
     "model": "product.product", "pk": 34,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 9,
     "name": "Special XL",
     "summary": "Stylecraft's Special yarns are class leaders, arguably the best 100% premium acrylic yarn on the market with a huge number of colours to choose from. This yarn has a super soft handle, is naturally anti pilling and tough enough to handle being thrown in the washing machine. The Special range includes 4-ply, DK, Aran, Chunky, XL and Baby qualities in a fabulous range of colours to meet every knitter (and crocheters) needs.   Special XL is an ideal yarn for beginner knitters or those who want results fast!",
@@ -783,7 +783,7 @@
   }},
   {
     "model": "product.product", "pk": 35,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Special for Babies DK",
     "summary": "Special for Babies is perfect for knitting those irresistible baby garments and accessories. Pick up a ball and feel the difference. Special for Babies DK has a softer handle and cleaner appearance. It comes in a range of classic baby colours.",
@@ -806,7 +806,7 @@
   }},
   {
     "model": "product.product", "pk": 36,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Special for Babies Chunky",
     "summary": "Special for Babies is perfect for knitting those irresistible baby garments and accessories. Pick up a ball and feel the difference. Special for Babies Chunky has a softer handle and cleaner appearance. It comes in a range of classic baby colours.",
@@ -829,7 +829,7 @@
   }},
   {
     "model": "product.product", "pk": 37,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Special for Babies Aran",
     "summary": "Special for Babies is perfect for knitting those irresistible baby garments and accessories. Pick up a ball and feel the difference. Special for Babies Aran has a softer handle and cleaner appearance. It comes in a range of classic baby colours.",
@@ -852,7 +852,7 @@
   }},
   {
     "model": "product.product", "pk": 38,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 3,
     "name": "Special for Babies 4 Ply",
     "summary": "Special for Babies is perfect for knitting those irresistible baby garments and accessories. Pick up a ball and feel the difference. Special for Babies 4 Ply has a softer handle and cleaner appearance. It comes in a range of classic baby colours.",
@@ -875,7 +875,7 @@
   }},
   {
     "model": "product.product", "pk": 39,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Special DK",
     "summary": "Stylecraft's Special yarns are class leaders, arguably the best 100% premium acrylic yarn on the market with a huge number of colours to choose from. This yarn has a super soft handle, is naturally anti pilling and tough enough to handle being thrown in the washing machine. The Special range includes 4-ply, DK, Aran, Chunky, XL and Baby qualities in a fabulous range of colours to meet every knitter (and crocheters) needs.",
@@ -898,7 +898,7 @@
   }},
   {
     "model": "product.product", "pk": 40,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Special Chunky",
     "summary": "Stylecraft's Special yarns are class leaders, arguably the best 100% premium acrylic yarn on the market with a huge number of colours to choose from. This yarn has a super soft handle, is naturally anti pilling and tough enough to handle being thrown in the washing machine. The Special range includes 4-ply, DK, Aran, Chunky, XL and Baby qualities in a fabulous range of colours to meet every knitter (and crocheters) needs.",
@@ -921,7 +921,7 @@
   }},
   {
     "model": "product.product", "pk": 41,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Special Aran with Wool",
     "summary": "Special Aran with Wool is 80% premium acrylic and 20% wool and comes on big 400g value balls. It has all the great qualities of our 100% acrylic Special but with a bit of wool added too. As with all our yarns it is machine washable.",
@@ -944,7 +944,7 @@
   }},
   {
     "model": "product.product", "pk": 42,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Special Aran",
     "summary": "Stylecraft's Special yarns are class leaders, arguably the best 100% premium acrylic yarn on the market with a huge number of colours to choose from. This yarn has a super soft handle, is naturally anti pilling and tough enough to handle being thrown in the washing machine. The Special range includes 4-ply, DK, Aran, Chunky, XL and Baby qualities in a fabulous range of colours to meet every knitter (and crocheters) needs.",
@@ -967,7 +967,7 @@
   }},
   {
     "model": "product.product", "pk": 43,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 3,
     "name": "Special 4 Ply",
     "summary": "Stylecraft's Special yarns are class leaders, arguably the best 100% premium acrylic yarn on the market with a huge number of colours to choose from. This yarn has a super soft handle, is naturally anti pilling and tough enough to handle being thrown in the washing machine. The Special range includes 4-ply, DK, Aran, Chunky, XL and Baby qualities in a fabulous range of colours to meet every knitter (and crocheters) needs.",
@@ -990,7 +990,7 @@
   }},
   {
     "model": "product.product", "pk": 44,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Softie",
     "summary": "The name says it all.  Stylecraft s Softie is a light and airy, chunky yarn that is perfect for this season s over-sized, relaxed shapes.  Stitch definition is also excellent so ideal for cabled knits.",
@@ -1013,7 +1013,7 @@
   }},
   {
     "model": "product.product", "pk": 45,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Soft Pastels",
     "summary": "This Aran weight cotton-acrylic blend is both cool to wear and soft to touch. Plus, it s machine washable, making it ideal for easy-care summer garments.",
@@ -1036,7 +1036,7 @@
   }},
   {
     "model": "product.product", "pk": 46,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Soft Baby Easy Stripes",
     "summary": "Created with a blend of acrylic and nylon, this yarn offers a super soft texture that s gentle on baby s delicate skin while being machine washable for extra practicality and durability.",
@@ -1059,7 +1059,7 @@
   }},
   {
     "model": "product.product", "pk": 47,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Serene",
     "summary": "Introducing Serene, an aran-weight yarn that lives up to its name. With a gorgeously soft handle and a beautifully mottled colour effect, Serene brings a unique look to knit and crochet projects alike. Available in six tranquil shades   Mild Mocha, Peaceful Pink, Quiet Coral, Still Green, Placid Purples, and Tranquil Blue   it s designed to bring a sense of calm to your autumn wardrobe.",
@@ -1082,7 +1082,7 @@
   }},
   {
     "model": "product.product", "pk": 48,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "ReLove",
     "summary": "Joining our esteemed collection of recycled yarns, we are thrilled to present ReLove   a 100% recycled aran weight yarn made with a blend of acrylic and wool. Crafted with care, ReLove is not only soft to the touch but also machine washable, ensuring convenience and practicality for your finished project.",
@@ -1105,7 +1105,7 @@
   }},
   {
     "model": "product.product", "pk": 49,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "ReCreate",
     "summary": "ReCreate is a blended yarn that is made entirely from recycled fibres. The yarn lends itself to beautiful stitch definition with strong cabling, lace detail and texture stitches all featured in the designs.",
@@ -1128,7 +1128,7 @@
   }},
   {
     "model": "product.product", "pk": 50,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Naturals - Bamboo + Cotton",
     "summary": "Naturals Bamboo+Cotton is a completely natural yarn offering knitters and crocheters a hint of luxury. Blended to give fantastic drape and handle, Bamboo+Cotton is available in an extensive palette of sophisticated shades. It is a standard DK weight and kind to sensitive skins meaning it's ideal for baby garments too.",
@@ -1151,7 +1151,7 @@
   }},
   {
     "model": "product.product", "pk": 51,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Moorland",
     "summary": "Inspired by the quiet beauty of windswept hills and moody skies, Moorland is a 100% premium acrylic chunky yarn that brings the natural world to your fingertips. Soft yet durable, it s perfect for cozy garments, textured accessories, and comforting homewares.",
@@ -1174,7 +1174,7 @@
   }},
   {
     "model": "product.product", "pk": 52,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 9,
     "name": "Merry Go Round XL",
     "summary": "A Super Chunky yarn with a Super Big personality! Merry Go Round is all grown up and available in a Super Chunky version for all of those big kids out there! This yarn is fun, playful and a celebration of colour. You ll be spoilt for choice with eight exciting shades each showing off their very own colourful style.  Ranging from Fruit Salad and Summer Pudding to Spice Mix and Cocktail.  Simply irresistible!",
@@ -1197,7 +1197,7 @@
   }},
   {
     "model": "product.product", "pk": 53,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Merry Go Round Chunky",
     "summary": "Here we have another fun addition to add to the Merry Go Round family, Chunky! Available in six scrumptious shades for a fabulous collection of children's patterns.",
@@ -1220,7 +1220,7 @@
   }},
   {
     "model": "product.product", "pk": 54,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Merry Go Round",
     "summary": "Wondersoft is the name for our most popular baby yarns. Wondersoft offers top quality and machine wash practicality combined with a beautiful softness of handle, perfect for delicate skin. The yarn comes in big value 100g balls.",
@@ -1243,7 +1243,7 @@
   }},
   {
     "model": "product.product", "pk": 55,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Love You",
     "summary": "Love You is a cotton-rich yarn with a delicate melange of colours that create a delightful, speckled effect when knitted up.",
@@ -1266,7 +1266,7 @@
   }},
   {
     "model": "product.product", "pk": 56,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Life DK",
     "summary": "Life DK is a luxurious yet practical yarn, available in a wide choice of colours. We mix 25% wool with 75% premium acrylic and this makes the yarn is soft and supple, as well as being easy on the hands to work with. Life DK washes and wears extremely well and is perfect for a whole range of projects due to the versatile nature of the yarn.",
@@ -1289,7 +1289,7 @@
   }},
   {
     "model": "product.product", "pk": 57,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Knit Me, Crochet Me",
     "summary": "This is a single ply yarn with a soft delicate twist and luxurious texture and can pull apart occasionally. If needed, please twist the yarn as you work to ensure that the strand holds together.",
@@ -1312,7 +1312,7 @@
   }},
   {
     "model": "product.product", "pk": 58,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Impressions",
     "summary": "Impressions takes it s inspiration from the Impressionist painters, their colour palettes and artistic style. The yarn has a smooth, silky character and each shade is a subtle mixture of stripes and daubs.",
@@ -1335,7 +1335,7 @@
   }},
   {
     "model": "product.product", "pk": 59,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Horizon",
     "summary": "This luxurious acrylic-wool blend isn t just beautiful it s practical too. The generous cake format shows off every shade in the gradient, so you know exactly what magic is waiting inside. Horizon is the yarn that will transform your makes into masterpieces.",
@@ -1358,7 +1358,7 @@
   }},
   {
     "model": "product.product", "pk": 60,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Highland Heathers DK",
     "summary": "The colours in Highland Heathers are created by heavily blending several colours together which gives them their richly tweeded effect. This yarn can be used in combination with Stylecraft's other DK weight yarns.",
@@ -1381,7 +1381,7 @@
   }},
   {
     "model": "product.product", "pk": 61,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Highland Heathers Aran",
     "summary": "Just like its sister yarn, the shades for Highland Heathers Aran are created by heavily blending several colours together which gives them their richly tweeded effect.",
@@ -1404,7 +1404,7 @@
   }},
   {
     "model": "product.product", "pk": 62,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 3,
     "name": "Head Over Heels Festive",
     "summary": "A dazzling Christmas yarn that showcases shades from traditional reds and greens to frosty blues and pinks.",
@@ -1427,7 +1427,7 @@
   }},
   {
     "model": "product.product", "pk": 63,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 3,
     "name": "Head Over Heels - Australia",
     "summary": "Stylecraft and Stuart Hillard have embarked on an antipodean adventure with Head over Heels Australia for the perfect knitting adventure down under.  The carefully curated shades are a celebration of everything Australian including Great Barrier Reef, Blue Mountains, Sacred Earth and Bondi Beach.",
@@ -1450,7 +1450,7 @@
   }},
   {
     "model": "product.product", "pk": 64,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Grace",
     "summary": "The dreamy blend of acrylic, wool & mohair creates a beautifully soft fluffiness to the yarn that is not only luxuriously warm and soft, but is also machine washable.",
@@ -1473,7 +1473,7 @@
   }},
   {
     "model": "product.product", "pk": 65,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Fusion",
     "summary": "Fusion is a chunky yarn, which blends colours harmoniously to create a rugged, tweedy yarn that is perfect for the outdoors. There are six shades including Stone, Heather, Blue, Lime, Rust and Burgundy.",
@@ -1496,7 +1496,7 @@
   }},
   {
     "model": "product.product", "pk": 66,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "For the Love of Stripes",
     "summary": "For the Love of Stripes is a vibrant self-striping yarn that adds excitement with its dynamic colour changes. This yarn is ideal for those who love to see playful and colourful patterns emerge as they knit or crochet and, with eight shades to choose from you are sure to find the perfect colour for your wardrobe.",
@@ -1519,7 +1519,7 @@
   }},
   {
     "model": "product.product", "pk": 67,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 5,
     "name": "Easy Fair Isle Effect",
     "summary": "Create Fair Isle designs without the need for colour changing while knitting or crocheting.",
@@ -1542,7 +1542,7 @@
   }},
   {
     "model": "product.product", "pk": 68,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Craft Cotton",
     "summary": "This is a basic craft cotton ideal for knitting or crocheting dish-cloths and other craft uses.",
@@ -1565,7 +1565,7 @@
   }},
   {
     "model": "product.product", "pk": 69,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Cotton Twist",
     "summary": "Meet Cotton Twist, a DK-weight cotton yarn with a playful twist. Soft to the touch with an elegant drape, it s the perfect choice for light, breathable summer knits and crochet projects.\nThe palette blends a combination of cool, calm pastels with vibrant summer brights, giving your customers some lovely colour options for a variety of projects. \nEach 100g ball of Cotton Twist brings a fresh, modern look to your warm-weather wardrobe   cool, comfortable, and effortlessly chic.",
@@ -1588,7 +1588,7 @@
   }},
   {
     "model": "product.product", "pk": 70,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 9,
     "name": "Colour Code",
     "summary": "A super chunky yarn with bundles of character.  Dashes of tonal colours appear on an ecru background to give the yarn a naturally textured look. Super soft acrylic yarn that is fun to knit with and also machine washable.",
@@ -1611,7 +1611,7 @@
   }},
   {
     "model": "product.product", "pk": 71,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Colour Burst",
     "summary": "Introducing our silky acrylic blend, designed to bring a burst of joy to your knits. Colour Burst is a self-striping DK yarn offering a riot of colour to your knitting and crochet projects. It is a fun yarn to work with too as the colour changes while you knit meaning the only decision you must make is which shade to choose!\nIts soft-to-touch texture is also machine washable meaning it s perfect for all-day wear and the excellent meterage means value for money.",
@@ -1634,7 +1634,7 @@
   }},
   {
     "model": "product.product", "pk": 72,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Chromatic",
     "summary": "Experience the magic of hazy colour transitions as you knit, with Chromatic, our new vibrant DK yarn in a blend of Acrylic and Wool.   \nWith eight beguiling colour change shades to choose from, ranging from Opulent Opal to Midnight Mirage; each colour variation brings its own charm and allure to your projects. \nSoft to the touch with subtle variegated colour transitions, Chromatic is a delight for the senses and is sure to add an extra element of interest to your winter knitting or crochet projects.",
@@ -1657,7 +1657,7 @@
   }},
   {
     "model": "product.product", "pk": 73,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Chenille Chunky",
     "summary": "Say hello to Chenille Chunky, a beautifully soft new yarn with a plush velvety feel that pairs perfectly with the Squeeze Me DK range.\nIt s a dream for cosy blankets, cute accessories, toys, and stylish home touches, adding warmth and texture to every project.",
@@ -1680,7 +1680,7 @@
   }},
   {
     "model": "product.product", "pk": 74,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Bellissima Chunky",
     "summary": "Bellissima Chunky, a lovely soft multi-end springy yarn with fantastic stitch definition.  It is ideal for cosy garments and accessories and shows off cable and lace patterns to perfection. Bellissima is also available in double knitting weight.",
@@ -1703,7 +1703,7 @@
   }},
   {
     "model": "product.product", "pk": 75,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Bellissima",
     "summary": "Bellissima is a beautiful multi-end yarn with fantastic stitch definition, making it perfect for a whole range of techniques and styles, from classic garments to textures and cables.  Knits like a merino with the practicality and value for money of an acrylic yarn. This yarn is also available as Bambino, a baby quality with yet more shades that you could use in combination with Bellissima.",
@@ -1726,7 +1726,7 @@
   }},
   {
     "model": "product.product", "pk": 76,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 6,
     "name": "Bella Bella",
     "summary": "Bella Bella is a chunky yarn featuring flecks of heathered tones in sophisticated shades. This yarn brings a cosy, rustic feel with its textured appearance, perfect for creating warm and inviting projects.",
@@ -1749,7 +1749,7 @@
   }},
   {
     "model": "product.product", "pk": 77,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Batik Swirl",
     "summary": "The colours in Batik Swirl have block tonal transitions to create exciting colour changes and the subtle dappled effect of the yarn gives a lovely sense of texture. Knits up like you are using lots of different coloured yarns, while in fact all you need to do is keep knitting and the yarn will do all the work. Like all the other yarns in the Batik range, it's a wool, and premium acrylic blend, so it is silky soft to the touch too.",
@@ -1772,7 +1772,7 @@
   }},
   {
     "model": "product.product", "pk": 78,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Batik Elements Swirl",
     "summary": "A luxurious blend of fibres and colours.",
@@ -1795,7 +1795,7 @@
   }},
   {
     "model": "product.product", "pk": 79,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Bambino Prints DK",
     "summary": "Bambino Prints is a lovely print yarn for babies in muted shades. The yarn is beautifully smooth and comfy for baby, is anti-pilling and of course machine washable, so super practical.",
@@ -1818,7 +1818,7 @@
   }},
   {
     "model": "product.product", "pk": 80,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Bambino Dotty",
     "summary": "Gentle on delicate skin and perfect for babies and toddlers, it's as practical as it is cuddly: machine washable and built to stay looking fresh, wash after wash.",
@@ -1841,7 +1841,7 @@
   }},
   {
     "model": "product.product", "pk": 81,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Bambino DK",
     "summary": "Bambino is a beautiful multi-end yarn with fantastic stitch definition, making it perfect for a whole range of techniques and styles, from classic baby garments to textures and cables.  Knits like a merino with the practicality and value for money of an acrylic yarn. The palette is muted and modern. The yarn is beautifully smooth and comfy for baby, naturally anti-pilling and of course machine washable, so super practical.",
@@ -1864,7 +1864,7 @@
   }},
   {
     "model": "product.product", "pk": 82,
-    "field" : { "brand_id": 3,
+    "fields" : { "brand_id": 3,
     "thickness_id": 7,
     "name": "Baby Sparkle",
     "summary": "Baby Sparkle is a wonderful addition to Stylecraft s baby yarn collection. The gentle, vintage palette is based on Special DK shades, has a rainbow lurex binder to give a subtle sparkle when knitted or crocheted.",
@@ -1887,7 +1887,7 @@
   }},
   {
     "model": "product.product", "pk": 83,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 3,
     "name": "Sirdar Happy Chenille, 15g",
     "summary": "A velvety soft addition to our Happy amigurumi family.  These irresistible little balls of Sirdar Happy Chenille will make your cute crochet characters even cuter.",
@@ -1910,7 +1910,7 @@
   }},
   {
     "model": "product.product", "pk": 84,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Snuggly 100% Cotton, 50g",
     "summary": "Spun from pure natural cotton fibre, Snuggly 100% Cotton retains its softness, shape and colour, wash after wash making it perfect for baby wear.",
@@ -1933,7 +1933,7 @@
   }},
   {
     "model": "product.product", "pk": 85,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 2,
     "name": "Sirdar Snuggly 3 Ply, 50g",
     "summary": "Like the other yarns in our Sirdar Snuggly range, Snuggly 3-ply is a super soft high-quality yarn that stands the test of time.",
@@ -1956,7 +1956,7 @@
   }},
   {
     "model": "product.product", "pk": 86,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Snuggly Baby Bamboo DK , 50g",
     "summary": "Snuggly Snuggly Baby Bamboo in double knitting weight is an extra special cosy yarn for precious babies.",
@@ -1979,7 +1979,7 @@
   }},
   {
     "model": "product.product", "pk": 87,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 2,
     "name": "Sirdar Snuggly Sweetie, 200g",
     "summary": "Snuggly Sweetie is an incredibly soft yarn covered in the softest little pom-poms. With a range of the most beautiful baby shades.",
@@ -2002,7 +2002,7 @@
   }},
   {
     "model": "product.product", "pk": 88,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 3,
     "name": "Sirdar Snuggly 100% Merino 4 Ply, 50g",
     "summary": "Snuggly Cashmere Merino Silk in double knitting weight is an extra special cosy yarn for precious babies.",
@@ -2025,7 +2025,7 @@
   }},
   {
     "model": "product.product", "pk": 89,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Snuggly DK, 100g",
     "summary": "Britain's favourite baby yarn in classic DK thickness. Ideal for garments.",
@@ -2048,7 +2048,7 @@
   }},
   {
     "model": "product.product", "pk": 90,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 5,
     "name": "Sirdar Snuggly Supersoft Rainbow Drops Aran, 100g",
     "summary": "Knits into garments with cute subtle rainbow splashes of colour.",
@@ -2071,7 +2071,7 @@
   }},
   {
     "model": "product.product", "pk": 91,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Country Classic DK, 50g",
     "summary": "Country Classic is a Sirdar family favourite that has been made even softer. The 50/50 blend of pure wool and acrylic makes it even more comfortable.",
@@ -2094,7 +2094,7 @@
   }},
   {
     "model": "product.product", "pk": 92,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 3,
     "name": "Sirdar Snuggly Bunny, 50g",
     "summary": "Britain's favourite baby yarn.",
@@ -2117,7 +2117,7 @@
   }},
   {
     "model": "product.product", "pk": 93,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Snuggly Baby Crofter DK, 50g",
     "summary": "Snuggly Baby Crofter DK is the same super soft Nylon and Acrylic blend as our ever popular Sirdar Snuggly DK, making it irresistibly gentle for baby s skin.",
@@ -2140,7 +2140,7 @@
   }},
   {
     "model": "product.product", "pk": 94,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Cotton DK, 100g",
     "summary": "A fabulous cotton double knitting yarn for hand knit and crochet projects. The yarn is made using mercerised cotton to create a subtle sheen and incredible texture.",
@@ -2163,7 +2163,7 @@
   }},
   {
     "model": "product.product", "pk": 95,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 9,
     "name": "Snuggly Snowflake Chunky, 50g",
     "summary": "Snuggly Snowflake Chunky knits to a soft, fleecy fabric and the fluffy texture means there s no need for fancy stitch-work, making it ideal for beginners.",
@@ -2186,7 +2186,7 @@
   }},
   {
     "model": "product.product", "pk": 96,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Snuggly Cashmere Merino Silk DK, 50g",
     "summary": "Snuggly Cashmere Merino Silk in double knitting weight is an extra special cosy yarn for precious babies.",
@@ -2209,7 +2209,7 @@
   }},
   {
     "model": "product.product", "pk": 97,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar No 1 DK, 100g",
     "summary": "A classic, hard wearing yarn, ideal for knitting men's jumpers.",
@@ -2232,7 +2232,7 @@
   }},
   {
     "model": "product.product", "pk": 98,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 3,
     "name": "Snuggly Cashmere Merino Silk 4 Ply, 50g",
     "summary": "Snuggly Cashmere Merino Silk 4 Ply is an extra special lightweight yarn for your newest arrivals, spun from a blend of soft cashmere.",
@@ -2255,7 +2255,7 @@
   }},
   {
     "model": "product.product", "pk": 99,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 1,
     "name": "Sirdar Snuggly 2 Ply, 50g",
     "summary": "The lightest weight in Britain's favourite baby yarn, for the tiniest babies, Snuggly 2-ply is available in different shades.",
@@ -2278,7 +2278,7 @@
   }},
   {
     "model": "product.product", "pk": 100,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Snuggly Cashmere Merino DK, 50g",
     "summary": "Treat yourself or someone special to this luxurious blend of soft cashmere, smooth silk and extra fine merino wool.  A dream to knit or crochet.",
@@ -2301,7 +2301,7 @@
   }},
   {
     "model": "product.product", "pk": 101,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Cashmere Merino Silk DK",
     "summary": "Treat yourself or someone special to this luxurious blend of soft cashmere, smooth silk and extra fine merino wool.  A dream to knit or crochet.",
@@ -2324,7 +2324,7 @@
   }},
   {
     "model": "product.product", "pk": 102,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Happy Cotton DK, 20g",
     "summary": "Fun bonbons of cotton in bright colours, ideal for amigurumi.",
@@ -2347,7 +2347,7 @@
   }},
   {
     "model": "product.product", "pk": 103,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 3,
     "name": "Sirdar Country Classic 4 Ply, 50g",
     "summary": "For all those classic knits, this yarn has a traditional feel.",
@@ -2370,7 +2370,7 @@
   }},
   {
     "model": "product.product", "pk": 104,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 3,
     "name": "Sirdar Snuggly 4 Ply, 50g",
     "summary": "Britain's favourite baby yarn in a 4 ply weight brings delicate stitch details to knits for younger babies.",
@@ -2393,7 +2393,7 @@
   }},
   {
     "model": "product.product", "pk": 105,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Snuggly Replay DK, 50g",
     "summary": "A cool, soft blend of cotton and acrylic, Snuggly Replay is easy to work with and gives great stitch definition to the fun colour-work and textured patterns.",
@@ -2416,7 +2416,7 @@
   }},
   {
     "model": "product.product", "pk": 106,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Alpine, 50g",
     "summary": "Alpine is the most realistic fur effect yarn we ve ever developed and we think you ll want to wear this cosy luxurious yarn all winter. Luxurious and warm.",
@@ -2439,7 +2439,7 @@
   }},
   {
     "model": "product.product", "pk": 107,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 6,
     "name": "Sirdar Snuggly Chunky, 100g",
     "summary": "A big sibling for our growing Snuggly family, made using the same tried and trusted formula and convenient machine washable blend.",
@@ -2462,7 +2462,7 @@
   }},
   {
     "model": "product.product", "pk": 108,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 6,
     "name": "Sirdar Jewelspun With Wool Chunky, 200g",
     "summary": "Sirdar Jewelspun With Wool is a chunky yarn sister for incredibly popular self-striping Sirdar Jewelspun.",
@@ -2485,7 +2485,7 @@
   }},
   {
     "model": "product.product", "pk": 109,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Snuggly DK, 50g",
     "summary": "Soft easy-care Snuggly Double Knitting is the UK's favourite baby yarn and is rapidly becoming a favourite around the world.",
@@ -2508,7 +2508,7 @@
   }},
   {
     "model": "product.product", "pk": 110,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Loveful 100% Recycled Acrylic DK, 100g",
     "summary": "This soft, smooth 100% recycled yarn helps you do your bit to reduce waste as you knit or crochet.",
@@ -2531,7 +2531,7 @@
   }},
   {
     "model": "product.product", "pk": 113,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Soft Down, 100g",
     "summary": "Add some soft texture to your knitting with Sirdar Soft Down, a gently brushed, wool blend double knitting yarn.",
@@ -2554,7 +2554,7 @@
   }},
   {
     "model": "product.product", "pk": 114,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 5,
     "name": "Sirdar Jewelspun Aran, 200g",
     "summary": "Jewelspun blends opulent gem-like tones in a gorgeous self-striping yarn. It has the hand-dyed, hand-spun look so popular with knitters around the world.",
@@ -2577,7 +2577,7 @@
   }},
   {
     "model": "product.product", "pk": 115,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Loveful Bio Blend",
     "summary": "Sirdar Loveful Bio Blend is the first handknitting yarn to use award-winning CiCLO  technology.This revolutionary, nature-based solution reduces the environmental impact of microplastic pollution without affecting the gorgeous soft texture and performance.",
@@ -2600,7 +2600,7 @@
   }},
   {
     "model": "product.product", "pk": 116,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 7,
     "name": "Sirdar Stories, 50g",
     "summary": "Sirdar Stories is a cotton-rich blend of forty Insta-friendly shades, perfect for recreating catwalk crochet looks and celebrity knitting trends.",
@@ -2623,7 +2623,7 @@
   }},
   {
     "model": "product.product", "pk": 117,
-    "field" : { "brand_id": 2,
+    "fields" : { "brand_id": 2,
     "thickness_id": 5,
     "name": "Sirdar Jewelspun Ombre Aran, 400g",
     "summary": "A genuine Sirdar yarn innovation, Jewelspun Ombre brings a stunning new colour effect to hand-knitters.This unique yarn features the softest shade transitions to transform simple stitches into a statement knit.",
