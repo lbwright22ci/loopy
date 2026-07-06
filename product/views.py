@@ -9,24 +9,20 @@ from .filters import YarnFilter
 
 # Create your views here.
 
-class AllProductsListView(FilterView):
+class AllProductsListView(generic.ListView):
     """" """
-
-    model= Product
+    queryset= Product.objects.all()
     paginate_by= 12
     template_name= 'product/all-products.html'
     ordering =['-skein_weight']
     context_object_name = 'product_list'
-    filterset_class = YarnFilter
-
-    # def get_queryset(self):
-    #     queryset =  super().get_queryset()
-    #     filter = YarnFilter(self.request.GET, queryset)
-    #     return filter.qs
     
-    # def get_context_data(self, **kwargs):
-    #     context =  super().get_context_data(**kwargs)
-    #     queryset = self.get_queryset()
-    #     filter = YarnFilter(self.request.GET, queryset)
-    #     context['form'] = self.filter.form
-    #     return context
+    def get_queryset(self):
+        queryset =  super().get_queryset()
+        self.filterset = YarnFilter(self.request.GET, queryset = queryset)
+        return self.filterset.qs
+    
+    def get_context_data(self, **kwargs):
+        context =  super().get_context_data(**kwargs)
+        context['form'] = self.filterset.form
+        return context

@@ -53,8 +53,8 @@
                         <div class=" d-none d-lg-block col-lg-3">
                                 <div class="col-11">
                                         <form method="GET" action="{% url 'allproducts' %}" >
-                                                {{ filter.form|crispy}}
-                                                {% csrf_token %}
+                                                {{ form|crispy }}
+                                                
                                                 <button type="submit" class="btn btn-main" > Filter</button>
                                         </form>
                                         <div class=" accordion" id="mob-yarn-filter-accord">
