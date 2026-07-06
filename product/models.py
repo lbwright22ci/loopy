@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Q
 from django.utils.text import slugify
 
 # Create your models here.
@@ -62,6 +63,7 @@ class Product(models.Model):
     summary = models.CharField(max_length=500, null=True, blank= True)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank = False, verbose_name="Price in £")
     fibre = models.CharField(max_length=500, null=True, blank= True)
+    natural_fibres = models.BooleanField(default = False)
     skein_weight = models.IntegerField(blank = False, null=False, verbose_name='Weight of single ball in g')
     skein_length = models.IntegerField(blank = True, null=True, verbose_name="Length of yarn in a single ball in m")
     needle_size = models.DecimalField(max_digits=4, decimal_places=1, blank=True, null=True, verbose_name="recommended knitting needle size in mm")
@@ -85,6 +87,13 @@ class Product(models.Model):
         if not self.slug:
             ss = f'{self.brand_id.name}-{self.name}-{self.skein_weight}'
             self.slug = slugify(ss)
+
+        if not self.natural_fibres:
+            if self.fibre.__contains__('crylic')|(self.fibre.__contains__('iscose'))|(self.fibre.__contains__('oly'))|(self.fibre.__contains__('ylon'))| self.fibre.__contains__('henille'):
+                self.natural_fibres = False
+            else:
+                self.natural_fibres = True
+
         super(Product, self).save()
 
 class Colour_var(models.Model):
