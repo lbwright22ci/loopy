@@ -4,18 +4,98 @@
 {% block titlehead %} Yarn Shop {% endblock %}
 
 {% block extracss %}
-        {% endblock %}
+<link rel="stylesheet" href="{% static 'product/css/product.css' %}">
+{% endblock %}
 
 {% block page_header %}
 <div class="top-padding">
 </div>
-            {% endblock %}
+{% endblock %}
+
 
 {% block content %}
 
-Page loads 
+<div class="container p-4">
+        <div class="row justify-content-end">
+                <div class="col-12 col-md-8 col-lg-4">
+                        <form class="d-flex" role="search" method="GET" action="">
+                                <input class="form-control me-2 search-box" type="search" name="q"
+                                        placeholder="Find your yarn!" aria-label="Search">
+                                <span class="search-sudo-button" type="submit"><i
+                                                class="fa-solid fa-magnifying-glass nav-icon"></i></span>
+                        </form>
+                </div>
+        </div>
+        <div class="row p-4">
+                <div class="col-12">
+                        <h1 class="page-heading"> Yarn shop </h1>
+                </div>
+        </div>
 
-<h1> Yarn shop </h1>
+        <div class="row d-block d-lg-none">
+                <div class="col-6">
+                        <!--filter-->
+                        button to open up filter options
+                </div>
+                <div class="col-6">
+                        <!--filter-->
+                        sort drop down
+                </div>
+        </div>
+
+        <div class="row justify-content-start">
+                <div class="col-12">
+                        <p class="small-text"> X yarns for filters/search term <a>reset</a></p>
+                </div>
+        </div>
+<div class="row">
+        {% for product in product_list %}
+        <div class="col-12 col-md-6 col-lg-4 text-center">
+
+                <div class="card">
+                        <a class="card-link" href="#"
+                                aria-label="takes you to a page where you can find out more information about {{ product.name }}">
+                                <img src="{{ product.image.url }}" class="card-img-top position-relative product-page-images"
+                                        alt=" A picture of {{ product.name }}">
+                                        {% if product.on_promotion %}
+                                                <span class="position-absolute top-2 start-2 translate-middle"><i class="fa-solid fa-tags"></i>
+                                                <span class="visually-hidden"> On promotion</span>   
+                                        </span>
+                                        {% endif %}
+                                <div class="card-body">
+                                        <p class="subtitle2"><span class="uppercase-text">{{ product.brand_id.name }}</span>
+                                         {{ product.name }}, {{ product.skein_weight }}g</p>
+                                        <p class="small-text">{{ product.thickness_id.name }}/ {{ product.fibre }}</p>
+                                        <p><strong> £{{ product.price }}</strong></p>
+                                </div>
+                        </a>
+                </div>
+
+        </div>
+
+        {% endfor %}
+</div>
+<div class="row">
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                        <li><a href="?page={{ page_obj.previous_page_number }}" class="btn btn-second"> &laquo;
+                                        PREVIOUS</a></li>
+                        {% endif %}
+                        {% if page_obj.has_next %}
+                        <li><a href="?page={{ page_obj.next_page_number }}" class=" btn btn-second"> NEXT &raquo;</a>
+                        </li>
+                        {% endif %}
+                </ul>
+        </nav>
+        {% endif %}
+</div>
+</div>
+
+Page loads
+
+
 
 {% endblock %}
 

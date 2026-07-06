@@ -1,0 +1,17 @@
+.card-link,
+.card-link:hover,
+.card-link:active{
+    color:var(--primary-text-color);
+    text-decoration: none;
+}
+
+.product-page-images{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-width: 28rem;
+    border-radius: 2rem;
+}
+
+.card{
+    border:none;
+}

@@ -78,14 +78,14 @@ class Product(models.Model):
     image = models.ImageField(blank = True, null=True)
 
     def __str__(self):
-        return f'{self.name}, {self.skein_weight}g'
+        return f'{self.brand_id.name} {self.name}, {self.skein_weight}g'
 
     def save(self):
         """ Generates slug if not present"""
         if not self.slug:
-            ss = f'{self.name}-{self.skein_weight}'
+            ss = f'{self.brand_id.name}-{self.name}-{self.skein_weight}'
             self.slug = slugify(ss)
-        super(Product, self).save(*args, **kwargs)
+        super(Product, self).save()
 
 class Colour_var(models.Model):
     """" This model stores instances of each specific product- the yarn type (:model:`Product`) and the 
@@ -100,5 +100,5 @@ class Colour_var(models.Model):
     low_stock = models.BooleanField(default= False)
 
     def __str__(self):
-        return f'{self.product_id__name} colour option {self.colour_cat_id_name}' 
+        return f'{self.product_id.name} colour option {self.colour_cat_id.name}' 
 
