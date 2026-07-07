@@ -35,4 +35,5 @@ class AllProductsListView(generic.ListView):
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
         context['form'] = self.filterset.form
+        context['filters'] = self.filterset
         return context

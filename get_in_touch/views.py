@@ -1,7 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.conf import settings
-from django.core.mail import send_mail, EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 
@@ -47,8 +47,9 @@ def contact_page(request):
             msg.attach_alternative(html_message, "text/html")
             msg.send()
             in_touch.save()
-
-    form = ContactForm()
+            return redirect('allproducts')
+    else:
+        form = ContactForm()
 
     context ={ 
         'form': form,

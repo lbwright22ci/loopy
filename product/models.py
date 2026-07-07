@@ -12,7 +12,7 @@ class Brand(models.Model):
     manufacturer_patterns = models.URLField(max_length=1024, blank = True)
 
     def __str__(self):
-        return f'Brand: {self.name}'
+        return f'{self.name}'
     
 class Thickness(models.Model):
     """ Stores instances of yarn thickness
@@ -26,7 +26,7 @@ class Thickness(models.Model):
         verbose_name_plural = 'Thicknesses'
 
     def __str__(self):
-        return f'Uk terms: {self.name}'
+        return f'{self.name}'
     
 class Shade_Type(models.Model):
     """ Stores instances of shade type so that specific colours can be grouped into generic terms
@@ -109,5 +109,5 @@ class Colour_var(models.Model):
     low_stock = models.BooleanField(default= False)
 
     def __str__(self):
-        return f'{self.product_id.name} colour option {self.colour_cat_id.name}' 
+        return f'{self.product_id.name} colour option {self.colour_cat_id.colour_name}' 
 
