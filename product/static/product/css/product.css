@@ -16,3 +16,22 @@
 .card{
     border:none;
 }
+
+.pre-sale-price{
+    text-decoration: line-through;
+}
+
+.sale-price{
+    color:var(--error-color);
+    font-weight: bold;
+}
+
+.sale-icon{
+    font-size: 4rem;
+    color: var(--error-color);
+}
+
+.sale-ticket{
+    top:3rem;
+    left:3rem;
+}

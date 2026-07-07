@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from django.views import generic
 from django.db.models import Q
 
 from django_filters.views import FilterView
@@ -10,30 +9,26 @@ from .filters import YarnFilter
 
 # Create your views here.
 
-class AllProductsListView(generic.ListView):
+def AllProducts(request):
     """" """
-    queryset = Product.objects.all()
-    paginate_by = 12
-    template_name = 'product/all-products.html'
-    ordering = ['name']
-    context_object_name = 'product_list'
+    product_list = Product.objects.filter(visible=True)
+    form = YarnFilter().form
+    query = None
+    filters= None
+    sort = None
+    direction = None
 
-    # def update_fibres():
-    #     for product in Product.objects.all():
-    #         if product.fibre.__contains__('crylic')|(product.fibre.__contains__('iscose'))|(product.fibre.__contains__('oly'))|(product.fibre.__contains__('ylon'))| product.fibre.__contains__('henille'):
-    #             product.natural_fibres = False
-    #         else:
-    #             product.natural_fibres = True
-    #         product.save()
-    # update_fibres()
+    if request.GET:
 
-    def get_queryset(self):
-        queryset =  super().get_queryset()
-        self.filterset = YarnFilter(self.request.GET, queryset = queryset)
-        return self.filterset.qs
-    
-    def get_context_data(self, **kwargs):
-        context =  super().get_context_data(**kwargs)
-        context['form'] = self.filterset.form
-        context['filters'] = self.filterset
-        return context
+        if 'extended-filter' in request.GET:
+            filters = YarnFilter(request.GET, queryset=Product.objects.filter(visible=True))
+            product_list = filters.qs
+            form = filters.form
+
+    context={
+        'product_list':product_list,
+        'form':form,
+    }
+    template = 'product/all-products.html'
+
+    return render(request, template, context)

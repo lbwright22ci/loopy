@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load tag-tools %}
 
 {% block titlehead %} Yarn Shop {% endblock %}
 
@@ -52,7 +53,7 @@
                 <div class="row">
                         <div class=" d-none d-lg-block col-lg-3">
                                 <div class="col-11">
-                                        <form method="GET" action="{% url 'allproducts' %}" >
+                                        <form method="GET" action="{% url 'allproducts' %}" name ="extended-filter">
                                                 {{ form|crispy }}
                                                 
                                                 <button type="submit" class="btn btn-main" > Filter</button>
@@ -186,7 +187,7 @@
                                                                         <img src="{{ product.image.url }}" class="card-img-top position-relative product-page-images"
                                                                              alt=" A picture of {{ product.name }}">
                                                                         {% if product.on_promotion %}
-                                                                                <span class="position-absolute top-2 start-2 translate-middle"><i class="fa-solid fa-tags"></i>
+                                                                                <span class="position-absolute translate-middle sale-ticket"><i class=" sale-icon fa-solid fa-tags"></i>
                                                                                         <span class="visually-hidden"> On promotion</span>
                                                                                 </span>
                                                                         {% endif %}
@@ -194,7 +195,14 @@
                                                                                 <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
                                                                                         {{ product.name }}</p>
                                                                                 <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
-                                                                                <p><strong> £{{ product.price }}</strong></p>
+                                                                                <p>
+                                                                                        {% if product.on_promotion %}
+                                                                                        <span class="small-text pre-sale-price">£{{ product.price }} </span>
+                                                                                         <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                                                        {% else %}
+                                                                                        <strong>£{{ product.price }}</strong>
+                                                                                        {% endif %}
+                                                                                </p>
                                                                         </div>
                                                                 </a>
                                                         </div>

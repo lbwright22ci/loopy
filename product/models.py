@@ -79,6 +79,9 @@ class Product(models.Model):
     on_promotion = models.BooleanField(default = False)
     image = models.ImageField(blank = True, null=True)
 
+    class Meta:
+        ordering=['name'] 
+
     def __str__(self):
         return f'{self.brand_id.name} {self.name}, {self.skein_weight}g'
 
