@@ -16,7 +16,7 @@
             <div class=" row mb-4">
               <div class="col-lg-6 ">
                 <li><a class="dropdown-item" href="{% url 'allproducts' %}" aria-label="go to a list of all yarns for sale">All yarn</a></li>
-                <li><a class="dropdown-item" href="#" aria-label="filter to show only yarn on promotion">Promotions</a></li>
+                <li><a class="dropdown-item" href="{% url 'allproducts' %}?sale=true" aria-label="filter to show only yarn on promotion">Promotions</a></li>
               </div>
 
               <div class="col-lg-3">
@@ -31,42 +31,42 @@
               <div class="col-lg-3">
                 <li class="uppercase-text">Brands</li>
                 <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?brand=drops" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?brand=sirdar" aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?brand=stylecraft" aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
                 <li class="uppercase-text">Thickness</li>
                 <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 2 ply">2 ply</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness 4 ply">4 ply</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness double knit">Double Knit</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness aran">Aran</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness chunky"> Chunky</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn with thickness super chunky"> Super Chunky</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=2" aria-label="filter to show only yarn with thickness 2 ply">2 ply</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=4" aria-label="filter to show only yarn with thickness 4 ply">4 ply</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=DK" aria-label="filter to show only yarn with thickness double knit">Double Knit</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=Aran" aria-label="filter to show only yarn with thickness aran">Aran</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=Chunky" aria-label="filter to show only yarn with thickness chunky"> Chunky</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=super" aria-label="filter to show only yarn with thickness super chunky"> Super Chunky</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
                 <li class="uppercase-text">Fibre</li>
                 <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing alpaca yarn"> Alpaca</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Acrylic</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Cotton</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool">Merino</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Wool</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> 100% Natural fibres</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=alpaca" aria-label="filter to show only yarn containing alpaca yarn"> Alpaca</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=acrylic" aria-label="filter to show only yarn containing acrylic yarn">Acrylic</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=cotton" aria-label="filter to show only yarn containing cotton">Cotton</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=merino" aria-label="filter to show only yarn containing merino wool">Merino</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=wool" aria-label="filter to show only yarn containing wool">Wool</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=alpaca,cotton,merino,cashmere,wool,bamboo,silk,hemp" aria-label="filter to show only yarn made from natural sources"> 100% Natural fibres</a></li>
                 </ul>
               </div>
               <div class="col-lg-3">
                 <li class="uppercase-text">Colour</li>
                 <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only varigated coloured yarn"> Multi</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing acrylic yarn">Neutral (greys, browns)</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing cotton">Blue</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing merino wool"> Green</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn containing wool">Reds (red, pink, purple) </a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="#" aria-label="filter to show only yarn made from natural sources"> Yellows (yellow, orange) </a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=multi" aria-label="filter to show only varigated coloured yarn"> Multi</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=grey,brown,beige" aria-label="filter to show only yarn containing acrylic yarn">Neutral (greys, browns)</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=blue" aria-label="filter to show only yarn containing cotton">Blue</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=green" aria-label="filter to show only yarn containing merino wool"> Green</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=red,pink,purple" aria-label="filter to show only yarn containing wool">Reds (red, pink, purple) </a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=yellow,orange" aria-label="filter to show only yarn made from natural sources"> Yellows (yellow, orange) </a></li>
                 </ul>
               </div>
             </div>
