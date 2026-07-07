@@ -179,6 +179,7 @@
                         <div class="col-12 col-lg-9">
                                 <div class="row">
                                         {% for product in product_list %}
+                                        {% if product.visible %}
                                                 <div class="col-12 col-md-6 col-lg-4 text-center">
 
                                                         <div class="card">
@@ -203,12 +204,13 @@
                                                                                         <strong>£{{ product.price }}</strong>
                                                                                         {% endif %}
                                                                                 </p>
+                                                                                {{ product.product.colour_cat_id.shade_type_id.name }}
                                                                         </div>
                                                                 </a>
                                                         </div>
 
                                                 </div>
-
+                                        {% endif %}
                                         {% endfor %}
                                 </div>
                         </div>
