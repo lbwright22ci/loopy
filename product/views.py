@@ -1,9 +1,9 @@
 from django.shortcuts import render, reverse, redirect
 from django.db.models import Q
+from django.contrib import messages
+from django.core.paginator import Paginator
 
-from django_filters.views import FilterView
-
-from .models import Product, Colour_cat, Colour_var, Brand, Thickness, Shade_Type
+from .models import Product
 from .filters import YarnFilter
 
 
@@ -12,7 +12,7 @@ from .filters import YarnFilter
 def AllProducts(request):
     """" """
     product_list = Product.objects.filter(visible=True)
-    form = YarnFilter().form
+    form = YarnFilter(request.GET,queryset=Product.objects.all()).form
     
     query = None
     filters= None
@@ -28,13 +28,14 @@ def AllProducts(request):
 
     if request.GET:
         if 'extended-filter' in request.GET:
-            filters = YarnFilter(request.GET, queryset=Product.objects.filter(visible=True))
+            filters = YarnFilter(request.GET, queryset=Product.objects.all())
             product_list = filters.qs
             form = filters.form
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
-                messages.error(request, "There was nothing in your search request")
+                messages.add_message(
+                request, messages.ERROR, "There was nothing in your search request")
                 return redirect(reverse('allproducts'))            
             queries = Q(name__icontains=query) | Q(fibre__icontains=query) | Q(thickness_id__name__icontains=query)| Q(thickness_id__alt_names__icontains = query) | Q(brand_id__name__icontains=query)
             product_list = product_list.filter(queries)
@@ -60,6 +61,10 @@ def AllProducts(request):
             natural_yarn = True
             product_list= product_list.filter(natural_fibres=True)
 
+    paginator = Paginator(product_list,12)
+    page_number= request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
+
     context={
         'product_list':product_list,
         'form':form,
@@ -70,6 +75,7 @@ def AllProducts(request):
         'sales':sales,
         'natural':natural_yarn,
         'current_query':query,
+        'page_obj':page_obj,
     }
     template = 'product/all-products.html'
 

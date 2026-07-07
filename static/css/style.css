@@ -355,8 +355,7 @@ li .sub-menu-item,
 
 .toast-body{
     background-color: var(--primary-background-color);
-    opacity: 80%;
-    
+    opacity: 90%;
     font-size: 1.6rem;
     border-radius: 2rem 0 0 2rem;
     margin-right:0;
