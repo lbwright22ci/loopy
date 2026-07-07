@@ -132,7 +132,7 @@
                 <div class="col-12">
                         <p><a  href="{% url 'allproducts' %}" aria-label="go to a list of all yarns for sale">All
                                 yarn</a></p>
-                        <p><a  href="#"
+                        <p><a  href="{% url 'allproducts' %}?sale=true"
                               aria-label="filter to show only yarn on promotion">Promotions</a>
                         </p>
                 </div>
@@ -163,13 +163,13 @@
                         <div id="collapseOne" class="accordion-collapse collapse"
                              data-bs-parent="#mob-yarn-filter-accord">
                                 <ul class="accord-list">
-                                        <li><a class="text-small" href="#"
+                                        <li><a class="text-small" href="{% url 'allproducts' %}?brand=drops"
                                                aria-label="Filter to show only yarn with brand 'Drops'">Drops</a>
                                         </li>
-                                        <li><a class="text-small" href="#"
+                                        <li><a class="text-small" href="{% url 'allproducts' %}?brand=sirdar"
                                                aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a>
                                         </li>
-                                        <li><a class="text-small" href="#"
+                                        <li><a class="text-small" href="{% url 'allproducts' %}?brand=stylecraft"
                                                aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a>
                                         </li>
                                 </ul>
@@ -183,23 +183,23 @@
                         <div id="collapseTwo" class="accordion-collapse collapse"
                              data-bs-parent="#mob-yarn-filter-accord">
                                 <ul class="accord-list">
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=2"
                                                aria-label="Filter to show only 2 ply yarn">2 ply</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=4"
                                                aria-label="Filter to show only 4 ply yarn">4 ply</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=DK"
                                                aria-label="Filter to show only double knit yarn">Double
                                                 knit</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Aran"
                                                aria-label="Filter to show only aran">Aran</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Chunky"
                                                aria-label="Filter to show only chunky yarn">Chunky</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Super"
                                                aria-label="Filter to show only super chunky yarn">Super
                                                 Chunky</a>
                                         </li>
@@ -215,22 +215,22 @@
                         <div id="collapseThree" class="accordion-collapse collapse"
                              data-bs-parent="#mob-yarn-filter-accord">
                                 <ul class="accord-list">
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Alpaca"
                                                aria-label="Filter to show only alpaca yarn">Alpaca</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Acrylic"
                                                aria-label="Filter to show only acrylic yarn">Acrylic</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Cotton"
                                                aria-label="Filter to show only cotton yarn">Cotton</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Merino"
                                                aria-label="Filter to show only merino yarn">Merino</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Wool"
                                                aria-label="Filter to show only wool yarn">Wool</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?natural=true"
                                                aria-label="Filter to show only natural yarn">100%
                                                 Natural
                                                 fibres</a>
@@ -247,22 +247,22 @@
                         <div id="collapseFour" class="accordion-collapse collapse"
                              data-bs-parent="#mob-yarn-filter-accord">
                                 <ul class="accord-list">
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=multi"
                                                aria-label="Filter to show only varigated coloured yarn">Multi</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=beige,grey,black,brown"
                                                aria-label="Filter to show only neutral coloured yarn">Neutral</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=blue"
                                                aria-label="Filter to show only blue yarn">Blue</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=green"
                                                aria-label="Filter to show only green yarn">Green</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=red,pink,purple"
                                                aria-label="Filter to show only red yarn">Red</a>
                                         </li>
-                                        <li><a class="small-text" href="#"
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=yellow,orange"
                                                aria-label="Filter to show only yellow yarn">Yellow</a>
                                         </li>
                                 </ul>
