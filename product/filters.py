@@ -3,7 +3,7 @@ from django.db import models
 
 import django_filters
 
-from .models import Product, Brand, Thickness, Colour_cat
+from .models import Product, Brand, Thickness
 
 
 class YarnFilter(django_filters.FilterSet):
@@ -24,14 +24,6 @@ class YarnFilter(django_filters.FilterSet):
         label_suffix="",
     )
 
-    # product__colour_cat_id=django_filters.ModelMultipleChoiceFilter(
-    #     queryset= Colour_cat.objects.all(),
-    #     to_field_name='id',
-    #     widget=forms.CheckboxSelectMultiple(),
-    #     label="Colour",
-    #     label_suffix="",
-    # )
-
     FIBRE_CHOICES =(
         ('Alpaca', 'Alpaca'),
         ('Acrylic', 'Acrylic'),
@@ -48,11 +40,11 @@ class YarnFilter(django_filters.FilterSet):
     )
 
     COLOUR_CHOICES=(
-        ('Yellow', 'Yellow'),
-        ('Red', 'Red'),
+        ('yellow', 'Yellow'),
+        ('red', 'Red'),
     )
 
-    product__colour_cat_id__icontains = django_filters.MultipleChoiceFilter(
+    product__colour_cat_id__in = django_filters.MultipleChoiceFilter(
         choices = COLOUR_CHOICES,
         widget=forms.CheckboxSelectMultiple(),
         label="Colour",
@@ -60,7 +52,7 @@ class YarnFilter(django_filters.FilterSet):
 
     class Meta:
         model = Product
-        fields = [ 'on_promotion', 'machine_wash', 'natural_fibres', 'product__colour_cat_id__icontains', 'brand_id', 'thickness_id', 'fibre__icontains'
+        fields = [ 'on_promotion', 'machine_wash', 'natural_fibres', 'product__colour_cat_id__in', 'brand_id', 'thickness_id', 'fibre__icontains'
                   ]
         filter_overrides ={
             models.BooleanField:{
