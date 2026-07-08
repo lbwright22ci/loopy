@@ -51,10 +51,10 @@
                 <div class="row">
                         <div class=" d-none d-lg-block col-lg-3">
                                 <div class="col-11">
-                                        <form method="GET" action="{% url 'allproducts' %}" >
-                                                <div name="extended-filter">
-                                                {{ form|crispy }}
-                                                </div>
+                                        <form method="GET" action="{% url 'allproducts' %}"  role="filter" name="filter-form" >
+                                                
+                                                {{ form |crispy }}
+                                                
                                                 <button type="submit" class="btn btn-main" > Filter</button>
                                         </form>
                                         <div class=" accordion" id="mob-yarn-filter-accord">
@@ -173,7 +173,7 @@
                                                 </div>
                                         </div>
                                 </div>
-                                <div class="col-1 vr me-2"></div>
+                                
                         </div>
                         <div class="col-12 col-lg-9">
                                 <div class="row">
