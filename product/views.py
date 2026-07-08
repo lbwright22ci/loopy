@@ -1,11 +1,9 @@
 from django.shortcuts import render, reverse, redirect
 from django.db.models import Q
 from django.contrib import messages
-from django.http import QueryDict
-# from django.core.paginator import Paginator
 
 from .models import Product
-from .filters import YarnFilter
+
 
 
 # Create your views here.
@@ -21,7 +19,7 @@ def AllProducts(request):
     sales = None
     thicknesses = None
     fibres = None
-    colours = None
+    prices = None
     natural_yarn= None
     machine_wash=None
 
@@ -52,9 +50,23 @@ def AllProducts(request):
         if 'fibre' in request.GET:
             fibres = request.GET['fibre']
             product_list = product_list.filter(fibre__icontains=fibres)
-        if 'colour' in request.GET:
-            colours = request.GET['colour'].split(',')
-            product_list = set(product_list.filter(product__colour_cat_id__shade_type_id__name__in=colours))
+        if 'price' in request.GET:
+            prices = request.GET['price']
+            if prices =='(0,2)':
+                product_list = product_list.filter(price__range=(0,2))
+                prices = '0-2'
+            elif prices =='(2,4)':
+                product_list = product_list.filter(price__range=(2.01,4.00))
+                prices = '2-4'
+            elif prices =='(4,6)':
+                product_list = product_list.filter(price__range=(4.01,6.00))
+                prices = '4-6'
+            elif prices =='(6,10)':
+                product_list = product_list.filter(price__range=(6.01,10))
+                prices = '6-10'
+            elif prices =='(10,20)':
+                product_list = product_list.filter(price__range=(10.01,100))
+                prices = '10+'
         if 'sale' in request.GET:
             sales = True
             product_list = product_list.filter(on_promotion=True)
@@ -71,12 +83,11 @@ def AllProducts(request):
         'current_brand':brands,
         'current_thickness':thicknesses,
         'current_fibres':fibres,
-        'current_colours':colours,
+        'current_prices':prices,
         'sales':sales,
         'natural':natural_yarn,
         'machine_wash':machine_wash,
         'current_query':query,
-
     }
     template = 'product/all-products.html'
 

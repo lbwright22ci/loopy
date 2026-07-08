@@ -242,29 +242,22 @@
                         <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
                            data-bs-target="#collapseFour" aria-expanded="false"
                            aria-controls="collapseFour">
-                                Colour
+                                Price range
                         </a>
                         <div id="collapseFour" class="accordion-collapse collapse"
                              data-bs-parent="#mob-yarn-filter-accord">
                                 <ul class="accord-list">
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=multi"
-                                               aria-label="Filter to show only varigated coloured yarn">Multi</a>
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(0,2)" aria-label="filter to show only yarns in the price range 0-£2"> £0-£2.00</a>
                                         </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=beige,grey,black,brown"
-                                               aria-label="Filter to show only neutral coloured yarn">Neutral</a>
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(2,4)" aria-label="filter to show only yarns in the price range £2-£4">£2.01-£4</a>
                                         </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=blue"
-                                               aria-label="Filter to show only blue yarn">Blue</a>
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(4,6)" aria-label="filter to show only yarns in the price range £4-£6">£4.01-£6</a>
                                         </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=green"
-                                               aria-label="Filter to show only green yarn">Green</a>
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(6,10)" aria-label="filter to show only yarns in the price range £6-£10"> £6.01-£10</a>
                                         </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=red,pink,purple"
-                                               aria-label="Filter to show only red yarn">Red</a>
+                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(10,20)" aria-label="filter to show only yarns with price above £10"> £10.01+ </a>
                                         </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?colour=yellow,orange"
-                                               aria-label="Filter to show only yellow yarn">Yellow</a>
-                                        </li>
+
                                 </ul>
                         </div>
                 </div>

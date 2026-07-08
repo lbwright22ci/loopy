@@ -116,13 +116,6 @@
                                                                 </label> </div>
                                                                 <div class="form-check"> <input type="radio"
                                                                                                 class="form-check-input" name="thickness"
-                                                                                                value="3" id="id_thickness_id_1"> <label
-                                                                        for="id_thickness_id_1"
-                                                                        class="form-check-label">
-                                                                        3 ply
-                                                                </label> </div>
-                                                                <div class="form-check"> <input type="radio"
-                                                                                                class="form-check-input" name="thickness"
                                                                                                 value="4" id="id_thickness_id_2"> <label
                                                                         for="id_thickness_id_2"
                                                                         class="form-check-label">
@@ -199,7 +192,49 @@
                                                                                 Wool
                                                                         </label> </div>
                                                         </div>
-                                                </div><button type="submit" class="btn btn-main" > Filter</button>
+                                                </div>
+                                                                                                <div id="div_id_price" class="mb-3"> <label class="form-label">
+                                                        Price Range
+                                                </label>
+                                                        <div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="price"
+                                                                                                value="(0,2)" id="id_price_id_0"> <label
+                                                                        for="id_price_id_0"
+                                                                        class="form-check-label">
+                                                                        £0-£2.00
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="price"
+                                                                                                value="(2,4)" id="id_price_id_2"> <label
+                                                                        for="id_price_id_2"
+                                                                        class="form-check-label">
+                                                                        £2.01-£4.00
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="price"
+                                                                                                value="(4,6)" id="id_price_id_6"> <label
+                                                                        for="id_price_id_6"
+                                                                        class="form-check-label">
+                                                                        £4.01-£6.00
+                                                                </label></div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="price"
+                                                                                                value="(6,10)" id="id_price_id_4"> <label
+                                                                        for="id_price_id_4"
+                                                                        class="form-check-label">
+                                                                        £6.01-£10.00
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="price"
+                                                                                                value="(10,20)" id="id_price_id_5"> <label
+                                                                        for="id_price_id_5"
+                                                                        class="form-check-label">
+                                                                        £10.01+
+                                                                </label> </div>
+                                                        </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-main" > Filter</button>
                                         </form>
                                 </div>
 
@@ -222,6 +257,9 @@
                                                         {% if current_thickness %}
                                                                 for yarn thickness = {{ current_thickness }} |
                                                         {% endif %}
+                                                        {% if current_prices %}
+                                                                in the price range = £ {{ current_prices }} |
+                                                        {% endif %}
                                                         {% if current_query %}
                                                                 for search term = {{ current_query }} |
                                                         {% endif %}
@@ -234,7 +272,7 @@
                                                         {% if machine_wash %}
                                                                 which are machine washable |
                                                         {% endif %}
-                                                        {% if machine_wash or natural or sales or current_query or current_brand or current_fibres or current_thickness %}
+                                                        {% if current_prices or machine_wash or natural or sales or current_query or current_brand or current_fibres or current_thickness %}
                                                                 <a href="{% url 'allproducts' %}"
                                                                    aria-label="removes all search terms and filters to
                                                                                reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>

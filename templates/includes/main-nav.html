@@ -59,14 +59,14 @@
                 </ul>
               </div>
               <div class="col-lg-3">
-                <li class="uppercase-text">Price</li>
+                <li class="uppercase-text">Price range</li>
                 <ul>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=multi" aria-label="filter to show only varigated coloured yarn"> Multi</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=grey,brown,beige" aria-label="filter to show only yarn containing acrylic yarn">Neutral (greys, browns)</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=blue" aria-label="filter to show only yarn containing cotton">Blue</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=green" aria-label="filter to show only yarn containing merino wool"> Green</a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=red,pink,purple" aria-label="filter to show only yarn containing wool">Reds (red, pink, purple) </a></li>
-                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?colour=yellow,orange" aria-label="filter to show only yarn made from natural sources"> Yellows (yellow, orange) </a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(0,2)" aria-label="filter to show only yarns in the price range 0-£2"> £0-£2.00</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(2,4)" aria-label="filter to show only yarns in the price range £2-£4">£2.01-£4</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(4,6)" aria-label="filter to show only yarns in the price range £4-£6">£4.01-£6</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(6,10)" aria-label="filter to show only yarns in the price range £6-£10"> £6.01-£10</a></li>
+                  <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(10,20)" aria-label="filter to show only yarns with price above £10"> £10.01+ </a></li>
+                  
                 </ul>
               </div>
             </div>
