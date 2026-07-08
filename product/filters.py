@@ -8,36 +8,37 @@ from .models import Product, Brand, Thickness
 
 class YarnFilter(django_filters.FilterSet):
 
-    # brand_id = django_filters.ModelMultipleChoiceFilter(
-    #     queryset = Brand.objects.all(), 
-    #     to_field_name='id',
-    #     widget= forms.CheckboxSelectMultiple(),
-    #     label = 'Brand',
-    #     label_suffix ="",
-    #     )
 
-    # thickness_id = django_filters.ModelMultipleChoiceFilter(
-    #     queryset= Thickness.objects.all(),
-    #     to_field_name='id',
-    #     widget=forms.CheckboxSelectMultiple(),
-    #     label="Thickness",
-    #     label_suffix="",
-    # )
+    brand_id = django_filters.ModelMultipleChoiceFilter(
+        queryset = Brand.objects.all(), 
+        to_field_name='id',
+        widget= forms.CheckboxSelectMultiple(),
+        label = 'Brand',
+        label_suffix ="try",
+        )
 
-    # FIBRE_CHOICES =(
-    #     ('Alpaca', 'Alpaca'),
-    #     ('Acrylic', 'Acrylic'),
-    #     ('Cotton', 'Cotton'),
-    #     ('Chenille', 'Chenille'),
-    #     ('Merino', 'Merino'),
-    #     ('Wool', 'Wool'),
-    # )
+    thickness_id = django_filters.ModelMultipleChoiceFilter(
+        queryset= Thickness.objects.all(),
+        to_field_name='id',
+        widget=forms.CheckboxSelectMultiple(),
+        label="Thickness",
+        label_suffix="",
+    )
 
-    # fibre__icontains = django_filters.MultipleChoiceFilter(
-    #     choices = FIBRE_CHOICES,
-    #     widget=forms.CheckboxSelectMultiple(),
-    #     label = "Fibre",
-    # )
+    FIBRE_CHOICES =(
+        ('Alpaca', 'Alpaca'),
+        ('Acrylic', 'Acrylic'),
+        ('Cotton', 'Cotton'),
+        ('Chenille', 'Chenille'),
+        ('Merino', 'Merino'),
+        ('Wool', 'Wool'),
+    )
+
+    fibre__icontains = django_filters.MultipleChoiceFilter(
+        choices = FIBRE_CHOICES,
+        widget=forms.CheckboxSelectMultiple(),
+        label = "Fibre",
+    )
 
     # COLOUR_CHOICES=(
     #     ('yellow', 'Yellow'),
@@ -52,10 +53,7 @@ class YarnFilter(django_filters.FilterSet):
 
     class Meta:
         model = Product
-        fields = [ 'on_promotion', 'machine_wash', 'natural_fibres', 'price']
-                  
-                #   'brand_id', 'thickness_id', 'fibre__icontains'
-                #   ]
+        fields = { 'on_promotion': ['exact'], 'machine_wash':['exact'], 'natural_fibres':['exact']}
         filter_overrides ={
             models.BooleanField:{
                 'filter_class':django_filters.BooleanFilter,

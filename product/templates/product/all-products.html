@@ -27,8 +27,8 @@
                                                 class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                                 </form>
                         </div>
-                
-                
+
+
                         <div class="col-12 col-lg-6 order-first">
                                 <h1 class="page-heading"> Yarn shop </h1>
                         </div>
@@ -51,200 +51,233 @@
                 <div class="row">
                         <div class=" d-none d-lg-block col-lg-3">
                                 <div class="col-11">
-                                        <form method="GET" action="{% url 'allproducts' %}"  role="filter" name="filter-form" >
-                                                
-                                                {{ form |crispy }}
-                                                
-                                                <button type="submit" class="btn btn-main" > Filter</button>
+                                        <form method="GET" action="{% url 'allproducts' %}" role="filter" name="filter-form">
+                                                <div class="mb-3">
+                                                        <div id="div_id_on_promotion" class="mb-3 form-check"> <input
+                                                                type="checkbox" name="sale"
+                                                                class="checkboxinput form-check-input"
+                                                                id="id_on_promotion"> <label for="id_on_promotion"
+                                                                                             class="form-check-label">
+                                                                        On promotion
+                                                                </label> </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                        <div id="div_id_machine_wash" class="mb-3 form-check"> <input
+                                                                type="checkbox" name="machine_wash"
+                                                                class="checkboxinput form-check-input"
+                                                                id="id_machine_wash"> <label for="id_machine_wash"
+                                                                                             class="form-check-label">
+                                                                        Machine wash
+                                                                </label> </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                        <div id="div_id_natural_fibres" class="mb-3 form-check"> <input
+                                                                type="checkbox" name="natural"
+                                                                class="checkboxinput form-check-input"
+                                                                id="id_natural_fibres"> <label for="id_natural_fibres"
+                                                                                               class="form-check-label">
+                                                                        Natural fibres
+                                                                </label> </div>
+                                                </div>
+                                                <div id="div_id_brand_id" class="mb-3"> <label class="form-label">
+                                                        Brand
+                                                </label>
+                                                        <div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="brand"
+                                                                                                value="drops" id="id_brand_id_0"> <label
+                                                                        for="id_brand_id_0" class="form-check-label">
+                                                                        DROPS
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="brand"
+                                                                                                value="sirdar" id="id_brand_id_1"> <label
+                                                                        for="id_brand_id_1" class="form-check-label">
+                                                                        Sirdar
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="brand"
+                                                                                                value="stylecraft" id="id_brand_id_2"> <label
+                                                                        for="id_brand_id_2" class="form-check-label">
+                                                                        Stylecraft
+                                                                </label> </div>
+                                                        </div>
+                                                </div>
+                                                <div id="div_id_thickness_id" class="mb-3"> <label class="form-label">
+                                                        Thickness
+                                                </label>
+                                                        <div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="thickness"
+                                                                                                value="2" id="id_thickness_id_0"> <label
+                                                                        for="id_thickness_id_0"
+                                                                        class="form-check-label">
+                                                                        2 ply
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="thickness"
+                                                                                                value="3" id="id_thickness_id_1"> <label
+                                                                        for="id_thickness_id_1"
+                                                                        class="form-check-label">
+                                                                        3 ply
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="thickness"
+                                                                                                value="4" id="id_thickness_id_2"> <label
+                                                                        for="id_thickness_id_2"
+                                                                        class="form-check-label">
+                                                                        4 ply
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="thickness"
+                                                                                                value="DK" id="id_thickness_id_6"> <label
+                                                                        for="id_thickness_id_6"
+                                                                        class="form-check-label">
+                                                                        Double Knit
+                                                                </label></div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="thickness"
+                                                                                                value="aran" id="id_thickness_id_4"> <label
+                                                                        for="id_thickness_id_4"
+                                                                        class="form-check-label">
+                                                                        Aran
+                                                                </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="thickness"
+                                                                                                value="chunky" id="id_thickness_id_5"> <label
+                                                                        for="id_thickness_id_5"
+                                                                        class="form-check-label">
+                                                                        Chunky
+                                                                </label> </div>
+
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="thickness"
+                                                                                                value="chunky" id="id_thickness_id_7"> <label
+                                                                        for="id_thickness_id_7"
+                                                                        class="form-check-label">
+                                                                        Super Chunky
+                                                                </label> </div>
+                                                        </div>
+                                                </div>
+                                                <div id="div_id_fibre__icontains" class="mb-3"> <label class="form-label">
+                                                        Fibre
+                                                </label>
+                                                        <div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="fibre"
+                                                                                                value="Alpaca" id="id_fibre__icontains_0">
+                                                                        <label for="id_fibre__icontains_0"
+                                                                               class="form-check-label">
+                                                                                Alpaca
+                                                                        </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="fibre"
+                                                                                                value="Acrylic" id="id_fibre__icontains_1">
+                                                                        <label for="id_fibre__icontains_1"
+                                                                               class="form-check-label">
+                                                                                Acrylic
+                                                                        </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="fibre"
+                                                                                                value="Cotton" id="id_fibre__icontains_2">
+                                                                        <label for="id_fibre__icontains_2"
+                                                                               class="form-check-label">
+                                                                                Cotton
+                                                                        </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="fibre"
+                                                                                                value="Merino" id="id_fibre__icontains_3">
+                                                                        <label for="id_fibre__icontains_3"
+                                                                               class="form-check-label">
+                                                                                Merino
+                                                                        </label> </div>
+                                                                <div class="form-check"> <input type="radio"
+                                                                                                class="form-check-input" name="fibre"
+                                                                                                value="Wool" id="id_fibre__icontains_4">
+                                                                        <label for="id_fibre__icontains_4"
+                                                                               class="form-check-label">
+                                                                                Wool
+                                                                        </label> </div>
+                                                        </div>
+                                                </div><button type="submit" class="btn btn-main" > Filter</button>
                                         </form>
-                                        <div class=" accordion" id="mob-yarn-filter-accord">
-                                                <div class="accordion-item">
-                                                        <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
-                                                           data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                                                Brands
-                                                        </a>
-                                                        <div id="collapseOne" class="accordion-collapse collapse"
-                                                             data-bs-parent="#mob-yarn-filter-accord">
-                                                                <ul class="accord-list">
-                                                                        <li><a class="text-small" href="#"
-                                                                               aria-label="Filter to show only yarn with brand 'Drops'">Drops</a>
-                                                                        </li>
-                                                                        <li><a class="text-small" href="#"
-                                                                               aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a>
-                                                                        </li>
-                                                                        <li><a class="text-small" href="#"
-                                                                               aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a>
-                                                                        </li>
-                                                                </ul>
-                                                        </div>
-                                                </div>
-                                                <div class="accordion-item">
-                                                        <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
-                                                           data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                                Thickness
-                                                        </a>
-                                                        <div id="collapseTwo" class="accordion-collapse collapse"
-                                                             data-bs-parent="#mob-yarn-filter-accord">
-                                                                <ul class="accord-list">
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only 2 ply yarn">2 ply</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only 4 ply yarn">4 ply</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only double knit yarn">Double
-                                                                                knit</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only aran">Aran</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only chunky yarn">Chunky</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only super chunky yarn">Super
-                                                                                Chunky</a>
-                                                                        </li>
-                                                                </ul>
-                                                        </div>
-                                                </div>
-                                                <div class="accordion-item">
-                                                        <a class="accordion-button uppercase-text dropdown-toggle " type="button" data-bs-toggle="collapse"
-                                                           data-bs-target="#collapseThree" aria-expanded="false"
-                                                           aria-controls="collapseThree">
-                                                                Fibre
-                                                        </a>
-                                                        <div id="collapseThree" class="accordion-collapse collapse"
-                                                             data-bs-parent="#mob-yarn-filter-accord">
-                                                                <ul class="accord-list">
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only alpaca yarn">Alpaca</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only acrylic yarn">Acrylic</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only cotton yarn">Cotton</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only merino yarn">Merino</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only wool yarn">Wool</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only natural yarn">100%
-                                                                                Natural
-                                                                                fibres</a>
-                                                                        </li>
-                                                                </ul>
-                                                        </div>
-                                                </div>
-                                                <div class="accordion-item">
-                                                        <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
-                                                           data-bs-target="#collapseFour" aria-expanded="false"
-                                                           aria-controls="collapseFour">
-                                                                Colour
-                                                        </a>
-                                                        <div id="collapseFour" class="accordion-collapse collapse"
-                                                             data-bs-parent="#mob-yarn-filter-accord">
-                                                                <ul class="accord-list">
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only varigated coloured yarn">Multi</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only neutral coloured yarn">Neutral</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only blue yarn">Blue</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only green yarn">Green</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only red yarn">Red</a>
-                                                                        </li>
-                                                                        <li><a class="small-text" href="#"
-                                                                               aria-label="Filter to show only yellow yarn">Yellow</a>
-                                                                        </li>
-                                                                </ul>
-                                                        </div>
-                                                </div>
-                                        </div>
                                 </div>
-                                
+
                         </div>
                         <div class="col-12 col-lg-9">
                                 <div class="row">
-                        <div class="col-12">
-                                <p class="small-text"> {{ product_list|length }} yarns 
-                                         {% if brand %} 
-                                         for brand = {{ current_brands }} <a href="{% url 'allproducts' %}" aria-label="removes all search terms and filters to 
-                                         reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
-                                         {% endif %}
-                                         {% if current_fibres %}
-                                         for fibre = {{ current_fibres }} <a href="{% url 'allproducts' %}" aria-label="removes all search terms and filters to 
-                                         reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
-                                         {% endif %}
-                                        {% if current_thickness %}
-                                         for yarn thickness = {{ current_thickness }} <a href="{% url 'allproducts' %}" aria-label="removes all search terms and filters to 
-                                         reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
-                                         {% endif %}
-                                         {% if current_query %}
-                                         for search term = {{ current_query }} <a href="{% url 'allproducts' %}" aria-label="removes all search terms and filters to 
-                                         reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
-                                         {% endif %}
-                                         {% if sales %}
-                                                on promotion <a href="{% url 'allproducts' %}" aria-label="removes all search terms and filters to 
-                                         reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
-                                         {% endif %}
-                                         {% if natural %}
-                                                100% natural yarns <a href="{% url 'allproducts' %}" aria-label="removes all search terms and filters to 
-                                         reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
-                                         {% endif %}
-                                         {% if current_colours %}
-                                                with colour options = 
-                                                {% for c in current_colours %}
-                                                {{ c }}
-                                                {% endfor %}<a href="{% url 'allproducts' %}" aria-label="removes all search terms and filters to 
-                                         reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
-                                         {% endif %}
-                                         </p>
-                        </div>
-                                        {% for product in page_obj %}
-                                        {% if product.visible %}
-                                                <div class="col-12 col-md-6 col-lg-4 text-center">
+                                        <div class="col-12">
+                                                <p class="small-text"> {{ product_list|length }} 
+                                                        {% if product_list|length == 1 %}
+                                                        yarn 
+                                                        {% else %}
+                                                        yarns 
+                                                        {% endif %}
+                                                        {% if current_brand %}
+                                                                for brand = {{ current_brand }} |
+                                                        {% endif %}
+                                                        {% if current_fibres %}
+                                                                for fibre = {{ current_fibres }} |
+                                                        {% endif %}
+                                                        {% if current_thickness %}
+                                                                for yarn thickness = {{ current_thickness }} |
+                                                        {% endif %}
+                                                        {% if current_query %}
+                                                                for search term = {{ current_query }} |
+                                                        {% endif %}
+                                                        {% if sales %}
+                                                                on promotion |
+                                                        {% endif %}
+                                                        {% if natural %}
+                                                                100% natural yarns |
+                                                        {% endif %}
+                                                        {% if machine_wash %}
+                                                                which are machine washable |
+                                                        {% endif %}
+                                                        {% if machine_wash or natural or sales or current_query or current_brand or current_fibres or current_thickness %}
+                                                                <a href="{% url 'allproducts' %}"
+                                                                   aria-label="removes all search terms and filters to
+                                                                               reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
 
-                                                        <div class="card">
-                                                                <a class="card-link" href="#"
-                                                                   aria-label="takes you to a page where you can find out more information about {{ product.name }}">
-                                                                        <img src="{{ product.image.url }}" class="card-img-top position-relative product-page-images"
-                                                                             alt=" A picture of {{ product.name }}">
-                                                                        {% if product.on_promotion %}
-                                                                                <span class="position-absolute translate-middle sale-ticket"><i class=" sale-icon fa-solid fa-tags"></i>
-                                                                                        <span class="visually-hidden"> On promotion</span>
-                                                                                </span>
-                                                                        {% endif %}
-                                                                        <div class="card-body">
-                                                                                <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
-                                                                                        {{ product.name }}</p>
-                                                                                <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
-                                                                                <p>
-                                                                                        {% if product.on_promotion %}
-                                                                                        <span class="small-text pre-sale-price">£{{ product.price }} </span>
-                                                                                         <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
-                                                                                        {% else %}
-                                                                                        <strong>£{{ product.price }}</strong>
-                                                                                        {% endif %}
-                                                                                </p>
-                                                                                {{ product.product.colour_cat_id.shade_type_id.name }}
-                                                                        </div>
-                                                                </a>
+                                                        {% endif %}
+
+                                                </p>
+                                        </div>
+                                        {% for product in product_list %}
+                                                {% if product.visible %}
+                                                        <div class="col-12 col-md-6 col-lg-4 text-center">
+
+                                                                <div class="card">
+                                                                        <a class="card-link" href="#"
+                                                                           aria-label="takes you to a page where you can find out more information about {{ product.name }}">
+                                                                                <img src="{{ product.image.url }}"
+                                                                                     class="card-img-top position-relative product-page-images"
+                                                                                     alt=" A picture of {{ product.name }}">
+                                                                                {% if product.on_promotion %}
+                                                                                        <span class="position-absolute translate-middle sale-ticket"><i
+                                                                                                class=" sale-icon fa-solid fa-tags"></i>
+                                                                                                <span class="visually-hidden"> On promotion</span>
+                                                                                        </span>
+                                                                                {% endif %}
+                                                                                <div class="card-body">
+                                                                                        <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
+                                                                                                {{ product.name }}</p>
+                                                                                        <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
+                                                                                        <p>
+                                                                                                {% if product.on_promotion %}
+                                                                                                        <span class="small-text pre-sale-price">£{{ product.price }} </span>
+                                                                                                        <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                                                                {% else %}
+                                                                                                        <strong>£{{ product.price }}</strong>
+                                                                                                {% endif %}
+                                                                                        </p>
+                                                                                        {{ product.product.colour_cat_id.shade_type_id.name }}
+                                                                                </div>
+                                                                        </a>
+                                                                </div>
+
                                                         </div>
-
-                                                </div>
-                                        {% endif %}
+                                                {% endif %}
                                         {% endfor %}
                                 </div>
                         </div>
@@ -259,7 +292,8 @@
                                                                 PREVIOUS</a></li>
                                                 {% endif %}
                                                 {% if page_obj.has_next %}
-                                                        <li><a href="?page={{ page_obj.next_page_number }}" class=" btn btn-second"> NEXT &raquo;</a>
+                                                        <li><a href="?page={{ page_obj.next_page_number }}" class=" btn btn-second"> NEXT
+                                                                &raquo;</a>
                                                         </li>
                                                 {% endif %}
                                         </ul>

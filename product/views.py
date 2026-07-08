@@ -1,7 +1,8 @@
 from django.shortcuts import render, reverse, redirect
 from django.db.models import Q
 from django.contrib import messages
-from django.core.paginator import Paginator
+from django.http import QueryDict
+# from django.core.paginator import Paginator
 
 from .models import Product
 from .filters import YarnFilter
@@ -13,19 +14,16 @@ def AllProducts(request):
     """" """
     queryset = Product.objects.all()
     product_list = queryset
-
-    form = YarnFilter(queryset=queryset).form
     
-    paginator = Paginator(product_list,12)
-
     query = None
-    filters= None
+
     brands = None
     sales = None
     thicknesses = None
     fibres = None
     colours = None
     natural_yarn= None
+    machine_wash=None
 
     sort = None
     direction = None
@@ -39,52 +37,46 @@ def AllProducts(request):
                 return redirect(reverse('allproducts'))            
             queries = Q(name__icontains=query) | Q(fibre__icontains=query) | Q(thickness_id__name__icontains=query)| Q(thickness_id__alt_names__icontains = query) | Q(brand_id__name__icontains=query)
             product_list = product_list.filter(queries)
-        elif 'brand' in request.GET:
+        if 'brand' in request.GET:
             brands = request.GET['brand']
             product_list = product_list.filter(brand_id__name__icontains=brands)
-        elif 'thickness' in request.GET:
+        if 'thickness' in request.GET:
             thicknesses = request.GET['thickness']
             product_list = product_list.filter(thickness_id__name__icontains=thicknesses)
-        elif 'fibre' in request.GET:
+            if thicknesses =='2':
+                thicknesses = '2 ply'
+            elif thicknesses == '3':
+                thicknesses = '3 ply'
+            elif thicknesses == '4':
+                thicknesses = '4 ply'
+        if 'fibre' in request.GET:
             fibres = request.GET['fibre']
             product_list = product_list.filter(fibre__icontains=fibres)
-        elif 'colour' in request.GET:
+        if 'colour' in request.GET:
             colours = request.GET['colour'].split(',')
             product_list = set(product_list.filter(product__colour_cat_id__shade_type_id__name__in=colours))
-        elif 'sale' in request.GET:
+        if 'sale' in request.GET:
             sales = True
             product_list = product_list.filter(on_promotion=True)
-        elif 'natural' in request.GET:
+        if 'natural' in request.GET:
             natural_yarn = True
             product_list= product_list.filter(natural_fibres=True)
-        else:
-            product_list = YarnFilter(request.GET, queryset=queryset).qs
-        paginator = Paginator(product_list,12)
-    else:
-        paginator = Paginator(product_list,12)    
-        # else:
-        #     product_list=YarnFilter(request.GET, queryset=queryset).qs
-        #     form = YarnFilter(request.GET,queryset=Product.objects.all()).form
-   # filters = YarnFilter(request.GET, queryset=Product.objects.all())
-    
-    # form = YarnFilter(request.GET,queryset=Product.objects.all()).form
-
-    print(product_list)
-
-    page_number= request.GET.get("page")
-    page_obj = paginator.get_page(page_number)
+        if 'machine_wash' in request.GET:
+            machine_wash = True
+            product_list= product_list.filter(machine_wash=True)
+  
 
     context={
         'product_list':product_list,
-        'form':form,
         'current_brand':brands,
         'current_thickness':thicknesses,
         'current_fibres':fibres,
         'current_colours':colours,
         'sales':sales,
         'natural':natural_yarn,
+        'machine_wash':machine_wash,
         'current_query':query,
-        'page_obj':page_obj,
+
     }
     template = 'product/all-products.html'
 
