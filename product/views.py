@@ -3,8 +3,7 @@ from django.db.models import Q
 from django.contrib import messages
 
 from .models import Product
-
-
+from core.models import SaleSettings
 
 # Create your views here.
 
@@ -52,20 +51,26 @@ def AllProducts(request):
             product_list = product_list.filter(fibre__icontains=fibres)
         if 'price' in request.GET:
             prices = request.GET['price']
+            discount_adjust = (100-SaleSettings.objects.filter(active=True)[0].sale_percent)/100
             if prices =='(0,2)':
-                product_list = product_list.filter(price__range=(0,2))
+                pp = (Q(price__range=(0.0,2.00))&Q(on_promotion=False))|(Q(price__range=(0.01/discount_adjust,2.00/discount_adjust))&Q(on_promotion=True))
+                product_list = product_list.filter(pp)
                 prices = '0-2'
             elif prices =='(2,4)':
-                product_list = product_list.filter(price__range=(2.01,4.00))
+                pp = (Q(price__range=(2.01,4.00))&Q(on_promotion=False))|(Q(price__range=(2.01/discount_adjust,4.00/discount_adjust))&Q(on_promotion=True))
+                product_list = product_list.filter(pp)
                 prices = '2-4'
             elif prices =='(4,6)':
-                product_list = product_list.filter(price__range=(4.01,6.00))
+                pp = (Q(price__range=(4.01,6.00))&Q(on_promotion=False))|(Q(price__range=(4.01/discount_adjust,6.00/discount_adjust))&Q(on_promotion=True))
+                product_list = product_list.filter(pp)
                 prices = '4-6'
             elif prices =='(6,10)':
-                product_list = product_list.filter(price__range=(6.01,10))
+                pp = (Q(price__range=(6.01,10.00))&Q(on_promotion=False))|(Q(price__range=(6.01/discount_adjust,10.00/discount_adjust))&Q(on_promotion=True))
+                product_list = product_list.filter(pp)
                 prices = '6-10'
             elif prices =='(10,20)':
-                product_list = product_list.filter(price__range=(10.01,100))
+                pp = (Q(price__range=(10.01,100.00))&Q(on_promotion=False))|(Q(price__range=(10.01/discount_adjust,100.00/discount_adjust))&Q(on_promotion=True))
+                product_list = product_list.filter(pp)
                 prices = '10+'
         if 'sale' in request.GET:
             sales = True
