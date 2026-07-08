@@ -18,7 +18,7 @@
 {% block content %}
 
         <div class="container p-4">
-                <div class="row justify-content-between">
+                <div class="row justify-content-between mb-4">
                         <div class="col-12 col-md-8 col-lg-4 order-last">
                                 <form class="d-flex" role="search" method="GET" action="{% url 'allproducts' %}">
                                         <input class="form-control me-2 search-box" type="search" name="q"
@@ -48,18 +48,20 @@
                 <div class="row justify-content-start">
 
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                         <div class=" d-none d-lg-block col-lg-3">
-                                <div class="col-11">
-                                        <form method="GET" action="{% url 'allproducts' %}" role="filter" name="filter-form">
+                                <div class="col-12 filter-column">
+                                        <h2 class="subtitle mb-4"> Filter</h2>
+                                        <form class="mb-4" method="GET" action="{% url 'allproducts' %}" role="filter" name="filter-form">
                                                 <div class="mb-3">
-                                                        <div id="div_id_on_promotion" class="mb-3 form-check"> <input
-                                                                type="checkbox" name="sale"
+                                                        <div id="div_id_on_promotion" class="mb-3 form-check"> 
+                                                                <input type="checkbox" name="sale"
                                                                 class="checkboxinput form-check-input"
-                                                                id="id_on_promotion"> <label for="id_on_promotion"
-                                                                                             class="form-check-label">
+                                                                id="id_on_promotion"> 
+                                                                <label for="id_on_promotion" class="form-check-label">
                                                                         On promotion
-                                                                </label> </div>
+                                                                </label> 
+                                                        </div>
                                                 </div>
                                                 <div class="mb-3">
                                                         <div id="div_id_machine_wash" class="mb-3 form-check"> <input
@@ -79,34 +81,48 @@
                                                                         Natural fibres
                                                                 </label> </div>
                                                 </div>
-                                                <div id="div_id_brand_id" class="mb-3"> <label class="form-label">
-                                                        Brand
-                                                </label>
-                                                        <div>
+                                                <div class="accordion" id="filter-acc">
+                                                <div id="div_id_brand_id" class="mb-3 accordion-item"> 
+                                                        <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                                <label class="form-label">
+                                                                        Brand
+                                                                </label>
+                                                        </a>
+                                                        <div id="collapseOne" class="accordion-collapse collapse"
+                                                                >
+
                                                                 <div class="form-check"> <input type="radio"
                                                                                                 class="form-check-input" name="brand"
                                                                                                 value="drops" id="id_brand_id_0"> <label
                                                                         for="id_brand_id_0" class="form-check-label">
                                                                         DROPS
                                                                 </label> </div>
+
                                                                 <div class="form-check"> <input type="radio"
                                                                                                 class="form-check-input" name="brand"
                                                                                                 value="sirdar" id="id_brand_id_1"> <label
                                                                         for="id_brand_id_1" class="form-check-label">
                                                                         Sirdar
                                                                 </label> </div>
+
                                                                 <div class="form-check"> <input type="radio"
                                                                                                 class="form-check-input" name="brand"
                                                                                                 value="stylecraft" id="id_brand_id_2"> <label
                                                                         for="id_brand_id_2" class="form-check-label">
                                                                         Stylecraft
                                                                 </label> </div>
+
                                                         </div>
                                                 </div>
-                                                <div id="div_id_thickness_id" class="mb-3"> <label class="form-label">
-                                                        Thickness
-                                                </label>
-                                                        <div>
+                                                <div id="div_id_thickness_id" class="mb-3 accordion-item">
+                                                        <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                                <label class="form-label">
+                                                                Thickness
+                                                                </label></a>
+                                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                                                >
                                                                 <div class="form-check"> <input type="radio"
                                                                                                 class="form-check-input" name="thickness"
                                                                                                 value="2" id="id_thickness_id_0"> <label
@@ -152,10 +168,15 @@
                                                                 </label> </div>
                                                         </div>
                                                 </div>
-                                                <div id="div_id_fibre__icontains" class="mb-3"> <label class="form-label">
+
+                                                <div id="div_id_fibre__icontains" class="mb-3 accordion-item"> 
+                                                        <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                        <label class="form-label">
                                                         Fibre
-                                                </label>
-                                                        <div>
+                                                </label></a>
+                                                        <div id="collapseThree" class="accordion-collapse collapse"
+                                                                >
                                                                 <div class="form-check"> <input type="radio"
                                                                                                 class="form-check-input" name="fibre"
                                                                                                 value="Alpaca" id="id_fibre__icontains_0">
@@ -193,10 +214,14 @@
                                                                         </label> </div>
                                                         </div>
                                                 </div>
-                                                                                                <div id="div_id_price" class="mb-3"> <label class="form-label">
+                                                <div id="div_id_price" class="mb-3 accordion-item"> 
+                                                        <a class="accordion-button uppercase-text dropdown-toggle" type="button" data-bs-toggle="collapse"
+                                                                data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                        <label class="form-label">
                                                         Price Range
-                                                </label>
-                                                        <div>
+                                                </label></a>
+                                                        <div id="collapseFour" class="accordion-collapse collapse"
+                                                                >
                                                                 <div class="form-check"> <input type="radio"
                                                                                                 class="form-check-input" name="price"
                                                                                                 value="(0,2)" id="id_price_id_0"> <label
@@ -234,7 +259,10 @@
                                                                 </label> </div>
                                                         </div>
                                                 </div>
+                                                </div>
+                                                <div class="text-center mt-4">
                                                 <button type="submit" class="btn btn-main" > Filter</button>
+                                                </div>
                                         </form>
                                 </div>
 

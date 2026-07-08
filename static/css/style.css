@@ -92,6 +92,24 @@ option{
     font-size: 1.6rem !important;
 }
 
+.form-check-input,
+.form-check-input:checked,
+.form-check-input:active,
+.form-check-input:focus{
+    border:0.05rem solid var(--primary-text-color);
+}
+
+.form-check-input:checked{
+    background-color: var(--primary-text-color);
+}
+
+.form-check-input:active,
+.form-check-input:focus,
+.form-check-input:checked{
+    box-shadow: 1rem 1rem 2rem var(--shadow-semi);
+}
+
+
 .search-box{
     border:1px solid var(--primary-text-color);
 }

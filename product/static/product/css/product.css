@@ -35,3 +35,28 @@
     top:3rem;
     left:3rem;
 }
+
+.filter-column{
+    margin-top:4rem;
+    margin-right:2rem;
+    border-right:1px solid var(--shadow-color);
+}
+
+.accordion-button{
+    font-size: 1.6rem;
+    padding-right:2rem;
+    color:var(--primary-text-color);
+}
+
+.accordion-button:not(.collapsed){
+    color:var(--primary-text-color);
+}
+
+a{
+    text-decoration: none;
+}
+
+
+div#filter-acc.accordion{
+    --bs-accordion-border-color:none;
+}
