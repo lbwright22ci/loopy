@@ -48,7 +48,8 @@
     color:var(--primary-text-color);
 }
 
-.accordion-button:not(.collapsed){
+.accordion-button:not(.collapsed),
+.accordion-button:hover{
     color:var(--primary-text-color);
 }
 
@@ -59,4 +60,23 @@ a{
 
 div#filter-acc.accordion{
     --bs-accordion-border-color:none;
+}
+
+.all-products-head{
+    height:6rem;
+    width:auto;
+    padding-right:2rem;
+}
+
+
+/*Media queries*/
+/* for very small screen widths 370px and less */
+@media screen and (max-width:370px){
+    .all-products-head{
+    display: none;
+}
+
+.page-heading{
+    font-size: 2.8rem;
+}
 }

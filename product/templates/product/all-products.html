@@ -18,8 +18,8 @@
 {% block content %}
 
         <div class="container p-4">
-                <div class="row justify-content-between mb-4">
-                        <div class="col-12 col-md-8 col-lg-4 order-last">
+                <div class="row justify-content-sm-center justify-content-lg-between mb-4">
+                        <div class="col-12 col-sm-8 col-lg-4 order-lg-last mb-4 mb-lg-0">
                                 <form class="d-flex" role="search" method="GET" action="{% url 'allproducts' %}">
                                         <input class="form-control me-2 search-box" type="search" name="q"
                                                placeholder="Find your yarn!" aria-label="Search">
@@ -28,9 +28,16 @@
                                 </form>
                         </div>
 
-
-                        <div class="col-12 col-lg-6 order-first">
-                                <h1 class="page-heading"> Yarn shop </h1>
+                        <div class="col-12 col-lg-6 order-lg-first mt-4 mt-lg-0">
+                                <div class="row  align-items-end justify-content-center justify-content-lg-start">
+                                        <div class="col-3 ">
+<img src="{% static 'images/balls-in-a-line.png'%}" alt="illustration of balls of wool" class="all-products-head">
+                                        </div>
+                                        <div class="col-9 col-sm-5 col-md-4 col-lg-9">
+<h1 class="page-heading ms-4 ms-sm-0"> Yarn shop </h1>
+                                        </div>
+                                </div>
+                                
                         </div>
                 </div>
 

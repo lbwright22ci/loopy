@@ -425,12 +425,8 @@ a[title="Google"]{
 
 /* Media Queries */
 /* for sizes sm and above */
-@media screen and (min-width:350px):{
-    #mobile-nav{
-        margin-top:3.2rem;
-        padding-left:2rem;
-        padding-right:2rem;
-    }
+@media screen and (min-width:350px){
+   
 }
 
 /* for sizes md and above in Bootstrap */
