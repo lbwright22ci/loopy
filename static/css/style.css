@@ -71,6 +71,9 @@ a:hover {
     cursor: pointer;
 }
 
+.right-align{
+    text-align: end;
+}
 .form-control,
 .form-select,
 input:-internal-autofill-selected{
@@ -424,6 +427,7 @@ a[title="Google"]{
 
 /* to top button*/
 .to-top{
+    z-index: 5000;
     height:4.5rem;
     width:4.5rem;
     border-radius:2.25rem;

@@ -1,0 +1,225 @@
+{% load static %}
+                                        <h2 class="subtitle mb-4"> Sort </h2>
+
+                                        <select id="sort-selector" class="form-select form-select-sm sort-select" aria-label="Sort product list">
+                                                <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by ...</option>
+                                                <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price: low-high</option>
+                                                <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price: high-low</option>
+                                                <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name: A-Z</option>
+                                                <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name: Z-A</option>
+                                        </select>
+
+                                        <h2 class="subtitle mt-4 mb-4"> Filter</h2>
+                                        <form class="mb-4" method="GET" action="{% url 'allproducts' %}" role="filter" name="filter-form">
+                                                <div class="mb-3">
+                                                        <div id="div_id_on_promotion" class="mb-3 form-check">
+                                                                <input type="checkbox" name="sale"
+                                                                       class="checkboxinput form-check-input"
+                                                                       id="id_on_promotion">
+                                                                <label for="id_on_promotion" class="form-check-label">
+                                                                        On promotion
+                                                                </label>
+                                                        </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                        <div id="div_id_machine_wash" class="mb-3 form-check"> <input
+                                                                type="checkbox" name="machine_wash"
+                                                                class="checkboxinput form-check-input"
+                                                                id="id_machine_wash"> <label for="id_machine_wash"
+                                                                                             class="form-check-label">
+                                                                        Machine wash
+                                                                </label> </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                        <div id="div_id_natural_fibres" class="mb-3 form-check"> <input
+                                                                type="checkbox" name="natural"
+                                                                class="checkboxinput form-check-input"
+                                                                id="id_natural_fibres"> <label for="id_natural_fibres"
+                                                                                               class="form-check-label">
+                                                                        Natural fibres
+                                                                </label> </div>
+                                                </div>
+                                                <div class="accordion" id="filter-acc">
+                                                        <div id="div_id_brand_id" class="mb-3 accordion-item">
+                                                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                                                   data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                                        <label class="form-label">
+                                                                                Brand
+                                                                        </label>
+                                                                </a>
+                                                                <div id="collapseOne" class="accordion-collapse collapse"
+                                                                >
+
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="brand"
+                                                                                                        value="drops" id="id_brand_id_0"> <label
+                                                                                for="id_brand_id_0" class="form-check-label">
+                                                                                DROPS
+                                                                        </label> </div>
+
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="brand"
+                                                                                                        value="sirdar" id="id_brand_id_1"> <label
+                                                                                for="id_brand_id_1" class="form-check-label">
+                                                                                Sirdar
+                                                                        </label> </div>
+
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="brand"
+                                                                                                        value="stylecraft" id="id_brand_id_2"> <label
+                                                                                for="id_brand_id_2" class="form-check-label">
+                                                                                Stylecraft
+                                                                        </label> </div>
+
+                                                                </div>
+                                                        </div>
+                                                        <div id="div_id_thickness_id" class="mb-3 accordion-item">
+                                                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                                                   data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                                        <label class="form-label">
+                                                                                Thickness
+                                                                        </label></a>
+                                                                <div id="collapseTwo" class="accordion-collapse collapse"
+                                                                >
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="thickness"
+                                                                                                        value="2" id="id_thickness_id_0"> <label
+                                                                                for="id_thickness_id_0"
+                                                                                class="form-check-label">
+                                                                                2 ply
+                                                                        </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="thickness"
+                                                                                                        value="4" id="id_thickness_id_2"> <label
+                                                                                for="id_thickness_id_2"
+                                                                                class="form-check-label">
+                                                                                4 ply
+                                                                        </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="thickness"
+                                                                                                        value="DK" id="id_thickness_id_6"> <label
+                                                                                for="id_thickness_id_6"
+                                                                                class="form-check-label">
+                                                                                Double Knit
+                                                                        </label></div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="thickness"
+                                                                                                        value="aran" id="id_thickness_id_4"> <label
+                                                                                for="id_thickness_id_4"
+                                                                                class="form-check-label">
+                                                                                Aran
+                                                                        </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="thickness"
+                                                                                                        value="chunky" id="id_thickness_id_5"> <label
+                                                                                for="id_thickness_id_5"
+                                                                                class="form-check-label">
+                                                                                Chunky
+                                                                        </label> </div>
+
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="thickness"
+                                                                                                        value="chunky" id="id_thickness_id_7"> <label
+                                                                                for="id_thickness_id_7"
+                                                                                class="form-check-label">
+                                                                                Super Chunky
+                                                                        </label> </div>
+                                                                </div>
+                                                        </div>
+
+                                                        <div id="div_id_fibre__icontains" class="mb-3 accordion-item">
+                                                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                                                   data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                        <label class="form-label">
+                                                                                Fibre
+                                                                        </label></a>
+                                                                <div id="collapseThree" class="accordion-collapse collapse"
+                                                                >
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="fibre"
+                                                                                                        value="Alpaca" id="id_fibre__icontains_0">
+                                                                                <label for="id_fibre__icontains_0"
+                                                                                       class="form-check-label">
+                                                                                        Alpaca
+                                                                                </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="fibre"
+                                                                                                        value="Acrylic" id="id_fibre__icontains_1">
+                                                                                <label for="id_fibre__icontains_1"
+                                                                                       class="form-check-label">
+                                                                                        Acrylic
+                                                                                </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="fibre"
+                                                                                                        value="Cotton" id="id_fibre__icontains_2">
+                                                                                <label for="id_fibre__icontains_2"
+                                                                                       class="form-check-label">
+                                                                                        Cotton
+                                                                                </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="fibre"
+                                                                                                        value="Merino" id="id_fibre__icontains_3">
+                                                                                <label for="id_fibre__icontains_3"
+                                                                                       class="form-check-label">
+                                                                                        Merino
+                                                                                </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="fibre"
+                                                                                                        value="Wool" id="id_fibre__icontains_4">
+                                                                                <label for="id_fibre__icontains_4"
+                                                                                       class="form-check-label">
+                                                                                        Wool
+                                                                                </label> </div>
+                                                                </div>
+                                                        </div>
+                                                        <div id="div_id_price" class="mb-3 accordion-item">
+                                                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                                                   data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                                                        <label class="form-label">
+                                                                                Price Range
+                                                                        </label></a>
+                                                                <div id="collapseFour" class="accordion-collapse collapse"
+                                                                >
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="price"
+                                                                                                        value="(0,2)" id="id_price_id_0"> <label
+                                                                                for="id_price_id_0"
+                                                                                class="form-check-label">
+                                                                                £0-£2.00
+                                                                        </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="price"
+                                                                                                        value="(2,4)" id="id_price_id_2"> <label
+                                                                                for="id_price_id_2"
+                                                                                class="form-check-label">
+                                                                                £2.01-£4.00
+                                                                        </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="price"
+                                                                                                        value="(4,6)" id="id_price_id_6"> <label
+                                                                                for="id_price_id_6"
+                                                                                class="form-check-label">
+                                                                                £4.01-£6.00
+                                                                        </label></div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="price"
+                                                                                                        value="(6,10)" id="id_price_id_4"> <label
+                                                                                for="id_price_id_4"
+                                                                                class="form-check-label">
+                                                                                £6.01-£10.00
+                                                                        </label> </div>
+                                                                        <div class="form-check"> <input type="radio"
+                                                                                                        class="form-check-input" name="price"
+                                                                                                        value="(10,20)" id="id_price_id_5"> <label
+                                                                                for="id_price_id_5"
+                                                                                class="form-check-label">
+                                                                                £10.01+
+                                                                        </label> </div>
+                                                                </div>
+                                                        </div>
+                                                </div>
+                                                <div class="text-center mt-4">
+                                                        <button type="submit" class="btn btn-main" > Filter</button>
+                                                </div>
+                                        </form>
+                                
