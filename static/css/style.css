@@ -422,6 +422,31 @@ a[title="Google"]{
     justify-self: center;
 }
 
+/* to top button*/
+.to-top{
+    height:4.5rem;
+    width:4.5rem;
+    border-radius:2.25rem;
+    background-color: var(--hyperlink-hover-color);
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.to-top-link{
+    cursor: pointer;
+    color:var(--primary-background-color);
+    font-size: 3.0rem;
+    padding-top:0.8rem;
+}
+.to-top-link:hover,
+.to-top-link:active,
+.to-top-link:focus{
+    color:var(--primary-background-color);
+}
+
 
 /* Media Queries */
 /* for sizes sm and above */
