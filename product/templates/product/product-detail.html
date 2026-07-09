@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tag-tools %}
+{% load crispy_forms_tags %}
+
+{% block titlehead %} {{ prod.brand_id.name }} {{ prod.name }} {% endblock %}
+
+{% block headdescription %} Buy {{ prod.brand_id.name }} {{ prod.name }} from Loopy Yarns {% endblock %}
+
+{% block headkey %} {{ prod.brand_id.name }}, {{ prod.name }}, {{ prod.fibre }}, Loopy yarns, online yarn shop
+                                       {% endblock %}
+
+{% block extracss %}
+        <link rel="stylesheet" href="{% static 'product/css/product.css' %}">
+{% endblock %}
+
+{% block page_header %}
+        <div class="top-padding">
+        </div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container p-4">
+<h1 class="page-heading ms-4 ms-sm-0"> {{ prod.brand_id.name }}, {{ prod.name }} </h1>
+
+<form>
+    {{ form | crispy }}
+</form>
+
+</div>
+
+{% endblock %}
+
+{% block extrapostjs %}
+        {{ block.super }}
+
+        <script src="{% static 'product/js/product.js' %}"></script>
+{% endblock %}

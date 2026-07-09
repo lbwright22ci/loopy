@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% load tag-tools %}
 
 
@@ -44,9 +43,9 @@
 
                 <div class="row d-block d-lg-none">
                         <div class="col-12 text-end">
-                        <a class="btn btn-second" data-bs-toggle="offcanvas" 
-                        href="#mob-filter-sort" role="button" 
-                        aria-label="opens filter and sort menu"> <i class="fa-solid fa-arrow-down-wide-short"></i> Filter  | Sort </a>
+                                <a class="btn btn-second" data-bs-toggle="offcanvas"
+                                   href="#mob-filter-sort" role="button"
+                                   aria-label="opens filter and sort menu"> <i class="fa-solid fa-arrow-down-wide-short"></i> Filter  | Sort </a>
                         </div>
                 </div>
 
@@ -63,131 +62,131 @@
                                         <div class="col-8">
                                                 <p class="small-text">
                                                         {% if current_brand %}
-                                                               <a class=" rounded-pill sort-pill"
-                                                                href="{% url 'allproducts'%}?brand={{ current_brand }}" 
-                                                               aria-label="takes you to products with Brand = {{ current_brand }}"> 
-                                                        Brand = {{ current_brand }}
-                                                        </a> 
+                                                                <a class=" rounded-pill sort-pill"
+                                                                   href="{% url 'allproducts'%}?brand={{ current_brand }}"
+                                                                   aria-label="takes you to products with Brand = {{ current_brand }}">
+                                                                        Brand = {{ current_brand }}
+                                                                </a>
                                                         {% endif %}
-                                                        
+
                                                         {% if current_fibres %}
-                                                        <a class=" rounded-pill sort-pill"
-                                                                href="{% url 'allproducts'%}?fibre={{ current_fibres }}" 
-                                                               aria-label="takes you to products with Fibre = {{ current_fibres }}">
-                                                                Fibre = {{ current_fibres }} 
+                                                                <a class=" rounded-pill sort-pill"
+                                                                   href="{% url 'allproducts'%}?fibre={{ current_fibres }}"
+                                                                   aria-label="takes you to products with Fibre = {{ current_fibres }}">
+                                                                        Fibre = {{ current_fibres }}
                                                                 </a>
                                                         {% endif %}
                                                         {% if current_thickness %}
-                                                        <a class=" rounded-pill sort-pill"
-                                                                href="{% url 'allproducts'%}?thickness={{ current_thickness }}" 
-                                                               aria-label="takes you to products with Thickness = {{ current_thickness }}">
-                                                                {% if current_thickness == "2" or current_thickness == "4" %}
-                                                               Thickness = {{ current_thickness }} ply 
-                                                               {% else %}
-                                                                Thickness = {{ current_thickness }}
-                                                               {% endif %}
+                                                                <a class=" rounded-pill sort-pill"
+                                                                   href="{% url 'allproducts'%}?thickness={{ current_thickness }}"
+                                                                   aria-label="takes you to products with Thickness = {{ current_thickness }}">
+                                                                        {% if current_thickness == "2" or current_thickness == "4" %}
+                                                                                Thickness = {{ current_thickness }} ply
+                                                                        {% else %}
+                                                                                Thickness = {{ current_thickness }}
+                                                                        {% endif %}
                                                                 </a>
                                                         {% endif %}
 
                                                         {% if current_prices %}
-                                                        <a class=" rounded-pill sort-pill"
-                                                                href="{% url 'allproducts'%}?price={{ current_prices }}" 
-                                                               aria-label="takes you to products with Price = {{ current_prices }}">
-                                                                {% if current_prices == '(0,2)' %}
-                                                               Price = £ 0-2 
-                                                               {% elif current_prices == '(2,4)' %}
-                                                                Price = £ 2-4 
-                                                               {% elif current_prices == '(4,6)' %}
-                                                               Price = £ 4-6 
-                                                               {% elif current_prices == '(6,10)' %}
-                                                               Price = £ 6-10
-                                                               {% elif current_prices == '(10,20)' %}
-                                                               Price = £ 10+
-                                                               {% endif %}
-                                                                </a>    
+                                                                <a class=" rounded-pill sort-pill"
+                                                                   href="{% url 'allproducts'%}?price={{ current_prices }}"
+                                                                   aria-label="takes you to products with Price = {{ current_prices }}">
+                                                                        {% if current_prices == '(0,2)' %}
+                                                                                Price = £ 0-2
+                                                                        {% elif current_prices == '(2,4)' %}
+                                                                                Price = £ 2-4
+                                                                        {% elif current_prices == '(4,6)' %}
+                                                                                Price = £ 4-6
+                                                                        {% elif current_prices == '(6,10)' %}
+                                                                                Price = £ 6-10
+                                                                        {% elif current_prices == '(10,20)' %}
+                                                                                Price = £ 10+
+                                                                        {% endif %}
+                                                                </a>
                                                         {% endif %}
                                                         {% if sales %}
-                                                        <a class=" rounded-pill sort-pill"
-                                                                href="{% url 'allproducts'%}?sale=on" 
-                                                               aria-label="takes you to products on promotion">
-                                                                On sale
+                                                                <a class=" rounded-pill sort-pill"
+                                                                   href="{% url 'allproducts'%}?sale=on"
+                                                                   aria-label="takes you to products on promotion">
+                                                                        On sale
                                                                 </a>
                                                         {% endif %}
 
                                                         {% if natural %}
-                                                        <a class=" rounded-pill sort-pill"
-                                                                href="{% url 'allproducts'%}?natural=on" 
-                                                               aria-label="takes you to products with only natural fibres">
-                                                                100% natural yarns
+                                                                <a class=" rounded-pill sort-pill"
+                                                                   href="{% url 'allproducts'%}?natural=on"
+                                                                   aria-label="takes you to products with only natural fibres">
+                                                                        100% natural yarns
                                                                 </a>
-                                                                
+
                                                         {% endif %}
                                                         {% if machine_wash %}
-                                                        <a class=" rounded-pill sort-pill"
-                                                                href="{% url 'allproducts'%}?machine_wash=on" 
-                                                               aria-label="takes you to products which are machine washable">
-                                                                Machine washable
+                                                                <a class=" rounded-pill sort-pill"
+                                                                   href="{% url 'allproducts'%}?machine_wash=on"
+                                                                   aria-label="takes you to products which are machine washable">
+                                                                        Machine washable
                                                                 </a>
-                                                                
+
                                                         {% endif %}
 
                                                         {% if current_query %}
                                                                 <span class="rounded-pill sort-pill"> Search = {{ current_query }} </span>
                                                         {% endif %}
-                                                        
+
                                                         {% if current_prices or machine_wash or natural or sales or current_query or current_brand or current_fibres or current_thickness %}
                                                                 <a href="{% url 'allproducts' %}" class="ms-2"
                                                                    aria-label="removes all search terms and filters to
                                                                                reload the page"> <i class="fa-solid fa-xmark"></i> Reset</a>
 
                                                         {% endif %}
-                                                        </p>
-                                                        </div>
-                                                        <div class="col-4">  
-                                                        <p class="right-align small-text">
+                                                </p>
+                                        </div>
+                                        <div class="col-4">
+                                                <p class="right-align small-text">
                                                         {{ product_list|length }}
                                                         {% if product_list|length == 1 %}
                                                                 yarn
                                                         {% else %}
                                                                 yarns
                                                         {% endif %}
-                                                        
+
                                                 </p>
                                         </div>
                                         {% if product_list|length == 0 %}
-                                        <div class="row justify-content-center mt-4 text-center">
-                                                <div class="col-8 mb-4">
-                                        <p class="subtitle2">
-                                                Sorry there were no yarns which matched your search criteria
-                                        </p>
-                                        </div>
-                                        <div class="col-5mt-4">
-                                        <a href="{% url 'allproducts' %}" class="btn btn-second"
+                                                <div class="row justify-content-center mt-4 text-center">
+                                                        <div class="col-8 mb-4">
+                                                                <p class="subtitle2">
+                                                                        Sorry there were no yarns which matched your search criteria
+                                                                </p>
+                                                        </div>
+                                                        <div class="col-5mt-4">
+                                                                <a href="{% url 'allproducts' %}" class="btn btn-second"
                                                                    aria-label="removes all search terms and filters to
                                                                                reload the page"> Back </a>
-</div>
-</div>
-                                                        {% endif %}
-                                                        
-                                        
+                                                        </div>
+                                                </div>
+                                        {% endif %}
+
+
 
                                         {% for product in product_list %}
                                                 {% if product.visible %}
                                                         <div class="col-12 col-md-6 col-lg-4 text-center">
 
                                                                 <div class="card">
-                                                                        <a class="card-link" href="#"
+                                                                        <a class="card-link" href="{% url 'productdetail' product.slug %} "
                                                                            aria-label="takes you to a page where you can find out more information about {{ product.name }}">
-                                                                           <div class="prod-image-container">     
-                                                                           <img src="{{ product.image.url }}"
-                                                                                     class="card-img-top product-page-images"
-                                                                                     alt=" A picture of {{ product.name }}">
-                                                                                {% if product.on_promotion %}
-                                                                                        <span class="translate-middle sale-ticket"><i
-                                                                                                class=" sale-icon fa-solid fa-tags"></i>
-                                                                                                <span class="visually-hidden"> On promotion</span>
-                                                                                        </span>
-                                                                                {% endif %}
+                                                                                <div class="prod-image-container">
+                                                                                        <img src="{{ product.image.url }}"
+                                                                                             class="card-img-top product-page-images"
+                                                                                             alt=" A picture of {{ product.name }}">
+                                                                                        {% if product.on_promotion %}
+                                                                                                <span class="translate-middle sale-ticket"><i
+                                                                                                        class=" sale-icon fa-solid fa-tags"></i>
+                                                                                                        <span class="visually-hidden"> On promotion</span>
+                                                                                                </span>
+                                                                                        {% endif %}
                                                                                 </div>
                                                                                 <div class="card-body">
                                                                                         <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
@@ -223,18 +222,18 @@
                 </a>
         </div>
         <div class="offcanvas offcanvas-start" id="mob-filter-sort" tab-index="-1"
-         aria-label="filter and sort yarns" data-bs-backdrop="static">
-         <div class="container offcanvas-body">
-                <div class="row">
-                        <div class="col-6 text-start ms-auto">
-                                <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
-                                     id="mob-header-logo"></a>
+             aria-label="filter and sort yarns" data-bs-backdrop="static">
+                <div class="container offcanvas-body">
+                        <div class="row">
+                                <div class="col-6 text-start ms-auto">
+                                        <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
+                                             id="mob-header-logo"></a>
+                        </div>
+                        <div class="col-6 text-end">
+                                <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                                        class="fa-solid fa-x"></i></a>
+                        </div>
                 </div>
-                <div class="col-6 text-end">
-                        <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
-                                class="fa-solid fa-x"></i></a>
-                </div>
-        </div>
                 {% include 'product/includes/filter-and-sort.html' %}
         </div>
 {% endblock %}

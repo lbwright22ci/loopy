@@ -1,9 +1,10 @@
-from django.shortcuts import render, reverse, redirect
-from django.db.models import Q, Case, Value, When, FloatField, F
+from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.db.models import Q, Case, When, FloatField, F
 from django.contrib import messages
 from django.db.models.functions import Lower
+from .forms import ColourVarForm
 
-from .models import Product
+from .models import Product, Colour_var
 from core.models import SaleSettings
 
 # Create your views here.
@@ -113,5 +114,22 @@ def AllProducts(request):
         'current_sorting':current_sorting,
     }
     template = 'product/all-products.html'
+
+    return render(request, template, context)
+
+def ProductDetail(request, slug):
+    """"
+    """
+    queryset = Product.objects.filter(visible=True)
+    prod = get_object_or_404(queryset, slug=slug)
+    colour_options = prod.product.all().order_by('shade_code')
+    form = ColourVarForm()
+
+    template ="product/product-detail.html"
+    context={
+        'prod':prod,
+        'colour_options':colour_options,
+        'form':form,
+    }
 
     return render(request, template, context)

@@ -4,4 +4,5 @@ from . import views
 
 urlpatterns = [
     path('', views.AllProducts, name="allproducts"),
+    path('<slug:slug>/', views.ProductDetail, name="productdetail"),
 ]
