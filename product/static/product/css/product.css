@@ -42,6 +42,10 @@
     border-right:1px solid var(--shadow-color);
 }
 
+.sort-select{
+    width:18rem;
+}
+
 .accordion-button{
     font-size: 1.6rem;
     padding-right:2rem;

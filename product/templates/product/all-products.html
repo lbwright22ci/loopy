@@ -52,13 +52,21 @@
                         </div>
                 </div>
 
-                <div class="row justify-content-start">
-
-                </div>
                 <div class="row mt-4">
                         <div class=" d-none d-lg-block col-lg-3">
+                                
                                 <div class="col-12 filter-column">
-                                        <h2 class="subtitle mb-4"> Filter</h2>
+                                        <h2 class="subtitle mb-4"> Sort </h2>
+                                        
+                                        <select id="sort-selector" class="form-select form-select-sm sort-select" aria-label="Sort product list">
+  <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>Sort by ...</option>
+  <option value="price_asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>Price: low-high</option>
+  <option value="price_desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>Price: high-low</option>
+  <option value="name_asc" {% if current_sorting == 'name_asc' %}selected{% endif %}>Name: A-Z</option>
+  <option value="name_desc" {% if current_sorting == 'name_desc' %}selected{% endif %}>Name: Z-A</option>
+</select>
+
+                                        <h2 class="subtitle mt-4 mb-4"> Filter</h2>
                                         <form class="mb-4" method="GET" action="{% url 'allproducts' %}" role="filter" name="filter-form">
                                                 <div class="mb-3">
                                                         <div id="div_id_on_promotion" class="mb-3 form-check"> 
@@ -369,4 +377,7 @@
 {% endblock %}
 
 {% block extrapostjs %}
+{{ block.super }}
+
+<script src="{% static 'product/js/product.js' %}"></script>
 {% endblock %}

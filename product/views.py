@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, redirect
 from django.db.models import Q
 from django.contrib import messages
+from django.db.models.functions import Lower
 
 from .models import Product
 from core.models import SaleSettings
@@ -25,7 +26,21 @@ def AllProducts(request):
     sort = None
     direction = None
 
+    discount_adjust = (100-SaleSettings.objects.filter(active=True)[0].sale_percent)/100
+
     if request.GET:
+        if 'sort' in request.GET:
+            sortparam = request.GET['sort']
+            sort = sortparam
+            if sortparam == 'name':
+                sortparam = 'lower_name'
+                product_list = product_list.annotate(lower_name = Lower('name'))
+            if 'direction' in request.GET:
+                direction = request.GET['direction']
+                if direction == 'desc':
+                    sortparam = f'-{sortparam}'
+            product_list = product_list.order_by(sortparam)
+
         if 'q' in request.GET:
             query = request.GET['q']
             if not query:
@@ -51,7 +66,7 @@ def AllProducts(request):
             product_list = product_list.filter(fibre__icontains=fibres)
         if 'price' in request.GET:
             prices = request.GET['price']
-            discount_adjust = (100-SaleSettings.objects.filter(active=True)[0].sale_percent)/100
+            
             if prices =='(0,2)':
                 pp = (Q(price__range=(0.0,2.00))&Q(on_promotion=False))|(Q(price__range=(0.01/discount_adjust,2.00/discount_adjust))&Q(on_promotion=True))
                 product_list = product_list.filter(pp)
@@ -82,6 +97,7 @@ def AllProducts(request):
             machine_wash = True
             product_list= product_list.filter(machine_wash=True)
   
+    current_sorting = f'{sort}_{direction}'
 
     context={
         'product_list':product_list,
@@ -93,6 +109,7 @@ def AllProducts(request):
         'natural':natural_yarn,
         'machine_wash':machine_wash,
         'current_query':query,
+        'current_sorting':current_sorting,
     }
     template = 'product/all-products.html'
 
