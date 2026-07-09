@@ -1,5 +1,5 @@
 from django.shortcuts import render, reverse, redirect
-from django.db.models import Q
+from django.db.models import Q, Case, Value, When, FloatField, F
 from django.contrib import messages
 from django.db.models.functions import Lower
 
@@ -35,6 +35,13 @@ def AllProducts(request):
             if sortparam == 'name':
                 sortparam = 'lower_name'
                 product_list = product_list.annotate(lower_name = Lower('name'))
+            if sortparam == 'price':
+                sortparam = 'corrected_price'
+                product_list = product_list.annotate(corrected_price = Case(
+                    When(on_promotion=True, then=(F('price')*discount_adjust)),
+                         default=(F('price')),
+                         output_field=FloatField()
+                ))
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
