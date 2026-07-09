@@ -62,12 +62,6 @@ def AllProducts(request):
         if 'thickness' in request.GET:
             thicknesses = request.GET['thickness']
             product_list = product_list.filter(thickness_id__name__icontains=thicknesses)
-            if thicknesses =='2':
-                thicknesses = '2 ply'
-            elif thicknesses == '3':
-                thicknesses = '3 ply'
-            elif thicknesses == '4':
-                thicknesses = '4 ply'
         if 'fibre' in request.GET:
             fibres = request.GET['fibre']
             product_list = product_list.filter(fibre__icontains=fibres)
@@ -77,23 +71,23 @@ def AllProducts(request):
             if prices =='(0,2)':
                 pp = (Q(price__range=(0.0,2.00))&Q(on_promotion=False))|(Q(price__range=(0.01/discount_adjust,2.00/discount_adjust))&Q(on_promotion=True))
                 product_list = product_list.filter(pp)
-                prices = '0-2'
+                
             elif prices =='(2,4)':
                 pp = (Q(price__range=(2.01,4.00))&Q(on_promotion=False))|(Q(price__range=(2.01/discount_adjust,4.00/discount_adjust))&Q(on_promotion=True))
                 product_list = product_list.filter(pp)
-                prices = '2-4'
+                
             elif prices =='(4,6)':
                 pp = (Q(price__range=(4.01,6.00))&Q(on_promotion=False))|(Q(price__range=(4.01/discount_adjust,6.00/discount_adjust))&Q(on_promotion=True))
                 product_list = product_list.filter(pp)
-                prices = '4-6'
+                
             elif prices =='(6,10)':
                 pp = (Q(price__range=(6.01,10.00))&Q(on_promotion=False))|(Q(price__range=(6.01/discount_adjust,10.00/discount_adjust))&Q(on_promotion=True))
                 product_list = product_list.filter(pp)
-                prices = '6-10'
+                
             elif prices =='(10,20)':
                 pp = (Q(price__range=(10.01,100.00))&Q(on_promotion=False))|(Q(price__range=(10.01/discount_adjust,100.00/discount_adjust))&Q(on_promotion=True))
                 product_list = product_list.filter(pp)
-                prices = '10+'
+                
         if 'sale' in request.GET:
             sales = True
             product_list = product_list.filter(on_promotion=True)
