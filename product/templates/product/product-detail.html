@@ -162,7 +162,9 @@
                         <div class="col-12 col-lg-10">
                                 <div class="row">
                                         {% for c in colour_options %}
-                                                <div class="col-4 col-sm-3 col-md-2 text-center">
+                                                
+                                                <div class="col-4 col-sm-3 col-md-2 text-center
+                                                {% if forloop.counter > 24 %} swatches-hidden {% endif %}">
                                                         <div class="swatch-container">
                                                                 <img src="{{ c.colour_cat_id.image.url }}" alt="colour swatch for {{ c.colour_cat_id.colour_name }}" class="swatches">
                                                                 {% if c.low_stock %}
@@ -173,8 +175,13 @@
                                                         <p class="centre-align very-small-text pb-0 mb-0">{{ c.shade_code }} | {{ c.dye_lot }}</p>
                                                         <p class="centre-align very-small-text">Shade | Dye lot </p>
                                                 </div>
-
+                                                
                                         {% endfor %}
+                                        {% if no_colours > 24 %}
+                                        <div class="col-12 text-end pe-4 me-4">
+                                            <p id="clip-swatches">Show more...</p>
+                                        </div>
+                                        {% endif %}
                                 </div>
                         </div>
 

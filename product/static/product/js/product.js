@@ -1,10 +1,11 @@
-$('#sort-selector').change(function(){
+$(document).ready(function () {
+    $('#sort-selector').change(function () {
         var selector = $(this);
         var currentUrl = new URL(window.location);
 
         var selectedVal = selector.val();
 
-        if(selectedVal != "reset"){
+        if (selectedVal != "reset") {
             var sort = selectedVal.split('_')[0];
             var direction = selectedVal.split('_')[1];
 
@@ -17,4 +18,22 @@ $('#sort-selector').change(function(){
             currentUrl.searchParams.delete('direction');
             window.location.replace(currentUrl);
         }
-    })
+    });
+
+    $('#clip-swatches').click(function(e) {
+        var hiddenText = "Show more...";
+        var revealedText = "Show less...";
+
+        var initialState = $(this).text();
+
+        $('.swatches-hidden').toggle('slow');
+
+        if (initialState == hiddenText) {
+            $(this).text(revealedText);
+        } else {
+            $(this).text(hiddenText);
+        };
+
+    });
+
+})

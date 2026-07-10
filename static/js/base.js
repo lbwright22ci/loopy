@@ -12,7 +12,7 @@ $(document).ready(function(){
     $('.toast').toast('show');
 
     $('.to-top-link').click(function(e) {
-		window.scrollTo(0,0)
-	})
+		window.scrollTo(0,0);
+	});
 
 });
