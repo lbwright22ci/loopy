@@ -92,6 +92,11 @@ div#filter-acc.accordion{
     margin-left:0.8rem;
 }
 
+#product-info{
+    padding-left:4rem;
+    padding-right:4rem;
+}
+
 .swatches{
     width: 22vw;
     max-width: 8rem;
@@ -125,7 +130,6 @@ div#filter-acc.accordion{
 }
 
 #clip-swatches{
-    margin-bottom:10rem;
     cursor: pointer;
 }
 
@@ -143,5 +147,13 @@ div#filter-acc.accordion{
 @media screen and (min-width:576px){
     .sort-select{
         width:18rem;
+    }
+}
+/* for sizes lg and above in Bootstrap */
+@media screen and (min-width:992px){
+
+    #product-info{
+        padding-left:8rem;
+        padding-right:8rem;
     }
 }
