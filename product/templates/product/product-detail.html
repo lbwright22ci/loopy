@@ -22,14 +22,14 @@
 {% block content %}
 
         <div class="container p-4">
-                <div class="row">
-                        <div class="col-12">
-                                <h1 class="page-heading ms-4 ms-sm-0"> <span class="uppercase-text">{{ prod.brand_id.name }}</span> {{ prod.name }}, <span class="subtitle2">{{ prod.skein_weight }}g</span> </h1>
+                <div class="row mb-2">
+                        <div class="col-12 ms-2 me-2">
+                                <h1 class="page-heading "> <span class="uppercase-text">{{ prod.brand_id.name }}</span> {{ prod.name }}, <span class="subtitle2">{{ prod.skein_weight }}g</span> </h1>
                                 </div>
                         </div>
-                        <div class="row align-items-center">
-                                <div class="col-12 col-md-6">
-                                        <div class="prod-image-container">
+                        <div class="row align-items-start mt-4 ">
+                                <div class="col-12 mb-4 mb-md-0 col-md-6">
+                                        <div class="prod-image-container mb-4">
                                                 <img src="{{ prod.image.url }}"
                                                      class="card-img-top product-page-images"
                                                      alt=" A picture of {{ prod.name }}">
@@ -40,9 +40,16 @@
                                                         </span>
                                                 {% endif %}
                                         </div>
+                                         <p class="centre-align mt-4"><span class="green bold">{{ no_colours }}</span> Shades available </p>
+                                                        <p class="centre-align">{% if prod.machine_wash %}<i class="fa-solid fa-check green"></i> Machine washable
+                                                        {% endif %}
+                                                        {% if prod.natural_fibres %}
+                                                        <i class="fa-solid fa-check green"></i> 100% Natural fibres
+                                                        {% endif %}
+                                                        </p>
                                 </div>
                                 <div class="col-12 col-md-6">
-                                        <div class="row">
+                                        <div class="row ms-2 me-2 d-grid justify-content-end">
                                                 <div class="col-12 text-end">
                                                         {% if prod.on_promotion %}
                                                                 <span class="pre-sale-price">£{{ prod.price }} </span>
@@ -52,39 +59,33 @@
                                                         {% endif %}
                                                 </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="row ms-2 me-2 mb-4 ">
                                                 <div class="col-12">
-                                                        <p> {{ prod.summary }}</p>
+                                                    
+                                                        <p class="mb-4"> {{ prod.summary }}</p>
+                                                        <p> </p>
+                                                       
                                                 </div>
                                         </div>
-                                        <div class="row d-block d-md-none d-lg-block justify-content-center">
-                                                <div class="col-10 col-lg-8">
+                                        <div class="row d-grid justify-content-center mb-4">
+                                                <div class="col-12 col-lg-12">
                                                         <form method="POST" action="#">
                                                                 {{ form | crispy }}
                                                                 <input class="form-control" type="number" name="quantity" value="1"
                                                                        min="1"
                                                                        max="100"
                                                                        data-item_id="{{ prod.product.id }}">
-                                                                <a type="submit" aria-label="" class="btn btn-main" role="button"> Add to basket</a>
-                                                        </form>
+                                                                       <div class="text-center">
+                                                                <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" role="button"> Add to basket</a>
+                                                        </div>
+                                                            </form>
                                                 </div>
                                         </div>
 
                                 </div>
                         </div>
-                        <div class="row d-none d-md-block d-lg-none">
-                                <div class="col-md-8">
-                                        <form method="POST" action="#">
-                                                {{ form | crispy }}
-                                                <input class="form-control" type="number" name="quantity" value="1"
-                                                       min="1"
-                                                       max="100"
-                                                       data-item_id="{{ prod.product.id }}">
-                                                <a type="submit" aria-label="" class="btn btn-main"> Add to basket</a>
-                                        </form>
-                                </div>
-                        </div>
-                        <div class="row">
+                        
+                        <div class="row ms-2 me-2 mb-4">
                                 <div class="col">
                                         <div class="accordion" id="product-info">
                                                 <div class="mb-3 accordion-item">
@@ -140,7 +141,7 @@
                                                                 <p><span class="bold">Tension*: </span> {{ prod.knitting_tension }}</p>
                                                                 <p><span class="small-text">* gives a 10 x 10 cm squre when using recommended needles </span> </p>
                                                                 <p>  </p>
-                                                                <p> For patterns using this yarn, take a look at {{ prod.brand_id.name }}'s website
+                                                                <p> For patterns using this yarn, take a look at the {{ prod.brand_id.name }} website
                                                                         <a href="{{ prod.brand_id.manufacturer_patterns }}"
                                                                            aria-label="takes you to {{ prod.brand_id.name }}'s website"
                                                                            target="_blank" rel="noopener">here</a> </p>

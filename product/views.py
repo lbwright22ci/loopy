@@ -123,6 +123,7 @@ def ProductDetail(request, slug):
     queryset = Product.objects.filter(visible=True)
     prod = get_object_or_404(queryset, slug=slug)
     colour_options = prod.product.all().order_by('shade_code')
+    no_colours= colour_options.count()
     form = ColourVarForm()
 
     template ="product/product-detail.html"
@@ -130,6 +131,7 @@ def ProductDetail(request, slug):
         'prod':prod,
         'colour_options':colour_options,
         'form':form,
+        'no_colours':no_colours,
     }
 
     return render(request, template, context)

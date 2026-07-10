@@ -47,7 +47,7 @@ class Colour_cat(models.Model):
     shade_type_id = models.ForeignKey('Shade_Type', null=True, blank=True, on_delete=models.SET_NULL, related_name = "shade_type")
 
     def __str__(self):
-        return f'{self.colour_name} belonging to colour group {self.shade_type_id.name}'
+        return f'{self.colour_name}'
     
 class Product(models.Model):
     """ Stores instances of yarn products. Foreign keys are :model:`Brand` and :model:`Thickness` 

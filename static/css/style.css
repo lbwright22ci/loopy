@@ -75,9 +75,17 @@ a:hover {
     text-align: end;
 }
 
+.centre-align{
+    text-align: center;
+}
 .bold{
     font-weight: 700;
 }
+
+.green{
+    color:var(--success-color);
+}
+
 .form-control,
 .form-select,
 input:-internal-autofill-selected{
