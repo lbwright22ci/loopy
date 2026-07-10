@@ -92,13 +92,39 @@ div#filter-acc.accordion{
     margin-left:0.8rem;
 }
 
+.swatches{
+    width: 22vw;
+    max-width: 8rem;
+    height:auto;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.swatch-container{
+    width:22vw;
+    max-width:8rem;
+    height:auto;
+    position:relative;
+    justify-self: center;
+}
+
+.low-stock{
+    font-weight: 600;
+    position: absolute;
+    background-color: var(--error-color);
+    color:var(--primary-background-color);
+    top:0.8rem;
+    left:-1.2rem;
+    padding:0.1rem 0.6rem 0.1rem 0.6rem;
+}
+
 /*Media queries*/
 /* for very small screen widths 370px and less */
 @media screen and (max-width:370px){
     .all-products-head{
     display: none;
 }
-
 .page-heading{
     font-size: 2.8rem;
 }
