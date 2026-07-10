@@ -8,7 +8,7 @@
 {% block headdescription %} Buy {{ prod.brand_id.name }} {{ prod.name }} from Loopy Yarns {% endblock %}
 
 {% block headkey %} {{ prod.brand_id.name }}, {{ prod.name }}, {{ prod.fibre }}, Loopy yarns, online yarn shop
-                                       {% endblock %}
+{% endblock %}
 
 {% block extracss %}
         <link rel="stylesheet" href="{% static 'product/css/product.css' %}">
@@ -21,15 +21,142 @@
 
 {% block content %}
 
-<div class="container p-4">
-<h1 class="page-heading ms-4 ms-sm-0"> {{ prod.brand_id.name }}, {{ prod.name }} </h1>
+        <div class="container p-4">
+                <div class="row">
+                        <div class="col-12">
+                                <h1 class="page-heading ms-4 ms-sm-0"> <span class="uppercase-text">{{ prod.brand_id.name }}</span> {{ prod.name }}, <span class="subtitle2">{{ prod.skein_weight }}g</span> </h1>
+                                </div>
+                        </div>
+                        <div class="row align-items-center">
+                                <div class="col-12 col-md-6">
+                                        <div class="prod-image-container">
+                                                <img src="{{ prod.image.url }}"
+                                                     class="card-img-top product-page-images"
+                                                     alt=" A picture of {{ prod.name }}">
+                                                {% if prod.on_promotion %}
+                                                        <span class="translate-middle sale-ticket"><i
+                                                                class=" sale-icon fa-solid fa-tags"></i>
+                                                                <span class="visually-hidden"> On promotion</span>
+                                                        </span>
+                                                {% endif %}
+                                        </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                        <div class="row">
+                                                <div class="col-12 text-end">
+                                                        {% if prod.on_promotion %}
+                                                                <span class="pre-sale-price">£{{ prod.price }} </span>
+                                                                <span class="subtitle2 sale-price"> £{{ prod.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                        {% else %}
+                                                                <span class="subtitle2"><strong>£{{ prod.price }}</strong></span>
+                                                        {% endif %}
+                                                </div>
+                                        </div>
+                                        <div class="row">
+                                                <div class="col-12">
+                                                        <p> {{ prod.summary }}</p>
+                                                </div>
+                                        </div>
+                                        <div class="row d-block d-md-none d-lg-block justify-content-center">
+                                                <div class="col-10 col-lg-8">
+                                                        <form method="POST" action="#">
+                                                                {{ form | crispy }}
+                                                                <input class="form-control" type="number" name="quantity" value="1"
+                                                                       min="1"
+                                                                       max="100"
+                                                                       data-item_id="{{ prod.product.id }}">
+                                                                <a type="submit" aria-label="" class="btn btn-main" role="button"> Add to basket</a>
+                                                        </form>
+                                                </div>
+                                        </div>
 
-<form>
-    {{ form | crispy }}
-</form>
+                                </div>
+                        </div>
+                        <div class="row d-none d-md-block d-lg-none">
+                                <div class="col-md-8">
+                                        <form method="POST" action="#">
+                                                {{ form | crispy }}
+                                                <input class="form-control" type="number" name="quantity" value="1"
+                                                       min="1"
+                                                       max="100"
+                                                       data-item_id="{{ prod.product.id }}">
+                                                <a type="submit" aria-label="" class="btn btn-main"> Add to basket</a>
+                                        </form>
+                                </div>
+                        </div>
+                        <div class="row">
+                                <div class="col">
+                                        <div class="accordion" id="product-info">
+                                                <div class="mb-3 accordion-item">
+                                                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                                           data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                                Product Specification
+                                                        </a>
+                                                        <div id="collapseOne" class="accordion-collapse collapse">
+                                                                <p><span class="bold">Thickness: </span> {{ prod.thickness_id.name }}</p>
+                                                                <p><span class="bold">Fibre content: </span> {{ prod.fibre }}</p>
+                                                                <p><span class="bold">Weight: </span> {{ prod.skein_weight }}g</p>
+                                                                <p><span class="bold">Length: </span> {{ prod.skein_length }}m</p>
 
-</div>
+                                                        </div>
+                                                </div>
+                                                <div class="mb-3 accordion-item">
+                                                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                                           data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                                Care Instructions
+                                                        </a>
+                                                        <div id="collapseTwo" class="accordion-collapse collapse">
+                                                                {% if prod.machine_wash %}
+                                                                        <p> Machine washable
+                                                                                {% if prod.wool_cycle %}
+                                                                                        using wool cycle
+                                                                                {% endif %}
+                                                                        </p>
+                                                                {% else %}
+                                                                        <p> Hand wash only </p>
+                                                                {% endif %}
+                                                                {% if prod.washing_temp %}
+                                                                        <p><span class="bold">Temperature: </span>{{ prod.washing_temp }}deg C</p>
+                                                                {% endif %}
+                                                                {% if not prod.tumble_dry %}
+                                                                        <p> Do not tumble dry
+                                                                                {% if prod.dry_flat %}
+                                                                                        , dry flat
+                                                                                {% endif %}
+                                                                        </p>
+                                                                {% else %}
+                                                                        <p> Tumble dry </p>
+                                                                {% endif %}
+                                                        </div>
+                                                </div>
+                                                <div class="mb-3 accordion-item">
+                                                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                                           data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                                Tips & Patterns
+                                                        </a>
+                                                        <div id="collapseThree" class="accordion-collapse collapse">
 
+                                                                <p><span class="bold">Recommended needle size: </span> {{ prod.needle_size }}mm</p>
+                                                                <p><span class="bold">Tension*: </span> {{ prod.knitting_tension }}</p>
+                                                                <p><span class="small-text">* gives a 10 x 10 cm squre when using recommended needles </span> </p>
+                                                                <p>  </p>
+                                                                <p> For patterns using this yarn, take a look at {{ prod.brand_id.name }}'s website
+                                                                        <a href="{{ prod.brand_id.manufacturer_patterns }}"
+                                                                           aria-label="takes you to {{ prod.brand_id.name }}'s website"
+                                                                           target="_blank" rel="noopener">here</a> </p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+
+
+                        </div>
+
+                        <div class="to-top">
+                                <a class="d-flex h-100 to-top-link">
+                                        <i class="fa-solid fa-arrow-up"></i>
+                                </a>
+                        </div>
 {% endblock %}
 
 {% block extrapostjs %}

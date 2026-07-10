@@ -74,6 +74,10 @@ a:hover {
 .right-align{
     text-align: end;
 }
+
+.bold{
+    font-weight: 700;
+}
 .form-control,
 .form-select,
 input:-internal-autofill-selected{
