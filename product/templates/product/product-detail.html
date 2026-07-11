@@ -70,13 +70,28 @@
                                 <div class="row d-grid justify-content-center mb-4">
                                         <div class="col-12 col-lg-12">
                                                 <form method="POST" action="#">
-                                                        {{ form | crispy }}
+                                                        <div  class="mb-4 div-colour-select-form">
+                                                        <div class="mini-selected-swatch">
+                                                        </div>
+                                                        
+                                                            <select name="colour_var" class="select form-select form-select-sm"
+                                                             aria-label="colour options available" id="colour-options-form">
+                                                            <option value="0" selected>Choose a colour </option>
+                                                            {% for c in colour_options %}
+                                                            <option value="{{ c.id }}"> {{ c.colour_cat_id.colour_name }}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        
+                                                        </div>
+
+                                                        <div id="quantity-selector-div">
                                                         <input class="form-control" type="number" name="quantity" value="1"
                                                                min="1"
                                                                max="100"
                                                                data-item_id="{{ prod.product.id }}">
                                                         <div class="text-center">
                                                                 <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" role="button"> Add to basket</a>
+                                                        </div>
                                                         </div>
                                                 </form>
                                         </div>
@@ -171,8 +186,8 @@
                                                         <div class="swatch-container"  >
                                                                 <img src="{{ c.colour_cat_id.image.url }}" 
                                                                 alt="colour swatch for {{ c.colour_cat_id.colour_name }}" 
-                                                                class="swatches colvar_id_{{ c.colour_cat_id.id }}"
-                                                                data-colvar_id="{{ c.colour_cat_id.id }}">
+                                                                class="swatches colvar_id_{{ c.id }}"
+                                                                data-colvar_id="{{ c.id }}">
                                                                 {% if c.low_stock %}
                                                                         <span class="very-small-text low-stock rounded-pill"> Low stock </span>
                                                                 {% endif %}

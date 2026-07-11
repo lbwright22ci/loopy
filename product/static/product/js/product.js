@@ -47,9 +47,22 @@ $(document).ready(function () {
         };
     };
 
+    function changeSelected(colourId){
+        $('form select[name=colour_var]').val(colourId).change();
+    };
+
+    function displaySwatch(colourId){
+        var src = $(`.colvar_id_${colourId}`).attr('src');
+        var altText = $(`.colvar_id_${colourId}`).attr('src');
+        $('.mini-selected-swatch').html(`<img src=${src} alt=${altText} class='img-mini-selected'>`);
+    };
+
     $('.swatches').click(function(){
         var colourId = $(this).data('colvar_id');
         addHightlight(colourId);
+        window.scrollTo(20,0);
+        changeSelected(colourId);
+        displaySwatch(colourId);
     });
 
 })
