@@ -65,4 +65,10 @@ $(document).ready(function () {
         displaySwatch(colourId);
     });
 
+    $('#colour-options-form').change(function(){
+        var colourId = $(this).val();
+        addHightlight(colourId);
+        displaySwatch(colourId);
+    });
+
 })
