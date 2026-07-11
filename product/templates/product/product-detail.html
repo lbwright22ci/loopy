@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="row d-grid justify-content-center mb-4">
                                         <div class="col-12 col-lg-12">
-                                                <form method="POST" action="#">
+                                                <form method="POST" action="#" class="colour-select-form">
                                                         <div  class="mb-4 div-colour-select-form">
                                                         <div class="mini-selected-swatch">
                                                         </div>
@@ -77,17 +77,33 @@
                                                              aria-label="colour options available" id="colour-options-form">
                                                             <option value="0" selected>Choose a colour </option>
                                                             {% for c in colour_options %}
-                                                            <option value="{{ c.id }}"> {{ c.colour_cat_id.colour_name }}</option>
+                                                            <option value="{{ c.id }}"
+                                                            > {{ c.colour_cat_id.colour_name }}</option>
                                                             {% endfor %}
                                                         </select>
                                                         
                                                         </div>
 
-                                                        <div id="quantity-selector-div">
-                                                        <input class="form-control" type="number" name="quantity" value="1"
-                                                               min="1"
-                                                               max="100"
-                                                               data-item_id="{{ prod.product.id }}">
+                                                        <div class="input-group">
+                                                            
+                                        <button class="decrement-qty" type="button"
+                                            >
+                                            <span >
+                                                <i class="fas fa-minus"></i>
+                                            </span>
+                                        </button>
+                                    
+                                                        <input id="quant-in" class="form-control" type="number" name="quantity" value="1"
+                                                               min="1" max="100" disabled>
+                                                               <p id="low-stock-warning" class="small-text"></p>
+<button class="increment-qty" type="button"
+                                            >
+                                            <span >
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                        </button>
+
+
                                                         </div>
                                                                <div class="text-center">
                                                                 <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" role="button"> Add to basket</a>
@@ -187,7 +203,12 @@
                                                                 <img src="{{ c.colour_cat_id.image.url }}" 
                                                                 alt="colour swatch for {{ c.colour_cat_id.colour_name }}" 
                                                                 class="swatches colvar_id_{{ c.id }}"
-                                                                data-colvar_id="{{ c.id }}">
+                                                                data-colvar_id="{{ c.id }}"
+                                                                {% if c.low_stock %}
+                                                            data-col_ls="true"
+                                                            {% else %}
+                                                            data-col_ls="false"
+                                                            {% endif %}>
                                                                 {% if c.low_stock %}
                                                                         <span class="very-small-text low-stock rounded-pill"> Low stock </span>
                                                                 {% endif %}

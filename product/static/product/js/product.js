@@ -57,18 +57,35 @@ $(document).ready(function () {
         $('.mini-selected-swatch').html(`<img src=${src} alt=${altText} class='img-mini-selected'>`);
     };
 
+    function displayQuantityField(colourId, colLS){
+        var maxBalls = 0;
+        if (colLS == true ){
+            maxBalls = 10;
+            $('#low-stock-warning').text('Low Stock! Max. 10 balls per customer only');
+        } else {
+            maxBalls = 50;
+            $('#low-stock-warning').text('');
+        }
+        $('#quant-in').replaceWith(`<input id="quant-in" class="form-control" 
+            type="number" name="quantity" value="1"  min="1" max="${maxBalls}" data-item_id="${colourId}" >`)
+    };
+
     $('.swatches').click(function(){
         var colourId = $(this).data('colvar_id');
+        var colLS = $(this).data('col_ls');
         addHightlight(colourId);
         window.scrollTo(20,0);
         changeSelected(colourId);
         displaySwatch(colourId);
+        displayQuantityField(colourId, colLS);
     });
 
     $('#colour-options-form').change(function(){
         var colourId = $(this).val();
+        var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
         addHightlight(colourId);
         displaySwatch(colourId);
+        displayQuantityField(colourId, colLS);
     });
 
 })

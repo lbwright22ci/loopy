@@ -137,14 +137,17 @@ div#filter-acc.accordion{
     box-shadow: 0 0 10px var(--decorative-color);
 }
 
-#colour-options-form:{
-    width:20.5rem;
+form .colour-select-form:{
+    max-width:17.0rem;
 }
 
 .div-colour-select-form{
     position: relative;
 }
 
+#quant-in{
+    text-align: right;
+}
 .mini-selected-swatch{
     position:absolute;
     right:-6rem;
