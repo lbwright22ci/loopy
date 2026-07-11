@@ -167,9 +167,12 @@
                                         {% for c in colour_options %}
                                                 
                                                 <div class="col-4 col-sm-3 col-md-2 text-center
-                                                {% if forloop.counter > 24 %} swatches-hidden {% endif %}">
-                                                        <div class="swatch-container">
-                                                                <img src="{{ c.colour_cat_id.image.url }}" alt="colour swatch for {{ c.colour_cat_id.colour_name }}" class="swatches">
+                                                {% if forloop.counter > 24 %} swatches-hidden {% endif %}" >
+                                                        <div class="swatch-container"  >
+                                                                <img src="{{ c.colour_cat_id.image.url }}" 
+                                                                alt="colour swatch for {{ c.colour_cat_id.colour_name }}" 
+                                                                class="swatches colvar_id_{{ c.colour_cat_id.id }}"
+                                                                data-colvar_id="{{ c.colour_cat_id.id }}">
                                                                 {% if c.low_stock %}
                                                                         <span class="very-small-text low-stock rounded-pill"> Low stock </span>
                                                                 {% endif %}

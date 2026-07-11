@@ -133,6 +133,10 @@ div#filter-acc.accordion{
     cursor: pointer;
 }
 
+.selected-colour-option{
+    box-shadow: 0 0 10px var(--decorative-color);
+}
+
 /*Media queries*/
 /* for very small screen widths 370px and less */
 @media screen and (max-width:370px){

@@ -33,7 +33,23 @@ $(document).ready(function () {
         } else {
             $(this).text(hiddenText);
         };
+    });
 
+    function addHightlight(colourId){
+        var allSwatch = $('.swatches');
+        for (var i=0; i<allSwatch.length; i++){
+            var itemId = $(allSwatch[i]).data('colvar_id');
+            if (itemId != colourId){
+                $(allSwatch[i]).removeClass('selected-colour-option');
+            } else {
+                $(allSwatch[i]).addClass('selected-colour-option');
+            };
+        };
+    };
+
+    $('.swatches').click(function(){
+        var colourId = $(this).data('colvar_id');
+        addHightlight(colourId);
     });
 
 })
