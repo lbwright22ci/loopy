@@ -67,48 +67,28 @@
 
                                         </div>
                                 </div>
-                                <div class="row d-grid justify-content-center mb-4">
-                                        <div class="col-12 col-lg-12">
-                                                <form method="POST" action="#" class="colour-select-form">
-                                                        <div  class="mb-4 div-colour-select-form">
-                                                        <div class="mini-selected-swatch">
+                                <div class="row justify-content-center mb-4">
+                                        <div class="col-8">
+
+                                                <form method="POST" action="#">
+                                                        <div  class="div-colour-select-form">
+                                                                <div class="mini-selected-swatch">
+                                                                </div>
+                                                                <select name="colour_var" class="select form-select form-select-sm"
+                                                                        aria-label="colour options available" id="colour-options-form">
+                                                                        <option value="0" selected>Choose a colour </option>
+                                                                        {% for c in colour_options %}
+                                                                                <option value="{{ c.id }}"
+                                                                                > {{ c.colour_cat_id.colour_name }}</option>
+                                                                        {% endfor %}
+                                                                </select>
+                                                                <p id="low-stock-warning" class="very-small-text"></p>
                                                         </div>
-                                                            <select name="colour_var" class="select form-select form-select-sm"
-                                                             aria-label="colour options available" id="colour-options-form">
-                                                            <option value="0" selected>Choose a colour </option>
-                                                            {% for c in colour_options %}
-                                                            <option value="{{ c.id }}"
-                                                            > {{ c.colour_cat_id.colour_name }}</option>
-                                                            {% endfor %}
-                                                        </select>
+
+                                                        <div  id="quant-in">
+                                                            </div>
                                                         
-                                                        </div>
 
-                                                        <div class="input-group">
-                                                            
-                                        <button class="decrement-qty" type="button"
-                                            >
-                                            <span >
-                                                <i class="fas fa-minus"></i>
-                                            </span>
-                                        </button>
-                                    
-                                                        <input id="quant-in" class="form-control" type="number" name="quantity" value="1"
-                                                               min="1" max="100" disabled>
-                                                               <p id="low-stock-warning" class="small-text"></p>
-<button class="increment-qty" type="button"
-                                            >
-                                            <span >
-                                                <i class="fas fa-plus"></i>
-                                            </span>
-                                        </button>
-
-
-                                                        </div>
-                                                               <div class="text-center">
-                                                                <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" role="button"> Add to basket</a>
-                                                        </div>
-                                                        
                                                 </form>
                                         </div>
                                 </div>
@@ -117,9 +97,9 @@
                 </div>
 
                 <div class="row mt-4 mb-4">
-                    <div class="col-12 mt-4 mb-4">
-                        <h2 class="subtitle">Essential Details:</h2>
-                    </div>
+                        <div class="col-12 mt-4 mb-4">
+                                <h2 class="subtitle">Essential Details:</h2>
+                        </div>
                         <div class="col ms-2 me-2">
                                 <div class="accordion" id="product-info">
                                         <div class="mb-3 accordion-item">
@@ -191,24 +171,24 @@
                         <div class="col-12 mt-4 mb-4">
                                 <h2 class="subtitle">Colour Options:</h2>
                         </div>
-                        </div>
-                        <div class="row mb-4 mt-4 justify-content-center">
+                </div>
+                <div class="row mb-4 mt-4 justify-content-center">
                         <div class="col-12 col-lg-10">
                                 <div class="row">
                                         {% for c in colour_options %}
-                                                
+
                                                 <div class="col-4 col-sm-3 col-md-2 text-center
-                                                {% if forloop.counter > 24 %} swatches-hidden {% endif %}" >
+                                                            {% if forloop.counter > 24 %} swatches-hidden {% endif %}" >
                                                         <div class="swatch-container"  >
-                                                                <img src="{{ c.colour_cat_id.image.url }}" 
-                                                                alt="colour swatch for {{ c.colour_cat_id.colour_name }}" 
-                                                                class="swatches colvar_id_{{ c.id }}"
-                                                                data-colvar_id="{{ c.id }}"
-                                                                {% if c.low_stock %}
-                                                            data-col_ls="true"
-                                                            {% else %}
-                                                            data-col_ls="false"
-                                                            {% endif %}>
+                                                                <img src="{{ c.colour_cat_id.image.url }}"
+                                                                     alt="colour swatch for {{ c.colour_cat_id.colour_name }}"
+                                                                     class="swatches colvar_id_{{ c.id }}"
+                                                                     data-colvar_id="{{ c.id }}"
+                                                                     {% if c.low_stock %}
+                                                                             data-col_ls="true"
+                                                                     {% else %}
+                                                                             data-col_ls="false"
+                                                                     {% endif %}>
                                                                 {% if c.low_stock %}
                                                                         <span class="very-small-text low-stock rounded-pill"> Low stock </span>
                                                                 {% endif %}
@@ -217,40 +197,40 @@
                                                         <p class="centre-align very-small-text pb-0 mb-0">{{ c.shade_code }} | {{ c.dye_lot }}</p>
                                                         <p class="centre-align very-small-text">Shade | Dye lot </p>
                                                 </div>
-                                                
+
                                         {% endfor %}
                                         {% if no_colours > 24 %}
-                                        <div class="col-12 text-end pt-4 pe-4 me-4">
-                                            <p id="clip-swatches">Show more...</p>
-                                        </div>
+                                                <div class="col-12 text-end pt-4 pe-4 me-4">
+                                                        <p id="clip-swatches">Show more...</p>
+                                                </div>
                                         {% endif %}
                                 </div>
                         </div>
 
                         <div class="row mt-4">
-                        <div class="col-12 mt-4 mb-4">
-                                <h2 class="subtitle">Reviews:</h2>
-                        </div>
+                                <div class="col-12 mt-4 mb-4">
+                                        <h2 class="subtitle">Reviews:</h2>
+                                </div>
                         </div>
                         <div class="row mb-4 mt-4 justify-content-center">
-                        <div class="col-12 col-lg-10">
-                                <div class="row">
-                                    Add reviews here
+                                <div class="col-12 col-lg-10">
+                                        <div class="row">
+                                                Add reviews here
+                                        </div>
                                 </div>
-                            </div>
                         </div>
 
                         <div class="row mt-4">
-                        <div class="col-12 mt-4 mb-4">
-                                <h2 class="subtitle">You may also like:</h2>
-                        </div>
+                                <div class="col-12 mt-4 mb-4">
+                                        <h2 class="subtitle">You may also like:</h2>
+                                </div>
                         </div>
                         <div class="row mb-4 mt-4 justify-content-center">
-                        <div class="col-12 col-lg-10">
-                                <div class="row">
-                                    Product suggestions here
+                                <div class="col-12 col-lg-10">
+                                        <div class="row">
+                                                Product suggestions here
+                                        </div>
                                 </div>
-                            </div>
                         </div>
 
                 </div>

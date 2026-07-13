@@ -66,8 +66,33 @@ $(document).ready(function () {
             maxBalls = 50;
             $('#low-stock-warning').text('');
         }
-        $('#quant-in').replaceWith(`<input id="quant-in" class="form-control" 
-            type="number" name="quantity" value="1"  min="1" max="${maxBalls}" data-item_id="${colourId}" >`)
+        $('#quant-in').replaceWith(`<div  id="quant-in">
+                                    <div class="input-group div-colour-select-form">
+                                        <button class="decrement-qty btn btn-main" type="button" >
+                                            <span >
+                                                <i class="fas fa-minus"></i>
+                                            </span>
+                                        </button>
+                                        <input id="quant-in" class="form-control" 
+                                        type="number" name="quantity" value="1"  min="1" 
+                                        max="${maxBalls}" data-item_id="${colourId}" >
+                                        <button class="increment-qty btn btn-main" type="button">
+                                            <span >
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="text-center div-colour-select-form">
+                                        <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" 
+                                        role="button"> Add to basket</a>
+                                    </div>
+                                    </div>`)
+    };
+
+    function removeQuantityField(){
+        $('#quant-in').replaceWith(`<div  id="quant-in"> </div>`);
+        $('#low-stock-warning').text('');
+        $('.mini-selected-swatch').html("");
     };
 
     $('.swatches').click(function(){
@@ -84,8 +109,12 @@ $(document).ready(function () {
         var colourId = $(this).val();
         var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
         addHightlight(colourId);
+        if (colourId == 0){
+            removeQuantityField();
+        }
+        else{
         displaySwatch(colourId);
-        displayQuantityField(colourId, colLS);
+        displayQuantityField(colourId, colLS);}
     });
 
 })
