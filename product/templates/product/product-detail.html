@@ -70,7 +70,8 @@
                                 <div class="row justify-content-center mb-4">
                                         <div class="col-8">
 
-                                                <form method="POST" action="#">
+                                                <form method="POST" action="{% url 'add_to_basket' %}">
+                                                    {% csrf_token %}
                                                         <div  class="div-colour-select-form">
                                                                 <div class="mini-selected-swatch" >
                                                                 </div>
@@ -106,7 +107,7 @@
                                         role="button"> Add to basket</a>
                                     </div>
                                     </div>
-                                                        
+                                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
 
                                                 </form>
                                         </div>
