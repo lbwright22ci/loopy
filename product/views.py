@@ -124,14 +124,15 @@ def ProductDetail(request, slug):
     prod = get_object_or_404(queryset, slug=slug)
     colour_options = prod.product.all().order_by('shade_code')
     no_colours= colour_options.count()
-    form = ColourVarForm()
+    recommend = Product.objects.filter(thickness_id = prod.thickness_id).order_by('price')[0:3]
+
 
     template ="product/product-detail.html"
     context={
         'prod':prod,
         'colour_options':colour_options,
-        'form':form,
         'no_colours':no_colours,
+        'recommend': recommend,
     }
 
     return render(request, template, context)

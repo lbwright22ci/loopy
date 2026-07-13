@@ -244,10 +244,49 @@
                                         <h2 class="subtitle">You may also like:</h2>
                                 </div>
                         </div>
-                        <div class="row mb-4 mt-4 justify-content-center">
-                                <div class="col-12 col-lg-10">
-                                        <div class="row">
-                                                Product suggestions here
+                        <div class="row mb-4 mt-4 justify-content-center mb-4">
+                                <div class="col-12 col-lg-10 mb-4">
+                                        <div class="row mb-4">
+                                                {% for product in recommend %}
+                                                {% if product.visible %}
+                                                        <div class="col-12 col-md-4  text-center">
+
+                                                                <div class="card">
+                                                                        <a class="card-link" href="{% url 'productdetail' product.slug %} "
+                                                                           aria-label="takes you to a page where you can find out more information about {{ product.name }}">
+                                                                                <div class="prod-image-container">
+                                                                                        <img src="{{ product.image.url }}"
+                                                                                             class="card-img-top product-page-images"
+                                                                                             alt=" A picture of {{ product.name }}">
+                                                                                        {% if product.on_promotion %}
+                                                                                                <span class="translate-middle sale-ticket"><i
+                                                                                                        class=" sale-icon fa-solid fa-tags"></i>
+                                                                                                        <span class="visually-hidden"> On promotion</span>
+                                                                                                </span>
+                                                                                        {% endif %}
+                                                                                </div>
+                                                                                <div class="card-body">
+                                                                                        <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
+                                                                                                {{ product.name }}</p>
+                                                                                        <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
+                                                                                        <p>
+                                                                                                {% if product.on_promotion %}
+                                                                                                        <span class="small-text pre-sale-price">£{{ product.price }} </span>
+                                                                                                        <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                                                                {% else %}
+                                                                                                        <strong>£{{ product.price }}</strong>
+                                                                                                {% endif %}
+
+                                        
+                                                                                        </p>
+                                                                                        
+                                                                                </div>
+                                                                        </a>
+                                                                </div>
+
+                                                        </div>
+                                                {% endif %}
+                                        {% endfor %}
                                         </div>
                                 </div>
                         </div>
