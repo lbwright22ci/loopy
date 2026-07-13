@@ -72,7 +72,7 @@
 
                                                 <form method="POST" action="#">
                                                         <div  class="div-colour-select-form">
-                                                                <div class="mini-selected-swatch">
+                                                                <div class="mini-selected-swatch" >
                                                                 </div>
                                                                 <select name="colour_var" class="select form-select form-select-sm"
                                                                         aria-label="colour options available" id="colour-options-form">
@@ -85,8 +85,27 @@
                                                                 <p id="low-stock-warning" class="very-small-text"></p>
                                                         </div>
 
-                                                        <div  id="quant-in">
-                                                            </div>
+                                                        <div  id="quant-in" class="d-none">
+                                    <div class="input-group div-colour-select-form">
+                                        <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="">
+                                            <span >
+                                                <i class="fas fa-minus"></i>
+                                            </span>
+                                        </button>
+                                        <input class="form-control qty-input  
+                                        type="number" name="quantity" value="1"  min="1" data-item_id=""
+                                         >
+                                        <button class="increment-qty btn btn-main " type="button" data-item-id-plus="">
+                                            <span >
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                    <div class="text-center div-colour-select-form">
+                                        <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" 
+                                        role="button"> Add to basket</a>
+                                    </div>
+                                    </div>
                                                         
 
                                                 </form>

@@ -66,55 +66,108 @@ $(document).ready(function () {
             maxBalls = 50;
             $('#low-stock-warning').text('');
         }
-        $('#quant-in').replaceWith(`<div  id="quant-in">
-                                    <div class="input-group div-colour-select-form">
-                                        <button class="decrement-qty btn btn-main" type="button" >
-                                            <span >
-                                                <i class="fas fa-minus"></i>
-                                            </span>
-                                        </button>
-                                        <input id="quant-in" class="form-control" 
-                                        type="number" name="quantity" value="1"  min="1" 
-                                        max="${maxBalls}" data-item_id="${colourId}" >
-                                        <button class="increment-qty btn btn-main" type="button">
-                                            <span >
-                                                <i class="fas fa-plus"></i>
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="text-center div-colour-select-form">
-                                        <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" 
-                                        role="button"> Add to basket</a>
-                                    </div>
-                                    </div>`)
+        $('#quant-in').removeClass('d-none');
+        
+        $('.decrement-qty').attr('data-item-id-minus', `${colourId}`);
+        
+        $('.increment-qty').attr('data-item-id-plus', `${colourId}`);
+
+        $('.qty-input').attr('data-item_id', `${colourId}`);
+        $('.qty-input').attr('max', `${maxBalls}`);
     };
 
-    function removeQuantityField(){
-        $('#quant-in').replaceWith(`<div  id="quant-in"> </div>`);
+    function resetQuantityField(){
+        $('#quant-in').addClass('d-none');
+        $('.mini-selected-swatch').attr('colour', 0);
+        $('.decrement-qty').attr('data-item-id-minus', 0);
+        $('.increment-qty').attr('data-item-id-plus', 0);
+        $('.qty-input').attr('data-item_id', 0);
+        $('.qty-input').attr('max', 0);
+        $('.qty-input').val(1);
         $('#low-stock-warning').text('');
-        $('.mini-selected-swatch').html("");
+        $('.mini-selected-swatch').html('');
     };
+
+    function handleEnableDisable(colourId, colLS){
+        var currentvalue = parseInt($('[data-item_id ="'+colourId+'" ]').val());
+        var plusLimit =0
+        if (colLS == true){
+            plusLimit = 9;
+        }else{
+            plusLimit = 49;
+        }
+        var minusDisabled = currentvalue < 2;
+        var plusDisabled = currentvalue > plusLimit;
+        $('[data-item-id-plus= "'+colourId+'" ]').prop('disabled', plusDisabled);
+        $('[data-item-id-minus= "'+colourId+'" ]').prop('disabled', minusDisabled);
+    };
+
+    // check all input fields plus and minus buttons are correct on page load: required for basket page
+    var allQtyInputs = $('.qty-input');
+    for(var i = 0; i < allQtyInputs.length; i++){
+        var colourId = $(allQtyInputs[i]).data('item_id');
+       var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
+        handleEnableDisable(colourId, colLS);
+    };
+
 
     $('.swatches').click(function(){
         var colourId = $(this).data('colvar_id');
+        
         var colLS = $(this).data('col_ls');
+
         addHightlight(colourId);
+        
         window.scrollTo(20,0);
         changeSelected(colourId);
+        // console.log('gets here');
+        resetQuantityField();
         displaySwatch(colourId);
         displayQuantityField(colourId, colLS);
+        handleEnableDisable(colourId, colLS);
     });
+
 
     $('#colour-options-form').change(function(){
         var colourId = $(this).val();
         var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
         addHightlight(colourId);
         if (colourId == 0){
-            removeQuantityField();
+            resetQuantityField();
         }
         else{
+        resetQuantityField();
         displaySwatch(colourId);
-        displayQuantityField(colourId, colLS);}
+        displayQuantityField(colourId, colLS);
+        handleEnableDisable(colourId, colLS);}
+    });
+
+
+    $('.increment-qty').click(function() {
+       
+       var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue + 1);
+       var colourId = $(this).data('item-id-plus');
+       var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
+       handleEnableDisable(colourId, colLS);
+    });
+
+    $('.decrement-qty').click(function() {
+       
+       var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
+       
+       var currentValue = parseInt($(closestInput).val());
+       $(closestInput).val(currentValue - 1);
+       var colourId = $(this).data('item-id-minus');
+       var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
+       handleEnableDisable(colourId, colLS);
+    });
+
+    $('.qty-input').change(function(){
+        var colourId = $(this).data('item_id');
+       var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
+       handleEnableDisable(colourId, colLS);
     });
 
 })

@@ -167,6 +167,9 @@ option{
     background-color: var(--primary-background-color);
 }
 
+.button-disabled{
+    opacity: 60%;
+}
 .table>:not(caption)>*>*{
     color:var(--primary-text-color);
 }

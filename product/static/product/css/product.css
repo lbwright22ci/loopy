@@ -144,9 +144,7 @@ div#filter-acc.accordion{
     margin-bottom:4rem;
 }
 
-#quant-in{
-    text-align: right;
-}
+
 .mini-selected-swatch{
     position:absolute;
     right:calc(50% - 2rem);
