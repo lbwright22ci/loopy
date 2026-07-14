@@ -80,7 +80,7 @@
                                 <div class="row justify-content-center mb-4">
                                         <div class="col-8">
 
-                                                <form method="POST" action="{% url 'add_to_basket' %}">
+                                                <form action="{% url 'add_to_basket' %}" method="POST" >
                                                     {% csrf_token %}
                                                         <div  class="div-colour-select-form">
                                                                 <div class="mini-selected-swatch" >
@@ -112,12 +112,13 @@
                                             </span>
                                         </button>
                                     </div>
+                                                                                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                     <div class="text-center div-colour-select-form">
-                                        <a type="submit" aria-label="" class="btn btn-main mb-4 mt-4" 
-                                        role="button"> Add to basket</a>
+                                        <input type="submit" aria-label=" adds yarns to your shopping basket" class="btn btn-main mb-4 mt-4" 
+                                        role="button" value="Add to basket">
                                     </div>
                                     </div>
-                                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+
 
                                                 </form>
                                         </div>

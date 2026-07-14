@@ -1,0 +1,24 @@
+ .pre-sale-price{
+    text-decoration: line-through;
+}
+
+.sale-price{
+    color:var(--error-color);
+    font-weight: bold;
+}
+
+.colour-image{
+    height: 4rem;
+    width:4rem;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.product-image-basket{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-width: 8rem;
+    border-radius: 2rem;
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
+}

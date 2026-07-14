@@ -19,18 +19,20 @@ def basket_contents(request):
 
     basket = request.session.get('basket', {})
 
+    print(basket)
+
     for item_id, item_data in basket.items():
         col_var = get_object_or_404(Colour_var, pk = item_id)
         if col_var.product_id.on_promotion:
-            total += quantity * Decimal(col_var.product_id.price*(100-sale_discount)/100)
+            total += item_data * Decimal(col_var.product_id.price*(100-sale_discount)/100)
         else:
-            total =+ quantity * col_var.product_id.price
+            total =+ item_data * col_var.product_id.price
         ball_count += item_data
-        order_weight += col_var.product_id.skein_weight*quantity
+        order_weight += col_var.product_id.skein_weight*item_data
         basket_items.append({
             'item_id': item_id,
             'quantity': item_data,
-            'colour_variant':col_var,
+            'col_var':col_var,
         })
 
     # take account of order discount based on number of balls of yarn in the basket
@@ -46,7 +48,7 @@ def basket_contents(request):
     # find parcel size for postage
     # first adjust order weight to account for the weight of packing materials
     if ball_count < 5:
-        order_weight= order_weight + 200
+        order_weight = order_weight + 200
     else:
         order_weight = order_weight + 400
 
@@ -62,6 +64,7 @@ def basket_contents(request):
     
     grand_total = total + estimated_postage - discount
 
+    print(basket_items)
     return{
         'basket_items': basket_items,
         'total': total,

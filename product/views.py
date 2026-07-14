@@ -2,9 +2,8 @@ from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.db.models import Q, Case, When, FloatField, F
 from django.contrib import messages
 from django.db.models.functions import Lower
-from .forms import ColourVarForm
 
-from .models import Product, Colour_var
+from .models import Product
 from core.models import SaleSettings
 
 # Create your views here.

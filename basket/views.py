@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
+from product.models import Colour_var
+
 # Create your views here.
 
 
@@ -18,11 +20,12 @@ def view_basket(request):
 def add_to_basket(request):
     """ """
 
-    col_var = request.POST.get['colour_var']
-    quantity = request.POST.get['quantity']
-    col_var_id = col_var.id
-    redirect_url = request.get['redirect_url']
-    print ('gets here')
+    quantity = int(request.POST.get('quantity'))
+    col_var_id = request.POST['colour_var']
+    col_var = get_object_or_404(Colour_var, pk=col_var_id)
+    redirect_url = request.POST.get('redirect_url')
+    
+    print(quantity, col_var)
 
     basket = request.session.get('basket', {})
 
@@ -56,6 +59,6 @@ def add_to_basket(request):
         messages.info(request, f'Added {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name}')
 
-    request.session['basket', {}]
-
+    request.session['basket'] = basket
+ 
     return redirect(redirect_url)
