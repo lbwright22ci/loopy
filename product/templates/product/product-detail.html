@@ -24,6 +24,16 @@
         <div class="container p-4">
                 <div class="row mb-2">
                         <div class="col-12 ms-2 me-2">
+                                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'allproducts' %}"> All Yarns </a></li>
+    <li class="breadcrumb-item"><a href="{% url 'allproducts' %}?brand={{ prod.brand_id.name|lower}}"></a>{{ prod.brand_id.name }}</li>
+  </ol>
+</nav>
+                        </div>
+                </div>
+                <div class="row mb-2">
+                        <div class="col-12 ms-2 me-2">
                                 <h1 class="page-heading "> <span class="uppercase-text">{{ prod.brand_id.name }}</span> {{ prod.name }}, <span class="subtitle2">{{ prod.skein_weight }}g</span> </h1>
                         </div>
                 </div>

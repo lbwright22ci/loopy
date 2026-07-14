@@ -1,5 +1,6 @@
+from decimal import Decimal
 from django.shortcuts import get_object_or_404
-
+from django.db.models import Q
 
 from core.models import SaleSettings, Postage, Announcements
 from product.models import Colour_var
@@ -8,9 +9,66 @@ def basket_contents(request):
     basket_items=[]
     total=0
     ball_count = 0
+    order_weight =0
+    discount=0
+    estimated_postage=0
+    parcel_size =0
+
+    sale_discount = SaleSettings.objects.filter(active=True)[0].sale_percent
+    bulk_buy = Announcements.objects.filter(active=True)[0]
 
     basket = request.session.get('basket', {})
 
     for item_id, item_data in basket.items():
         col_var = get_object_or_404(Colour_var, pk = item_id)
-        if col_var.on_promotion:
+        if col_var.product_id.on_promotion:
+            total += quantity * Decimal(col_var.product_id.price*(100-sale_discount)/100)
+        else:
+            total =+ quantity * col_var.product_id.price
+        ball_count += item_data
+        order_weight += col_var.product_id.skein_weight*quantity
+        basket_items.append({
+            'item_id': item_id,
+            'quantity': item_data,
+            'colour_variant':col_var,
+        })
+
+    # take account of order discount based on number of balls of yarn in the basket
+    if bulk_buy.bulk_buy == True:
+        if ball_count > bulk_buy.upper_ball_num:
+            discount = total*Decimal((100-bulk_buy.upper_discount)/100)
+        elif ball_count < bulk_buy.lower_ball_num:
+            discount = 0
+        else:
+            discount = total*Decimal((100-bulk_buy.lower_discount)/100)
+        
+
+    # find parcel size for postage
+    # first adjust order weight to account for the weight of packing materials
+    if ball_count < 5:
+        order_weight= order_weight + 200
+    else:
+        order_weight = order_weight + 400
+
+    if ball_count < 10 and order_weight < 2000:
+        parcel_size = 0
+        estimated_postage = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0]
+    else:
+        parcel_size = 1
+        estimated_postage = Postage.objects.filter(Q(parcel_size=1) & Q(postage_class=0))[0]
+    
+    if not bulk_buy.bulk_buy and ball_count > bulk_buy.upper_ball_num:
+        estimated_postage = 0
+    
+    grand_total = total + estimated_postage - discount
+
+    context{
+        'basket_items': basket_items,
+        'total': total,
+        'ball_count': ball_count,
+        'parcel_size': parcel_size,
+        'discount': discount,
+        'estimated_postage': estimated_postage,
+        'grand_total': grand_total,
+    }
+    return context

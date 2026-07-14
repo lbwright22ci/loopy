@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tag-tools %}
+
+{% block titlehead %} Yarn Basket {% endblock %}
+
+{% block headdescription %}  {% endblock %}
+
+{% block headkey %} {% endblock %}
+
+{% block extracss %}
+        <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+{% endblock %}
+
+{% block page_header %}
+        <div class="top-padding">
+        </div>
+{% endblock %}
+
+
+<div class="container p-4">
+    <div class="row mb-2">
+                        <div class="col-12 ms-2 me-2">
+                                <h1 class="page-heading "> Basket </h1>
+                        </div>
+                </div>
+
+                <div class
+
+</div>
+
+                <div class="to-top">
+                        <a class="d-flex h-100 to-top-link">
+                                <i class="fa-solid fa-arrow-up"></i>
+                        </a>
+                </div>
+
+{% block content %}
+
+{% endblock %}
+
+{% block extrapostjs %}
+        {{ block.super }}
+
+        <script src="{% static 'product/js/product.js' %}"></script>
+{% endblock %}
