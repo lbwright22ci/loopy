@@ -22,6 +22,7 @@ def add_to_basket(request):
     quantity = request.POST.get['quantity']
     col_var_id = col_var.id
     redirect_url = request.get['redirect_url']
+    print ('gets here')
 
     basket = request.session.get('basket', {})
 

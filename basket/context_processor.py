@@ -52,17 +52,17 @@ def basket_contents(request):
 
     if ball_count < 10 and order_weight < 2000:
         parcel_size = 0
-        estimated_postage = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0]
+        estimated_postage = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].postage_cost
     else:
         parcel_size = 1
-        estimated_postage = Postage.objects.filter(Q(parcel_size=1) & Q(postage_class=0))[0]
+        estimated_postage = Postage.objects.filter(Q(parcel_size=1) & Q(postage_class=0))[0].postage_cost
     
     if not bulk_buy.bulk_buy and ball_count > bulk_buy.upper_ball_num:
         estimated_postage = 0
     
     grand_total = total + estimated_postage - discount
 
-    context{
+    return{
         'basket_items': basket_items,
         'total': total,
         'ball_count': ball_count,
@@ -71,4 +71,4 @@ def basket_contents(request):
         'estimated_postage': estimated_postage,
         'grand_total': grand_total,
     }
-    return context
+    

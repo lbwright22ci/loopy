@@ -27,7 +27,7 @@
                                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="{% url 'allproducts' %}"> All Yarns </a></li>
-    <li class="breadcrumb-item"><a href="{% url 'allproducts' %}?brand={{ prod.brand_id.name|lower}}"></a>{{ prod.brand_id.name }}</li>
+    <li class="breadcrumb-item"><a href="{% url 'allproducts' %}?brand={{ prod.brand_id.name|lower}}">{{ prod.brand_id.name|lower|capfirst }}</a></li>
   </ol>
 </nav>
                         </div>
