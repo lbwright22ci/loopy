@@ -49,14 +49,14 @@
     <!-- announcements banner-->
         <div class="container-fluid fixed-top" id="announcements">
             {% if announcement.bulk_buy and announcement.active %}
-            <p class="small-text"> Buy {{ announcement.lower_ball_num }}+ balls for a
-                 {{ announcement.lower_discount}}% discount or {{ announcement.upper_ball_num}}+
-                  balls for a {{ announcement.upper_discount }}% discount! </p>
+                <p class="small-text"> Buy {{ announcement.lower_ball_num }}+ balls for a
+                    {{ announcement.lower_discount}}% discount or {{ announcement.upper_ball_num}}+
+                    balls for a {{ announcement.upper_discount }}% discount! </p>
             {% else %}
-            <p class="small-text"> Buy {{ announcement.upper_ball_num }}+ balls for free shipping! </p>
+                <p class="small-text"> Buy {{ announcement.upper_ball_num }}+ balls for free shipping! </p>
             {% endif %}
-        
-</div>  
+
+        </div>
     <!-- Navigation-->
         {% include 'includes/main-nav.html' %}
         {% include 'includes/mobile-nav.html' %}
@@ -70,22 +70,22 @@
             {% endblock content %}
 
             <!-- messages-->
-     {% if messages %}
-        <div aria-live="polite" aria-atomic="true">
-            {% for message in messages %}
-            {% with message.level as level %}
-                {% if level == 40 %}
-                    {% include 'includes/toasts/toast_error.html' %}
-                {% elif level == 20 %}
-                    {% include 'includes/toasts/toast_basket.html' %}
-                {% else %}
-                    {% include 'includes/toasts/toast_success.html' %}
-                {% endif %}
-            {% endwith %}
-        {% endfor %}
+            {% if messages %}
+                <div aria-live="polite" aria-atomic="true">
+                    {% for message in messages %}
+                        {% with message.level as level %}
+                            {% if level == 40 %}
+                                {% include 'includes/toasts/toast_error.html' %}
+                            {% elif level == 20 %}
+                                {% include 'includes/toasts/toast_basket.html' %}
+                            {% else %}
+                                {% include 'includes/toasts/toast_success.html' %}
+                            {% endif %}
+                        {% endwith %}
+                    {% endfor %}
 
-        </div>
-        {% endif %}
+                </div>
+            {% endif %}
 
         </main>
 

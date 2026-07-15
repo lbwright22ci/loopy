@@ -5,73 +5,73 @@
 {% block titlehead %} Get in touch {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% static 'css/contact-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/contact-page.css' %}">
 {% endblock %}
 
 {% block page_header %}
-<div class="top-padding">
-</div>
+    <div class="top-padding">
+    </div>
 {% endblock %}
 
 {% block content %}
-<div class="container">
-<div class="row px-1">
-    <h1 class="page-heading"> Get in touch! </h1>
+    <div class="container">
+        <div class="row px-1">
+            <h1 class="page-heading"> Get in touch! </h1>
 
-    <p > If you have a query about a product, order or anything yarn related,
-         we're the people to ask!  Drop us a message below or get in touch via email,
-        phone or snail mail.</p>
-    <p class="small-text"> We endeavour to answer all queries within 48 hours Mon-Fri. Please check your
-         spam folder if you haven't heard from us.</p>
-</div>
-<div class="row align-items-center  mx-4">
-    <div class="col-12 col-md-6 p-4  ">
-        <form method="POST" class="justify-content-end">
-            {{ form|crispy }}
-            {% csrf_token %}
-        
-        <button type="submit" class="btn btn-main">Send</button>
-        </form>
-    </div>
-    <div class="col-12 col-md-6 p-4  justify-content-center">
-        <img class="contact-page-image" src="{{ top_image.image.url }}" alt="{{ top_image.alt_text }}">
-    </div>
-</div>
+            <p > If you have a query about a product, order or anything yarn related,
+                we're the people to ask!  Drop us a message below or get in touch via email,
+                phone or snail mail.</p>
+            <p class="small-text"> We endeavour to answer all queries within 48 hours Mon-Fri. Please check your
+                spam folder if you haven't heard from us.</p>
+        </div>
+        <div class="row align-items-center  mx-4">
+            <div class="col-12 col-md-6 p-4  ">
+                <form method="POST" class="justify-content-end">
+                    {{ form|crispy }}
+                    {% csrf_token %}
 
-<div class="row align-items-center m-4">
-    <div class="col-12 col-md-6  order-md-2 p-4">
-        <h2 class="subtitle pb-2"> Contact us:</h2>
-            <p > <i class="fa-solid fa-envelope pe-4"></i> <a href="mailto:{{ shop_contact.shop_email }}" 
-                aria-label="send an email to loopy yarns uk"> {{ shop_contact.shop_email }}</a> </p>
-            <p > <i class="fa-solid fa-phone-flip pe-4"></i><a href="tel:0{{ shop_contact.shop_phone }}" 
-                aria-label = "phone loopy yarns">{{ phone_num }}</a></p>
-            <div class="row">
-                <div class="col-1 pt-2">
-                    <p > <i class="fa-solid fa-location-dot "></i></p>
-                </div>
-                <div class="col-10">
-                    <p >  {{ shop_contact.shop_street_address1 }}</p>
-            <p >  {{ shop_contact.shop_street_address2 }}</p>
-            <p >  {{ shop_contact.shop_town }}</p>
-            <p >  {{ shop_contact.shop_county }}</p>
-            <p >  {{ shop_contact.shop_postcode }}</p>
-                </div>
+                    <button type="submit" class="btn btn-main">Send</button>
+                </form>
             </div>
-            
-            
-    </div>
-    <div class="col-12 col-md-6 order-md-1 p-4">
-        <img class="contact-page-image" src="{{ bottom_image.image.url }}" alt="{{ bottom_image.alt_text }}">
-    </div>
-</div>
+            <div class="col-12 col-md-6 p-4  justify-content-center">
+                <img class="contact-page-image" src="{{ top_image.image.url }}" alt="{{ top_image.alt_text }}">
+            </div>
+        </div>
 
-<div class="row m-4 pb-4 justify-content-center  text-center">
-    <div class="col-10 col-md-7 col-lg-5">
-    <a href="#" aria-label="takes you to yarn shop" class="btn btn-main mb-4">Buy the <strong>perfect</strong> yarn for <strong>your</strong> project!</a>
-</div>
-</div>
+        <div class="row align-items-center m-4">
+            <div class="col-12 col-md-6  order-md-2 p-4">
+                <h2 class="subtitle pb-2"> Contact us:</h2>
+                <p > <i class="fa-solid fa-envelope pe-4"></i> <a href="mailto:{{ shop_contact.shop_email }}"
+                                                                  aria-label="send an email to loopy yarns uk"> {{ shop_contact.shop_email }}</a> </p>
+                <p > <i class="fa-solid fa-phone-flip pe-4"></i><a href="tel:0{{ shop_contact.shop_phone }}"
+                                                                   aria-label = "phone loopy yarns">{{ phone_num }}</a></p>
+                <div class="row">
+                    <div class="col-1 pt-2">
+                        <p > <i class="fa-solid fa-location-dot "></i></p>
+                    </div>
+                    <div class="col-10">
+                        <p >  {{ shop_contact.shop_street_address1 }}</p>
+                        <p >  {{ shop_contact.shop_street_address2 }}</p>
+                        <p >  {{ shop_contact.shop_town }}</p>
+                        <p >  {{ shop_contact.shop_county }}</p>
+                        <p >  {{ shop_contact.shop_postcode }}</p>
+                    </div>
+                </div>
 
-</div>
+
+            </div>
+            <div class="col-12 col-md-6 order-md-1 p-4">
+                <img class="contact-page-image" src="{{ bottom_image.image.url }}" alt="{{ bottom_image.alt_text }}">
+            </div>
+        </div>
+
+        <div class="row m-4 pb-4 justify-content-center  text-center">
+            <div class="col-10 col-md-7 col-lg-5">
+                <a href="#" aria-label="takes you to yarn shop" class="btn btn-main mb-4">Buy the <strong>perfect</strong> yarn for <strong>your</strong> project!</a>
+            </div>
+        </div>
+
+    </div>
 
 
 

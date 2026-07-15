@@ -1,12 +1,24 @@
 $(document).ready(function(){
 
-    $(".dropdown").on("mouseover", function(){
+    $(".dropdown").on("mouseover", function(e){
+        e.preventDefault();
         element = $(this);
         element.children("ul:first-of-type").addClass("show");
     });
 
-    $(".dropdown").on("mouseleave", function(){
+    $(".dropdown-menu").on("mouseleave", function(e){
+        e.preventDefault();
         $("ul:first-of-type").removeClass("show");
+    });
+
+    $('#basket').click(function(e){
+        e.preventDefault();
+        $('#show-basket').toggleClass('d-none');
+    });
+
+    $('#show-basket').on('mouseleave', function(e){
+        e.preventDefault();
+        $(this).toggleClass('d-none');
     });
 
     $('.toast').toast('show');

@@ -53,6 +53,7 @@ def AllProducts(request):
             if not query:
                 messages.add_message(
                 request, messages.ERROR, "There was nothing in your search request")
+                
                 return redirect(reverse('allproducts'))            
             queries = Q(name__icontains=query) | Q(fibre__icontains=query) | Q(thickness_id__name__icontains=query)| Q(thickness_id__alt_names__icontains = query) | Q(brand_id__name__icontains=query)
             product_list = product_list.filter(queries)

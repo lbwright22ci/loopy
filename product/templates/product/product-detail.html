@@ -25,11 +25,11 @@
                 <div class="row mb-2">
                         <div class="col-12 ms-2 me-2">
                                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{% url 'allproducts' %}"> All Yarns </a></li>
-    <li class="breadcrumb-item"><a href="{% url 'allproducts' %}?brand={{ prod.brand_id.name|lower}}">{{ prod.brand_id.name|lower|capfirst }}</a></li>
-  </ol>
-</nav>
+                                        <ol class="breadcrumb">
+                                                <li class="breadcrumb-item"><a href="{% url 'allproducts' %}"> All Yarns </a></li>
+                                                <li class="breadcrumb-item"><a href="{% url 'allproducts' %}?brand={{ prod.brand_id.name|lower}}">{{ prod.brand_id.name|lower|capfirst }}</a></li>
+                                        </ol>
+                                </nav>
                         </div>
                 </div>
                 <div class="row mb-2">
@@ -81,7 +81,7 @@
                                         <div class="col-8">
 
                                                 <form action="{% url 'add_to_basket' %}" method="POST" >
-                                                    {% csrf_token %}
+                                                        {% csrf_token %}
                                                         <div  class="div-colour-select-form">
                                                                 <div class="mini-selected-swatch" >
                                                                 </div>
@@ -97,27 +97,27 @@
                                                         </div>
 
                                                         <div  id="quant-in" class="d-none">
-                                    <div class="input-group div-colour-select-form">
-                                        <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="">
-                                            <span >
-                                                <i class="fas fa-minus"></i>
-                                            </span>
-                                        </button>
-                                        <input class="form-control qty-input"  
-                                        type="number" name="quantity" value="1"  min="1" data-item_id=""
-                                         >
-                                        <button class="increment-qty btn btn-main " type="button" data-item-id-plus="">
-                                            <span >
-                                                <i class="fas fa-plus"></i>
-                                            </span>
-                                        </button>
-                                    </div>
-                                                                                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                    <div class="text-center div-colour-select-form">
-                                        <input type="submit" aria-label=" adds yarns to your shopping basket" class="btn btn-main mb-4 mt-4" 
-                                        role="button" value="Add to basket">
-                                    </div>
-                                    </div>
+                                                                <div class="input-group div-colour-select-form">
+                                                                        <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="">
+                                                                                <span >
+                                                                                        <i class="fas fa-minus"></i>
+                                                                                </span>
+                                                                        </button>
+                                                                        <input class="form-control qty-input"
+                                                                               type="number" name="quantity" value="1"  min="1" data-item_id=""
+                                                                        >
+                                                                        <button class="increment-qty btn btn-main " type="button" data-item-id-plus="">
+                                                                                <span >
+                                                                                        <i class="fas fa-plus"></i>
+                                                                                </span>
+                                                                        </button>
+                                                                </div>
+                                                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                                                <div class="text-center div-colour-select-form">
+                                                                        <input type="submit" aria-label=" adds yarns to your shopping basket" class="btn btn-main mb-4 mt-4"
+                                                                               role="button" value="Add to basket">
+                                                                </div>
+                                                        </div>
 
 
                                                 </form>
@@ -260,56 +260,57 @@
                                 <div class="col-12 col-lg-10 mb-4">
                                         <div class="row mb-4">
                                                 {% for product in recommend %}
-                                                {% if product.visible %}
-                                                        <div class="col-12 col-md-4  text-center">
+                                                        {% if product.visible %}
+                                                                <div class="col-12 col-md-4  text-center">
 
-                                                                <div class="card">
-                                                                        <a class="card-link" href="{% url 'productdetail' product.slug %} "
-                                                                           aria-label="takes you to a page where you can find out more information about {{ product.name }}">
-                                                                                <div class="prod-image-container">
-                                                                                        <img src="{{ product.image.url }}"
-                                                                                             class="card-img-top product-page-images"
-                                                                                             alt=" A picture of {{ product.name }}">
-                                                                                        {% if product.on_promotion %}
-                                                                                                <span class="translate-middle sale-ticket"><i
-                                                                                                        class=" sale-icon fa-solid fa-tags"></i>
-                                                                                                        <span class="visually-hidden"> On promotion</span>
-                                                                                                </span>
-                                                                                        {% endif %}
-                                                                                </div>
-                                                                                <div class="card-body">
-                                                                                        <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
-                                                                                                {{ product.name }}</p>
-                                                                                        <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
-                                                                                        <p>
+                                                                        <div class="card">
+                                                                                <a class="card-link" href="{% url 'productdetail' product.slug %} "
+                                                                                   aria-label="takes you to a page where you can find out more information about {{ product.name }}">
+                                                                                        <div class="prod-image-container">
+                                                                                                <img src="{{ product.image.url }}"
+                                                                                                     class="card-img-top product-page-images"
+                                                                                                     alt=" A picture of {{ product.name }}">
                                                                                                 {% if product.on_promotion %}
-                                                                                                        <span class="small-text pre-sale-price">£{{ product.price }} </span>
-                                                                                                        <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
-                                                                                                {% else %}
-                                                                                                        <strong>£{{ product.price }}</strong>
+                                                                                                        <span class="translate-middle sale-ticket"><i
+                                                                                                                class=" sale-icon fa-solid fa-tags"></i>
+                                                                                                                <span class="visually-hidden"> On promotion</span>
+                                                                                                        </span>
                                                                                                 {% endif %}
+                                                                                        </div>
+                                                                                        <div class="card-body">
+                                                                                                <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
+                                                                                                        {{ product.name }}</p>
+                                                                                                <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
+                                                                                                <p>
+                                                                                                        {% if product.on_promotion %}
+                                                                                                                <span class="small-text pre-sale-price">£{{ product.price }} </span>
+                                                                                                                <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                                                                        {% else %}
+                                                                                                                <strong>£{{ product.price }}</strong>
+                                                                                                        {% endif %}
 
-                                        
-                                                                                        </p>
-                                                                                        
-                                                                                </div>
-                                                                        </a>
+
+                                                                                                </p>
+
+                                                                                        </div>
+                                                                                </a>
+                                                                        </div>
+
                                                                 </div>
-
-                                                        </div>
-                                                {% endif %}
-                                        {% endfor %}
+                                                        {% endif %}
+                                                {% endfor %}
                                         </div>
                                 </div>
                         </div>
 
                 </div>
-                <div class="to-top">
-                        <a class="d-flex h-100 to-top-link">
-                                <i class="fa-solid fa-arrow-up"></i>
-                        </a>
-                </div>
-{% endblock %}
+        </div>
+        <div class="to-top">
+                <a class="d-flex h-100 to-top-link">
+                        <i class="fa-solid fa-arrow-up"></i>
+                </a>
+        </div>
+{% endblock content %}
 
 {% block extrapostjs %}
         {{ block.super }}

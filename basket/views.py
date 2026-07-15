@@ -34,11 +34,11 @@ def add_to_basket(request):
             test = basket[col_var_id] + quantity
             if test < 10:
                 basket[col_var_id] += quantity
-                messages.info(request, f'Updated the quantity of {col_var.product_id.name},\
+                messages.add_message(request, messages.INFO, f'Updated the quantity of {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name}')
             else:
                 # can not add to basket- error message and redirect
-                messages.error(request, f'Low stock! Unable to add {quantity} extra \
+                messages.add_message(request, messages.ERROR, f'Low stock! Unable to add {quantity} extra \
                                balls of {col_var.product_id.name}\
                                to your basket.')
                 return redirect(redirect_url)

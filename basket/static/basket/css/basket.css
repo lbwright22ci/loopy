@@ -29,9 +29,7 @@
     box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
 }
 
-.basket-totals{
-    margin-bottom:0;
-}
+
 
 .discount-statement{
     border: 1px solid var(--decorative-color);
