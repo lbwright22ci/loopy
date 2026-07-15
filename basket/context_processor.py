@@ -63,7 +63,7 @@ def basket_contents(request):
         estimated_postage = Postage.objects.filter(Q(parcel_size=1) & Q(postage_class=0))[0].postage_cost
     
     if not bulk_buy.bulk_buy and ball_count > bulk_buy.upper_ball_num:
-        estimated_postage = 0
+        discount = estimated_postage
     
     grand_total = total + estimated_postage - discount
 

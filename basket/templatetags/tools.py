@@ -18,3 +18,10 @@ def calc_subtotal(price, quantity):
     except (ValueError, TypeError):
         return ''
     
+@register.filter(name='subtract')
+def subtract(value, args):
+    """ """
+    try:
+        return value - args
+    except(ValueError, TypeError):
+        return ''

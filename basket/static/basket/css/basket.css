@@ -1,4 +1,10 @@
- .pre-sale-price{
+.all-products-head{
+    height:6rem;
+    width:auto;
+    padding-right:2rem;
+}
+
+.pre-sale-price{
     text-decoration: line-through;
 }
 
@@ -21,4 +27,15 @@
     max-width: 8rem;
     border-radius: 2rem;
     box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
+}
+
+.basket-totals{
+    margin-bottom:0;
+}
+
+.discount-statement{
+    border: 1px solid var(--decorative-color);
+    margin-top:1rem;
+    margin-bottom:1rem;
+    padding-top:1rem;
 }
