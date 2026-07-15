@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load tag-tools %}
+{% load tools %}
 
 {% block titlehead %} Yarn Basket {% endblock %}
 
@@ -9,107 +9,125 @@
 {% block headkey %} {% endblock %}
 
 {% block extracss %}
-        <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+    <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
 {% endblock %}
 
 {% block page_header %}
-        <div class="top-padding">
-        </div>
+    <div class="top-padding">
+    </div>
 {% endblock %}
 
 
 {% block content %}
 
-<div class="container p-4">
-    <div class="row mb-2">
-                        <div class="col-12 ms-2 me-2">
-                                <h1 class="page-heading "> Basket </h1>
-                        </div>
-                </div>
+    <div class="container p-4">
+        <div class="row mb-2">
+            <div class="col-12 ms-2 me-2">
+                <h1 class="page-heading "> Basket </h1>
+            </div>
+        </div>
 
-                <div class="col-12">
+        <div class="col-12">
 
 
-                    <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Yarn</th>
-      <th scope="col">Shade</th>
-      <th scope="col">Details</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
-      <th scope="col">Subtotal</th>
-      <th scope="col">Edit</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in basket_items %}
-    <tr>
-      <td><img class="product-image-basket" src="{{ item.col_var.product_id.image.url }}" alt="{{  item.col_var.product_id.name }}"></td>
-        <td><img class="colour-image" src="{{ item.col_var.colour_cat_id.image.url }}" alt="{{ item.col_var.colour_cat_id.colour_name }}">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Yarn</th>
+                        <th scope="col"></th>
+                        <th scope="col">Colour</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Subtotal</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in basket_items %}
+                        <tr>
+                            <td>
+                                <img class="product-image-basket" src="{{ item.col_var.product_id.image.url }}" 
+                                alt="{{  item.col_var.product_id.name }}">
+                            </td>
+                            <td>
+                                <a href="#" aria-label="takes you to a page with details about 
+                                {{ item.col_var.product_id.name }}">
+                                    <span class="uppercase"> {{ item.col_var.product_id.brand_id.name }}
+                                    </span> {{ item.col_var.product_id.name }}, 
+                                    {{ item.col_var.product_id.skein_weight }}g
+                                </a>
+                                <p class="very-small-text">{{ item.col_var.product_id.thickness_id.name}}, {{item.col_var.product_id.fibre}} 
+                                    <br>
+                                    {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})
+                                </p>
+                            </td>
+                            <td>
+                                <img class="colour-image" src="{{ item.col_var.colour_cat_id.image.url }}" 
+                                alt="{{ item.col_var.colour_cat_id.colour_name }}">
+                            </td>
+                            <td>
+                                <form class="form update-form" method="POST" action="">
+                                    {% csrf_token %}
+                                <div class="input-group">
+                                    <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="item.item_id">
+                                        <span >
+                                            <i class="fas fa-minus"></i>
+                                        </span>
+                                    </button>
+                                    <input class="form-control qty-input" type="number" name="quantity"
+                                           value="{{ item.quantity }}"  min="1"  data-item_id="{{ item.item_id }}"
+                                           {% if item.col_var.low_stock %}
+                                               max="10"
+                                           {% else %}
+                                               max="50"
+                                           {% endif %}
+                                    >
+                                    <button class="increment-qty btn btn-main " type="button" data-item-id-plus="item.item_id">
+                                        <span >
+                                            <i class="fas fa-plus"></i>
+                                        </span>
+                                    </button>
+                                    
+                                </div>
+                                </form>
+                                <a href="" aria-label="" class="update text-small"><i class="fa-solid fa-arrows-rotate"></i></a>
+                                    <a href="" aria-label="" class="remove text-small float-right"><i class="fa-solid fa-trash"></i></a>
+                            </td>
+                            <td>
+                                <p> {% if item.col_var.product_id.on_promotion %}
+                                    <span class="pre-sale-price"> £ {{ item.col_var.product_id.price }}</span>
+                                    <span class="sale-price"> £ {{ item.col_var.product_id.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                {% else %}
+                                    £ {{ item.col_var.product_id.price }}
+                                {% endif %}</p>
+                            </td>
+                            <td>
+                                <p> {% if item.col_var.product_id.on_promotion %}
+                                    <span class="sale-price"> £ {{rate.sale_percent|calc_sub_sale:'item.col_var.product_id.price,item.quantity' | floatformat:2 }}</span>
+                                {% else %}
+                                    £ {{ item.col_var.product_id.price|calc_subtotal:item.quantity|floatformat:2 }}
+                                {% endif %}</p>
+                            </td>
+                          
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-      <td><a href="#" aria-label="takes you to a page with details about {{ item.col_var.product_id.name }}">
-        <p><span class="uppercase"> {{ item.col_var.product_id.brand_id.name }}</span>, {{ item.col_var.product_id.name }}, {{ item.col_var.product_id.skein_weight }}g</p>
+    </div>
+
+    <div class="to-top">
+        <a class="d-flex h-100 to-top-link">
+            <i class="fa-solid fa-arrow-up"></i>
         </a>
-         <p class="very-small-text"> {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})</p></td>   
-    </td>
-      <td>
-                                            <div class="input-group div-colour-select-form">
-                                        <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="item.item_id">
-                                            <span >
-                                                <i class="fas fa-minus"></i>
-                                            </span>
-                                        </button>
-                                        <input class="form-control qty-input  
-                                        type="number" name="quantity" value="{{ item.quantity }}"  min="1"  data-item_id="{{ item.item_id }}"
-                                         {% if item.col_var.low_stock %}
-                                         max="10"
-                                         {% else %}
-                                         max="50"
-                                        {% endif %}
-                                        >
-                                        <button class="increment-qty btn btn-main " type="button" data-item-id-plus="item.item_id">
-                                            <span >
-                                                <i class="fas fa-plus"></i>
-                                            </span>
-                                        </button>
-                                    </div>
-Quantity {{ item.quantity }}
-      </td>
-      <td>
-<p> {% if item.col_var.product_id.on_promotion %}
- <span class="pre-sale-price"> £ {{ item.col_var.product_id.price }}</span> 
- <span class="sale-price"> £ {{ item.col_var.product_id.price.price|discount:rate.sale_percent|floatformat:2 }}</span> 
- {% else %} 
-    {{ item.col_var.product_id.price }}
-{% endif %}</p>
-</td>
-<td>
-subtotal
-</td>
-<td>
-    <i class="fa-solid fa-arrows-rotate"></i>
-    <i class="fa-solid fa-trash"></i>
-</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-                </div>
-
-</div>
-
-                <div class="to-top">
-                        <a class="d-flex h-100 to-top-link">
-                                <i class="fa-solid fa-arrow-up"></i>
-                        </a>
-                </div>
+    </div>
 
 
 {% endblock %}
 
 {% block extrapostjs %}
-        {{ block.super }}
+    {{ block.super }}
 
-        <script src="{% static 'product/js/product.js' %}"></script>
+    <script src="{% static 'product/js/product.js' %}"></script>
 {% endblock %}
