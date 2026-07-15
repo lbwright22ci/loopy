@@ -69,7 +69,8 @@
                                 <form class="form update-form" method="POST" action="">
                                     {% csrf_token %}
                                 <div class="input-group">
-                                    <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="item.item_id">
+                                    <button class="decrement-qty btn btn-main " type="button" 
+                                    data-item-id-minus="{{ item.item_id }}">
                                         <span >
                                             <i class="fas fa-minus"></i>
                                         </span>
@@ -82,7 +83,8 @@
                                                max="50"
                                            {% endif %}
                                     >
-                                    <button class="increment-qty btn btn-main " type="button" data-item-id-plus="item.item_id">
+                                    <button class="increment-qty btn btn-main " type="button" 
+                                    data-item-id-plus="{{ item.item_id }}">
                                         <span >
                                             <i class="fas fa-plus"></i>
                                         </span>
@@ -96,16 +98,16 @@
                             <td>
                                 <p> {% if item.col_var.product_id.on_promotion %}
                                     <span class="pre-sale-price"> £ {{ item.col_var.product_id.price }}</span>
-                                    <span class="sale-price"> £ {{ item.col_var.product_id.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                    <span class="sale-price"> £ {{ item.price }}</span>
                                 {% else %}
-                                    £ {{ item.col_var.product_id.price }}
+                                    £ {{ item.price }}
                                 {% endif %}</p>
                             </td>
                             <td>
                                 <p> {% if item.col_var.product_id.on_promotion %}
-                                    <span class="sale-price"> £ {{rate.sale_percent|calc_sub_sale:'item.col_var.product_id.price,item.quantity' | floatformat:2 }}</span>
+                                    <span class="sale-price"> £ {{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
                                 {% else %}
-                                    £ {{ item.col_var.product_id.price|calc_subtotal:item.quantity|floatformat:2 }}
+                                    £ {{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
                                 {% endif %}</p>
                             </td>
                           
@@ -129,5 +131,5 @@
 {% block extrapostjs %}
     {{ block.super }}
 
-    <script src="{% static 'product/js/product.js' %}"></script>
+    <script src="{% static 'basket/js/basket.js' %}"></script>
 {% endblock %}

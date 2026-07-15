@@ -18,13 +18,3 @@ def calc_subtotal(price, quantity):
     except (ValueError, TypeError):
         return ''
     
-@register.filter(name='calc_sub_sale')
-def calc_sub_sale(rate, args):
-    """"""
-    price = args.split(',')[0]
-    print(price)
-    quantity = args.split(',')[1]
-    try:
-        return float(price)*(100-float(rate))/100 * float(quantity)
-    except:
-        return ''

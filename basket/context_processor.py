@@ -25,14 +25,17 @@ def basket_contents(request):
         col_var = get_object_or_404(Colour_var, pk = item_id)
         if col_var.product_id.on_promotion:
             total += item_data * Decimal(col_var.product_id.price*(100-sale_discount)/100)
+            price = Decimal(col_var.product_id.price*(100-sale_discount)/100)
         else:
             total =+ item_data * col_var.product_id.price
+            price = col_var.product_id.price
         ball_count += item_data
         order_weight += col_var.product_id.skein_weight*item_data
         basket_items.append({
             'item_id': item_id,
             'quantity': item_data,
             'col_var':col_var,
+            'price': price,
         })
 
     # take account of order discount based on number of balls of yarn in the basket
