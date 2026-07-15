@@ -27,7 +27,7 @@ def basket_contents(request):
             total += item_data * Decimal(col_var.product_id.price*(100-sale_discount)/100)
             price = Decimal(col_var.product_id.price*(100-sale_discount)/100)
         else:
-            total =+ item_data * col_var.product_id.price
+            total += item_data * col_var.product_id.price
             price = col_var.product_id.price
         ball_count += item_data
         order_weight += col_var.product_id.skein_weight*item_data
@@ -41,11 +41,11 @@ def basket_contents(request):
     # take account of order discount based on number of balls of yarn in the basket
     if bulk_buy.bulk_buy == True:
         if ball_count > bulk_buy.upper_ball_num:
-            discount = total*Decimal((100-bulk_buy.upper_discount)/100)
+            discount = total*Decimal((bulk_buy.upper_discount)/100)
         elif ball_count < bulk_buy.lower_ball_num:
             discount = 0
         else:
-            discount = total*Decimal((100-bulk_buy.lower_discount)/100)
+            discount = total*Decimal((bulk_buy.lower_discount)/100)
         
 
     # find parcel size for postage
@@ -67,7 +67,6 @@ def basket_contents(request):
     
     grand_total = total + estimated_postage - discount
 
-    print(basket_items)
     return{
         'basket_items': basket_items,
         'total': total,
