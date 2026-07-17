@@ -2,7 +2,18 @@
 {% load tools %}
 
         <div class="row">
-        <div class="basket-preview-wrapper mb-4">
+          {% if ball_count == 0 %}
+          <p class="small-text"> No yarns in your basket yet!</p>
+          <div class="row justify-content-center">
+          <div class="col-12 text-center mb-4">
+          <button type="button" class="btn btn-second close-b-prev" aria-label="Close basket preview">Continue Shopping</button>
+          </div>
+          
+              </div>
+          
+          {% else %}
+          <p class="small-text"> Yarns in your basket are:</p>
+        <div class="basket-preview-wrapper">
           {% for item in basket_items %}
           <div class="row">
             <div class="col-6">
@@ -21,21 +32,27 @@
             <hr class="mt-2 mb-2">
           </div>
           {% endfor %}
-</div>                      <div class="col-12 mt-4 text-end">
+</div>
+<div class="col-12 text-end">
+  <a href="{% url 'view_basket' %}" aria-label="view and edit your basket"> View basket to edit </a>
+</div>
+<div class="col-12 mt-4 text-end">
                 <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
                 <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
                 > Discount : £ {{ discount|floatformat:2 }}</p>
                 <p > Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
                 <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
             </div>
+            
             <div class="row justify-content-center">
               <div class="col-12 text-center mb-4 ">
           <a href="{% url 'view_basket' %}" aria-label="takes you to a page where you can view, edit and update basket contents" 
           class="btn btn-main ps-2 pe-2"> Checkout! </a>
           </div>
-          <div class="col-12 text-center mt-2 mb-4">
-          <button type="button" class="btn btn-second" data-bs-dismiss="toast" aria-label="Close">Continue Shopping</button>
+          <div class="col-12 text-center mb-4">
+          <button type="button" class="btn btn-second close-b-prev" aria-label="Close basket preview">Continue Shopping</button>
           </div>
           
               </div>
+              {% endif %}
         </div>

@@ -411,9 +411,8 @@ li .sub-menu-item,
 
 .toast-basket{
     background-color: var(--primary-background-color);
-    opacity: 90%;
+    opacity: 95%;
     max-width: 90vw;
-    opacity: 90%;
     border-radius: 0;
     font-size:1.2rem;
         margin-right:0;
@@ -441,13 +440,16 @@ li .sub-menu-item,
     height:20rem;
     overflow-y: auto;
     overflow-x: hidden;
+    border: 0.05rem solid var(--shadow-color);
 }
 
-#show-basket{
+#show-basket,
+#show-basket-mob{
     top:6rem;
     width:30rem;
     max-width: 90vw;
 }
+
 
 /* 404 page logo */
 #not-found-page{

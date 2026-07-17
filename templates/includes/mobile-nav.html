@@ -26,9 +26,18 @@
                         </div>
                 </div>
         </div>
-        <div class="container-fluid box">
-        </div>
+        <div class="preview-basket d-none d-lg-none" id="show-basket-mob" >
+                <div class="pe-3 mb-3" >
+                        <div class="toast-basket">
+        {% include 'includes/basket-preview-contents.html'  %}
+    </div>
+  </div>
+        
 </nav>
+
+<div class="container-fluid box">
+
+</div>
 
 <div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" aria-label="mobile menu"
      data-bs-scroll="true">

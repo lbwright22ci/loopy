@@ -11,6 +11,23 @@ $(document).ready(function(){
         $("ul:first-of-type").removeClass("show");
     });
 
+
+    $(document).mouseup(function(e){
+        if(!$("#show-basket").hasClass("d-none")){
+            if($(e.target).closest("#show-basket").length===0){
+                $('#show-basket').addClass("d-none");
+            };
+        };
+    });
+
+    $(document).mouseup(function(e){
+        if(!$("#show-basket-mob").hasClass("d-none")){
+            if($(e.target).closest("#show-basket-mob").length===0){
+                $('#show-basket-mob').addClass("d-none");
+            };
+        };
+    });
+
     $('#basket').click(function(e){
         e.preventDefault();
         $('#show-basket').toggleClass('d-none');
@@ -18,7 +35,7 @@ $(document).ready(function(){
 
     $('#basket-mob').click(function(e){
         e.preventDefault();
-        $('#show-basket').toggleClass('d-none');
+        $('#show-basket-mob').toggleClass('d-none');
     });
 
     $('#show-basket').on('mouseleave', function(e){
@@ -26,11 +43,12 @@ $(document).ready(function(){
         $(this).toggleClass('d-none');
     });
 
-    $(document).mouseup(function(e){
-        if(!$("#show-basket").hasClass("d-none")){
-            if($(e.target).closest("#show-basket").length===0){
-                $('#show-basket').addClass("d-none");
-            };
+    $('.close-b-prev').click(function(e){
+        e.preventDefault();
+        if(!$('#show-basket').hasClass('d-none')){
+            $('#show-basket').addClass('d-none');
+        } else if (!$('#show-basket-mob').hasClass('d-none')){
+            $('#show-basket-mob').addClass('d-none');
         };
     });
 
