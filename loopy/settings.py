@@ -108,7 +108,7 @@ WSGI_APPLICATION = 'loopy.wsgi.application'
 MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.ERROR: 'alert-danger',
-    messages.INFO:'alert-info',
+    
 }
 
 # Database

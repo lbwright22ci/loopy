@@ -35,5 +35,6 @@
     border: 1px solid var(--decorative-color);
     margin-top:1rem;
     margin-bottom:1rem;
+    max-width: 90vw;
     padding-top:1rem;
 }
