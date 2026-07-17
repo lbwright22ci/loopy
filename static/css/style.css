@@ -137,6 +137,10 @@ option{
     color:var(--hyperlink-hover-color);
 }
 
+.qty-input{
+    text-align: end;
+}
+
 .btn-main{
     color:var(--primary-background-color);
     font-size: 1.6rem;
