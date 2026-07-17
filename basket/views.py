@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404, reverse
+from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, reverse
 from django.contrib import messages
 
 from product.models import Colour_var
@@ -65,7 +65,6 @@ def add_to_basket(request):
 
 def update_basket(request, item_id):
     """ """
-    print(request, item_id)
     
     col_var = get_object_or_404(Colour_var, pk=item_id)
     quantity = int(request.POST.get('quantity'))
@@ -82,4 +81,20 @@ def update_basket(request, item_id):
     
     return redirect(reverse('view_basket'))
 
+def delete_from_basket(request, item_id):
+    """ """
+    col_var = get_object_or_404(Colour_var, pk=item_id)
 
+    basket = request.session.get('basket', {})
+
+    try:
+        basket.pop(item_id)
+        messages.add_message(request, messages.SUCCESS, f'Removed {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
+                               shade {col_var.colour_cat_id.colour_name} from your basket.')
+        request.session['basket'] = basket
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.add_message(request, messages.ERROR, f'Unable to remove {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
+                               shade {col_var.colour_cat_id.colour_name} from your basket.\
+                               Error code {e}.')
+        return HttpResponse(status=500)
