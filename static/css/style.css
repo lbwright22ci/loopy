@@ -255,7 +255,8 @@ li .sub-menu-item,
     font-size: 1.2rem;
 }
 
-#basket{
+#basket,
+#basket-mob{
     padding-right:2rem;
     padding-left:2rem;
 }
@@ -350,8 +351,9 @@ li .sub-menu-item,
     color:var(--background-highlight-color);
 }
 .footer-box {
-    position:absolute;
+    position: absolute;
     z-index: -1;
+    left:0;
     bottom:1.25rem;
     background-image:linear-gradient(180deg, var(--shadow-color), var(--primary-background-color));
     height:8rem;

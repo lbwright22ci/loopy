@@ -38,14 +38,14 @@
             </div>
         </div>
 
-        <div class="row align-items-center m-4">
+        <div class="row align-items-center my-4 mx-4 mx-lg-4 mx-md-0">
             <div class="col-12 col-md-6  order-md-2 p-4">
-                <h2 class="subtitle pb-2"> Contact us:</h2>
-                <p > <i class="fa-solid fa-envelope pe-4"></i> <a href="mailto:{{ shop_contact.shop_email }}"
+                <h2 class="subtitle pb-2 ps-md-2 ps-lg-0"> Contact us:</h2>
+                <p class="ps-md-2 ps-lg-0"> <i class="fa-solid fa-envelope pe-4"></i> <a href="mailto:{{ shop_contact.shop_email }}"
                                                                   aria-label="send an email to loopy yarns uk"> {{ shop_contact.shop_email }}</a> </p>
-                <p > <i class="fa-solid fa-phone-flip pe-4"></i><a href="tel:0{{ shop_contact.shop_phone }}"
+                <p class="ps-md-2 ps-lg-0"> <i class="fa-solid fa-phone-flip pe-4"></i><a href="tel:0{{ shop_contact.shop_phone }}"
                                                                    aria-label = "phone loopy yarns">{{ phone_num }}</a></p>
-                <div class="row">
+                <div class="row ps-md-2 ps-lg-0">
                     <div class="col-1 pt-2">
                         <p > <i class="fa-solid fa-location-dot "></i></p>
                     </div>
@@ -67,7 +67,7 @@
 
         <div class="row m-4 pb-4 justify-content-center  text-center">
             <div class="col-10 col-md-7 col-lg-5">
-                <a href="#" aria-label="takes you to yarn shop" class="btn btn-main mb-4">Buy the <strong>perfect</strong> yarn for <strong>your</strong> project!</a>
+                <a href="{% url 'allproducts' %}" aria-label="takes you to yarn shop" class="btn btn-main mb-4">Buy the <strong>perfect</strong> yarn for <strong>your</strong> project!</a>
             </div>
         </div>
 
