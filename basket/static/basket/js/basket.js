@@ -44,13 +44,11 @@ $(document).ready(function () {
         form.submit();
     });
 
-    $('.remove').click(function(){
-        var csrfToken = "{{} csrf_token }}";
-        console.log(csrfToken);
+    $('.remove').click(function(e){
+        var csrfToken = $(this).data('csrf');
         var itemId = $(this).data('item-id-delete');
         var url = `/basket/delete/${itemId}/`;
         var data = {'csrfmiddlewaretoken': csrfToken};
-
         $.post(url, data)
             .done(function() {
                 location.reload();

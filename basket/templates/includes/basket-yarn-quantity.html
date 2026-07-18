@@ -30,7 +30,7 @@
                                             <a class="update"><i class="fa-solid fa-arrows-rotate"></i></a>
                                         </div>
                                         <div class="col-6 text-end">
-                                            <a class="remove"  data-item-id-delete="{{ item.item_id }}"><i class="fa-solid fa-trash"></i></a>
+                                            <a class="remove" data-csrf="{{ csrf_token }}" data-item-id-delete="{{ item.item_id }}" ><i class="fa-solid fa-trash"></i></a>
                                         </div>
                                     </div>
                                     </form>

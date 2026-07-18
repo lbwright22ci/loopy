@@ -441,7 +441,7 @@ li .sub-menu-item,
 }
 
 .basket-preview-wrapper{
-    height:20rem;
+    max-height:20rem;
     overflow-y: auto;
     overflow-x: hidden;
     border: 0.05rem solid var(--shadow-color);
