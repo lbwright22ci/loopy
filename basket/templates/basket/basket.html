@@ -52,7 +52,7 @@
                 <p> A summary of your 'yarn' basket so far:</p>
             </div>
         </div>
-        {% for item in basket_items %}
+        {% for item in basket_items|dictsort:"col_var.product_id.name" %}
         <div class="row p-2 mx-2 d-md-none align-items-center">
             <div class="col-4">
                 {% include 'includes/basket-image.html' %}
@@ -104,7 +104,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in basket_items %}
+                        {% for item in basket_items|dictsort:"col_var.product_id.name" %}
                             <tr>
                                 <td>
                                     {% include 'includes/basket-image.html' %}

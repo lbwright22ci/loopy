@@ -14,7 +14,7 @@
           {% else %}
           <p class="small-text"> Yarns in your basket are:</p>
         <div class="basket-preview-wrapper">
-          {% for item in basket_items %}
+          {% for item in basket_items|dictsort:"col_var.product_id.name" %}
           <div class="row">
             <div class="col-6">
               <p class="small-text my-0"> <span class=uppercase-text">{{ item.col_var.product_id.brand_id.name }}
