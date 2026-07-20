@@ -2,8 +2,10 @@ from decimal import Decimal
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
 
-from core.models import SaleSettings, Postage, Announcements
+from core.models import SaleSettings, Postage, Announcements, UserProfile
 from product.models import Colour_var
+
+import json
 
 def basket_contents(request):
     basket_items=[]
@@ -18,8 +20,28 @@ def basket_contents(request):
     bulk_buy = Announcements.objects.filter(active=True)[0]
 
     basket = request.session.get('basket', {})
+    
 
-    print(basket)
+    if request.user.is_authenticated:
+        current_user = UserProfile.objects.get(user__id= request.user.id)
+        saved_basket = current_user.temporary_basket
+        
+        if saved_basket:
+            converted_basket = json.loads(saved_basket)
+            
+            # add contents of saved basket to the session basket when the user logs back in
+            for key, value in converted_basket.items():
+                if key in basket:
+                    pass
+                else:
+                    basket[key]= int(value)
+        basket_string = str(basket)
+        basket_string = basket_string.replace("\'", "\"")
+        current_user.temporary_basket= str(basket_string)
+        current_user.save()
+
+        request.session['basket']=basket
+    
 
     for item_id, item_data in basket.items():
         col_var = get_object_or_404(Colour_var, pk = item_id)

@@ -21,7 +21,7 @@ class UserProfile(models.Model):
     default_county = models.CharField(max_length=40, null=True, blank=True)
     default_postcode = models.CharField(max_length=9, null=True, blank=True)
     default_country = models.CharField(max_length = 20, default="GB")
-    temporary_basket = models.CharField(max_length=600, blank = True)
+    temporary_basket = models.CharField(max_length=600, blank = True, null=True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
