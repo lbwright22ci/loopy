@@ -43,6 +43,9 @@
         <meta name="apple-mobile-web-app-title" content="Loopy" />
         <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
 
+        {% block extrahead %}
+        {% endblock %}
+
     </head>
 
     <body class="d-flex flex-column min-vh-100">
