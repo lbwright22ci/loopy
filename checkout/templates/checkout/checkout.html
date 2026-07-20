@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tools %}
+
+{% block titlehead %} Checkout {% endblock %}
+
+{% block headdescription %}  {% endblock %}
+
+{% block headkey %} {% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block page_header %}
+    <div class="top-padding">
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container pt-4 pb-4">
+
+    <div class="row mb-4">
+        <div class="col-6 text-start">
+            <a class="btn btn-second" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
+        </div>
+        <div class="col-6 text-end">
+            <a class="btn btn-second" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
+        </div>
+    </div>
+<div class="row mb-4">
+            <div class="col-12 ">
+                <img src="{% static 'images/balls-in-a-line.png'%}"
+                     alt="illustration of balls of wool" class="all-products-head d-none d-sm-inline">
+
+                <h1 class="page-heading ms-2 d-inline">Checkout! </h1>
+            </div>
+        </div>
+
+</div>
+
+<div class="to-top">
+        <a class="d-flex h-100 to-top-link">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </div>
+{% endblock %}
+
+{% block extrapostjs %}
+    {{ block.super }}
+
+    <script src="{% static 'checkout/js/checkout.js' %}" type="text/javascript"></script>
+    
+{% endblock %}

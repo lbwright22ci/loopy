@@ -1,0 +1,116 @@
+import uuid
+
+from django.db import models
+from core.models import UserProfile, SaleSettings, Announcements, Postage
+from product.models import Colour_var
+
+# Create your models here.
+
+
+class Order(models.Model):
+    """ """
+
+    PCLASS = ((0, "2nd class"), (1, "1st class"))
+    PSIZE = ((0, "small"), (1, "medium"))
+
+    created_on= models.DateTimeField(auto_now=True)
+    order_num = models.CharField(max_length=8, null=False, editable=False)
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, blank=True, null=True, related_name="orders")
+    first_name= models.CharField(max_length=20, blank = False, null=False)
+    second_name= models.CharField(max_length=20, blank = False, null=False)
+    email = models.EmailField(blank=False, null=False)
+    phone = models.CharField(max_length=20, null=True, blank=True)
+    billing_street_address1 = models.CharField(max_length=80, null=False, blank=False)
+    billing_street_address2 = models.CharField(max_length=80, null=True, blank=True)
+    billing_town = models.CharField(max_length=50, null=False, blank=False)
+    billing_county = models.CharField(max_length=40, null=False, blank=False)
+    billing_postcode = models.CharField(max_length=9, null=False, blank=False)
+    billing_country = models.CharField(max_length = 20, default="GB", null=False)
+    shipping_street_address1 = models.CharField(max_length=80, null=False, blank=False)
+    shipping_street_address2 = models.CharField(max_length=80, null=True, blank=True)
+    shipping_town = models.CharField(max_length=50, null=False, blank=False)
+    shipping_county = models.CharField(max_length=40, null=False, blank=False)
+    shipping_postcode = models.CharField(max_length=9, null=False, blank=False)
+    shipping_country = models.CharField(max_length = 20, default="GB", editable=False)
+    basket_contents = models.TextField(blank=False, null=False, default = "")
+    is_gift = models.BooleanField(default=False)
+    gift_message = models.CharField(max_length=500, blank=True, null=True)
+    postage_class = models.IntegerField(choices=PCLASS, default=0)
+    parcel_size = models.IntegerField(choices=PSIZE)
+    order_subtotal = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
+    order_discount = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
+    postage_cost = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
+    grand_total = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
+    is_shipped = models.BooleanField(default = False)
+    use_voucher= models.BooleanField(default= False)
+    voucher_amount = models.DecimalField(max_digits=5, decimal_places=2, blank = True)
+    amount_payable = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
+    refund_status = models.BooleanField(default = False)
+    stripe_pid = models.CharField(max_length=254, null=False, blank=False, default="")
+
+    def __generate_order_num(self):
+        """ """
+        return str(uuid.uuid4()).replace('-','')[:8]
+    
+    def calc_totals(self):
+        ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
+        self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
+
+        bulk_buy = Announcements.objects.filter(active=True)[0]
+        
+        yarn_weight = self.lineitems.aggregate(Sum('lineweight'))['lineweight__sum'] or 0
+        
+        if ball_count < 5:
+            yarn_weight = yarn_weight + 200
+        else:
+            yarn_weight = yarn_weight + 400
+        if ball_count < 10 and order_weight < 2000:
+            self.parcel_size = 0
+            self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+        else:
+            self.parcel_size = 1
+            self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+
+        if bulk_buy.bulk_buy == True:
+            if ball_count > bulk_buy.upper_ball_num:
+                self.order_discount = self.order_subtotal*Decimal((bulk_buy.upper_discount)/100)
+            elif ball_count < bulk_buy.lower_ball_num:
+                self.order_discount = 0
+            else:
+                self.order_discount = self.order_subtotal*Decimal((bulk_buy.lower_discount)/100)
+        else:
+            if ball_count > bulk_buy.upper_ball_num:
+                self.order_discount = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=0))[0].postage_cost
+        
+        self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
+        self.save()
+
+    def save(self, *args, **kwargs):
+        """"""
+        if not self.order_num:
+            self.order_num = self.__generate_order_num()
+        super().save(self,*args, **kwargs)
+
+class YarnOrderLineitem(models.Model):
+    """"""
+    order= models.ForeignKey(Order, null=False, blank = False, on_delete=models.CASCADE, related_name = "lineitems")
+    yarn = models.ForeignKey(Colour_var, null=True, blank = False, on_delete=models.SET_NULL, related_name = 'yarn')
+    quantity = models.IntegerField(null=False, blank = False)
+    current_price = models.DecimalField(max_digits=5, decimal_places=2, blank = False)
+    linetotal = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False, editable = False)
+    lineweight = models.IntegerField( blank =False, editable=False)
+
+    def get_current_price(self):
+        """ """
+        sale_discount = SaleSettings.objects.filter(active=True)[0].sale_percent
+        if self.yarn.product_id.on_promotion:
+            self.current_price = Decimal(self.yarn.product_id.price*(100-sale_discount)/100)
+        else:
+            self.current_price = self.yarn.product_id.price
+        self.save()
+
+    def save(self, *args, **kwargs):
+        """" """
+        self.linetotal = self.current_price * self.quantity
+        self.lineweight = self.quantity * self.yarn.product_id.skein_weight
+        super().save(self, *args, **kwargs)

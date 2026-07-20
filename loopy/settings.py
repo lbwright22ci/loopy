@@ -64,6 +64,7 @@ INSTALLED_APPS = [
     'get_in_touch',
     'product',
     'basket',
+    'checkout',
 ]
 
 MIDDLEWARE = [

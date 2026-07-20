@@ -21,11 +21,13 @@
 {% block content %}
 
     <div class="container pt-4 pb-4">
+        {% if ball_count != 0 %}
         <div class="row px-2 mx-2 ">
             <div class="col-12 text-end">
-                <a href="#" aria-label="takes you to checkout"> Checkout <i class="ps-2 fa-solid fa-arrow-right"></i></a>
+                <a href="{% url 'checkout' %}" aria-label="takes you to checkout"> Checkout <i class="ps-2 fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
+        {% endif %}
         <div class="row mb-4">
             <div class="col-12 ">
                 <img src="{% static 'images/balls-in-a-line.png'%}"
@@ -177,7 +179,7 @@
             <div class="col-12 text-end">
                 <a href="{% url 'allproducts' %}" aria-label="Takes you back to list of all yarns" 
                 class="btn btn-second me-2"><i class="fa-solid fa-angles-left"></i> Continue shopping </a>
-                <a href="" aria-label="" class="btn btn-main ms-2">Checkout</a>
+                <a href="{% url 'checkout' %}" aria-label="Takes you to the checkout page" class="btn btn-main ms-2">Checkout</a>
             </div>
         </div>
         {% endif %}
