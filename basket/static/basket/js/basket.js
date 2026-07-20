@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+
     function handleEnableDisable(colourId){
         var currentvalue = parseInt($('[data-item_id ="'+colourId+'" ]').val());
         var plusLimit = parseInt($('[data-item_id ="'+colourId+'" ]').attr('max'));

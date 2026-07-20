@@ -86,6 +86,23 @@ a:hover {
     color:var(--success-color);
 }
 
+.red,
+.remove:hover{
+    color:var(--error-color);
+}
+
+.danger-tooltip{
+    --bs-tooltip-bg: var(--error-color);
+    --bs-tooltip-color: var(var(--primary-background-color));
+    --bs-tooltip-font-size: 1.2rem;
+}
+
+.update-tooltip{
+    --bs-tooltip-bg: var(--hyperlink-hover-color);
+    --bs-tooltip-color: var(var(--primary-background-color));
+    --bs-tooltip-font-size: 1.2rem;
+}
+
 .form-control,
 .form-select,
 input:-internal-autofill-selected{
