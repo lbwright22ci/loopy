@@ -3,3 +3,28 @@
     width:auto;
     padding-right:2rem;
 }
+
+.product-image-thumb{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-width: 6rem;
+    border-radius: 2rem;
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
+}
+
+.colour-image{
+    height: 3rem;
+    width:3rem;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.pre-sale-price{
+    text-decoration: line-through;
+}
+
+.sale-price{
+    color:var(--error-color);
+    font-weight: bold;
+}
