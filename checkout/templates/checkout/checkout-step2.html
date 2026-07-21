@@ -79,13 +79,13 @@
             <div class="form-check">
   <input class="form-check-input" type="radio" name="shippingClass" id="second-class" value="0" checked>
   <label class="form-check-label" for="second-class">
-    Second Class (£{{ estimated_postage }})
+    Second Class (£{{ estimated_postage|floatformat:2 }})
   </label>
 </div>
 <div class="form-check">
   <input class="form-check-input" type="radio" name="shippingClass" id="first-class" value="1">
   <label class="form-check-label" for="first-class">
-    First Class (£{{ first_class }})
+    First Class (£{{ first_class|floatformat:2 }})
   </label>
 </div>
 

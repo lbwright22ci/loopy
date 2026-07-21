@@ -23,9 +23,17 @@ class ShippingAddressForm(forms.ModelForm):
         fields= ( 'shipping_street_address1', 'shipping_street_address2',
                 'shipping_town', 'shipping_county', 'shipping_postcode',
                 )
+    def __init__(self, *args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['shipping_street_address1'].widget.attrs['autofocus'] = True
         
 
 class ExtraDetailsForm(forms.ModelForm):
     class Meta:
         model= Order
         fields = ('is_gift', 'gift_message',)
+
+    def __init__(self, *args,**kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['is_gift'].widget.attrs['autofocus'] = True
+        self.fields['gift_message'].widget = forms.Textarea(attrs={'rows':2})

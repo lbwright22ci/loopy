@@ -1,8 +1,11 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
+from django.conf import Settings
 from .forms import ContactAndBillingForm, ShippingAddressForm, ExtraDetailsForm
 from .models import Order, YarnOrderLineitem
 from core.models import UserProfile
+
+import json
 
 def checkout_step1(request):
     """" """
@@ -43,7 +46,7 @@ def checkout_step1(request):
                 request.session['bs_same'] = True
             else:
                 request.session['bs_same'] = False
-
+            
             return redirect(checkout_step2)
     
     context={
@@ -91,8 +94,74 @@ def checkout_step2(request):
 def checkout_step3(request):
     """" """
     
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    first_name = request.session.get('first_name')
+    second_name = request.session.get('second_name')
+    email = request.session.get('email')
+    phone = request.session.get('phone')
+    billing_street_address1 = request.session.get('billing_street_address1')
+    billing_street_address2 = request.session.get('billing_street_address2')
+    billing_town = request.session.get('billing_town')
+    billing_county = request.session.get('billing_county')
+    billing_country = request.session.get('billing_country')
+    billing_postcode = request.session.get('billing_postcode')
+    shipping_street_address1 = request.session.get('shipping_street_address1')
+    shipping_street_address2 = request.session.get('shipping_street_address2')
+    shipping_town = request.session.get('shipping_town')
+    shipping_county = request.session.get('shipping_county')
+    shipping_country = "GB"
+    shipping_postcode = request.session.get('shipping_postcode')
+    postage_class = request.session.get('postage_class')
+
+    if request.POST:
+        extra_form = ExtraDetailsForm(data=request.POST)
+        if extra_form.is_valid:
+            basket = request.session.get('basket', ())
+            order = extra_form.save(commit=False)
+            order.first_name = first_name
+            order.second_name = second_name
+            order.phone = phone
+            order.email = email
+            order.billing_street_address1 = billing_street_address1
+            order.billing_street_address2 = billing_street_address2
+            order.billing_town = billing_town
+            order.billing_county= billing_county
+            order.billing_postcode = billing_postcode
+            order.billing_country = billing_country
+            order.postage_class = postage_class
+            order.shipping_street_address1 = shipping_street_address1
+            order.shipping_street_address2 = shipping_street_address2
+            order.shipping_town = shipping_town
+            order.shipping_county= shipping_county
+            order.shipping_postcode = shipping_postcode
+            
+
+
+    else:
+        extra_form = ExtraDetailsForm()
+
     context={
         'form':extra_form,
+        'first_name': first_name,
+        'second_name' : second_name, 
+        'email': email, 
+        'phone' : phone,
+        'billing_street_address1' : billing_street_address1,
+        'billing_street_address2' : billing_street_address2,
+        'billing_town' : billing_town, 
+        'billing_county': billing_county, 
+        'billing_country': billing_country, 
+        'billing_postcode': billing_postcode, 
+        'shipping_street_address1': shipping_street_address1, 
+        'shipping_street_address2': shipping_street_address2, 
+        'shipping_town': shipping_town, 
+        'shipping_county': shipping_county, 
+        'shipping_country': shipping_country,
+        'shipping_postcode':shipping_postcode,
+        'postage_class':postage_class, 
+        'stripe_public_key':stripe_public_key,
     }
     template = 'checkout/checkout-step3.html'
     return render(request, template, context)

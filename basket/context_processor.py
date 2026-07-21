@@ -90,6 +90,7 @@ def basket_contents(request):
         discount = estimated_postage
     
     grand_total = total + estimated_postage - discount
+    grand_total_first = total + first_class - discount
 
     return{
         'basket_items': basket_items,
@@ -100,5 +101,6 @@ def basket_contents(request):
         'estimated_postage': estimated_postage,
         'grand_total': grand_total,
         'first_class':first_class,
+        'grand_total_first':grand_total_first,
     }
     

@@ -93,7 +93,14 @@
             {{ form.billing_country | as_crispy_field }}
         </div>
         <div class="col-12 text-end">
-            {{ form.billing_shipping_same | as_crispy_field }}
+            <div class="mb-3">
+    <div id="div_id_billing_shipping_same" class="mb-3 form-check form-check-reverse">
+        <input type="checkbox" name="billing_shipping_same" class="checkboxinput form-check-input" id="id_billing_shipping_same">
+        <label for="id_billing_shipping_same" class="form-check-label">
+                    Use Billing address for shipping
+        </label>
+    </div>
+    </div>
         </div>
     </div>
 

@@ -59,7 +59,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'crispy_forms',
     'crispy_bootstrap5',
-    'formtools',
     'storages',
     'core',
     'get_in_touch',
@@ -253,3 +252,10 @@ LOGOUT_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_EMAIL_AUTHENTICATION= True
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
+
+## Stripe
+
+STRIPE_CURRENCY = 'gbp'
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+STRIPE_WH_SECRET = os.environ.get('STRIPE_WEBHOOKS_SECRET')

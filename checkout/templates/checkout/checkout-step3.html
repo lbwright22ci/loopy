@@ -52,54 +52,108 @@
         </div>
         {% endif %}
     
-<form method="POST" action="{% url 'checkout-ship' %}">
+<form method="POST" action="{% url 'checkout-final' %}">
     {% csrf_token %}
     
-    <h2 class="subtitle"> Shipping Address </h2>
-    <div class="row justify-content-end">
+    <h2 class="subtitle"> Gifting </h2>
+    <div class="row">
         <div class="col-12">
-            {{ form.shipping_street_address1 | as_crispy_field }}
+            {{ form.is_gift | as_crispy_field }}
         </div>
         <div class="col-12">
-            {{ form.shipping_street_address2 | as_crispy_field }}
+            {{ form.gift_message | as_crispy_field }}
         </div>
-        <div class="col-12 col-lg-6">
-            {{ form.shipping_town | as_crispy_field }}
-        </div>
-        <div class="col-12 col-lg-6">
-            {{ form.shipping_county | as_crispy_field }}
-        </div>
-        <div class="col-12 col-lg-6">
-            {{ form.shipping_postcode | as_crispy_field }}
-        </div>
-        
-        <h2 class="subtitle"> Shipping Class </h2>
-    <div class="row justify-content-end pb-4">
-        <div class="col-12">
-            <div class="form-check">
-  <input class="form-check-input" type="radio" name="shippingClass" id="second-class" value="0" checked>
-  <label class="form-check-label" for="second-class">
-    Second Class (£{{ estimated_postage }})
-  </label>
-</div>
-<div class="form-check">
-  <input class="form-check-input" type="radio" name="shippingClass" id="first-class" value="1">
-  <label class="form-check-label" for="first-class">
-    First Class (£{{ first_class }})
-  </label>
-</div>
-
-            </div>
-            </div>
-        
     </div>
+
+    <h2 class="subtitle"> Order Summary</h2>
+    <div class="row">
+        <div class="col-12">
+            <p class="very-small-text">
+                Name: {{ first_name }} {{ second_name }} <br>
+                Email: {{ email }} <br>
+                {% if phone %}
+                Phone: {{ phone }}
+                {% endif %}
+            </p>
+        </div>
+        <div class="col-6">
+            <p class="small-text mb-0"> Billing Address </p>
+            <p class="very-small-text">
+                {{ billing_street_address1 }} <br>
+                {% if billing_street_address2 %}
+                {{ billing_street_address2 }} <br>
+                {% endif %}
+                {{ billing_county }} <br>
+                {{ billing_postcode }} <br>
+                {{ billing_country }} <br>
+                <a href="{% url 'checkout' %}" aria-label="change billing address details">Edit</a>
+            </p>
+        </div>
+        <div class="col-6">
+            <p class="small-text mb-0"> Shipping Address </p>
+            <p class="very-small-text">
+                {{ shipping_street_address1 }} <br>
+                {% if shipping_street_address2 %}
+                {{ shipping_street_address2 }} <br>
+                {% endif %}
+                {{ shipping_county }} <br>
+                {{ shipping_postcode }} <br>
+                {{ shipping_country }} <br>
+                <a href="{% url 'checkout-ship' %}" aria-label="change shipping address details">Edit</a>
+            </p>
+        </div>
+    </div>
+        {% if user.is_authenticated %}
+    <div class="row">
+        <div class="col-12">
+            <div class="mb-3">
+                <div id="div_id_save_details" class="mb-3 form-check form-check-reverse">
+                    <input type="checkbox" name="save_details" class="checkboxinput form-check-input" id="id_save_details">
+                    <label for="id_save_details" class="form-check-label small-text">
+                    Save address details to my account
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="row">
+        <div class="col-12 text-end">
+            <p class="small-text">
+                Subtotal: £ {{ total|floatformat:2 }} <br>
+                Discount: £ {{ discount|floatformat:2 }} <br>
+                {% if postage_class == 0 %}
+                Postage (2nd Class) = £ {{ estimated_postage|floatformat:2 }}<br>
+                Total = £ {{ grand_total|floatformat:2 }}
+                {% else %}
+                Postage (1st Class) = £ {{ first_class|floatformat:2 }}<br>
+                Total = £ {{ grand_total_first|floatformat:2 }}
+                {% endif %}
+            </p>
+        </div>
+    </div>
+    
+
+        
+        <h2 class="subtitle"> Payment </h2>
+    <div class="row  pb-4">
+        <div class="col-12">
+            <!-- Stripe card element goes here-->
+                    <div class="mb-3" id="card-element"></div>
+                    <!-- used to display form errors -->
+                    <div class="mb-3 red" id="card-errors" role="alert"></div>
+                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
+        </div>
+    </div>
+        
+
 
     <div class="row justify-content-end mt-4 mb-4">
         <div class="col-6 text-start">
-            <a href="{% url 'checkout' %}" aria-label="Takes you back to edit billing information" class="btn btn-second"> <i class="fa-solid fa-angles-left"></i> Billing Info</a>
+            <a href="{% url 'checkout-ship' %}" aria-label="Takes you back to edit shipping information" class="btn btn-second"> <i class="fa-solid fa-angles-left"></i> Shipping Info</a>
         </div>
         <div class="col-6 text-end">
-            <input type="submit" class="btn btn-main" value="Next">
+            <input type="submit" class="btn btn-main" value="Pay">
         </div>
     </div>
 
@@ -154,8 +208,13 @@
                 <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
                 <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
                 > Discount : £ {{ discount|floatformat:2 }}</p>
-                <p > Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
+                {% if postage_class == 0 %}
+                <p> Postage (2nd class) : £ {{ estimated_postage|floatformat:2 }}</p>
                 <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
+                {% else %}
+                <p> Postage (1st class) : £ {{ first_class|floatformat:2 }}</p>
+                <p class="subtitle bold"> Total : £ {{ grand_total_first|floatformat:2 }}</p>
+                {% endif %}
             </div>
         </div>
         <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end">
