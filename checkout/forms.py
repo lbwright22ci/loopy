@@ -24,10 +24,6 @@ class ShippingAddressForm(forms.ModelForm):
                 'shipping_town', 'shipping_county', 'shipping_postcode',
                 )
         
-class PostageForm(forms.ModelForm):
-    class Meta:
-        model = Order
-        fields = ('postage_class',)
 
 class ExtraDetailsForm(forms.ModelForm):
     class Meta:

@@ -1,6 +1,6 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from .forms import ContactAndBillingForm, PostageForm, ShippingAddressForm, ExtraDetailsForm
+from django.shortcuts import render, redirect
+from .forms import ContactAndBillingForm, ShippingAddressForm, ExtraDetailsForm
 from .models import Order, YarnOrderLineitem
 from core.models import UserProfile
 
@@ -26,23 +26,23 @@ def checkout_step1(request):
     else:
         contact_billing_form= ContactAndBillingForm()
 
+
     if request.POST:
         contact_billing_form= ContactAndBillingForm(data=request.POST)
         if contact_billing_form.is_valid():
-            order.first_name = request.POST.get('first_name')
-            order.second_name = request.POST.get('second_name')
-            order.email = request.POST.get('email')
-            order.billing_street_address1 = request.POST.get('billing_street_address1')
-            order.billing_street_address2 = request.POST.get('billing_street_address2')
-            order.billing_town = request.POST.get('billing_town')
-            order.billing_county = request.POST.get('billing_county')
-            order.billing_country = request.POST.get('billing_country')
-            order.billing_postcode = request.POST.get('billing_postcode')
-            if request.POST.get('billing_shipping_same' == 'on'):
+            request.session['first_name'] = request.POST.get('first_name')
+            request.session['second_name'] = request.POST.get('second_name')
+            request.session['email'] = request.POST.get('email')
+            request.session['billing_street_address1'] = request.POST.get('billing_street_address1')
+            request.session['billing_street_address2'] = request.POST.get('billing_street_address2')
+            request.session['billing_town'] = request.POST.get('billing_town')
+            request.session['billing_county'] = request.POST.get('billing_county')
+            request.session['billing_country'] = request.POST.get('billing_country')
+            request.session['billing_postcode'] = request.POST.get('billing_postcode')
+            if request.POST.get('billing_shipping_same'):
                 request.session['bs_same'] = True
             else:
                 request.session['bs_same'] = False
-            request.session['order'] = order
 
             return redirect(checkout_step2)
     
@@ -50,4 +50,49 @@ def checkout_step1(request):
         'form':contact_billing_form,
     }
     template = 'checkout/checkout-step1.html'
+    return render(request, template, context)
+
+def checkout_step2(request):
+    """" """
+
+    bs_same = request.session['bs_same']
+
+    if bs_same :
+        shipping_form = ShippingAddressForm(initial={
+            'shipping_street_address1' : request.session.get('billing_street_address1'),
+            'shipping_street_address2' : request.session.get('billing_street_address2'),
+            'shipping_town' : request.session.get('billing_town'),
+            'shipping_county' : request.session.get('billing_county'),
+            'shipping_country' : request.session.get('billing_country'),
+            'shipping_postcode' : request.session.get('billing_postcode'),
+        })
+    else:
+        shipping_form = ShippingAddressForm()
+
+    if request.POST:
+        shipping_form= ShippingAddressForm(data=request.POST)
+        if shipping_form.is_valid():
+            request.session['shipping_street_address1'] = request.POST.get('shipping_street_address1')
+            request.session['shipping_street_address2'] = request.POST.get('shipping_street_address2')
+            request.session['shipping_town'] = request.POST.get('shipping_town')
+            request.session['shipping_county'] = request.POST.get('shipping_county')
+            request.session['shipping_postcode'] = request.POST.get('shipping_postcode')
+        
+            request.session['postage_class'] = int(request.POST.get('shippingClass'))
+            
+            return redirect(checkout_step3)
+    
+    context={
+        'form':shipping_form,
+    }
+    template = 'checkout/checkout-step2.html'
+    return render(request, template, context)
+
+def checkout_step3(request):
+    """" """
+    
+    context={
+        'form':extra_form,
+    }
+    template = 'checkout/checkout-step3.html'
     return render(request, template, context)
