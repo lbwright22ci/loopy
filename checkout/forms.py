@@ -3,8 +3,7 @@ from .models import Order
 
 class ContactAndBillingForm(forms.ModelForm):
     
-    CHOICES =[(True, 'yes'), (False, 'no')]
-    billing_shipping_same = forms.BooleanField(widget=forms.RadioSelect(choices=CHOICES),
+    billing_shipping_same = forms.BooleanField(
         required=False, label="Use Billing address for shipping")
 
     class Meta:

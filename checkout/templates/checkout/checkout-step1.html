@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load i18n %}
 {% load crispy_forms_tags %}
 {% load tools %}
 
@@ -14,9 +13,6 @@
     <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
-{% block extrahead %}
-    {{ wizard.form.media }}
-{% endblock %}
 
 {% block page_header %}
     <div class="top-padding">
@@ -26,13 +22,11 @@
 
 {% block content %}
 
-<div class="container pt-4 pb-4">
+<div class="container p-4">
 
     <div class="row mb-4">
-        <div class="col-6 text-start">
+        <div class="col-12 text-end">
             <a class="btn btn-second" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
-        </div>
-        <div class="col-6 text-end">
             <a class="btn btn-second" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
         </div>
     </div>
@@ -58,29 +52,57 @@
         </div>
         {% endif %}
     
-<form action="" method="post">
+<form method="POST" action="{% url 'checkout' %}">
     {% csrf_token %}
-<table class="mb-4">
-{{ wizard.management_form }}
-{% if wizard.form.forms %}
-    {{ wizard.form.management_form| crispy }}
-    {% for form in wizard.form.forms %}
-        {{ form|crispy }}
-    {% endfor %}
-{% else %}
-    {{ wizard.form|crispy }}
-{% endif %}
-</table>
+    <h2 class="subtitle">Details</h2>
+    <div class="row">
+        <div class="col-12 col-lg-6">
+{{ form.first_name| as_crispy_field }}
+</div>
+<div class="col-12 col-lg-6">
+    {{ form.second_name | as_crispy_field }}
+    </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-lg-6">
+{{ form.email| as_crispy_field }}
+        </div>
+        <div class="col-12 col-lg-6">
+            {{ form.phone | as_crispy_field }}
+        </div>
+    </div>
+    
+    <h2 class="subtitle"> Billing Address </h2>
+    <div class="row">
+        <div class="col-12">
+            {{ form.billing_street_address1 | as_crispy_field }}
+        </div>
+        <div class="col-12">
+            {{ form.billing_street_address2 | as_crispy_field }}
+        </div>
+        <div class="col-12 col-lg-6">
+            {{ form.billing_town | as_crispy_field }}
+        </div>
+        <div class="col-12 col-lg-6">
+            {{ form.billing_county | as_crispy_field }}
+        </div>
+        <div class="col-12 col-lg-6">
+            {{ form.billing_postcode | as_crispy_field }}
+        </div>
+        <div class="col-12 col-lg-6">
+            {{ form.billing_country | as_crispy_field }}
+        </div>
+        <div class="col-12 text-end">
+            {{ form.billing_shipping_same | as_crispy_field }}
+        </div>
+    </div>
 
-{% if wizard.steps.prev %}
+    <div class="row justify-content-end">
+        <div class="col-12 text-end">
+            <input type="submit" class="btn btn-main" value="Next">
+        </div>
+    </div>
 
-<button class="btn btn-second mb-4" name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">Back</button>
-{% endif %}
-{% if wizard.steps.next %}
-<button class="btn btn-second mb-4" name="wizard_goto_step" type="submit" value="{{ wizard.steps.next }}">Next</button>
-{% else %}
-<input class="btn btn-main mb-4" type="submit" value="Pay now"/>
-{% endif %}
 </form>
 
     </div>

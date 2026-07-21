@@ -28,3 +28,8 @@
     color:var(--error-color);
     font-weight: bold;
 }
+
+.form-label{
+    font-size: 1.2rem;
+    margin-bottom:0;
+}
