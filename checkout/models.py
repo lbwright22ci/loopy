@@ -33,18 +33,18 @@ class Order(models.Model):
     shipping_postcode = models.CharField(max_length=9, null=False, blank=False, verbose_name='Postcode')
     shipping_country = models.CharField(max_length = 20, default="GB", editable=False)
     basket_contents = models.TextField(blank=False, null=False, default = "")
-    is_gift = models.BooleanField(blank =True, verbose_name="Order is a gift")
+    is_gift = models.BooleanField(default=False, verbose_name="Order is a gift")
     gift_message = models.CharField(max_length=500, blank=True, null=True)
     postage_class = models.IntegerField(choices=PCLASS, default=0)
-    parcel_size = models.IntegerField(choices=PSIZE)
-    order_subtotal = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
-    order_discount = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
-    postage_cost = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
-    grand_total = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
+    parcel_size = models.IntegerField(choices=PSIZE,default=0)
+    order_subtotal = models.DecimalField(max_digits=5, decimal_places=2, default=0, null=False)
+    order_discount = models.DecimalField(max_digits=5, decimal_places=2, default=0, null=False)
+    postage_cost = models.DecimalField(max_digits=5, decimal_places=2, default=0, null=False)
+    grand_total = models.DecimalField(max_digits=5, decimal_places=2, default=0, null=False)
     is_shipped = models.BooleanField(default = False)
     use_voucher= models.BooleanField(default= False)
-    voucher_amount = models.DecimalField(max_digits=5, decimal_places=2, blank = True)
-    amount_payable = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False)
+    voucher_amount = models.DecimalField(max_digits=5, decimal_places=2, blank = True, default=0)
+    amount_payable = models.DecimalField(max_digits=5, decimal_places=2, blank = False, default=0)
     refund_status = models.BooleanField(default = False)
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default="")
 
@@ -85,18 +85,18 @@ class Order(models.Model):
         self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
         self.save()
 
-    def save(self, *args, **kwargs):
+    def save(self):
         """"""
         if not self.order_num:
             self.order_num = self.__generate_order_num()
-        super().save(self,*args, **kwargs)
+        super(Order, self).save()
 
 class YarnOrderLineitem(models.Model):
     """"""
     order= models.ForeignKey(Order, null=False, blank = False, on_delete=models.CASCADE, related_name = "lineitems")
     yarn = models.ForeignKey(Colour_var, null=True, blank = False, on_delete=models.SET_NULL, related_name = 'yarn')
     quantity = models.IntegerField(null=False, blank = False)
-    current_price = models.DecimalField(max_digits=5, decimal_places=2, blank = False)
+    current_price = models.DecimalField(max_digits=5, decimal_places=2, blank = False, editable=False, default=0)
     linetotal = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False, editable = False)
     lineweight = models.IntegerField( blank =False, editable=False)
 
@@ -109,8 +109,8 @@ class YarnOrderLineitem(models.Model):
             self.current_price = self.yarn.product_id.price
         self.save()
 
-    def save(self, *args, **kwargs):
+    def save(self):
         """" """
         self.linetotal = self.current_price * self.quantity
         self.lineweight = self.quantity * self.yarn.product_id.skein_weight
-        super().save(self, *args, **kwargs)
+        super(YarnOrderLineitem, self).save()

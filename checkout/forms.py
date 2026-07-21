@@ -29,6 +29,10 @@ class ShippingAddressForm(forms.ModelForm):
         
 
 class ExtraDetailsForm(forms.ModelForm):
+
+    is_gift = forms.BooleanField(
+        required=False, label="Order is a gift")
+    
     class Meta:
         model= Order
         fields = ('is_gift', 'gift_message',)

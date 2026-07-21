@@ -1,14 +1,24 @@
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
-from django.conf import Settings
+from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.conf import settings
+from django.contrib import messages
 from .forms import ContactAndBillingForm, ShippingAddressForm, ExtraDetailsForm
 from .models import Order, YarnOrderLineitem
 from core.models import UserProfile
+from product.models import Colour_var
+from basket.context_processor import basket_contents
 
 import json
+import stripe
 
 def checkout_step1(request):
     """" """
+    
+    basket = request.session.get('basket', ())
+    if not basket:
+        messages.error(request, MESSAGES_ERROR, 'There is nothing in your basket at the moment')
+        return redirect(reverse ('allproducts'))
+    
     if request.user.is_authenticated:
         try:
             profile = UserProfile.objects.get(user=request.user)
@@ -28,7 +38,6 @@ def checkout_step1(request):
             contact_billing_form =ContactAndBillingForm()
     else:
         contact_billing_form= ContactAndBillingForm()
-
 
     if request.POST:
         contact_billing_form= ContactAndBillingForm(data=request.POST)
@@ -57,7 +66,12 @@ def checkout_step1(request):
 
 def checkout_step2(request):
     """" """
-
+    
+    basket = request.session.get('basket', ())
+    if not basket:
+        messages.error(request, MESSAGES_ERROR, 'There is nothing in your basket at the moment')
+        return redirect(reverse ('allproducts'))
+    
     bs_same = request.session['bs_same']
 
     if bs_same :
@@ -83,8 +97,8 @@ def checkout_step2(request):
         
             request.session['postage_class'] = int(request.POST.get('shippingClass'))
             
-            return redirect(checkout_step3)
-    
+            return redirect(checkout_step3)    
+
     context={
         'form':shipping_form,
     }
@@ -97,6 +111,11 @@ def checkout_step3(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
+    if not stripe_public_key:
+        messages.error(request, MESSAGES_ERROR, 'Stripe Public Key is missing. We can not ' \
+        'process your order.  Please email loopyyarnsuk@gmail.com')
+        return redirect(reverse('view_basket'))
+    
     first_name = request.session.get('first_name')
     second_name = request.session.get('second_name')
     email = request.session.get('email')
@@ -118,29 +137,74 @@ def checkout_step3(request):
     if request.POST:
         extra_form = ExtraDetailsForm(data=request.POST)
         if extra_form.is_valid:
-            basket = request.session.get('basket', ())
-            order = extra_form.save(commit=False)
-            order.first_name = first_name
-            order.second_name = second_name
-            order.phone = phone
-            order.email = email
-            order.billing_street_address1 = billing_street_address1
-            order.billing_street_address2 = billing_street_address2
-            order.billing_town = billing_town
-            order.billing_county= billing_county
-            order.billing_postcode = billing_postcode
-            order.billing_country = billing_country
-            order.postage_class = postage_class
-            order.shipping_street_address1 = shipping_street_address1
-            order.shipping_street_address2 = shipping_street_address2
-            order.shipping_town = shipping_town
-            order.shipping_county= shipping_county
-            order.shipping_postcode = shipping_postcode
-            
+            print(request.POST.get('is_gift'))
+            order = Order(
+                first_name = first_name,
+                second_name = second_name,
+                phone = phone,
+                email = email,
+                billing_street_address1 = billing_street_address1,
+                billing_street_address2 = billing_street_address2,
+                billing_town = billing_town,
+                billing_county= billing_county,
+                billing_postcode = billing_postcode,
+                billing_country = billing_country,
+                postage_class = postage_class,
+                shipping_street_address1 = shipping_street_address1,
+                shipping_street_address2 = shipping_street_address2,
+                shipping_town = shipping_town,
+                shipping_county= shipping_county,
+                shipping_postcode = shipping_postcode,
+                # is_gift = request.POST.get('is_gift'),
+                gift_message = request.POST.get('gift_message'),)
+            # order.save(commit = False)
 
+            pid =request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
+
+            basket = request.session.get('basket', ())
+            order.basket_contents = json.dumps(basket)
+            order.save()
+            
+            for item_id, item_data in basket.items():
+                try:
+                    col_var = get_object_or_404(Colour_var, pk = item_id)
+                    yarn_order_line_item = YarnOrderLineitem(
+                        order = order,
+                        quantity = item_data,
+                        yarn = col_var,)
+                    yarn_order_line_item.save()
+                except Colour_var.DoesNotExist:
+                    messages.error(request, MESSAGES_ERROR, 'One of the items in your order is no longer ' \
+                    'available.  Please email us for assitance: loopyyarnsuk@gmail.com')
+                    order.delete()
+                    return redirect(reverse('view_basket'))
+        request.session['save_details']= request.POST.get('save_details')
+
+       # return 
 
     else:
         extra_form = ExtraDetailsForm()
+
+        basket = request.session.get('basket', ())
+        if not basket:
+            messages.error(request, MESSAGES_ERROR, 'There is nothing in your basket at the moment')
+            return redirect(reverse ('allproducts'))
+
+    current_basket = basket_contents(request)
+    if postage_class == 0:
+        total = current_basket['grand_total']
+    elif postage_class ==1:
+        total == current_basket['grand_total_first']
+    else:
+        messages.error(request, MESSAGES_ERROR, 'Postage class not assigned to the order')
+    stripe_total = round(total*100)
+    stripe.api_key = stripe_secret_key
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+
 
     context={
         'form':extra_form,
@@ -162,6 +226,7 @@ def checkout_step3(request):
         'shipping_postcode':shipping_postcode,
         'postage_class':postage_class, 
         'stripe_public_key':stripe_public_key,
+        'client_secret': intent.client_secret,
     }
     template = 'checkout/checkout-step3.html'
     return render(request, template, context)
