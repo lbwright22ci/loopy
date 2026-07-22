@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib import messages
 from .forms import ContactAndBillingForm, ShippingAddressForm, ExtraDetailsForm
 from .models import Order, YarnOrderLineitem
-from core.models import UserProfile
+from core.models import UserProfile, SaleSettings
 from product.models import Colour_var
 from basket.context_processor import basket_contents
 
@@ -134,10 +134,32 @@ def checkout_step3(request):
     shipping_postcode = request.session.get('shipping_postcode')
     postage_class = request.session.get('postage_class')
 
+    current_basket = basket_contents(request)
+    if postage_class == 0:
+        total = current_basket['grand_total']
+        postage_cost = current_basket['estimated_postage']
+    elif postage_class ==1:
+        total = current_basket['grand_total_first']
+        postage_cost = current_basket['first_class']
+    else:
+        messages.error(request, MESSAGES_ERROR, 'Postage class not assigned to the order')
+    stripe_total = round(total*100)
+    stripe.api_key = stripe_secret_key
+    intent = stripe.PaymentIntent.create(
+        amount=stripe_total,
+        currency=settings.STRIPE_CURRENCY,
+    )
+
     if request.POST:
         extra_form = ExtraDetailsForm(data=request.POST)
         if extra_form.is_valid:
             print(request.POST.get('is_gift'))
+            temp = request.POST.get('is_gift')
+            if temp == 'on':
+                is_gift = True
+            else:
+                is_gift = False
+
             order = Order(
                 first_name = first_name,
                 second_name = second_name,
@@ -155,7 +177,12 @@ def checkout_step3(request):
                 shipping_town = shipping_town,
                 shipping_county= shipping_county,
                 shipping_postcode = shipping_postcode,
-                # is_gift = request.POST.get('is_gift'),
+                parcel_size = current_basket['parcel_size'],
+                order_subtotal = current_basket['total'],
+                order_discount =current_basket['discount'],
+                grand_total = total,
+                postage_cost = postage_cost,
+                is_gift = is_gift,
                 gift_message = request.POST.get('gift_message'),)
             # order.save(commit = False)
 
@@ -169,10 +196,17 @@ def checkout_step3(request):
             for item_id, item_data in basket.items():
                 try:
                     col_var = get_object_or_404(Colour_var, pk = item_id)
+                    if col_var.product_id.on_promotion:
+                        sale_discount = SaleSettings.objects.filter(active=True)[0].sale_percent
+                        current_price = Decimal(col_var.product_id.price*(100-sale_discount)/100)
+                    else:
+                        current_price = col_var.product_id.price
                     yarn_order_line_item = YarnOrderLineitem(
                         order = order,
                         quantity = item_data,
-                        yarn = col_var,)
+                        yarn = col_var,
+                        current_price= current_price,
+                        linetotal = item_data * current_price,)
                     yarn_order_line_item.save()
                 except Colour_var.DoesNotExist:
                     messages.error(request, MESSAGES_ERROR, 'One of the items in your order is no longer ' \
@@ -180,6 +214,7 @@ def checkout_step3(request):
                     order.delete()
                     return redirect(reverse('view_basket'))
         request.session['save_details']= request.POST.get('save_details')
+        print(request.POST.get('save_details'))
 
        # return 
 
@@ -191,19 +226,7 @@ def checkout_step3(request):
             messages.error(request, MESSAGES_ERROR, 'There is nothing in your basket at the moment')
             return redirect(reverse ('allproducts'))
 
-    current_basket = basket_contents(request)
-    if postage_class == 0:
-        total = current_basket['grand_total']
-    elif postage_class ==1:
-        total == current_basket['grand_total_first']
-    else:
-        messages.error(request, MESSAGES_ERROR, 'Postage class not assigned to the order')
-    stripe_total = round(total*100)
-    stripe.api_key = stripe_secret_key
-    intent = stripe.PaymentIntent.create(
-        amount=stripe_total,
-        currency=settings.STRIPE_CURRENCY,
-    )
+    
 
 
     context={

@@ -1,8 +1,10 @@
 import uuid
-
+import json
+from decimal import Decimal
 from django.db import models
+from django.db.models import Sum, Q
 from core.models import UserProfile, SaleSettings, Announcements, Postage
-from product.models import Colour_var
+from product.models import Colour_var, Product
 
 # Create your models here.
 
@@ -52,44 +54,58 @@ class Order(models.Model):
         """ """
         return str(uuid.uuid4()).replace('-','')[:8]
     
-    def calc_totals(self):
-        ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
-        self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
-
-        bulk_buy = Announcements.objects.filter(active=True)[0]
-        
-        yarn_weight = self.lineitems.aggregate(Sum('lineweight'))['lineweight__sum'] or 0
-        
-        if ball_count < 5:
-            yarn_weight = yarn_weight + 200
-        else:
-            yarn_weight = yarn_weight + 400
-        if ball_count < 10 and order_weight < 2000:
-            self.parcel_size = 0
-            self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
-        else:
-            self.parcel_size = 1
-            self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
-
-        if bulk_buy.bulk_buy == True:
-            if ball_count > bulk_buy.upper_ball_num:
-                self.order_discount = self.order_subtotal*Decimal((bulk_buy.upper_discount)/100)
-            elif ball_count < bulk_buy.lower_ball_num:
-                self.order_discount = 0
-            else:
-                self.order_discount = self.order_subtotal*Decimal((bulk_buy.lower_discount)/100)
-        else:
-            if ball_count > bulk_buy.upper_ball_num:
-                self.order_discount = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=0))[0].postage_cost
-        
-        self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
-        self.save()
 
     def save(self):
         """"""
+        if self.pk:
+            ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
+            self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
+
+            bulk_buy = Announcements.objects.filter(active=True)[0]
+            
+            yarn_weight = self.lineitems.aggregate(Sum('lineweight'))['lineweight__sum'] or 0
+            
+            if ball_count < 5:
+                yarn_weight = yarn_weight + 200
+            else:
+                yarn_weight = yarn_weight + 400
+            if ball_count < 10 and yarn_weight < 2000:
+                self.parcel_size = 0
+                self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+            else:
+                self.parcel_size = 1
+                self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+
+            if bulk_buy.bulk_buy == True:
+                if ball_count > bulk_buy.upper_ball_num:
+                    self.order_discount = self.order_subtotal*Decimal((bulk_buy.upper_discount)/100)
+                elif ball_count < bulk_buy.lower_ball_num:
+                    self.order_discount = 0
+                else:
+                    self.order_discount = self.order_subtotal*Decimal((bulk_buy.lower_discount)/100)
+            else:
+                if ball_count > bulk_buy.upper_ball_num:
+                    self.order_discount = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=0))[0].postage_cost
+            
+            self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
+            if self.use_voucher:
+                self.amount_payable = self.grand_total - self.voucher_amount
+            else:
+                self.amount_payable = self.grand_total
+            
+            basket = {}
+            ylo = YarnOrderLineitem.objects.filter(order__pk = self.pk)
+            for i in range(0, ylo.all().count()):
+                basket[str(ylo[i].yarn.pk)]= int(ylo[i].quantity)
+
+            self.basket_contents = json.dumps(basket)
+
         if not self.order_num:
             self.order_num = self.__generate_order_num()
         super(Order, self).save()
+
+    class Meta:
+        ordering = ['created_on',]
 
 class YarnOrderLineitem(models.Model):
     """"""
@@ -100,17 +116,14 @@ class YarnOrderLineitem(models.Model):
     linetotal = models.DecimalField(max_digits=5, decimal_places=2, blank = False, null=False, editable = False)
     lineweight = models.IntegerField( blank =False, editable=False)
 
-    def get_current_price(self):
-        """ """
+
+    def save(self):
+        """" """
         sale_discount = SaleSettings.objects.filter(active=True)[0].sale_percent
         if self.yarn.product_id.on_promotion:
             self.current_price = Decimal(self.yarn.product_id.price*(100-sale_discount)/100)
         else:
             self.current_price = self.yarn.product_id.price
-        self.save()
-
-    def save(self):
-        """" """
         self.linetotal = self.current_price * self.quantity
         self.lineweight = self.quantity * self.yarn.product_id.skein_weight
         super(YarnOrderLineitem, self).save()
