@@ -8,6 +8,8 @@ class YarnOrderLineItemAdmin(admin.TabularInline):
 
 class OrderAdmin(admin.ModelAdmin):
     inlines = (YarnOrderLineItemAdmin,)
+    readonly_fields=['order_subtotal', 'grand_total', 'order_discount', 'postage_cost', 'parcel_size', 'order_num',
+                     'amount_payable',]
 
 
 admin.site.register(Order, OrderAdmin)
