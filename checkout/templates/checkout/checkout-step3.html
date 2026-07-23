@@ -52,7 +52,7 @@
         </div>
         {% endif %}
     
-<form method="POST" action="{% url 'checkout-final' %}">
+<form method="POST" action="{% url 'checkout-final' %}" id="gifting-form">
     {% csrf_token %}
     
     <h2 class="subtitle"> Gifting </h2>
@@ -153,7 +153,16 @@
             <a href="{% url 'checkout-ship' %}" aria-label="Takes you back to edit shipping information" class="btn btn-second"> <i class="fa-solid fa-angles-left"></i> Shipping Info</a>
         </div>
         <div class="col-6 text-end">
-            <input type="submit" class="btn btn-main" value="Pay">
+            <input type="submit" class="btn btn-main" value="Pay" id="submit-button">
+            </div>
+            <div class="col-12 text-end pt-4 pb-4">
+            <p class="red small-text"> <i class="fa-solid fa-triangle-exclamation"></i> Your card will be charged 
+                {% if postage_class == 0 %}
+                £ {{ grand_total|floatformat:2 }}
+                {% else %}
+                £ {{ grand_total_first|floatformat:2 }}
+                {% endif %}
+            </p>
         </div>
     </div>
 
@@ -242,6 +251,23 @@
     {{ block.super }}
     {{ stripe_public_key|json_script:"id_stripe_public_key"}}
     {{ client_secret|json_script:"id_client_secret"}}
+    <!-- pass in all the payment address information from session here -->
+    {{ full_name|json_script:"id_full_name" }} 
+    {{ email|json_script:"id_email" }} 
+    {{ phone|json_script:"id_phone" }}
+    {{ billing_street_address1|json_script:"id_billing_street_address1" }}
+    {{ billing_street_address2|json_script:"id_billing_street_address2" }}
+    {{ billing_town|json_script:"id_billing_town" }} 
+    {{ billing_county|json_script:"id_billing_county" }} 
+    {{ billing_country|json_script:"id_billing_country" }} 
+    {{ billing_postcode|json_script:"id_billing_postcode" }} 
+    {{ shipping_street_address1|json_script:"id_shipping_street_address1" }} 
+    {{ shipping_street_address2|json_script:"id_shipping_street_address2" }} 
+    {{ shipping_town|json_script:"id_shipping_town" }} 
+    {{ shipping_county|json_script:"id_shipping_county" }} 
+    {{ shipping_country|json_script:"id_shipping_country" }}
+    {{ shipping_postcode|json_script:"id_shipping_postcode" }}
+
     <script src="{% static 'checkout/js/checkout.js' %}" type="text/javascript"></script>
     
 {% endblock %}

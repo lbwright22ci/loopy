@@ -118,6 +118,7 @@ def checkout_step3(request):
     
     first_name = request.session.get('first_name')
     second_name = request.session.get('second_name')
+    full_name = f'{first_name} {second_name}'
     email = request.session.get('email')
     phone = request.session.get('phone')
     billing_street_address1 = request.session.get('billing_street_address1')
@@ -149,11 +150,12 @@ def checkout_step3(request):
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
     )
+    
 
     if request.POST:
         extra_form = ExtraDetailsForm(data=request.POST)
         if extra_form.is_valid:
-            print(request.POST.get('is_gift'))
+            
             temp = request.POST.get('is_gift')
             if temp == 'on':
                 is_gift = True
@@ -214,7 +216,7 @@ def checkout_step3(request):
                     order.delete()
                     return redirect(reverse('view_basket'))
         request.session['save_details']= request.POST.get('save_details')
-        print(request.POST.get('save_details'))
+        
 
        # return 
 
@@ -232,7 +234,8 @@ def checkout_step3(request):
     context={
         'form':extra_form,
         'first_name': first_name,
-        'second_name' : second_name, 
+        'second_name' : second_name,
+        'full_name':full_name, 
         'email': email, 
         'phone' : phone,
         'billing_street_address1' : billing_street_address1,
