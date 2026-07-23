@@ -1,3 +1,5 @@
+$(document).ready(function () {
+
 var stripePublicKey =$('#id_stripe_public_key').text().slice(1,-1);
 var clientSecret = $('#id_client_secret').text().slice(1,-1);
 
@@ -37,15 +39,10 @@ const elements = stripe.elements({clientSecret, appearance, loader});
 
 // Passing in defaultValues is optional, but useful if you want to prefill consumer information to
 // ease consumer experience.
-const paymentElement = elements.create('card', {
-  defaultValues: {
-    billingDetails: {
-      name: 'John Doe',
-      phone: '888-888-8888',
-    },
-  },
-});
+const paymentElement = elements.create('card', {}, );
 
 // Mount the Elements to their corresponding DOM node
 
 paymentElement.mount("#card-element");
+
+});

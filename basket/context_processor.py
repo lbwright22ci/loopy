@@ -77,7 +77,10 @@ def basket_contents(request):
     else:
         order_weight = order_weight + 400
 
-    if ball_count < 10 and order_weight < 2000:
+    small_ball_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
+    small_weight_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
+    
+    if ball_count < small_ball_limit and order_weight < small_weight_limit:
         parcel_size = 0
         estimated_postage = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].postage_cost
         first_class = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=1))[0].postage_cost

@@ -69,7 +69,12 @@ class Order(models.Model):
                 yarn_weight = yarn_weight + 200
             else:
                 yarn_weight = yarn_weight + 400
-            if ball_count < 10 and yarn_weight < 2000:
+            
+            small_ball_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
+            small_weight_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
+            
+
+            if ball_count < small_ball_limit and yarn_weight < small_weight_limit:
                 self.parcel_size = 0
                 self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
             else:
