@@ -51,3 +51,27 @@
 .InputElement .is-invalid{
     color: var(--error-color);
 }
+
+.order-summary{
+    font-size: 1rem;
+}
+
+
+/* Media queries */
+/* for sizes sm and above */
+@media screen and (min-width:350px){
+   .order-summary{
+    font-size: 1.2rem;
+   }
+}
+
+/* for sizes md and above in Bootstrap */
+@media screen and (min-width:576px){
+    .order-summary{
+        font-size: 1.6rem;
+    }
+}
+/* for sizes lg and above in Bootstrap */
+@media screen and (min-width:992px){
+
+}

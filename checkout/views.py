@@ -16,7 +16,7 @@ def checkout_step1(request):
     
     basket = request.session.get('basket', ())
     if not basket:
-        messages.error(request, MESSAGES_ERROR, 'There is nothing in your basket at the moment')
+        messages.add_message(request, messages.ERROR, 'There is nothing in your basket at the moment')
         return redirect(reverse ('allproducts'))
     
     if request.user.is_authenticated:
@@ -69,7 +69,7 @@ def checkout_step2(request):
     
     basket = request.session.get('basket', ())
     if not basket:
-        messages.error(request, MESSAGES_ERROR, 'There is nothing in your basket at the moment')
+        messages.add_message(request, messages.ERROR, 'There is nothing in your basket at the moment')
         return redirect(reverse ('allproducts'))
     
     bs_same = request.session['bs_same']
@@ -112,7 +112,7 @@ def checkout_step3(request):
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     if not stripe_public_key:
-        messages.error(request, MESSAGES_ERROR, 'Stripe Public Key is missing. We can not ' \
+        messages.add_message(request, messages.ERROR, 'Stripe Public Key is missing. We can not ' \
         'process your order.  Please email loopyyarnsuk@gmail.com')
         return redirect(reverse('view_basket'))
     
@@ -143,7 +143,7 @@ def checkout_step3(request):
         total = current_basket['grand_total_first']
         postage_cost = current_basket['first_class']
     else:
-        messages.error(request, MESSAGES_ERROR, 'Postage class not assigned to the order')
+        messages.add_message(request, messages.ERROR, 'Postage class not assigned to the order')
     stripe_total = round(total*100)
     stripe.api_key = stripe_secret_key
     intent = stripe.PaymentIntent.create(
@@ -211,25 +211,22 @@ def checkout_step3(request):
                         linetotal = item_data * current_price,)
                     yarn_order_line_item.save()
                 except Colour_var.DoesNotExist:
-                    messages.error(request, MESSAGES_ERROR, 'One of the items in your order is no longer ' \
+                    messages.add_message(request, messages.ERROR, 'One of the items in your order is no longer ' \
                     'available.  Please email us for assitance: loopyyarnsuk@gmail.com')
                     order.delete()
                     return redirect(reverse('view_basket'))
-        request.session['save_details']= request.POST.get('save_details')
-        
-
-       # return 
+            request.session['save_details']= request.POST.get('save_details')
+            return redirect(reverse('checkout_success', args=[order.order_num]))        
+        else:
+            messages.add_message(request, 'Form is incorrectly completed. Please check your details')
 
     else:
         extra_form = ExtraDetailsForm()
 
         basket = request.session.get('basket', ())
         if not basket:
-            messages.error(request, MESSAGES_ERROR, 'There is nothing in your basket at the moment')
+            messages.add_message(request, messages.ERROR, 'There is nothing in your basket at the moment')
             return redirect(reverse ('allproducts'))
-
-    
-
 
     context={
         'form':extra_form,
@@ -255,4 +252,14 @@ def checkout_step3(request):
         'client_secret': intent.client_secret,
     }
     template = 'checkout/checkout-step3.html'
+    return render(request, template, context)
+
+def checkout_success(request, order_num):
+    """ """
+    order = get_object_or_404(Order, order_num = order_num)
+    context={
+        'order':order,
+    }
+    template= 'checkout/checkout-success.html'
+
     return render(request, template, context)

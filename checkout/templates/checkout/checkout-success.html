@@ -1,0 +1,186 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load tools %}
+
+{% block titlehead %} Checkout Success {% endblock %}
+
+{% block headdescription %}  {% endblock %}
+
+{% block headkey %} {% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+
+{% block page_header %}
+    <div class="top-padding">
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container p-4">
+
+    
+<div class="row pt-4 mb-4">
+            <div class="col-12 ">
+                <img src="{% static 'images/balls-in-a-line.png'%}"
+                     alt="illustration of balls of wool" class="all-products-head d-none d-sm-inline">
+
+                <h1 class="page-heading ms-2 d-inline">Checkout Success! </h1>
+            </div>
+            <div class="col-12 mt-4">
+                <p> Thank you for your order!  You will receive an email confirmation shortly (please check your spam folder
+                    if it does not arrive).
+                    <br>
+                  <span class="small-text">  We aim to post all orders within 72 hours- please get in touch if you need your yarn urgently.
+                </span></p>
+            </div>
+        </div>
+        
+<div class="row mb-4 justify-content-center order-summary">
+   <div class="col-12 col-md-10">
+        <div class="row">
+            <div class="col-12 text-end">
+                <p class="mb-0"><span class="uppercase-text"> Order number: </span>{{ order.order_num }}</p>
+                <p class="small-text d-none d-sm-block"><span class="uppercase-text"> Date: </span>{{ order.created_on|date:'jS M y' }}</p>
+                <p class="d-sm-none"><span class="uppercase-text"> Date: </span>{{ order.created_on|date:'jS M y' }}</p>
+            </div>
+            <div class="col-12 text-start">
+                <p class="mb-0"><span class="uppercase-text"> Name: </span>{{ order.first_name }} {{ order.second_name }}</p>
+                <p class="mb-0"><span class="uppercase-text"> Email: </span>{{ order.email }}</p>
+                {% if order.phone %}
+                <p class="mb-0"><span class="uppercase-text"> Phone: </span>0{{ order.phone }}</p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-6">
+                <p><span class="uppercase-text"> Billing Address</span><br>
+                {{ order.billing_street_address1 }} <br>
+                {% if order.billing_street_address2 %}
+                {{ order.billing_street_address2 }} <br>
+                {% endif %}
+                {{ order.billing_county }} <br>
+                {{ order.billing_postcode }} <br>
+                {{ order.billing_country }} <br>
+                </p>
+            </div>
+            <div class="col-6">
+                <p><span class="uppercase-text"> Shipping Address</span><br>
+                {{ order.shipping_street_address1 }} <br>
+                {% if order.shipping_street_address2 %}
+                {{ order.shipping_street_address2 }} <br>
+                {% endif %}
+                {{ order.shipping_county }} <br>
+                {{ order.shipping_postcode }} <br>
+                {{ order.shipping_country }} <br>
+                </p>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <p ><span class="uppercase-text"> Postage class: </span>
+                    {% if order.postage_class == 0 %}
+                    2nd class
+                    {% else %}
+                    1st class
+                    {% endif %} 
+                </p>
+                {% if order.is_gift %}
+                    <p class="mb-0"><span class="uppercase-text"> Is gift?: </span> Yes </p>
+                    <p class="mb-0"><span class="uppercase-text"> Gift Message: </span>{{ order.gift_message }}</p>
+                {% else %}
+                    <p class="mb-0"><span class="uppercase-text"> Is gift?: </span> No </p>
+                {% endif %}
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-12">
+                <p class="uppercase-text">Order summary:</p>
+            </div>
+            <div class="row">
+            <div class="col-6">
+                               <p class="uppercase-text d-sm-none mb-0">Yarn</p>
+                               <p class="uppercase-text small-text d-none d-sm-block mb-0">Yarn</p>
+            </div>
+            <div class="col-2 text-center">
+                <p class="uppercase-text d-sm-none mb-0">Qty</p>
+                <p class="uppercase-text d-none d-sm-block small-text mb-0">Qty</p>
+            </div>
+            <div class="col-2 text-end">
+                <p class="uppercase-text d-sm-none mb-0">Price</p>
+                <p class="uppercase-text d-none d-sm-block small-text mb-0">Price</p>
+            </div>
+            <div class="col-2 text-end">
+                <p class="uppercase-text d-sm-none mb-0">Sub</p>
+                <p class="uppercase-text d-none d-sm-block small-text mb-0">Sub</p>
+            </div>
+        </div>
+            {% for item in order.lineitems.all %}
+        <div class="row align-items-center">
+            <div class="col-6">
+                               <p class="mb-0"><a aria-label="Takes you to the product page for {{ item.yarn.product_id.name }}"
+                                href="{$ url 'productdetails' 'productdetail' item.yarn.product_id.slug $}"><span class="uppercase-text">
+                                    {{ item.yarn.product_id.brand_id.name }}
+                                        </span> {{ item.yarn.product_id.name }}</a>
+                                        </p>                         
+                                <p class="small-text">
+                                        {{ item.yarn.colour_cat_id.colour_name|capfirst }} <br>
+                                         ({{ item.yarn.shade_code }}|{{ item.yarn.dye_lot }})
+                                </p>
+            </div>
+            <div class="col-2 text-center">
+               <p class="mb-0"> {{ item.quantity }} </p>
+            </div>
+            <div class="col-2 text-end">
+                <p class="mb-0">
+                    £ {{ item.current_price|floatformat:2 }}
+                </p>
+            </div>
+            <div class="col-2 text-end">
+                <p class="mb-0">
+                    £ {{ item.current_price|calc_subtotal:item.quantity|floatformat:2 }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        <div class="row mt-4 justify-content-end mb-4">
+            <div class="col-12 text-end">
+                <p class="basket-totals"> Subtotal : £ {{ order.order_subtotal|floatformat:2 }}</p>
+                <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
+                > Discount : £ {{ order.order_discount|floatformat:2 }}</p>
+                {% if order.postage_class == 0 %}
+                <p> Postage (2nd class) : £ {{ order.postage_cost|floatformat:2 }}</p>
+                <p class="subtitle bold"> Total : £ {{ order.grand_total|floatformat:2 }}</p>
+                {% else %}
+                <p> Postage (1st class) : £ {{ order.postage_cost|floatformat:2 }}</p>
+                <p class="subtitle bold"> Total : £ {{ order.grand_total|floatformat:2 }}</p>
+                {% endif %}
+            </div>
+        </div>
+   </div>
+</div>
+
+<div class="row mb-4">
+        <div class="col-12 text-end pb-4">
+            <a class="btn btn-second mb-4" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="to-top">
+        <a class="d-flex h-100 to-top-link">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </div>
+{% endblock %}
+
+{% block extrapostjs %}
+    {{ block.super }}
+    
+{% endblock %}
