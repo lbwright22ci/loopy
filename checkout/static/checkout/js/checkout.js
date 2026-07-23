@@ -110,38 +110,42 @@ form.addEventListener('submit', function(ev) {
         'is_gift' : $trim(gifting.is_gift.value),
         'gift_message':$trim(gifting.gift_message),
     };
-    var url = '/checkout/cache_checkout_data/';
-
-    $.post(url, postData).done(function() {
-        stripe.confirmCardPayment(clientSecret, {
+    stripe.confirmCardPayment(clientSecret, {
             payment_method: {
                 card: card,
-                billing_details: {
-                    name: fullName,
-                    phone: phone,
-                    email: email,
-                    address: {
-                        line1: bStreetAddress1,
-                        line2: bStreetAddress2,
-                        city: bTown,
-                        country: bCountry,
-                        state: bCounty,
-                    }
-                }
-            },
-            shipping:{
-                name: fullName,
-                phone: phone,
-                address: {
-                    line1: sStreetAddress1,
-                    line2: sStreetAddress2,
-                    city: sTown,
-                    country: sCountry,
-                    postal_code: sPostcode,
-                    state: sCounty,
-                }
             }
-        }).then(function(result) {
+        }).then(function(result){
+    // var url = '/checkout/cache_checkout_data/';
+    // $.post(url, postData).done(function() {
+    //     stripe.confirmCardPayment(clientSecret, {
+    //         payment_method: {
+    //             card: card,
+    //             billing_details: {
+    //                 name: fullName,
+    //                 phone: phone,
+    //                 email: email,
+    //                 address: {
+    //                     line1: bStreetAddress1,
+    //                     line2: bStreetAddress2,
+    //                     city: bTown,
+    //                     country: bCountry,
+    //                     state: bCounty,
+    //                 }
+    //             }
+    //         },
+    //         shipping:{
+    //             name: fullName,
+    //             phone: phone,
+    //             address: {
+    //                 line1: sStreetAddress1,
+    //                 line2: sStreetAddress2,
+    //                 city: sTown,
+    //                 country: sCountry,
+    //                 postal_code: sPostcode,
+    //                 state: sCounty,
+    //             }
+    //         }
+    //     }).then(function(result) {
             if (result.error) {
                 var errorDiv = document.getElementById('card-errors');
                 var html = `
@@ -164,9 +168,5 @@ form.addEventListener('submit', function(ev) {
         //just reload the page, the error will be in the django messages
         location.reload();
     })
-
-});
-
-
 
 });

@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.contrib import messages
 from .forms import ContactAndBillingForm, ShippingAddressForm, ExtraDetailsForm
@@ -10,6 +11,24 @@ from basket.context_processor import basket_contents
 
 import json
 import stripe
+
+@require_POST
+def cache_checkout_data(request):
+    try:
+        pid = request.POST.get('client_secret').split('_secret')[0]
+        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.PaymentIntent.modify(pid, metadata={
+            'bag': json.dumps(request.session.get('bag', {})),
+            'save_details': request.POST.get('save_detail'),
+            'username': request.user,
+            'is_gift': request.session.get('is_gift'),
+            'gift_message': request.session.get('gift_message'),
+        })
+        return HttpResponse(status=200)
+    except Exception as e:
+        messages.add_message(request, messages.ERROR, 'Sorry your payment can not be processed \
+                       right now.  Please try again later')
+        return HttpResponse(content=e, status = 400)
 
 def checkout_step1(request):
     """" """
@@ -161,6 +180,8 @@ def checkout_step3(request):
                 is_gift = True
             else:
                 is_gift = False
+            request.session['is_gift'] = is_gift
+            request.session['gift_message'] = request.POST.get('gift_message')
 
             order = Order(
                 first_name = first_name,
@@ -257,6 +278,31 @@ def checkout_step3(request):
 def checkout_success(request, order_num):
     """ """
     order = get_object_or_404(Order, order_num = order_num)
+    save_details = request.session.get('save_details')
+
+    if request.user.is_authenticated:
+        user_profile = get_object_or_404(UserProfile, user = request.user)
+        order.user_profile = user_profile
+        order.save()
+        if save_details == "on":
+            user_profile.default_phone = order.phone
+            user_profile.default_street_address1 = order.billing_street_address1
+            user_profile.default_street_address2 = order.billing_street_address2
+            user_profile.default_town = order.billing_town
+            user_profile.default_county = order.billing_county
+            user_profile.default_country = order.billing_country
+            user_profile.user.first_name = order.first_name
+            user_profile.user.last_name = order.second_name
+            user_profile.default_postcode = order.billing_postcode
+            user_profile.save()
+
+    messages.add_message(request, messages.SUCCESS, f'Your order ({order.order_num}) has been placed!\
+                         A confirmation email will be sent to {order.email}. Please check your spam\
+                         folder if you do not receive it.')
+
+    if 'basket' in request.session:
+        del request.session['basket']
+
     context={
         'order':order,
     }
