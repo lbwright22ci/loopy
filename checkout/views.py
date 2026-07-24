@@ -18,13 +18,21 @@ def cache_checkout_data(request):
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
+        current_basket = basket_contents(request)
+
         stripe.PaymentIntent.modify(pid, metadata={
             'basket': json.dumps(request.session.get('basket', {})),
             'save_details': request.POST.get('save_details'),
             'username': request.user,
             'is_gift': request.session.get('is_gift'),
             'gift_message': request.session.get('gift_message'),
+            'postage_class':request.session.get('postage_class'),
+            'parcel_size': current_basket['parcel_size'],
+            'order_subtotal': current_basket['total'],
+            'order_discount':current_basket['discount'],
+            'postage_cost' : request.session.get('postage_cost'),
         })
+
         return HttpResponse(status=200)
     except Exception as e:
         messages.add_message(request, messages.ERROR, 'Sorry your payment can not be processed \
@@ -131,6 +139,7 @@ def checkout_step3(request):
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
+    
     if not stripe_public_key:
         messages.add_message(request, messages.ERROR, 'Stripe Public Key is missing. We can not ' \
         'process your order.  Please email loopyyarnsuk@gmail.com')
@@ -164,13 +173,15 @@ def checkout_step3(request):
         postage_cost = current_basket['first_class']
     else:
         messages.add_message(request, messages.ERROR, 'Postage class not assigned to the order')
+    
+    request.session['postage_cost'] = postage_cost
+
     stripe_total = round(total*100)
     stripe.api_key = stripe_secret_key
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
     )
-    
 
     if request.POST:
         extra_form = ExtraDetailsForm(data=request.POST)
@@ -213,7 +224,7 @@ def checkout_step3(request):
             pid =request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
 
-            basket = request.session.get('basket', ())
+            basket = request.session.get('basket', {})
             order.basket_contents = json.dumps(basket)
             order.save()
             
@@ -247,8 +258,9 @@ def checkout_step3(request):
 
     else:
         extra_form = ExtraDetailsForm()
-
-        basket = request.session.get('basket', ())
+        
+        basket = request.session.get('basket', {})
+        
         if not basket:
             messages.add_message(request, messages.ERROR, 'There is nothing in your basket at the moment')
             return redirect(reverse ('allproducts'))
@@ -276,6 +288,7 @@ def checkout_step3(request):
         'stripe_public_key':stripe_public_key,
         'client_secret': intent.client_secret,
     }
+    
     template = 'checkout/checkout-step3.html'
     return render(request, template, context)
 

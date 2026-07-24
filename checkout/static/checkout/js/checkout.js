@@ -61,7 +61,7 @@ $(document).ready(function () {
   };
 
   // Create an elements group from the Stripe instance, passing the clientSecret and appearance (optional).
-  const elements = stripe.elements({ clientSecret, appearance });
+  const elements = stripe.elements({ clientSecret, appearance, locale: 'en-GB' });
 
   // Create Element instances
   const paymentElement = elements.create("card", { style: style });
@@ -127,6 +127,7 @@ $(document).ready(function () {
                   city: bTown,
                   country: bCountry,
                   state: bCounty,
+                  postal_code: bPostcode,
                 },
               },
             },
