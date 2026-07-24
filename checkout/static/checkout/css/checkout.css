@@ -74,6 +74,8 @@
     margin:0;
     height:100%
 }
+
+/* code from https://cssloaders.github.io/#circle  */
 .loader {
   --color-1: #990099;
   --color-2: #009999;
