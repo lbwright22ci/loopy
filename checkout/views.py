@@ -207,7 +207,7 @@ def checkout_step3(request):
                 postage_cost = postage_cost,
                 is_gift = is_gift,
                 gift_message = request.POST.get('gift_message'),)
-            # order.save(commit = False)
+            
 
             pid =request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
@@ -236,10 +236,13 @@ def checkout_step3(request):
                     'available.  Please email us for assitance: loopyyarnsuk@gmail.com')
                     order.delete()
                     return redirect(reverse('view_basket'))
+            
             request.session['save_details']= request.POST.get('save_details')
+            
             return redirect(reverse('checkout_success', args=[order.order_num]))        
+        
         else:
-            messages.add_message(request, 'Form is incorrectly completed. Please check your details')
+            messages.add_message(request, messages.ERROR,'Form is incorrectly completed. Please check your details')
 
     else:
         extra_form = ExtraDetailsForm()
@@ -302,6 +305,10 @@ def checkout_success(request, order_num):
 
     if 'basket' in request.session:
         del request.session['basket']
+        if request.user.is_authenticated:
+            current_user = get_object_or_404(UserProfile, user = request.user)
+            current_user.temporary_basket ={}
+            current_user.save()
 
     context={
         'order':order,

@@ -16,7 +16,7 @@ class Order(models.Model):
     PSIZE = ((0, "small"), (1, "medium"))
 
     created_on= models.DateTimeField(auto_now=True)
-    order_num = models.CharField(max_length=8, null=False, editable=False)
+    order_num = models.CharField(max_length=8, null=False, editable=False, unique=True)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, blank=True, null=True, related_name="orders")
     first_name= models.CharField(max_length=20, blank = False, null=False)
     second_name= models.CharField(max_length=20, blank = False, null=False)
