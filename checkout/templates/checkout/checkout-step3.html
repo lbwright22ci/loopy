@@ -170,7 +170,7 @@
 
     </div>
     
-    <div class="col-12 col-md-6 ps-md-4">
+    <div class="col-12 col-md-6 ps-md-4" id="basket-det-checkout">
         <h2 class="subtitle mb-4"> Basket Details </h2>
         {% for item in basket_items|dictsort:"col_var.product_id.name" %}
         <div class="row p-2 mx-2 mt-4">
@@ -238,6 +238,11 @@
 
 </div>
 
+</div>
+
+<div id="loading-overlay" >
+    <div class="loading-spinner">
+    <span class="loader"></span></div>
 </div>
 
 <div class="to-top">

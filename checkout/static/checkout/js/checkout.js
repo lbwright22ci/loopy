@@ -94,7 +94,9 @@ $(document).ready(function () {
         event.preventDefault();
         paymentElement.update({ 'disabled': true });
         $('#submit-button').attr('disabled', true);
-
+        $('#gifting-form').fadeToggle(100);
+        $('#basket-det-checkout').fadeToggle(100);
+        $('#loading-overlay').fadeToggle(100);
 
         stripe.confirmCardPayment(clientSecret, {
             payment_method: {
@@ -111,6 +113,9 @@ $(document).ready(function () {
                 $(errorDiv).html(html);
                 paymentElement.update({ 'disabled': false });
                 $('#submit-button').attr('disabled', false);
+                $('#gifting-form').fadeToggle(100);
+                $('#basket-det-checkout').fadeToggle(100);
+                $('#loading-overlay').fadeToggle(100);
             } else {
                 if (result.paymentIntent.status === 'succeeded') {
                     gifting.submit();
