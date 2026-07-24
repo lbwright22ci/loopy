@@ -123,7 +123,7 @@
         <div class="row align-items-center">
             <div class="col-6">
                                <p class="mb-0"><a aria-label="Takes you to the product page for {{ item.yarn.product_id.name }}"
-                                href="{$ url 'productdetails' 'productdetail' item.yarn.product_id.slug $}"><span class="uppercase-text">
+                                href="{% url 'productdetail' item.yarn.product_id.slug %}"><span class="uppercase-text">
                                     {{ item.yarn.product_id.brand_id.name }}
                                         </span> {{ item.yarn.product_id.name }}</a>
                                         </p>                         

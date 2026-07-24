@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.contrib import messages
+from decimal import Decimal
 from .forms import ContactAndBillingForm, ShippingAddressForm, ExtraDetailsForm
 from .models import Order, YarnOrderLineitem
 from core.models import UserProfile, SaleSettings
@@ -18,8 +19,8 @@ def cache_checkout_data(request):
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
         stripe.PaymentIntent.modify(pid, metadata={
-            'bag': json.dumps(request.session.get('bag', {})),
-            'save_details': request.POST.get('save_detail'),
+            'basket': json.dumps(request.session.get('basket', {})),
+            'save_details': request.POST.get('save_details'),
             'username': request.user,
             'is_gift': request.session.get('is_gift'),
             'gift_message': request.session.get('gift_message'),
@@ -287,7 +288,7 @@ def checkout_success(request, order_num):
         user_profile = get_object_or_404(UserProfile, user = request.user)
         order.user_profile = user_profile
         order.save()
-        if save_details == "on":
+        if save_details:
             user_profile.default_phone = order.phone
             user_profile.default_street_address1 = order.billing_street_address1
             user_profile.default_street_address2 = order.billing_street_address2
