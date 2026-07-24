@@ -371,6 +371,10 @@ li .sub-menu-item,
 .footer-icon:hover{
     color:var(--background-highlight-color);
 }
+.foot{
+    padding-top:2rem;
+    background-image: linear-gradient(180deg, #f7f7f3, #fff);
+}
 .footer-box {
     position: absolute;
     z-index: -1;
