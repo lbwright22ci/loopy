@@ -189,11 +189,6 @@ def checkout_step3(request):
         extra_form = ExtraDetailsForm(data=request.POST)
         if extra_form.is_valid:
             
-            # temp = request.POST.get('is_gift')
-            # if temp == 'on':
-            #     is_gift = True
-            # else:
-            #     is_gift = False
             request.session['is_gift'] = request.POST.get('is_gift')
             
             request.session['gift_message'] = request.POST.get('gift_message')

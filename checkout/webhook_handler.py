@@ -27,8 +27,6 @@ class StripeWH_Handler:
         intent =event.data.object
         pid = intent.id
 
-        print(intent.metadata)
-        
         basket = intent.metadata.basket
         save_details = intent.metadata.save_details
         is_gift = intent.metadata.is_gift
@@ -36,9 +34,18 @@ class StripeWH_Handler:
         username = intent.metadata.username
         postage_class = intent.metadata.postage_class
         parcel_size = intent.metadata.parcel_size
-        postage_cost = intent.metadata.postage_cost
         order_subtotal = intent.metadata.order_subtotal
         order_discount = intent.metadata.order_discount
+
+        if is_gift == 'true':
+            is_gift = True
+        else:
+            is_gift = False
+
+        if save_details =='true':
+            save_details = True
+        else:
+            save_details = False 
 
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
@@ -59,7 +66,7 @@ class StripeWH_Handler:
         while attempt <=5:
             try:
                 order = Order.objects.get(
-                    phone = phone,
+                    phone = billing_details.phone,
                     email__iexact = billing_details.email,
                     billing_street_address1__iexact = billing_details.address.line1,
                     billing_street_address2__iexact = billing_details.address.line2,
@@ -72,11 +79,7 @@ class StripeWH_Handler:
                     shipping_county__iexact= shipping_details.address.state,
                     shipping_postcode__iexact = shipping_details.address.postal_code,
                     parcel_size = parcel_size,
-                    order_subtotal = order_subtotal,
-                    order_discount =order_discount,
                     grand_total = grand_total,
-                    postage_cost = postage_cost,
-                    is_gift = is_gift,
                     stripe_pid__iexact = pid,
                     gift_message__iexact = gift_message,
                 )
@@ -124,12 +127,12 @@ class StripeWH_Handler:
                     order_subtotal = order_subtotal,
                     order_discount = order_discount,
                     grand_total = total,
-                    postage_cost = postage_cost,
-                    is_gift = is_gift,
                     gift_message = gift_message,
                     stripe_pid = pid,
                     basket_contents = basket,
+                    is_gift = is_gift,
                     )
+                
                 order.save()
 
                 for item_id, item_data in json.loads(basket).items():

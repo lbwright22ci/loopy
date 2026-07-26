@@ -159,7 +159,7 @@ $(document).ready(function () {
               $("#loading-overlay").fadeToggle(100);
             } else {
               if (result.paymentIntent.status === "succeeded") {
-                gifting.submit();
+                // gifting.submit();
               }
             }
           });
