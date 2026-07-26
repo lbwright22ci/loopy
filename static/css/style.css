@@ -33,7 +33,8 @@ body{
 }
 
 main{
-    z-index:50;
+    z-index:99;
+    padding-bottom:4rem;
 }
 
 a{
@@ -353,7 +354,7 @@ li .sub-menu-item,
 .footer{
     height:4rem;
     position: relative;
-    z-index: 101;
+    z-index: 89;
 }
 
 #footer-base{

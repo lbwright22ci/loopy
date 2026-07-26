@@ -108,7 +108,6 @@ $(document).ready(function () {
       gift_message: giftMessage,
     };
 
-    console.log(postData);
     var url = "/checkout/cache_checkout_data/";
 
     $.post(url, postData)

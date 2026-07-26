@@ -30,7 +30,7 @@ def cache_checkout_data(request):
             'parcel_size': current_basket['parcel_size'],
             'order_subtotal': current_basket['total'],
             'order_discount':current_basket['discount'],
-            'postage_cost' : request.session.get('postage_cost'),
+            # 'postage_cost' : request.session.get('postage_cost'),
         })
 
         return HttpResponse(status=200)
@@ -164,6 +164,7 @@ def checkout_step3(request):
     shipping_postcode = request.session.get('shipping_postcode')
     postage_class = request.session.get('postage_class')
 
+
     current_basket = basket_contents(request)
     if postage_class == 0:
         total = current_basket['grand_total']
@@ -174,7 +175,7 @@ def checkout_step3(request):
     else:
         messages.add_message(request, messages.ERROR, 'Postage class not assigned to the order')
     
-    request.session['postage_cost'] = postage_cost
+    # request.session['postage_cost'] = postage_cost
 
     stripe_total = round(total*100)
     stripe.api_key = stripe_secret_key
@@ -182,17 +183,19 @@ def checkout_step3(request):
         amount=stripe_total,
         currency=settings.STRIPE_CURRENCY,
     )
+    
 
     if request.POST:
         extra_form = ExtraDetailsForm(data=request.POST)
         if extra_form.is_valid:
             
-            temp = request.POST.get('is_gift')
-            if temp == 'on':
-                is_gift = True
-            else:
-                is_gift = False
-            request.session['is_gift'] = is_gift
+            # temp = request.POST.get('is_gift')
+            # if temp == 'on':
+            #     is_gift = True
+            # else:
+            #     is_gift = False
+            request.session['is_gift'] = request.POST.get('is_gift')
+            
             request.session['gift_message'] = request.POST.get('gift_message')
 
             order = Order(
@@ -224,7 +227,7 @@ def checkout_step3(request):
             pid =request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
 
-            basket = request.session.get('basket', {})
+            basket = request.session.get('basket', ())
             order.basket_contents = json.dumps(basket)
             order.save()
             
@@ -258,8 +261,8 @@ def checkout_step3(request):
 
     else:
         extra_form = ExtraDetailsForm()
-        
-        basket = request.session.get('basket', {})
+            
+        basket = request.session.get('basket', ())
         
         if not basket:
             messages.add_message(request, messages.ERROR, 'There is nothing in your basket at the moment')
@@ -290,6 +293,7 @@ def checkout_step3(request):
     }
     
     template = 'checkout/checkout-step3.html'
+    
     return render(request, template, context)
 
 def checkout_success(request, order_num):
