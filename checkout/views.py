@@ -24,8 +24,8 @@ def cache_checkout_data(request):
             'basket': json.dumps(request.session.get('basket', {})),
             'save_details': request.POST.get('save_details'),
             'username': request.user,
-            'is_gift': request.session.get('is_gift'),
-            'gift_message': request.session.get('gift_message'),
+            'is_gift': request.POST.get('is_gift'),
+            'gift_message': request.POST.get('gift_message'),
             'postage_class':request.session.get('postage_class'),
             'parcel_size': current_basket['parcel_size'],
             'order_subtotal': current_basket['total'],
@@ -189,7 +189,12 @@ def checkout_step3(request):
         extra_form = ExtraDetailsForm(data=request.POST)
         if extra_form.is_valid:
             
-            request.session['is_gift'] = request.POST.get('is_gift')
+            temp = request.POST.get('is_gift')
+
+            if temp == 'on':
+                request.session['is_gift'] = True
+            else:
+                request.session['is_gift'] = False
             
             request.session['gift_message'] = request.POST.get('gift_message')
 
@@ -215,7 +220,7 @@ def checkout_step3(request):
                 order_discount =current_basket['discount'],
                 grand_total = total,
                 postage_cost = postage_cost,
-                is_gift = is_gift,
+                is_gift = request.session.get('is_gift'),
                 gift_message = request.POST.get('gift_message'),)
             
 

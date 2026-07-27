@@ -100,6 +100,10 @@ $(document).ready(function () {
     var isGift = Boolean($("#id_is_gift").attr("checked"));
     var giftMessage = $('#id_gift_message').val();
 
+    if (isGift == true){
+      isGift = 'True';
+    }
+
     var postData = {
       csrfmiddlewaretoken: csrfToken,
       client_secret: clientSecret,
@@ -107,6 +111,9 @@ $(document).ready(function () {
       is_gift: isGift,
       gift_message: giftMessage,
     };
+
+    console.log(isGift);
+    console.log(postData);
 
     var url = "/checkout/cache_checkout_data/";
 
@@ -159,7 +166,7 @@ $(document).ready(function () {
               $("#loading-overlay").fadeToggle(100);
             } else {
               if (result.paymentIntent.status === "succeeded") {
-                // gifting.submit();
+                gifting.submit();
               }
             }
           });

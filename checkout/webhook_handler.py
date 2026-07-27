@@ -27,6 +27,8 @@ class StripeWH_Handler:
         intent =event.data.object
         pid = intent.id
 
+        print(intent.metadata)
+
         basket = intent.metadata.basket
         save_details = intent.metadata.save_details
         is_gift = intent.metadata.is_gift
@@ -91,16 +93,18 @@ class StripeWH_Handler:
                 break
 
             except Order.DoesNotExist:
+                print(attempt)
                 attempt +=1
                 time.sleep(1)
 
         if order_exists:
+            print('order already exists')
             return HttpResponse(
                     content=f'Webhook receieved: {event['type']} | SUCCESS: order exists in the database',
                     status=200)
         else:
             order = None
-
+            print('gets here 1')
             try:
                 first_name = billing_details.name.split()[0]
                 second_name = billing_details.name.split()[1]
@@ -124,16 +128,20 @@ class StripeWH_Handler:
                     shipping_county= shipping_details.address.state,
                     shipping_postcode = shipping_details.address.postal_code,
                     parcel_size = parcel_size,
-                    order_subtotal = order_subtotal,
-                    order_discount = order_discount,
-                    grand_total = total,
+                    # order_subtotal = order_subtotal,
+                    # order_discount = order_discount,
+                    # grand_total = total,
                     gift_message = gift_message,
                     stripe_pid = pid,
                     basket_contents = basket,
                     is_gift = is_gift,
                     )
-                
+
+                print('gets here 2')
+
                 order.save()
+
+                print('gets here 3')
 
                 for item_id, item_data in json.loads(basket).items():
                     col_var = get_object_or_404(Colour_var, pk = item_id)
@@ -149,7 +157,7 @@ class StripeWH_Handler:
                         current_price= current_price,
                         linetotal = item_data * current_price,)
                     yarn_order_line_item.save()
-                
+                print('gets here 3') 
             except Exception as e:
                 if order:
                     order.delete()
