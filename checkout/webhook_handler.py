@@ -26,11 +26,11 @@ class StripeWH_Handler:
         """ Handle generic/unknown/unexpected webhook event """
         intent =event.data.object
         pid = intent.id
-        print(intent.metadata)
+        
         basket = intent.metadata.basket
         is_gift = intent.metadata.is_gift
         gift_message = intent.metadata.gift_message
-        username = intent.metadata.username
+        userid = int(intent.metadata.username)
         postage_class = intent.metadata.postage_class
         parcel_size = intent.metadata.parcel_size
 
@@ -39,7 +39,9 @@ class StripeWH_Handler:
         elif is_gift == 'false':
             is_gift = False
 
-        print(basket)
+        username = None
+        if userid != "AnonymousUser":
+            username = UserProfile.objects.get(user = userid)
 
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
@@ -90,7 +92,7 @@ class StripeWH_Handler:
                 order = Order.objects.create(
                     first_name = first_name,
                     second_name = second_name,
-                    user_profile = int(username),
+                    user_profile = username,
                     phone = int(billing_details.phone),
                     email = billing_details.email,
                     billing_street_address1 = billing_details.address.line1,
@@ -105,11 +107,11 @@ class StripeWH_Handler:
                     shipping_county= shipping_details.address.state,
                     shipping_postcode = shipping_details.address.postal_code,
                     stripe_pid = pid,
-                    basket_contents = basket,
+                    basket_contents = '{}'
                     )
 
-                print('gets here 2')
-
+                
+                order.basket_contents = str(basket)
                 order.postage_class = int(postage_class)
                 order.parcel_size = int(parcel_size)
                 order.grand_total = grand_total
@@ -117,7 +119,7 @@ class StripeWH_Handler:
                 order.is_gift = is_gift
                 order.save
 
-                print('gets here 2')
+                print('creates order')
 
                 for item_id, item_data in json.loads(basket).items():
                     col_var = get_object_or_404(Colour_var, pk = item_id)
@@ -134,8 +136,10 @@ class StripeWH_Handler:
                         linetotal = item_data * current_price,)
                     yarn_order_line_item.save()
 
-                print('gets here 3') 
+                
             except Exception as e:
+
+                print('gets here 3', e) 
                 if order:
                     order.delete()
                 return HttpResponse(content = f'Webhook receieved: {event['type']} | ERROR: {e}', 

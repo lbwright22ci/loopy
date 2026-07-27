@@ -103,7 +103,7 @@ class Order(models.Model):
         self.basket_contents = json.dumps(basket)
         self.save()
 
-    def save(self):
+    def save(self, *args, **kwargs):
         """"""
         # if self.pk:
         #     ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
@@ -155,7 +155,7 @@ class Order(models.Model):
 
         if not self.order_num:
             self.order_num = self.__generate_order_num()
-        super(Order, self).save()
+        super(Order, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ['created_on',]
