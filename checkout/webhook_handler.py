@@ -1,10 +1,15 @@
 from decimal import Decimal
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
-from django.contrib import messages 
+from django.conf import settings
+
 from .models import Order, YarnOrderLineitem
 from product.models import Colour_var
-from core.models import UserProfile
+from core.models import UserProfile, ShopContactInfo
+
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
 
 import json
 import time
@@ -21,6 +26,22 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Unhandled webhook receieved: {event['type']}',
             status=200)
+
+    def _send_order_conf_email(self, order):
+        phone = f'0{ShopContactInfo.objects.all()[0].shop_phone}'
+        email_subject ="Your order with Loopy Yarns has been received!"
+        html_message = render_to_string('checkout/email/order-received.html', 
+                                        { 'order': order, 'phone': phone},
+                                        )
+        plain_message = strip_tags(html_message)
+        
+        msg= EmailMultiAlternatives(
+            email_subject,
+            plain_message,
+            settings.DEFAULT_FROM_EMAIL,
+            [ order.email ],)
+        msg.attach_alternative(html_message, "text/html")
+        msg.send()
 
     def handle_payment_intent_succeeded(self, event):
         """ Handle generic/unknown/unexpected webhook event """
@@ -93,7 +114,7 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if order_exists:
-                
+            self._send_order_conf_email(order)    
             return HttpResponse(
                     content=f'Webhook receieved: {event['type']} | SUCCESS: order exists in the database',
                     status=200)
@@ -155,7 +176,8 @@ class StripeWH_Handler:
                     order.delete()
                 return HttpResponse(content = f'Webhook receieved: {event['type']} | ERROR: {e}', 
                                     status= 500)
-
+            
+        self._send_order_conf_email(order)
         return HttpResponse(
             content=f'Webhook receieved: {event['type']} | order created in database by webhook',
             status=200)
