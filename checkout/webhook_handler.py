@@ -30,24 +30,16 @@ class StripeWH_Handler:
         print(intent.metadata)
 
         basket = intent.metadata.basket
-        save_details = intent.metadata.save_details
         is_gift = intent.metadata.is_gift
         gift_message = intent.metadata.gift_message
         username = intent.metadata.username
         postage_class = intent.metadata.postage_class
         parcel_size = intent.metadata.parcel_size
-        order_subtotal = intent.metadata.order_subtotal
-        order_discount = intent.metadata.order_discount
 
-        if is_gift == 'true':
+        if is_gift =='true':
             is_gift = True
-        else:
-            is_gift = False
-
-        if save_details =='true':
-            save_details = True
-        else:
-            save_details = False 
+        elif is_gift == 'false':
+            is_gift == False
 
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
@@ -68,22 +60,7 @@ class StripeWH_Handler:
         while attempt <=5:
             try:
                 order = Order.objects.get(
-                    phone = billing_details.phone,
-                    email__iexact = billing_details.email,
-                    billing_street_address1__iexact = billing_details.address.line1,
-                    billing_street_address2__iexact = billing_details.address.line2,
-                    billing_town__iexact = billing_details.address.city,
-                    billing_county__iexact= billing_details.address.state,
-                    postage_class = postage_class,
-                    shipping_street_address1__iexact = shipping_details.address.line1,
-                    shipping_street_address2__iexact = shipping_details.address.line2,
-                    shipping_town__iexact = shipping_details.address.city,
-                    shipping_county__iexact= shipping_details.address.state,
-                    shipping_postcode__iexact = shipping_details.address.postal_code,
-                    parcel_size = parcel_size,
-                    grand_total = grand_total,
                     stripe_pid__iexact = pid,
-                    gift_message__iexact = gift_message,
                 )
 
                 # Historical orders with the same details would not have the same stripe_pid values.
@@ -113,7 +90,7 @@ class StripeWH_Handler:
                     first_name = first_name,
                     second_name = second_name,
                     user_profile = username,
-                    phone = billing_details.phone,
+                    phone = int(billing_details.phone),
                     email = billing_details.email,
                     billing_street_address1 = billing_details.address.line1,
                     billing_street_address2 = billing_details.address.line2,
@@ -121,13 +98,13 @@ class StripeWH_Handler:
                     billing_county= billing_details.address.state,
                     billing_postcode = shipping_details.address.postal_code,
                     billing_country = billing_details.address.country,
-                    postage_class = postage_class,
+                    postage_class = int(postage_class),
                     shipping_street_address1 = shipping_details.address.line1,
                     shipping_street_address2 = shipping_details.address.line2,
                     shipping_town = shipping_details.address.city,
                     shipping_county= shipping_details.address.state,
                     shipping_postcode = shipping_details.address.postal_code,
-                    parcel_size = parcel_size,
+                    parcel_size = int(parcel_size),
                     # order_subtotal = order_subtotal,
                     # order_discount = order_discount,
                     # grand_total = total,

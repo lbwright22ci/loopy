@@ -52,19 +52,8 @@
         </div>
         {% endif %}
     
-<form method="POST" action="{% url 'checkout-final' %}" id="gifting-form">
+<form method="POST" action="{% url 'checkout-final' %}" id="confirm-form">
     {% csrf_token %}
-    
-    <h2 class="subtitle"> Gifting </h2>
-    <div class="row">
-        <div class="col-12">
-            {{ form.is_gift | as_crispy_field }}
-        </div>
-        <div class="col-12">
-            {{ form.gift_message | as_crispy_field }}
-        </div>
-    </div>
-
     <h2 class="subtitle"> Order Summary</h2>
     <div class="row">
         <div class="col-12">
@@ -103,20 +92,26 @@
             </p>
         </div>
     </div>
-        {% if user.is_authenticated %}
+        
+    
+        <div class="row">
+        <div class="col-12">{% if is_gift %}
+            <p class="small-text mb-0"> This order is a gift.</p>
+            <p class="small-text"><span class="uppercase-text">Gift message </span> {{ gift_message}}</p>
+            {% else %}
+            <p class="small-text mb-0"> This order is not a gift.</p>
+            {% endif %}
+            </div>
+            </div>
+    
+            {% if user.is_authenticated %}
     <div class="row">
         <div class="col-12">
-            <div class="mb-3">
-                <div id="div_id_save_details" class="mb-3 form-check form-check-reverse">
-                    <input type="checkbox" name="save_details" class="checkboxinput form-check-input" id="id_save_details">
-                    <label for="id_save_details" class="form-check-label small-text">
-                    Save address details to my account
-                    </label>
-                </div>
-            </div>
+            <p class="small-text">Your billing address details will be saved to your account.</p>
         </div>
     </div>
     {% endif %}
+
     <div class="row">
         <div class="col-12 text-end">
             <p class="small-text">
@@ -272,6 +267,8 @@
     {{ shipping_county|json_script:"id_shipping_county" }} 
     {{ shipping_country|json_script:"id_shipping_country" }}
     {{ shipping_postcode|json_script:"id_shipping_postcode" }}
+    {{ is_gift|json_script:"id_is_gift" }}
+    {{ gift_message|json_script:"is_gift_message" }}
 
     <script src="{% static 'checkout/js/checkout.js' %}" type="text/javascript"></script>
     

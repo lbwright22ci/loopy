@@ -4,7 +4,7 @@ from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.contrib import messages
 from decimal import Decimal
-from .forms import ContactAndBillingForm, ShippingAddressForm, ExtraDetailsForm
+from .forms import ContactAndBillingForm, ShippingAddressForm, SaveDetailsForm
 from .models import Order, YarnOrderLineitem
 from core.models import UserProfile, SaleSettings
 from product.models import Colour_var
@@ -22,15 +22,11 @@ def cache_checkout_data(request):
 
         stripe.PaymentIntent.modify(pid, metadata={
             'basket': json.dumps(request.session.get('basket', {})),
-            'save_details': request.POST.get('save_details'),
             'username': request.user,
-            'is_gift': request.POST.get('is_gift'),
-            'gift_message': request.POST.get('gift_message'),
+            'is_gift': request.session.get('is_gift'),
+            'gift_message': request.session.get('gift_message'),
             'postage_class':request.session.get('postage_class'),
             'parcel_size': current_basket['parcel_size'],
-            'order_subtotal': current_basket['total'],
-            'order_discount':current_basket['discount'],
-            # 'postage_cost' : request.session.get('postage_cost'),
         })
 
         return HttpResponse(status=200)
@@ -73,6 +69,7 @@ def checkout_step1(request):
             request.session['first_name'] = request.POST.get('first_name')
             request.session['second_name'] = request.POST.get('second_name')
             request.session['email'] = request.POST.get('email')
+            request.session['phone'] = request.POST.get('phone')
             request.session['billing_street_address1'] = request.POST.get('billing_street_address1')
             request.session['billing_street_address2'] = request.POST.get('billing_street_address2')
             request.session['billing_town'] = request.POST.get('billing_town')
@@ -116,19 +113,33 @@ def checkout_step2(request):
 
     if request.POST:
         shipping_form= ShippingAddressForm(data=request.POST)
-        if shipping_form.is_valid():
-            request.session['shipping_street_address1'] = request.POST.get('shipping_street_address1')
-            request.session['shipping_street_address2'] = request.POST.get('shipping_street_address2')
-            request.session['shipping_town'] = request.POST.get('shipping_town')
-            request.session['shipping_county'] = request.POST.get('shipping_county')
-            request.session['shipping_postcode'] = request.POST.get('shipping_postcode')
+        if shipping_form:
+            if not bs_same:
+                request.session['shipping_street_address1'] = request.POST.get('shipping_street_address1')
+                request.session['shipping_street_address2'] = request.POST.get('shipping_street_address2')
+                request.session['shipping_town'] = request.POST.get('shipping_town')
+                request.session['shipping_county'] = request.POST.get('shipping_county')
+                request.session['shipping_postcode'] = request.POST.get('shipping_postcode')
+            else:
+                request.session['shipping_street_address1'] = request.session.get('billing_street_address1')
+                request.session['shipping_street_address2'] = request.session.get('billing_street_address2')
+                request.session['shipping_town'] = request.session.get('billing_town')
+                request.session['shipping_county'] = request.session.get('billing_county')
+                request.session['shipping_postcode'] = request.session.get('billing_postcode')
         
             request.session['postage_class'] = int(request.POST.get('shippingClass'))
             
+            temp = request.POST.get('is_gift')
+            if temp == 'on':
+                request.session['is_gift'] = True
+            else:
+                request.session['is_gift'] = False
+            request.session['gift_message'] = request.POST.get('gift_message')
             return redirect(checkout_step3)    
 
     context={
         'form':shipping_form,
+        'bs_same':bs_same,
     }
     template = 'checkout/checkout-step2.html'
     return render(request, template, context)
@@ -163,7 +174,8 @@ def checkout_step3(request):
     shipping_country = "GB"
     shipping_postcode = request.session.get('shipping_postcode')
     postage_class = request.session.get('postage_class')
-
+    is_gift = request.session.get('is_gift')
+    gift_message = request.session.get('gift_message')
 
     current_basket = basket_contents(request)
     if postage_class == 0:
@@ -175,8 +187,6 @@ def checkout_step3(request):
     else:
         messages.add_message(request, messages.ERROR, 'Postage class not assigned to the order')
     
-    # request.session['postage_cost'] = postage_cost
-
     stripe_total = round(total*100)
     stripe.api_key = stripe_secret_key
     intent = stripe.PaymentIntent.create(
@@ -186,18 +196,8 @@ def checkout_step3(request):
     
 
     if request.POST:
-        extra_form = ExtraDetailsForm(data=request.POST)
+        extra_form = SaveDetailsForm(data=request.POST)
         if extra_form.is_valid:
-            
-            temp = request.POST.get('is_gift')
-
-            if temp == 'on':
-                request.session['is_gift'] = True
-            else:
-                request.session['is_gift'] = False
-            
-            request.session['gift_message'] = request.POST.get('gift_message')
-
             order = Order(
                 first_name = first_name,
                 second_name = second_name,
@@ -220,8 +220,8 @@ def checkout_step3(request):
                 order_discount =current_basket['discount'],
                 grand_total = total,
                 postage_cost = postage_cost,
-                is_gift = request.session.get('is_gift'),
-                gift_message = request.POST.get('gift_message'),)
+                is_gift = is_gift,
+                gift_message = gift_message,)
             
 
             pid =request.POST.get('client_secret').split('_secret')[0]
@@ -252,15 +252,13 @@ def checkout_step3(request):
                     order.delete()
                     return redirect(reverse('view_basket'))
             
-            request.session['save_details']= request.POST.get('save_details')
-            
             return redirect(reverse('checkout_success', args=[order.order_num]))        
         
         else:
             messages.add_message(request, messages.ERROR,'Form is incorrectly completed. Please check your details')
 
     else:
-        extra_form = ExtraDetailsForm()
+        extra_form = SaveDetailsForm()
             
         basket = request.session.get('basket', ())
         
@@ -290,6 +288,8 @@ def checkout_step3(request):
         'postage_class':postage_class, 
         'stripe_public_key':stripe_public_key,
         'client_secret': intent.client_secret,
+        'is_gift': is_gift,
+        'gift_message' : gift_message,
     }
     
     template = 'checkout/checkout-step3.html'

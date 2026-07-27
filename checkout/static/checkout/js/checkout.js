@@ -19,6 +19,9 @@ $(document).ready(function () {
   var sCountry = $("#id_shipping_country").text().slice(1, -1);
   var sPostcode = $("#id_shipping_postcode").text().slice(1, -1);
 
+  var isGift = $("#id_is_gift").text().slice(1,-1);
+  var giftMessage = $("#id_gift_message").text().slice(1,-1);
+
   var stripe = Stripe(stripePublicKey);
 
   const appearance = {
@@ -85,9 +88,9 @@ $(document).ready(function () {
     }
   });
 
-  var gifting = document.getElementById("gifting-form");
+  var confirm = document.getElementById("confirm-form");
 
-  gifting.addEventListener("submit", function (event) {
+  confirm.addEventListener("submit", function (event) {
     event.preventDefault();
     paymentElement.update({ disabled: true });
     $("#submit-button").attr("disabled", true);
@@ -97,22 +100,13 @@ $(document).ready(function () {
 
     var saveInfo = Boolean($("#id_save_details").attr("checked"));
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
-    var isGift = Boolean($("#id_is_gift").attr("checked"));
-    var giftMessage = $('#id_gift_message').val();
-
-    if (isGift == true){
-      isGift = 'True';
-    }
 
     var postData = {
       csrfmiddlewaretoken: csrfToken,
       client_secret: clientSecret,
       save_details: saveInfo,
-      is_gift: isGift,
-      gift_message: giftMessage,
     };
 
-    console.log(isGift);
     console.log(postData);
 
     var url = "/checkout/cache_checkout_data/";
@@ -166,7 +160,7 @@ $(document).ready(function () {
               $("#loading-overlay").fadeToggle(100);
             } else {
               if (result.paymentIntent.status === "succeeded") {
-                gifting.submit();
+                confirm.submit();
               }
             }
           });
