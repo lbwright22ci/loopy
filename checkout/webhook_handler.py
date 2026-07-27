@@ -26,9 +26,7 @@ class StripeWH_Handler:
         """ Handle generic/unknown/unexpected webhook event """
         intent =event.data.object
         pid = intent.id
-
         print(intent.metadata)
-
         basket = intent.metadata.basket
         is_gift = intent.metadata.is_gift
         gift_message = intent.metadata.gift_message
@@ -39,7 +37,9 @@ class StripeWH_Handler:
         if is_gift =='true':
             is_gift = True
         elif is_gift == 'false':
-            is_gift == False
+            is_gift = False
+
+        print(basket)
 
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
@@ -47,6 +47,7 @@ class StripeWH_Handler:
         )
 
         billing_details = stripe_charge.billing_details # updated
+        print(billing_details)
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2) # updated
 
@@ -70,7 +71,7 @@ class StripeWH_Handler:
                 break
 
             except Order.DoesNotExist:
-                print(attempt)
+                
                 attempt +=1
                 time.sleep(1)
 
@@ -85,11 +86,11 @@ class StripeWH_Handler:
             try:
                 first_name = billing_details.name.split()[0]
                 second_name = billing_details.name.split()[1]
-
-                order = Order(
+                
+                order = Order.objects.create(
                     first_name = first_name,
                     second_name = second_name,
-                    user_profile = username,
+                    user_profile = int(username),
                     phone = int(billing_details.phone),
                     email = billing_details.email,
                     billing_street_address1 = billing_details.address.line1,
@@ -97,28 +98,26 @@ class StripeWH_Handler:
                     billing_town = billing_details.address.city,
                     billing_county= billing_details.address.state,
                     billing_postcode = shipping_details.address.postal_code,
-                    billing_country = billing_details.address.country,
-                    postage_class = int(postage_class),
+                    billing_country = shipping_details.address.country,
                     shipping_street_address1 = shipping_details.address.line1,
                     shipping_street_address2 = shipping_details.address.line2,
                     shipping_town = shipping_details.address.city,
                     shipping_county= shipping_details.address.state,
                     shipping_postcode = shipping_details.address.postal_code,
-                    parcel_size = int(parcel_size),
-                    # order_subtotal = order_subtotal,
-                    # order_discount = order_discount,
-                    # grand_total = total,
-                    gift_message = gift_message,
                     stripe_pid = pid,
                     basket_contents = basket,
-                    is_gift = is_gift,
                     )
 
                 print('gets here 2')
 
-                order.save()
+                order.postage_class = int(postage_class)
+                order.parcel_size = int(parcel_size)
+                order.grand_total = grand_total
+                order.gift_message = gift_message
+                order.is_gift = is_gift
+                order.save
 
-                print('gets here 3')
+                print('gets here 2')
 
                 for item_id, item_data in json.loads(basket).items():
                     col_var = get_object_or_404(Colour_var, pk = item_id)
@@ -134,6 +133,7 @@ class StripeWH_Handler:
                         current_price= current_price,
                         linetotal = item_data * current_price,)
                     yarn_order_line_item.save()
+
                 print('gets here 3') 
             except Exception as e:
                 if order:

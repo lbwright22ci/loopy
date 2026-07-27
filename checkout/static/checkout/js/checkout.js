@@ -98,16 +98,14 @@ $(document).ready(function () {
     $("#basket-det-checkout").fadeToggle(100);
     $("#loading-overlay").fadeToggle(100);
 
-    var saveInfo = Boolean($("#id_save_details").attr("checked"));
+    
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
 
     var postData = {
       csrfmiddlewaretoken: csrfToken,
       client_secret: clientSecret,
-      save_details: saveInfo,
+      
     };
-
-    console.log(postData);
 
     var url = "/checkout/cache_checkout_data/";
 

@@ -134,7 +134,11 @@ def checkout_step2(request):
                 request.session['is_gift'] = True
             else:
                 request.session['is_gift'] = False
-            request.session['gift_message'] = request.POST.get('gift_message')
+            gift_message = request.POST.get('gift_message')
+            if gift_message:
+                request.session['gift_message'] = gift_message
+            else:
+                request.session['gift_message'] = "  "
             return redirect(checkout_step3)    
 
     context={

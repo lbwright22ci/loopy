@@ -53,57 +53,105 @@ class Order(models.Model):
     def __generate_order_num(self):
         """ """
         return str(uuid.uuid4()).replace('-','')[:8]
-    
+
+    def update_order(self):
+        
+        ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
+        self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
+        
+        bulk_buy = Announcements.objects.filter(active=True)[0]
+                    
+        yarn_weight = self.lineitems.aggregate(Sum('lineweight'))['lineweight__sum'] or 0
+                    
+        if ball_count < 5:
+            yarn_weight = yarn_weight + 200
+        else:
+            yarn_weight = yarn_weight + 400
+                    
+        small_ball_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
+        small_weight_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
+                
+        if ball_count < small_ball_limit and yarn_weight < small_weight_limit:
+            self.parcel_size = 0
+            self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+        else:
+            self.parcel_size = 1
+            self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+        
+        if bulk_buy.bulk_buy == True:
+            if ball_count > bulk_buy.upper_ball_num:
+                self.order_discount = self.order_subtotal*Decimal((bulk_buy.upper_discount)/100)
+            elif ball_count < bulk_buy.lower_ball_num:
+                self.order_discount = 0
+            else:
+                self.order_discount = self.order_subtotal*Decimal((bulk_buy.lower_discount)/100)
+        else:
+            if ball_count > bulk_buy.upper_ball_num:
+                self.order_discount = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=0))[0].postage_cost
+        
+        self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
+        if self.use_voucher:
+            self.amount_payable = self.grand_total - self.voucher_amount
+        else:
+            self.amount_payable = self.grand_total
+                    
+        basket = {}
+        ylo = YarnOrderLineitem.objects.filter(order__pk = self.pk)
+        for i in range(0, ylo.all().count()):
+            basket[str(ylo[i].yarn.pk)]= int(ylo[i].quantity)
+        
+        self.basket_contents = json.dumps(basket)
+        self.save()
 
     def save(self):
         """"""
-        if self.pk:
-            ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
-            self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
+        # if self.pk:
+        #     ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
+        #     self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
 
-            bulk_buy = Announcements.objects.filter(active=True)[0]
+        #     bulk_buy = Announcements.objects.filter(active=True)[0]
             
-            yarn_weight = self.lineitems.aggregate(Sum('lineweight'))['lineweight__sum'] or 0
+        #     yarn_weight = self.lineitems.aggregate(Sum('lineweight'))['lineweight__sum'] or 0
             
-            if ball_count < 5:
-                yarn_weight = yarn_weight + 200
-            else:
-                yarn_weight = yarn_weight + 400
+        #     if ball_count < 5:
+        #         yarn_weight = yarn_weight + 200
+        #     else:
+        #         yarn_weight = yarn_weight + 400
             
-            small_ball_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
-            small_weight_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
+        #     small_ball_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
+        #     small_weight_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
             
 
-            if ball_count < small_ball_limit and yarn_weight < small_weight_limit:
-                self.parcel_size = 0
-                self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
-            else:
-                self.parcel_size = 1
-                self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+        #     if ball_count < small_ball_limit and yarn_weight < small_weight_limit:
+        #         self.parcel_size = 0
+        #         self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
+        #     else:
+        #         self.parcel_size = 1
+        #         self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
 
-            if bulk_buy.bulk_buy == True:
-                if ball_count > bulk_buy.upper_ball_num:
-                    self.order_discount = self.order_subtotal*Decimal((bulk_buy.upper_discount)/100)
-                elif ball_count < bulk_buy.lower_ball_num:
-                    self.order_discount = 0
-                else:
-                    self.order_discount = self.order_subtotal*Decimal((bulk_buy.lower_discount)/100)
-            else:
-                if ball_count > bulk_buy.upper_ball_num:
-                    self.order_discount = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=0))[0].postage_cost
+        #     if bulk_buy.bulk_buy == True:
+        #         if ball_count > bulk_buy.upper_ball_num:
+        #             self.order_discount = self.order_subtotal*Decimal((bulk_buy.upper_discount)/100)
+        #         elif ball_count < bulk_buy.lower_ball_num:
+        #             self.order_discount = 0
+        #         else:
+        #             self.order_discount = self.order_subtotal*Decimal((bulk_buy.lower_discount)/100)
+        #     else:
+        #         if ball_count > bulk_buy.upper_ball_num:
+        #             self.order_discount = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=0))[0].postage_cost
             
-            self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
-            if self.use_voucher:
-                self.amount_payable = self.grand_total - self.voucher_amount
-            else:
-                self.amount_payable = self.grand_total
+        #     self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
+        #     if self.use_voucher:
+        #         self.amount_payable = self.grand_total - self.voucher_amount
+        #     else:
+        #         self.amount_payable = self.grand_total
             
-            basket = {}
-            ylo = YarnOrderLineitem.objects.filter(order__pk = self.pk)
-            for i in range(0, ylo.all().count()):
-                basket[str(ylo[i].yarn.pk)]= int(ylo[i].quantity)
+        #     basket = {}
+        #     ylo = YarnOrderLineitem.objects.filter(order__pk = self.pk)
+        #     for i in range(0, ylo.all().count()):
+        #         basket[str(ylo[i].yarn.pk)]= int(ylo[i].quantity)
 
-            self.basket_contents = json.dumps(basket)
+        #     self.basket_contents = json.dumps(basket)
 
         if not self.order_num:
             self.order_num = self.__generate_order_num()
