@@ -39,24 +39,39 @@ class StripeWH_Handler:
         elif is_gift == 'false':
             is_gift = False
 
-        username = None
-        if userid != "AnonymousUser":
-            username = UserProfile.objects.get(user = userid)
+        if intent.metadata.save_details =='true':
+            save_details = True
+        else:
+            save_details = False
 
         # Get the Charge object
         stripe_charge = stripe.Charge.retrieve(
             intent.latest_charge
         )
-
+        
         billing_details = stripe_charge.billing_details # updated
-        print(billing_details)
         shipping_details = intent.shipping
         grand_total = round(stripe_charge.amount / 100, 2) # updated
-
+        
         if shipping_details.address.line2 =="":
             shipping_details.address.line2 = None
         if billing_details.phone=="ul":
             billing_details.phone = None
+
+        username = None
+        if userid != "AnonymousUser":
+            username = UserProfile.objects.get(user = userid)
+            if save_details:
+                username.default_phone = billing_details.phone
+                username.default_street_address1 = billing_details.address.line1
+                username.default_street_address2 = billing_details.address.line2
+                username.default_town = billing_details.address.city
+                username.default_county = billing_details.address.state
+                username.default_country = shipping_details.address.country
+                username.user.first_name = billing_details.name.split()[0]
+                username.user.last_name = billing_details.name.split()[1]
+                username.default_postcode = shipping_details.address.postal_code
+                username.save()
         
         order_exists = False
         attempt = 1
@@ -78,13 +93,13 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if order_exists:
-            print('order already exists')
+                
             return HttpResponse(
                     content=f'Webhook receieved: {event['type']} | SUCCESS: order exists in the database',
                     status=200)
         else:
             order = None
-            print('gets here 1')
+            
             try:
                 first_name = billing_details.name.split()[0]
                 second_name = billing_details.name.split()[1]
@@ -110,7 +125,6 @@ class StripeWH_Handler:
                     basket_contents = '{}'
                     )
 
-                
                 order.basket_contents = str(basket)
                 order.postage_class = int(postage_class)
                 order.parcel_size = int(parcel_size)
@@ -118,8 +132,6 @@ class StripeWH_Handler:
                 order.gift_message = gift_message
                 order.is_gift = is_gift
                 order.save
-
-                print('creates order')
 
                 for item_id, item_data in json.loads(basket).items():
                     col_var = get_object_or_404(Colour_var, pk = item_id)
@@ -136,10 +148,9 @@ class StripeWH_Handler:
                         linetotal = item_data * current_price,)
                     yarn_order_line_item.save()
 
-                
             except Exception as e:
 
-                print('gets here 3', e) 
+                print('error', e) 
                 if order:
                     order.delete()
                 return HttpResponse(content = f'Webhook receieved: {event['type']} | ERROR: {e}', 

@@ -98,13 +98,13 @@ $(document).ready(function () {
     $("#basket-det-checkout").fadeToggle(100);
     $("#loading-overlay").fadeToggle(100);
 
-    
     var csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
+    var saveDetails = Boolean($('#id_save_details').prop('checked'));
 
     var postData = {
       csrfmiddlewaretoken: csrfToken,
       client_secret: clientSecret,
-      
+      save_details: saveDetails,
     };
 
     var url = "/checkout/cache_checkout_data/";
@@ -158,7 +158,7 @@ $(document).ready(function () {
               $("#loading-overlay").fadeToggle(100);
             } else {
               if (result.paymentIntent.status === "succeeded") {
-               // confirm.submit();
+                confirm.submit();
               }
             }
           });

@@ -34,6 +34,7 @@ class ShippingAddressForm(forms.ModelForm):
 
 class SaveDetailsForm(forms.Form):
 
+    save_details = forms.BooleanField(required= False, label="Save billing Address details to my account")
 
     def __init__(self, *args,**kwargs):
         super().__init__(*args, **kwargs)

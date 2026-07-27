@@ -27,6 +27,7 @@ def cache_checkout_data(request):
             'gift_message': request.session.get('gift_message'),
             'postage_class':request.session.get('postage_class'),
             'parcel_size': current_basket['parcel_size'],
+            'save_details': request.POST.get('save_details')
         })
 
         return HttpResponse(status=200)
@@ -202,6 +203,13 @@ def checkout_step3(request):
     if request.POST:
         extra_form = SaveDetailsForm(data=request.POST)
         if extra_form.is_valid:
+            ttemp = request.POST.get('save_details')
+            if ttemp == "on":
+                save_details = True
+            else:
+                save_details = False
+            request.session['save_details'] = save_details
+
             order = Order(
                 first_name = first_name,
                 second_name = second_name,

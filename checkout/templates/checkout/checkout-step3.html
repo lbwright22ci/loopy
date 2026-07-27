@@ -107,7 +107,8 @@
             {% if user.is_authenticated %}
     <div class="row">
         <div class="col-12">
-            <p class="small-text">Your billing address details will be saved to your account.</p>
+            {{ form|crispy }}
+            <!-- <p class="small-text">Your billing address details will be saved to your account.</p> -->
         </div>
     </div>
     {% endif %}
