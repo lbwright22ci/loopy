@@ -75,6 +75,17 @@
     height:100%
 }
 
+/* to format Google address input widget */
+
+gmp-place-autocomplete::part(focus-ring){
+    display:none;
+}
+gmp-place-autocomplete{
+    color:var(--primary-text-color);
+    border-color: var(--primary-text-color);
+    font-family:var(--primary-font);
+}
+
 /* code from https://cssloaders.github.io/#circle  */
 .loader {
   --color-1: #990099;

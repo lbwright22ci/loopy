@@ -86,6 +86,7 @@ def checkout_step1(request):
     
     context={
         'form':contact_billing_form,
+        'google_key':settings.GOOGLE_MAPS_DEMO
     }
     template = 'checkout/checkout-step1.html'
     return render(request, template, context)

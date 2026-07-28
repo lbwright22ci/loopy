@@ -21,6 +21,9 @@
     <!--custom style sheet-->
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+        {% block extrahead %}
+        {% endblock %}
+        
         {% block extracss %}
         {% endblock %}
 
@@ -43,8 +46,7 @@
         <meta name="apple-mobile-web-app-title" content="Loopy" />
         <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}" />
 
-        {% block extrahead %}
-        {% endblock %}
+        
 
     </head>
 
