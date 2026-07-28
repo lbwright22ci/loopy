@@ -122,7 +122,7 @@ def ProductDetail(request, slug):
     """
     queryset = Product.objects.filter(visible=True)
     prod = get_object_or_404(queryset, slug=slug)
-    colour_options = prod.product.all().order_by('shade_code')
+    colour_options = prod.product.filter(in_stock=True).order_by('shade_code')
     no_colours= colour_options.count()
     recommend = Product.objects.filter(thickness_id = prod.thickness_id).order_by('price')[0:3]
 
