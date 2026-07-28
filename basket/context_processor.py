@@ -41,10 +41,16 @@ def basket_contents(request):
         current_user.save()
 
         request.session['basket']=basket
-    
+        remove_item = []
 
     for item_id, item_data in basket.items():
         col_var = get_object_or_404(Colour_var, pk = item_id)
+        if not col_var.product_id.visible:
+            remove_item.append(item_id)
+            continue
+        if not col_var.in_stock:
+            remove_item.append(item_id)
+            continue
         if col_var.product_id.on_promotion:
             total += item_data * Decimal(col_var.product_id.price*(100-sale_discount)/100)
             price = Decimal(col_var.product_id.price*(100-sale_discount)/100)
@@ -59,6 +65,20 @@ def basket_contents(request):
             'col_var':col_var,
             'price': price,
         })
+
+    for out_of_stock_item in remove_item:
+        basket.pop(str(out_of_stock_item))
+
+    #take into account any items removed if now out of stock or not visible:
+    request.session['basket']= basket
+
+    #need to update saved basket if the user is logged in
+
+    if request.user.is_authenticated:
+        current_user = UserProfile.objects.filter(user__id= request.user.id)
+        basket_string = str(basket)
+        basket_string = basket_string.replace("\'", "\"")
+        current_user.update(temporary_basket= str(basket_string))
 
     # take account of order discount based on number of balls of yarn in the basket
     if bulk_buy.bulk_buy == True:
