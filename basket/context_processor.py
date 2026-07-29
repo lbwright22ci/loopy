@@ -21,7 +21,7 @@ def basket_contents(request):
     bulk_buy = Announcements.objects.filter(active=True)[0]
 
     basket = request.session.get('basket', {})
-    
+    remove_item = []
 
     if request.user.is_authenticated:
         current_user = UserProfile.objects.get(user__id= request.user.id)
@@ -42,7 +42,7 @@ def basket_contents(request):
         current_user.save()
 
         request.session['basket']=basket
-        remove_item = []
+        
 
     for item_id, item_data in basket.items():
         col_var = get_object_or_404(Colour_var, pk = item_id)

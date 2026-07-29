@@ -1,5 +1,5 @@
 from django.db.models import Q
-from .models import Postage, Announcements, SaleSettings, ShopContactInfo
+from .models import Postage, Announcements, SaleSettings, ShopContactInfo, UserProfile
 
 def postage_settings(request):
     """
@@ -84,3 +84,6 @@ def shop_address(request):
         'shop_contact': contact,
         'phone_num':phone_num
     }
+
+
+        

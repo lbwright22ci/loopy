@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    
     $('.sort-selector').change(function () {
         var selector = $(this);
         var currentUrl = new URL(window.location);
@@ -169,5 +173,16 @@ $(document).ready(function () {
        var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
        handleEnableDisable(colourId, colLS);
     });
+
+    $('.fav-icon').click(function(e){
+        var csrfToken = $(this).data('csrf');
+        var itemId = $(this).data('product_id');
+        var url = `/yarns/fav/${itemId}/`;
+        var data = {'csrfmiddlewaretoken': csrfToken};
+        $.post(url, data)
+            .done(function() {
+                location.reload();
+            });
+    })
 
 })

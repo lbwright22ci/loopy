@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     
     The fields of this model are `default phone`, `default street address1`,
     `default street address 2`, `default town`, `default county`, 
-    `default postcode`, `default country`, `temporary basket`
+    `default postcode`, `default country`, `temporary basket`, `wish_list`
 
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -22,6 +22,7 @@ class UserProfile(models.Model):
     default_postcode = models.CharField(max_length=9, null=True, blank=True)
     default_country = models.CharField(max_length = 20, default="GB")
     temporary_basket = models.CharField(max_length=600, blank = True, null=True)
+    wish_list = models.CharField(max_length=400, null=True, blank = True)
 
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"

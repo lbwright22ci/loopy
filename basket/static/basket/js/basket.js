@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     $('.update').click(function(e) {
         var form =$(this).closest('.update-form');
-        console.log(form);
+        
         form.submit();
     });
 

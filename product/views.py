@@ -1,10 +1,12 @@
-from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.shortcuts import render, reverse, redirect, get_object_or_404, HttpResponse
 from django.db.models import Q, Case, When, FloatField, F
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 from django.db.models.functions import Lower
 
 from .models import Product
-from core.models import SaleSettings
+from core.models import SaleSettings, UserProfile
 
 # Create your views here.
 
@@ -126,6 +128,19 @@ def ProductDetail(request, slug):
     no_colours= colour_options.count()
     recommend = Product.objects.filter(thickness_id = prod.thickness_id).order_by('price')[0:3]
 
+    favourite = False 
+    
+    if request.user.is_authenticated:
+        current_user = UserProfile.objects.get(user__id= request.user.id)
+        fave_list = current_user.wish_list
+                        
+        if fave_list:
+            #convert str to list
+            fav_list = fave_list.split()
+            if str(prod.pk) in fav_list:
+                favourite = True
+        else: 
+            favourite = False
 
     template ="product/product-detail.html"
     context={
@@ -133,6 +148,37 @@ def ProductDetail(request, slug):
         'colour_options':colour_options,
         'no_colours':no_colours,
         'recommend': recommend,
+        'favourite':favourite,
     }
 
     return render(request, template, context)
+
+@login_required
+def update_wishlist(request, prod_id):
+    """ """
+    if request.user.is_authenticated:
+        current_user = UserProfile.objects.get(user__id= request.user.id)
+        fave_list = current_user.wish_list
+                
+        if fave_list:
+            #convert str to list
+            fav_list = fave_list.split()
+        else:
+            fav_list = []
+
+        if str(prod_id) in fav_list:
+            fav_list.remove(str(prod_id))
+            fave_list = ' '.join([str(s) for s in fav_list])
+            current_user.wish_list = fave_list
+            current_user.save()
+            product = Product.objects.get(pk = prod_id)
+            messages.add_message(request, messages.SUCCESS, f'Removed {product.brand_id.name} {product.name} from your favourites list')
+        else:
+            fav_list.append(str(prod_id))
+            fave_list = ' '.join([str(s) for s in fav_list])
+            current_user.wish_list = fave_list
+            current_user.save()
+            product = Product.objects.get(pk = prod_id)
+            messages.add_message(request, messages.SUCCESS, f'Added {product.brand_id.name} {product.name} to your favourites list')
+
+    return HttpResponse(status=200)

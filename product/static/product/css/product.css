@@ -44,6 +44,22 @@
     left:3rem;
 }
 
+.favourite{
+    position:absolute;
+    bottom:1rem;
+    right:1rem;
+}
+
+.solid-heart{
+    font-size:3rem;
+    color:var(--hyperlink-color);
+}
+
+.open-heart{
+    font-size: 3rem;
+    color:var(--primary-text-color);
+}
+
 .filter-column{
     margin-top:4rem;
     margin-right:2rem;
