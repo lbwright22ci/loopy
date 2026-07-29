@@ -79,7 +79,9 @@
                                 </div>
                                 <div class="row justify-content-center mb-4">
                                         <div class="col-8">
-
+                                                {% if no_colours == 0 %}
+                                                <p class="red centre-align"> Sorry all shades of this yarn are out of stock at the moment.</p>
+                                                {% else %}
                                                 <form action="{% url 'add_to_basket' %}" method="POST" >
                                                         {% csrf_token %}
                                                         <div  class="div-colour-select-form">
@@ -121,6 +123,7 @@
 
 
                                                 </form>
+                                                {% endif %}
                                         </div>
                                 </div>
 

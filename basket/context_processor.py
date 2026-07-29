@@ -1,6 +1,7 @@
 from decimal import Decimal
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from django.contrib import messages
 
 from core.models import SaleSettings, Postage, Announcements, UserProfile
 from product.models import Colour_var
