@@ -22,11 +22,11 @@
 
     <div class="container pt-4 pb-4">
         {% if ball_count != 0 %}
-        <div class="row px-2 mx-2 ">
-            <div class="col-12 text-end">
-                <a href="{% url 'checkout' %}" aria-label="takes you to checkout"> Checkout <i class="ps-2 fa-solid fa-arrow-right"></i></a>
+            <div class="row px-2 mx-2 ">
+                <div class="col-12 text-end">
+                    <a href="{% url 'checkout' %}" aria-label="takes you to checkout"> Checkout <i class="ps-2 fa-solid fa-arrow-right"></i></a>
+                </div>
             </div>
-        </div>
         {% endif %}
         <div class="row mb-4">
             <div class="col-12 ">
@@ -37,158 +37,209 @@
             </div>
         </div>
         {% if ball_count == 0 %}
-        <div class="row mt-4 mb-4">
-            <div class="col-12">
-                <p> There's nothing in your basket yet!</p>
+            <div class="row mt-4 mb-4">
+                <div class="col-12">
+                    <p> There's nothing in your basket yet!</p>
+                </div>
             </div>
-        </div>
-        <div class="row px-2 mx-2 px-md-0 mx-md-0 mt-4 mb-4 justify-content-end">
-            <div class="col-12 text-end">
-                <a href="{% url 'allproducts' %}" aria-label="Takes you back to list of all yarns" 
-                class="btn btn-second me-2"><i class="fa-solid fa-angles-left"></i> Continue shopping </a>
+            <div class="row px-2 mx-2 px-md-0 mx-md-0 mt-4 mb-4 justify-content-end">
+                <div class="col-12 text-end">
+                    <a href="{% url 'allproducts' %}" aria-label="Takes you back to list of all yarns"
+                       class="btn btn-second me-2"><i class="fa-solid fa-angles-left"></i> Continue shopping </a>
+                </div>
             </div>
-        </div>
         {% else %}
-        <div class="row mt-4 mb-4">
-            <div class="col-12">
-                <p> A summary of your 'yarn' basket so far:</p>
+            <div class="row mt-4 mb-4">
+                <div class="col-12">
+                    <p> A summary of your 'yarn' basket so far:</p>
+                </div>
             </div>
-        </div>
-        {% for item in basket_items|dictsort:"col_var.product_id.name" %}
-        <div class="row p-2 mx-2 d-md-none align-items-center">
-            <div class="col-4">
-                {% include 'includes/basket-image.html' %}
-            </div>
-            <div class="col-8">
-                {% include 'includes/basket-yarn-text.html' %}
-            </div>
-        </div>
-        <div class="row p-2 mx-2 d-md-none justify-content-end">
-            <div class="col-3">
-                {% include 'includes/basket-shade-image.html' %}
-            </div>
-            <div class="col-6">
-                {% include 'includes/basket-yarn-quantity.html' %}
-            </div>
-        </div>
-        <div class="row p-2 mx-2 d-md-none align-items-center justify-content-end">
-            <div class="col-6 text-end">
-                <p class="small-text"> Price: {% if item.col_var.product_id.on_promotion %}
-                                        <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
-                                    
-                                        <span class="sale-price"> £{{ item.price }}</span>
-                                    {% else %}
-                                        £{{ item.price }}
-                                    {% endif %}</p>
-                                    </div> <div class="col-6 text-end">
-                <p class="small-text"> Subtotal: {% if item.col_var.product_id.on_promotion %}
-                                        <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
-                                    {% else %}
-                                        £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
-                                    {% endif %}</p>
-            </div>
-        </div>
-        <hr class="px-4 mx-4 pb-2 d-md-none">
-{% endfor %}
+            {% for item in basket_items|dictsort:"col_var.product_id.name" %}
+                <div class="row p-2 mx-2 d-md-none align-items-center">
+                    <div class="col-4">
+                        {% include 'includes/basket-image.html' %}
+                    </div>
+                    <div class="col-8">
+                        {% include 'includes/basket-yarn-text.html' %}
+                    </div>
+                </div>
+                <div class="row p-2 mx-2 d-md-none justify-content-end">
+                    <div class="col-3">
+                        {% include 'includes/basket-shade-image.html' %}
+                    </div>
+                    <div class="col-6">
+                        {% include 'includes/basket-yarn-quantity.html' %}
+                    </div>
+                </div>
+                <div class="row p-2 mx-2 d-md-none align-items-center justify-content-end">
+                    <div class="col-6 text-end">
+                        <p class="small-text"> Price: {% if item.col_var.product_id.on_promotion %}
+                            <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
 
-        <div class="row d-none d-md-block">
-            <div class="col-12">
-                <table class="table align-middle">
-                    <thead>
-                        <tr>
-                            <th scope="col">Yarn</th>
-                            <th scope="col"></th>
-                            <th scope="col">Colour</th>
-                            <th class="text-center" scope="col">Quantity</th>
-                            <th class="text-center" scope="col">Price</th>
-                            <th class="text-center" scope="col">Subtotal</th>
+                            <span class="sale-price"> £{{ item.price }}</span>
+                        {% else %}
+                            £{{ item.price }}
+                        {% endif %}</p>
+                    </div> <div class="col-6 text-end">
+                        <p class="small-text"> Subtotal: {% if item.col_var.product_id.on_promotion %}
+                            <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
+                        {% else %}
+                            £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
+                        {% endif %}</p>
+                    </div>
+                </div>
+                <hr class="px-4 mx-4 pb-2 d-md-none">
+            {% endfor %}
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for item in basket_items|dictsort:"col_var.product_id.name" %}
+            <div class="row d-none d-md-block">
+                <div class="col-12">
+                    <table class="table align-middle">
+                        <thead>
                             <tr>
-                                <td>
-                                    {% include 'includes/basket-image.html' %}
-                                </td>
-                                <td>
-                                    {% include 'includes/basket-yarn-text.html' %}
-                                </td>
-                                <td>
-                                   {% include 'includes/basket-shade-image.html' %}
-                                </td>   
-                                <td>
-{% include 'includes/basket-yarn-quantity.html' %}
-                                </td>
-                                <td class="text-end">
-                                    <p> {% if item.col_var.product_id.on_promotion %}
-                                        <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
-                                        <br>
-                                        <span class="sale-price"> £{{ item.price }}</span>
-                                    {% else %}
-                                        £{{ item.price }}
-                                    {% endif %}</p>
-                                </td>
-                                <td class="text-end">
-                                    <p> {% if item.col_var.product_id.on_promotion %}
-                                        <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
-                                    {% else %}
-                                        £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
-                                    {% endif %}</p>
-                                </td>
+                                <th scope="col">Yarn</th>
+                                <th scope="col"></th>
+                                <th scope="col">Colour</th>
+                                <th class="text-center" scope="col">Quantity</th>
+                                <th class="text-center" scope="col">Price</th>
+                                <th class="text-center" scope="col">Subtotal</th>
 
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {% for item in basket_items|dictsort:"col_var.product_id.name" %}
+                                <tr>
+                                    <td>
+                                        {% include 'includes/basket-image.html' %}
+                                    </td>
+                                    <td>
+                                        {% include 'includes/basket-yarn-text.html' %}
+                                    </td>
+                                    <td>
+                                        {% include 'includes/basket-shade-image.html' %}
+                                    </td>
+                                    <td>
+                                        {% include 'includes/basket-yarn-quantity.html' %}
+                                    </td>
+                                    <td class="text-end">
+                                        <p> {% if item.col_var.product_id.on_promotion %}
+                                            <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
+                                            <br>
+                                            <span class="sale-price"> £{{ item.price }}</span>
+                                        {% else %}
+                                            £{{ item.price }}
+                                        {% endif %}</p>
+                                    </td>
+                                    <td class="text-end">
+                                        <p> {% if item.col_var.product_id.on_promotion %}
+                                            <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
+                                        {% else %}
+                                            £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
+                                        {% endif %}</p>
+                                    </td>
+
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-        <div class="row  justify-content-center">
-            <div class="col-12 text-center discount-statement">
-                {% if discount == 0 %}
-                    {% if announcement.bulk_buy and announcement.active %}
-            <p class="bold"> Buy {{ announcement.lower_ball_num|subtract:ball_count }} more balls for a
-                 {{ announcement.lower_discount}}% discount! </p>
-                    {% else %}
-            <p class="bold"> Buy {{ announcement.upper_ball_num|subtract:ball_count }} more balls for free shipping! </p>
-                    {% endif %}
-                {% else %}
-                    {% if announcement.bulk_buy and announcement.active %}
-                        {% if ball_count < announcement.upper_ball_num %}
-                            <p class="bold"> Buy {{ announcement.upper_ball_num|subtract:ball_count }} more balls for a
-                 {{ announcement.upper_discount}}% discount! </p>
+            <div class="row  justify-content-center">
+                <div class="col-12 text-center discount-statement">
+                    {% if discount == 0 %}
+                        {% if announcement.bulk_buy and announcement.active %}
+                            <p class="bold"> Buy {{ announcement.lower_ball_num|subtract:ball_count }} more balls for a
+                                {{ announcement.lower_discount}}% discount! </p>
                         {% else %}
-                 <p>{{ announcement.upper_discount}}% discount applied! </p>
+                            <p class="bold"> Buy {{ announcement.upper_ball_num|subtract:ball_count }} more balls for free shipping! </p>
                         {% endif %}
                     {% else %}
-                    <p>Free postage applied! </p>
+                        {% if announcement.bulk_buy and announcement.active %}
+                            {% if ball_count < announcement.upper_ball_num %}
+                                <p class="bold"> Buy {{ announcement.upper_ball_num|subtract:ball_count }} more balls for a
+                                    {{ announcement.upper_discount}}% discount! </p>
+                            {% else %}
+                                <p>{{ announcement.upper_discount}}% discount applied! </p>
+                            {% endif %}
+                        {% else %}
+                            <p>Free postage applied! </p>
+                        {% endif %}
                     {% endif %}
-                {% endif %}
+                </div>
             </div>
-        </div>
-        <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end mb-4">
-            <div class="col-12 text-end">
-                <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
-                <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
-                > Discount : £ {{ discount|floatformat:2 }}</p>
-                <p > Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
-                <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
+            <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end mb-4">
+                <div class="col-12 text-end">
+                    <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
+                    <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
+                    > Discount : £ {{ discount|floatformat:2 }}</p>
+                    <p > Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
+                    <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
+                </div>
             </div>
-        </div>
-        <div class="row px-2 mx-2 px-md-0 mx-md-0 mt-4 mb-4 justify-content-end">
-            <div class="col-12 text-end">
-                <a href="{% url 'allproducts' %}" aria-label="Takes you back to list of all yarns" 
-                class="btn btn-second me-2"><i class="fa-solid fa-angles-left"></i> Continue shopping </a>
-                <a href="{% url 'checkout' %}" aria-label="Takes you to the checkout page" class="btn btn-main ms-2">Checkout</a>
+            <div class="row px-2 mx-2 px-md-0 mx-md-0 mt-4 mb-4 justify-content-end">
+                <div class="col-12 text-end">
+                    <a href="{% url 'allproducts' %}" aria-label="Takes you back to list of all yarns"
+                       class="btn btn-second me-2"><i class="fa-solid fa-angles-left"></i> Continue shopping </a>
+                    <a href="{% url 'checkout' %}" aria-label="Takes you to the checkout page" class="btn btn-main ms-2">Checkout</a>
+                </div>
             </div>
-        </div>
         {% endif %}
-<div class="row">
-    <div class="col-12">
-        add here list of favourites if a customer is logged in.
-    </div>
-</div>
+        {% if user.is_authenticated and not favourites|length == 0 %}
+            <div class="row mt-4">
+                <div class="col-12  mt-4 mb-4">
+                    <h2 class="subtitle">What about one of your favourites?</h2>
+                </div>
+            </div>
+            <div class="row mt-4 justify-content-center ">
+                <div class="col-12 col-lg-10 mb-4">
+                    <div class="row mb-4">
+                        {% for item in favourites %}
+                            {% if item.yarn.visible %}
+                                <div class="col-12 col-md-4  text-center">
+                                    <div class="card">
+                                        <a class="card-link" href="{% url 'productdetail' item.yarn.slug %} "
+                                           aria-label="takes you to a page where you can find out more information about {{ item.yarn.name }}">
+                                            <div class="prod-image-container">
+                                                <img src="{{ item.yarn.image.url }}"
+                                                     class="card-img-top product-page-images"
+                                                     alt=" A picture of {{ item.yarn.name }}">
+                                                {% if item.yarn.on_promotion %}
+                                                    <span class="translate-middle sale-ticket"><i
+                                                        class=" sale-icon fa-solid fa-tags"></i>
+                                                        <span class="visually-hidden"> On promotion</span>
+                                                    </span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="card-body">
+                                                <p><span class="uppercase-text"><strong>{{ item.yarn.brand_id.name }}</strong></span>
+                                                    {{ item.yarn.name }}</p>
+                                                <p class="small-text">{{ item.yarn.skein_weight }}g / {{ item.yarn.thickness_id.name }} / {{ item.yarn.fibre }}</p>
+                                                <p>
+                                                    {% if item.yarn.on_promotion %}
+                                                        <span class="small-text pre-sale-price">£{{ item.yarn.price }} </span>
+                                                        <span class="sale-price"> £{{ item.yarn.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                    {% else %}
+                                                        <strong>£{{ item.yarn.price }}</strong>
+                                                    {% endif %}
 
+
+                                                </p>
+
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 mb-4 text-end">
+                    <a href="{}" aria-label="takes you to your accout to view your full favourites list" >See more...</p>
+                </div>
+            </div>
+        {% endif %}
     </div>
 
     <div class="to-top">
@@ -204,5 +255,5 @@
     {{ block.super }}
 
     <script src="{% static 'basket/js/basket.js' %}" type="text/javascript"></script>
-    
+
 {% endblock %}

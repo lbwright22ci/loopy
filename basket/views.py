@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, reverse
 from django.contrib import messages
 
-from product.models import Colour_var
+from product.models import Colour_var, Product
 from core.models import UserProfile
 
 import json
@@ -11,8 +11,25 @@ import json
 
 def view_basket(request):
     """ """
+    favourite_list=[]
+
+    if request.user.is_authenticated:
+        current_user = get_object_or_404(UserProfile, user__id = request.user.id)
+        fave_list = current_user.wish_list
+
+        if fave_list:
+            #convert str to list
+            fav_list = fave_list.split()
+            for item in fav_list:
+                yarn = get_object_or_404(Product, pk = int(item))
+                favourite_list.append({
+                    'prod_id': int(item),
+                    'yarn':yarn
+                })
+
 
     context = {
+        'favourites':favourite_list[0:3],
     }
     template ='basket/basket.html'
 

@@ -1,3 +1,41 @@
+.card-link,
+.card-link:hover,
+.card-link:active{
+    color:var(--primary-text-color);
+    text-decoration: none;
+}
+
+.product-page-images{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-width: 28rem;
+    border-radius: 2rem;
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
+}
+
+
+.card{
+    border:none;
+    display:flex
+}
+
+.prod-image-container{
+    position:relative;
+    max-width: 28rem;
+    justify-self: center;
+}
+
+.sale-icon{
+    font-size: 4rem;
+    color: var(--error-color);
+}
+
+.sale-ticket{
+    position:absolute;
+    top:3rem;
+    left:3rem;
+}
+
 .all-products-head{
     height:6rem;
     width:auto;
