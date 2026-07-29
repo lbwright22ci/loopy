@@ -60,6 +60,18 @@
     color:var(--primary-text-color);
 }
 
+.solid-heart-all{
+    margin-top:1rem;
+    font-size:2rem;
+    color:var(--hyperlink-color);
+}
+
+.open-heart-all{
+    font-size: 2rem;
+    margin-top:1rem;
+    color:var(--primary-text-color);
+}
+
 .filter-column{
     margin-top:4rem;
     margin-right:2rem;

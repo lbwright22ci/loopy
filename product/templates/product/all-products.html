@@ -187,9 +187,33 @@
                                                                                                         <span class="visually-hidden"> On promotion</span>
                                                                                                 </span>
                                                                                         {% endif %}
+                                                                                        
                                                                                 </div>
                                                                                 <div class="card-body">
-                                                                                        <p><span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
+                                                                                        <p>{% if user.is_authenticated %}
+                                        
+                                                        {% if product.id in favourite_list %}
+                                                        <a role="button" class="fav-icon" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
+                                                        data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" 
+                                                        data-bs-title="Remove from my wishlist">
+                                                        <i class="solid-heart-all fa-solid fa-heart" ></i></a>
+                                                        <span class="visually-hidden">Remove from my favourites list</span>
+                                                        
+                                                        {% else %}
+                                                        
+                                                        <a class="fav-icon" role="button" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
+                                                        data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" 
+                                                        data-bs-title="Add to my wishlist">
+                                                        <i class="open-heart-all fa-regular fa-heart" ></i> </a>
+                                                        <span class="visually-hidden">Add to my favourites list</span>
+                                                        {% endif %}
+                                                        
+                                                
+                                                
+                                        {% endif %}
+                                                                                                
+                                                                                                
+                                                                                                <span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
                                                                                                 {{ product.name }}</p>
                                                                                         <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
                                                                                         <p>

@@ -103,7 +103,19 @@ def AllProducts(request):
   
     current_sorting = f'{sort}_{direction}'
 
+    fav_list=[]
+    
+    if request.user.is_authenticated:
+        current_user = get_object_or_404(UserProfile, user__id = request.user.id)
+        fave_list = current_user.wish_list
+    
+        if fave_list:
+            #convert str to list
+            fav_list = fave_list.split()
+            fav_list = [int(f) for f in fav_list]
+
     context={
+        'favourite_list':fav_list,
         'product_list':product_list,
         'current_brand':brands,
         'current_thickness':thicknesses,
@@ -129,7 +141,7 @@ def ProductDetail(request, slug):
     recommend = Product.objects.filter(thickness_id = prod.thickness_id).order_by('price')[0:3]
 
     favourite = False 
-    
+
     if request.user.is_authenticated:
         current_user = UserProfile.objects.get(user__id= request.user.id)
         fave_list = current_user.wish_list

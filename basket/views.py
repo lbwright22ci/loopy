@@ -29,7 +29,7 @@ def view_basket(request):
 
 
     context = {
-        'favourites':favourite_list[0:3],
+        'favourites':favourite_list,
     }
     template ='basket/basket.html'
 
