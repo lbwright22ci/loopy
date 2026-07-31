@@ -27,3 +27,53 @@
     font-size: 1.2rem;
     margin-bottom:0;
 }
+
+.product-image-thumb{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-width: 3rem;
+    border-radius: 2rem;
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
+}
+
+.order-summary{
+    font-size: 1rem;
+}
+
+.small-text{
+    font-size: 0.8rem;
+}
+
+.reorder{
+    cursor:pointer;
+}
+
+/* Media queries */
+/* for sizes sm and above */
+@media screen and (min-width:350px){
+   .order-summary{
+    font-size: 1.2rem;
+   }
+   .small-text{
+    font-size:1rem;
+   }
+   .product-image-thumb{
+    max-width: 6rem;
+   }
+}
+
+/* for sizes md and above in Bootstrap */
+@media screen and (min-width:576px){
+    .order-summary{
+        font-size: 1.6rem;
+    }
+    .small-text{
+        font-size:1.2rem;
+    }
+}
+/* for sizes lg and above in Bootstrap */
+@media screen and (min-width:992px){
+
+}
+
+}

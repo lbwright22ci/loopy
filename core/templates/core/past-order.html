@@ -2,14 +2,15 @@
 {% load static %}
 {% load tools %}
 
-{% block titlehead %} Checkout Success {% endblock %}
+{% block titlehead %} Previous order {% endblock %}
 
 {% block headdescription %}  {% endblock %}
 
 {% block headkey %} {% endblock %}
 
 {% block extracss %}
-    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'core/css/account.css' %}">
 {% endblock %}
 
 
@@ -29,22 +30,29 @@
                 <img src="{% static 'images/balls-in-a-line.png'%}"
                      alt="illustration of balls of wool" class="all-products-head d-none d-sm-inline">
 
-                <h1 class="page-heading ms-2 d-inline">Checkout Success! </h1>
+                <h1 class="page-heading ms-2 d-inline">Order #{{ order.order_num }} </h1>
             </div>
             <div class="col-12 mt-4">
-                <p> Thank you for your order!  You will receive an email confirmation shortly (please check your spam folder
-                    if it does not arrive).
-                    <br>
-                  <span class="small-text">  We aim to post all orders within 72 hours- please get in touch if you need your yarn urgently.
-                </span></p>
+                <p> Status:</p>
             </div>
         </div>
         
 <div class="row mb-4 justify-content-center order-summary">
    <div class="col-12 col-md-10">
         <div class="row">
+            <div class="col-12">
+                <p class="">Status: <span class="bold">
+                                    {% if order.is_shipped %}
+                                    <span class="green">Shipped!</span>
+                                    {% elif order.is_refunded %}
+                                    <span class="red">Refunded</span>
+                                    {% else %}
+                                    In progress
+                                    {% endif %}</span>
+                                </p>
+            </div>
             <div class="col-12 text-end">
-                <p class="mb-0"><span class="uppercase-text"> Order number: </span>{{ order.order_num }}</p>
+                
                 <p class="small-text d-none d-sm-block"><span class="uppercase-text"> Date: </span>{{ order.created_on|date:'jS M y' }}</p>
                 <p class="d-sm-none"><span class="uppercase-text"> Date: </span>{{ order.created_on|date:'jS M y' }}</p>
             </div>
@@ -121,7 +129,11 @@
         </div>
             {% for item in order.lineitems.all %}
         <div class="row align-items-center">
-            <div class="col-6">
+            <div class="col-3">
+                <img class="product-image-thumb" src="{{ item.yarn.product_id.image.url }}"
+                                         alt="{{  item.yarn.product_id.name }}">
+            </div>
+            <div class="col-3">
                                <p class="mb-0"><a aria-label="Takes you to the product page for {{ item.yarn.product_id.name }}"
                                 href="{% url 'productdetail' item.yarn.product_id.slug %}"><span class="uppercase-text">
                                     {{ item.yarn.product_id.brand_id.name }}
@@ -132,6 +144,7 @@
                                          ({{ item.yarn.shade_code }}|{{ item.yarn.dye_lot }})
                                 </p>
             </div>
+            
             <div class="col-2 text-center">
                <p class="mb-0"> {{ item.quantity }} </p>
             </div>
@@ -144,6 +157,16 @@
                 <p class="mb-0">
                     £ {{ item.current_price|calc_subtotal:item.quantity|floatformat:2 }}
                 </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-end">
+                <form action="{% url 'reorder' %}" method="POST" class="reorder-form">
+                    {% csrf_token %}
+                    <input type="hidden" name="colour_var" value="{{ item.yarn.pk }}">
+                    <input type="hidden" name="quantity" value="{{ item.quantity }}">
+                    <a class="reorder" aria-label="reorder this item">Reorder</a>    
+                </form>
             </div>
         </div>
         {% endfor %}
@@ -167,7 +190,7 @@
 
 <div class="row mb-4">
         <div class="col-12 text-end pb-4">
-            <a class="btn btn-second mb-4" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
+            <a class="btn btn-second mb-4" href="{% url 'customer_account' %}" aria-label="return to my account"><i class="fa-solid fa-angles-left"></i> My account</a>
         </div>
     </div>
 
@@ -182,4 +205,5 @@
 
 {% block extrapostjs %}
     {{ block.super }}
+    <script src="{% static 'core/js/reorder.js' %}" type="text/javascript"></script>
 {% endblock %}

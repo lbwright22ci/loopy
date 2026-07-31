@@ -141,10 +141,10 @@
                                 > Leave Feedback </a>
                                 {% else %}
                                 <a href="" aria-label="Request a refund for your order"
-                                > Request a refund </a>
+                                > Cancel </a>
                                 {% endif %}
-                                <a href="" aria-label="takes you to a page to view the order and reorder items"
-                                class="ms-2 btn btn-main"> View & reorder </a>
+                                <a href="{% url 'past_order' order.order_num %}" aria-label="takes you to a page to view the order and reorder items"
+                                class="ms-2 btn btn-main"> View </a>
                             </div>
                             <div class="row justify-content-center">
                             <div class="col-8">

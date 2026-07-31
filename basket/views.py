@@ -51,6 +51,7 @@ def add_to_basket(request):
             test = basket[col_var_id] + quantity
             if test < 10:
                 basket[col_var_id] += quantity
+                
                 messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name} to {test} balls')
             else:
@@ -63,18 +64,19 @@ def add_to_basket(request):
             test = basket[col_var_id] + quantity
             if test < 50:
                 basket[col_var_id] += quantity
-                messages.success(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
+                messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name} to {test} balls')
             else:
                 
-                messages.error(request, messages.ERROR, f'Insufficient stock! Unable to add {quantity} extra \
+                messages.add_message(request, messages.ERROR, f'Insufficient stock! Unable to add {quantity} extra \
                                balls of {col_var.product_id.brand_id.name} {col_var.product_id.name}\
                                to your basket.')
                 return redirect(redirect_url)
                 
     else:
         basket[col_var_id] = quantity
-        messages.success(request, f'Added {quantity} ball(s) of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
+        
+        messages.add_message(request, messages.SUCCESS, f'Added {quantity} ball(s) of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name}')
 
     request.session['basket'] = basket

@@ -56,6 +56,10 @@
     font-size: 1rem;
 }
 
+.small-text{
+    font-size:0.8rem;
+}
+
 #loading-overlay{
     display: none;
     position:fixed;
@@ -132,12 +136,18 @@ gmp-place-autocomplete{
    .order-summary{
     font-size: 1.2rem;
    }
+   .small-text{
+    font-size:1rem;
+   }
 }
 
 /* for sizes md and above in Bootstrap */
 @media screen and (min-width:576px){
     .order-summary{
         font-size: 1.6rem;
+    }
+    .small-text{
+        font-size:1.2rem;
     }
 }
 /* for sizes lg and above in Bootstrap */
