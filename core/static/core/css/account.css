@@ -1,0 +1,17 @@
+.all-products-head{
+    height:6rem;
+    width:auto;
+    padding-right:2rem;
+}
+
+.divide-image{
+    height:6rem;
+    width:auto;
+    margin-top:2rem;
+    margin-bottom:2rem;
+}
+
+.divider-dec{
+    color:var(--decorative-color);
+    opacity: 100%;
+}

@@ -14,13 +14,13 @@ class UserProfile(models.Model):
 
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    default_phone = models.CharField(max_length=20, null=True, blank=True)
-    default_street_address1 = models.CharField(max_length=80, null=True, blank=True)
-    default_street_address2 = models.CharField(max_length=80, null=True, blank=True)
-    default_town = models.CharField(max_length=50, null=True, blank=True)
-    default_county = models.CharField(max_length=40, null=True, blank=True)
-    default_postcode = models.CharField(max_length=9, null=True, blank=True)
-    default_country = models.CharField(max_length = 20, default="GB")
+    default_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Phone")
+    default_street_address1 = models.CharField(max_length=80, null=True, blank=True, verbose_name='Street Address 1')
+    default_street_address2 = models.CharField(max_length=80, null=True, blank=True, verbose_name='Street Address 2')
+    default_town = models.CharField(max_length=50, null=True, blank=True, verbose_name='Town or City')
+    default_county = models.CharField(max_length=40, null=True, blank=True, verbose_name='County')
+    default_postcode = models.CharField(max_length=9, null=True, blank=True, verbose_name='Postcode')
+    default_country = models.CharField(max_length = 20, default="GB", blank = True, null=True, verbose_name='Country')
     temporary_basket = models.CharField(max_length=600, blank = True, null=True)
     wish_list = models.CharField(max_length=400, null=True, blank = True)
 
