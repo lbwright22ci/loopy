@@ -88,7 +88,7 @@
           </a>
           <ul class="dropdown-menu" id="menu-account">
             {% if user.is_authenticated %}
-              <li><a class="dropdown-item" href="#" aria-label="Goes to account page with account information,
+              <li><a class="dropdown-item" href="{% url 'customer_account' %}" aria-label="Goes to account page with account information,
                                                                 past orders and favourites">My Account</a></li>
               {% if user.is_staff %}
                 <li><a class="dropdown-item" href="#" aria-label="goes to shop management area">Shop Management</a></li>

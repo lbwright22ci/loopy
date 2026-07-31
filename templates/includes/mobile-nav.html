@@ -93,7 +93,7 @@
                            data-bs-toggle="dropdown"><i class="fa-regular fa-user nav-icon"></i></a>
                         <ul class="dropdown-menu mt-4">
                                 {% if user.is_authenticated %}
-                                        <li><a class="dropdown-item small-text" href="#" aria-label="Goes to account page with account information,
+                                        <li><a class="dropdown-item small-text" href="{% url 'customer_account' %}" aria-label="Goes to account page with account information,
                                                                                                      past orders and favourites">My Account</a></li>
                                         {% if user.is_staff %}
                                                 <li><a class=" dropdown-item small-text" href="#"

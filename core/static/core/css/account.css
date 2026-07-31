@@ -48,6 +48,43 @@
     cursor:pointer;
 }
 
+.prod-image-container{
+    position:relative;
+    max-width: 28rem;
+    justify-self: center;
+}
+.pre-sale-price{
+    text-decoration: line-through;
+}
+
+.sale-price{
+    color:var(--error-color);
+    font-weight: bold;
+}
+
+.sale-icon{
+    font-size: 4rem;
+    color: var(--error-color);
+}
+
+.sale-ticket{
+    position:absolute;
+    top:3rem;
+    left:3rem;
+}
+
+.fav-list-images{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    max-width: 10rem;
+    border-radius: 2rem;
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
+}
+
+.fav-icon{
+    cursor: pointer;
+}
+
 /* Media queries */
 /* for sizes sm and above */
 @media screen and (min-width:350px){
@@ -59,6 +96,9 @@
    }
    .product-image-thumb{
     max-width: 6rem;
+   }
+   .fav-list-images{
+    max-width: 16rem;
    }
 }
 

@@ -3,7 +3,7 @@ from django.contrib import messages
 from .models import HomePageSlides, UserProfile
 from .forms import AddressForm, DetailsForm
 from checkout.models import Order
-from product.models import Colour_var
+from product.models import Colour_var, Product
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -48,7 +48,22 @@ def customer_account(request):
         'default_town': profile.default_town,
             })
 
+    favourite_list=[]
+    fave_list = profile.wish_list
+    
+    if fave_list:
+        #convert str to list
+        fav_list = fave_list.split()
+        for item in fav_list:
+            yarn = get_object_or_404(Product, pk = int(item))
+            favourite_list.append({
+                'prod_id': int(item),
+                'yarn':yarn
+            })
+    
+
     context={
+        'favourites': favourite_list,
         'address_form':address_form,
         'details_form': details_form,
         'past_orders':past_orders,
