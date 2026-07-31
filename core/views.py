@@ -30,6 +30,7 @@ def home_page(request):
 def customer_account(request):
     """ """
     profile = UserProfile.objects.get(user=request.user)
+    past_orders = profile.orders.all().order_by('-created_on')
 
     details_form = DetailsForm(initial={
                 'first_name':profile.user.first_name,
@@ -48,6 +49,7 @@ def customer_account(request):
     context={
         'address_form':address_form,
         'details_form': details_form,
+        'past_orders':past_orders,
     }
     template = 'core/account.html'
 

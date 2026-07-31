@@ -15,3 +15,15 @@
     color:var(--decorative-color);
     opacity: 100%;
 }
+
+.order-div{
+    color:var(--background-highlight-color);
+    opacity: 100%;
+    margin-top:2rem;
+    margin-bottom: 2rem;
+
+}
+.form-label{
+    font-size: 1.2rem;
+    margin-bottom:0;
+}

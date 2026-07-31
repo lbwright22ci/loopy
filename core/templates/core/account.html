@@ -46,7 +46,17 @@
                     <div id="">
                         <form action="{% url 'update_details' %}" method="POST">
                             {% csrf_token %}
-                            {{ details_form | crispy }}
+                            <div class="row">
+                                <div class="col-12 col-md-6">
+                                    {{ details_form.first_name | as_crispy_field }}
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    {{ details_form.last_name | as_crispy_field }}
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    {{ details_form.Phone | as_crispy_field }}
+                                </div>
+                            </div>
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
                                     <a href="{% url 'account_change_password' %}" aria-label=""> Reset my password</a>
@@ -68,7 +78,26 @@
                     <h2>Saved addess</h2>
                     <form action="{% url 'update_address' %}" method="POST">
                         {% csrf_token %}
-                        {{ address_form | crispy }}
+                        <div class="row">
+                            <div class="col-12">
+                                {{ address_form.default_street_address1| as_crispy_field }}
+                            </div>
+                            <div class="col-12">
+                                {{ address_form.default_street_address2| as_crispy_field }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                {{ address_form.default_town| as_crispy_field }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                {{ address_form.default_county| as_crispy_field }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                {{ address_form.default_postcode| as_crispy_field }}
+                            </div>
+                            <div class="col-12 col-md-6">
+                                {{ address_form.default_country| as_crispy_field }}
+                            </div>
+                        </div>
                         <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
                                     <input class="ms-4 btn btn-main" role="button" type="submit" value="Update!">
@@ -86,12 +115,60 @@
                 </div>
                 <div class="col-4"> <hr class="divider-dec"> </div>
                 </div>
+                <div class="col-12">
+                        <h2>My orders</h2>
+
+                        {% if not past_orders|length == 0 %}
+                        {% for order in past_orders %}
+                        <div class="row ">
+                            <div class="col-12 me-4 ms-4">
+                                <p class="mb-0 bold text-end"> #{{ order.order_num }}</p>
+                                <p class="mb-0">Date: {{ order.created_on|date:'jS M y' }}</p>
+                                <p class="mb-0">Total: £ {{ order.grand_total }}</p>
+                                <p class="">Status: <span class="bold">
+                                    {% if order.is_shipped %}
+                                    <span class="green">Shipped!</span>
+                                    {% elif order.is_refunded %}
+                                    <span class="red">Refunded</span>
+                                    {% else %}
+                                    In progress
+                                    {% endif %}</span>
+                                </p>
+                            </div>
+                            <div class="col-12 text-end">
+                                {% if order.is_shipped %}
+                                <a href="" aria-label="takes you to a page so you can leave feedback for your order"
+                                > Leave Feedback </a>
+                                {% else %}
+                                <a href="" aria-label="Request a refund for your order"
+                                > Request a refund </a>
+                                {% endif %}
+                                <a href="" aria-label="takes you to a page to view the order and reorder items"
+                                class="ms-2 btn btn-main"> View & reorder </a>
+                            </div>
+                            <div class="row justify-content-center">
+                            <div class="col-8">
+                                <hr class="order-div">
+                            </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% else %}
+                        <p> No previous orders saved to this account. </p>
+                        {% endif %}
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                    <div class="col-4"> <hr class="divider-dec"> </div>
+                <div class="col-2 text-center">
+                    <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
+                class="divide-image">
+                </div>
+                <div class="col-4"> <hr class="divider-dec"> </div>
+                </div>
         </div>  
         <div class="col-12 col-lg-6 justify-content-center col-md-9">
                 <div class="row">
-                    <div class="col-12">
-                        <h2>My orders</h2>
-                    </div>
+                    
                     <div class="col-12">
                         <h2>My favourites!</h2>
                     </div>
