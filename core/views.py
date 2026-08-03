@@ -30,7 +30,24 @@ def home_page(request):
 
 @login_required
 def customer_account(request):
-    """ """
+    """
+    Renders a page for authenticated Users displaying account information, past orders and 
+    their favourites list.
+
+    Displays information related to instance of :model:`UserProfile` and associated instances of 
+    :model:`Order`.
+    Displays instance of :form:`DetailsForm` and :form:`AddressForm` to enable user to update 
+    name & saved phone number and address details respectively.
+
+    **Template**
+    'core/account.html'
+
+    **Context**
+    `details_form`
+    `address_form`
+    `favourites`
+    `past_orders`
+    """
     profile = UserProfile.objects.get(user=request.user)
     past_orders = profile.orders.all().order_by('-created_on')
 
@@ -60,7 +77,6 @@ def customer_account(request):
                 'prod_id': int(item),
                 'yarn':yarn
             })
-    
 
     context={
         'favourites': favourite_list,
@@ -74,7 +90,9 @@ def customer_account(request):
 
 @login_required
 def update_details(request):
-    """" """
+    """"
+    Updates 'first_name', 'second_name' and 'default_phone' fields of instance of :model:`UserProfile`
+    """
     current_user = UserProfile.objects.get(user__id= request.user.id)
     try:
         if request.POST:
@@ -93,7 +111,11 @@ def update_details(request):
 
 @login_required
 def update_address(request):
-    """" """
+    """"
+    Updates 'default_street_address1', 'default_street_address2', 'default_town',
+    'default_county', 'default_postcode' and 'default_country' fields of instance of 
+    :model:`UserProfile`
+    """
     current_user = UserProfile.objects.get(user__id= request.user.id)
     try:
         if request.POST:
@@ -115,7 +137,16 @@ def update_address(request):
 
 @login_required
 def past_order(request, order_num):
-    """ """
+    """
+    Displays all information relating to instance of :model:`checkout.models.Order`
+
+    **Template**
+    'checkout/past-order.html'
+
+    **Context**
+    'order'
+
+    """
     order = get_object_or_404(Order, order_num = order_num)
 
     context={
@@ -126,7 +157,14 @@ def past_order(request, order_num):
     return render(request, template, context)
 
 def reorder(request):
-    """ """
+    """ 
+    Adds instance of :model:`product.model.Colour_var` to session basket 
+    (and UserProfile.temporary_basket) with 
+    the same 'quantity' as in instance of :model:`checkout.model.Order` related to 
+    :model:`UserProfile`.
+
+    User is redirected to 'view_basket'
+    """
 
     quantity = int(request.POST.get('quantity'))
     col_var_id = request.POST['colour_var']

@@ -1,10 +1,10 @@
-// This sample uses the Places Autocomplete widget to:
+// Code mostly obtained from Googel Maps API documentation
+
+// This uses the Places Autocomplete widget to:
 // 1. Help the user select a place
 // 2. Retrieve the address components associated with that place
 // 3. Populate the form fields with those address components.
 // This sample requires the Places library, Maps JavaScript API.
-
-// code from Google Maps Platform
 
 let placeAutocomplete;
 let address1Field;
@@ -19,7 +19,6 @@ async function init() {
     address2Field = document.querySelector('#id_billing_street_address2');
     postalField = document.querySelector('#id_billing_postcode');
     
-
     // Handle user selection on the autocomplete widget.
     placeAutocomplete.addEventListener('gmp-select', ({ placePrediction }) => {
         void fillInAddress(placePrediction);
@@ -30,6 +29,7 @@ async function init() {
 async function fillInAddress(placePrediction) {
     // The placePrediction object does not have all the details needed
     // for the form, so we'll call fetchFields to get the place details.
+    
     const place = placePrediction.toPlace();
     await place.fetchFields({ fields: ['addressComponents'] });
 
@@ -80,8 +80,7 @@ async function fillInAddress(placePrediction) {
     address1Field.value = address1;
 
     // After filling the form with address components from the Autocomplete
-    // prediction, set cursor focus on the second address line to encourage
-    // entry of subpremise information such as apartment, unit, or floor number.
+    // prediction, set cursor focus on the second address line so that any missing data can be completed.
     address2Field.focus();
 }
 

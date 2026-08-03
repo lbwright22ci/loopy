@@ -61,10 +61,18 @@ class StripeWH_Handler:
         msg.send()
 
     def handle_payment_intent_succeeded(self, event):
-        """ 
+        """
         Handles all instances of the webhook 'payment_intent.succeeded'
 
-        
+        If an instance of :model:`Order` with identical `stripe_pid` exists in the database
+        already then only :method: `_send_order_conf_email` is called.
+
+        If instance of :model:`Order` with `stripe_pid` does not exist in database after 5 
+        seconds then one is created, details are saved to the
+        related instance of :model:`UserProfile` if relavent and
+        the :method: `_send_order_conf_email` called.
+
+        Else error message generated.
         """
         intent =event.data.object
         pid = intent.id
@@ -204,7 +212,9 @@ class StripeWH_Handler:
             status=200)
     
     def handle_payment_intent_payment_failure(self, event):
-        """ Handle generic/unknown/unexpected webhook event """
+        """ 
+        Handles instances of webhook `payment_intent.payment_failure`
+        """
         return HttpResponse(
             content=f'Webhook receieved: {event['type']}',
             status=200)

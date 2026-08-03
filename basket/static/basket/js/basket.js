@@ -1,8 +1,14 @@
 $(document).ready(function () {
-
+    
+    // Required for Bootstrap custom tooltips to be enabled.
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+    /**
+     * Disables 'plus' and 'minus' quantity buttons so that
+     * input quantity can not be less than 1 nor greater than max value 
+     * @param {*} colourId 
+     */
     function handleEnableDisable(colourId){
         var currentvalue = parseInt($('[data-item_id ="'+colourId+'" ]').val());
         var plusLimit = parseInt($('[data-item_id ="'+colourId+'" ]').attr('max'));
@@ -18,7 +24,6 @@ $(document).ready(function () {
         var colourId = $(allQtyInputs[i]).data('item_id');
         handleEnableDisable(colourId);
     };
-
 
     $('.increment-qty').click(function() {
        var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
@@ -43,7 +48,6 @@ $(document).ready(function () {
 
     $('.update').click(function(e) {
         var form =$(this).closest('.update-form');
-        
         form.submit();
     });
 

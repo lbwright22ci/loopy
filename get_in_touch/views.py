@@ -13,8 +13,18 @@ from core.models import HomePageSlides
 # Create your views here.
 
 def contact_page(request):
-    """ Renders contact page containing a single instance of :form:`Contact Form`
-    to capture inform"""
+    """ Renders contact page containing a single instance of :form:`ContactForm`
+    to capture information to create a new instance of :model:`Contact`and send 
+    email to user to state that their message has been received.
+    
+    **Template**
+    'get_in_touch/contact-page.html'
+
+    **Context**
+    'form' : instance of :form:`ContactForm`
+    'top_image' : instance of :model:`core.models.HomePageSlides`
+    'bottom_image' : instance of :model:`core.models.HomePageSlides`
+    """
 
     top_image = HomePageSlides.objects.all()[1]
     bottom_image = HomePageSlides.objects.all()[2]

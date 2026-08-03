@@ -1,4 +1,8 @@
 $(document).ready(function () {
+
+  // Reads in all information necessary to create a new instance of 
+  // :model: `Order` from DOM
+
   var stripePublicKey = $("#id_stripe_public_key").text().slice(1, -1);
   var clientSecret = $("#id_client_secret").text().slice(1, -1);
   var fullName = $("#id_full_name").text().slice(1, -1);
@@ -24,6 +28,7 @@ $(document).ready(function () {
 
   var stripe = Stripe(stripePublicKey);
 
+  // Styles Stripe card element when mounted to DOM
   const appearance = {
     theme: "flat",
     inputs: "spaced",
@@ -90,6 +95,9 @@ $(document).ready(function () {
 
   var confirm = document.getElementById("confirm-form");
 
+  // Collects data required for creating a new instance of :model:`Order` from 
+  // DOM and sends to 'views.cache_checkout_data'
+  
   confirm.addEventListener("submit", function (event) {
     event.preventDefault();
     paymentElement.update({ disabled: true });

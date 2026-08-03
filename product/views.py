@@ -11,7 +11,35 @@ from core.models import SaleSettings, UserProfile
 # Create your views here.
 
 def AllProducts(request):
-    """" """
+    """
+    Displays all instances of :model:`Product` based on Queryset.
+    Only products with field 'visible = True' are shown.
+
+    Queryset filters available are:
+    'q', 'brand', 'thickness', 'fibre', 'price', 'sale', 'natural', 'machine_wash'
+    'natural'
+
+    Sorting available by:
+    'price' and 'name'
+
+    Authenticated users can view their 'wish_list' and update it.
+
+    **Template**
+    'product/all-products.html'
+
+    **Context**
+    'favourite_list'
+    'product_list'
+    'current_brand'
+    'current_thickness'
+    'current_fibres'
+    'current_prices'
+    'sales'
+    'natural'
+    'machine_wash'
+    'current_query'
+    'current_sorting'
+    """
     queryset = Product.objects.all()
     product_list = queryset
     
@@ -132,7 +160,18 @@ def AllProducts(request):
     return render(request, template, context)
 
 def ProductDetail(request, slug):
-    """"
+    """
+    Displays single instance of :model:`Product`
+
+    **Template**
+    'product/product-detail.html'
+
+    **Context**
+    'prod' : instance of :model:`Product`
+    'colour_options' : instances of :model:`Colour_var` related to selected :model:`Product`
+    'no_colours'
+    'recommend'
+    'favourite' : related to instance of :model:`UserProfile` field `wish_list`
     """
     queryset = Product.objects.filter(visible=True)
     prod = get_object_or_404(queryset, slug=slug)
@@ -167,7 +206,10 @@ def ProductDetail(request, slug):
 
 @login_required
 def update_wishlist(request, prod_id):
-    """ """
+    """
+    Adds or removes instance of :model:`Product` to the authenticated instance
+    of :model:`UserProfile` field 'wish_list'
+    """
     if request.user.is_authenticated:
         current_user = UserProfile.objects.get(user__id= request.user.id)
         fave_list = current_user.wish_list

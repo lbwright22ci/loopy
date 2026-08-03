@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+    // Enables Bootstrap custom tooltips
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
     
@@ -39,6 +40,11 @@ $(document).ready(function () {
         };
     });
 
+    /**
+     * Adds a box shadow highlight to colour swatch selected so that the 
+     * user can easily see which colour option they are adding to their basket
+     * @param {*} colourId 
+     */
     function addHightlight(colourId){
         var allSwatch = $('.swatches');
         for (var i=0; i<allSwatch.length; i++){
@@ -51,16 +57,32 @@ $(document).ready(function () {
         };
     };
 
+    /**
+     * Changes the selected instance of :model:`Colour_var` in form input select field
+     * @param {*} colourId 
+     */
     function changeSelected(colourId){
         $('form select[name=colour_var]').val(colourId).change();
     };
 
+    /**
+     * When an instance of :model:`Colour_var` is selected then a mini swatch of this 
+     * colour option is displayed next to the form field for good UX
+     * @param {*} colourId 
+     */
     function displaySwatch(colourId){
         var src = $(`.colvar_id_${colourId}`).attr('src');
         var altText = $(`.colvar_id_${colourId}`).attr('src');
         $('.mini-selected-swatch').html(`<img src=${src} alt=${altText} class='img-mini-selected'>`);
     };
 
+    /**
+     * When user has selected which instance of :model:`Colour_var` they would like
+     * to add to basket, a quantity field is displayed. Max attribute of this 
+     * form field is depended on stock level.
+     * @param {*} colourId 
+     * @param {*} colLS 
+     */
     function displayQuantityField(colourId, colLS){
         var maxBalls = 0;
         if (colLS == true ){
@@ -80,6 +102,9 @@ $(document).ready(function () {
         $('.qty-input').attr('max', `${maxBalls}`);
     };
 
+    /**
+     * Returns quantity fields to generic values
+     */
     function resetQuantityField(){
         $('#quant-in').addClass('d-none');
         $('.mini-selected-swatch').attr('colour', 0);
@@ -92,6 +117,12 @@ $(document).ready(function () {
         $('.mini-selected-swatch').html('');
     };
 
+    /**
+     * Disables plus and minus quantity toggle buttons so that quantity can not go 
+     * below 1 nor above max value (determined by low_stock field)
+     * @param {*} colourId 
+     * @param {*} colLS 
+     */
     function handleEnableDisable(colourId, colLS){
         var currentvalue = parseInt($('[data-item_id ="'+colourId+'" ]').val());
         var plusLimit =0
