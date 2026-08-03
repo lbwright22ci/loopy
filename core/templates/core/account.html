@@ -129,7 +129,7 @@
                 {% if not past_orders|length == 0 %}
                 {% for order in past_orders %}
                 <div class="row ">
-                    <div class="col-12 me-4 ms-4">
+                    <div class="col-12 pe-4 ps-4">
                         <p class="mb-0 bold text-end"> #{{ order.order_num }}</p>
                         <p class="mb-0">Date: {{ order.created_on|date:'jS M y' }}</p>
                         <p class="mb-0">Total: £ {{ order.grand_total }}</p>
