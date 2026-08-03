@@ -1,8 +1,8 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404
 from django.contrib import messages
 from .models import HomePageSlides, UserProfile
-from .forms import AddressForm, DetailsForm
-from checkout.models import Order
+from .forms import AddressForm, DetailsForm, ReviewYarnForm
+from checkout.models import Order, ReviewYarns
 from product.models import Colour_var, Product
 from django.contrib.auth.decorators import login_required
 
@@ -216,3 +216,18 @@ def reorder(request):
         current_user.update(temporary_basket= str(basket_string))
 
     return redirect(reverse('view_basket'))
+
+@login_required
+def leave_review(request, order_num):
+    """
+    """
+    order = get_object_or_404(Order, order_num = order_num)
+    form = ReviewYarnForm()
+
+    context={
+        'order': order,
+        'form' : form,
+    }
+
+    template='core/submit-review.html'
+    return render(request, template, context)

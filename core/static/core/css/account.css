@@ -85,6 +85,16 @@
     cursor: pointer;
 }
 
+i.fa-solid.fa-star{
+    color:var(--background-highlight-color);
+    opacity: 100%;
+}
+
+i.fa-regular.fa-star{
+    color:var(--primary-text-color);
+    opacity: 50%;
+}
+
 /* Media queries */
 /* for sizes sm and above */
 @media screen and (min-width:350px){

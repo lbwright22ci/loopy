@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import UserProfile
+from checkout.models import ReviewYarns
 
 class DetailsForm(forms.ModelForm):
     """ Creates :form: from the :model:`core.UserProfile`
@@ -34,3 +35,17 @@ class AddressForm(forms.ModelForm):
         Adjust the widget attributes attached to default street address 1
         """
         self.fields['default_street_address1'].widget.attrs['autofocus'] = True
+
+
+class ReviewYarnForm(forms.ModelForm):
+
+    class Meta:
+        model=ReviewYarns
+        fields=['rating', 'comment',]
+
+    def __init__(self, *args, **kwargs):
+        super(ReviewYarnForm, self).__init__(*args, **kwargs)
+        """
+        Adjust the widget attributes attached to 'comment'
+        """
+        self.fields['comment'].widget = forms.Textarea(attrs={'rows':3})

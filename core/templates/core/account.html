@@ -145,7 +145,7 @@
                     </div>
                     <div class="col-12 text-end">
                         {% if order.is_shipped %}
-                        <a href="" aria-label="takes you to a page so you can leave feedback for your order"> Leave
+                        <a href="{% url 'leave_review' order.order_num %}" aria-label="takes you to a page so you can leave feedback for your order"> Leave
                             Feedback </a>
                         {% else %}
                         <a href="" aria-label="Request a refund for your order"> Cancel </a>

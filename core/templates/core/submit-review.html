@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block titlehead %} Leave a review {% endblock %}
+
+{% block headdescription %}  {% endblock %}
+
+{% block headkey %} {% endblock %}
+
+{% block extracss %}
+    
+    <link rel="stylesheet" href="{% static 'core/css/account.css' %}">
+{% endblock %}
+
+{% block extraheadjs %}
+
+{% endblock%}
+
+
+{% block page_header %}
+    <div class="top-padding">
+    </div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container p-4">
+
+    
+<div class="row pt-4 mb-4">
+            <div class="col-12 ">
+                <img src="{% static 'images/balls-in-a-line.png'%}"
+                     alt="illustration of balls of wool" class="all-products-head d-none d-sm-inline">
+
+                <h1 class="page-heading ms-2 d-inline">Order #{{ order.order_num }} </h1>
+            </div>
+            
+</div>
+
+{% if not order.is_shipped %}
+<div class="row mb-4 justify-content-center order-summary">
+   <div class="col-12 col-md-10">
+        <div class="row">
+            <div class="col-12">
+                <p> Check back soon to leave feedback when you've received your order!</p>
+            </div>
+        </div>
+    </div>  
+</div>  
+
+{% else %}
+<div class="row mb-4 justify-content-center order-summary">
+   <div class="col-12 col-md-10">
+        <div class="row">
+            <div class="col-12">
+                <p class="">We'd love to hear what you think!  Please leave us feedback for the items purchased.
+                                </p>
+                <p class="small-text">If you are unhappy with your order then do get in touch directly via
+                    {{ shop_contact.shop_email }}
+                </p>
+            </div>
+            {% for item in order.lineitems.all %}
+            <div class="col-6 col-md-3">
+                <a aria-label="Takes you to the product page for {{ item.yarn.product_id.name }}"
+                                href="{% url 'productdetail' item.yarn.product_id.slug %}">
+                                <img class="product-image-thumb" src="{{ item.yarn.product_id.image.url }}"
+                                         alt="{{  item.yarn.product_id.name }}">
+                                         </a>
+            </div>
+            <div class="col-6 col-md-3">
+                <p class="mb-0"> <span class="uppercase-text">
+                                    {{ item.yarn.product_id.brand_id.name }}
+                                        </span> {{ item.yarn.product_id.name }} </p>
+                <p class="small-text"> {{ item.yarn.colour_cat_id.colour_name }}</p>
+            </div>
+            <div class="col-12 col-md-6">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    <div class="div_id_rating" class="mb-3">
+                        <label class="form-label required">
+                        Rating<span class="asteriskField">*</span> 
+                        </label>
+                        <p><i class="fa-regular fa-star star1" value="1"></i>
+                            <i class="fa-regular fa-star star2" value="2"></i>
+                            <i class="fa-regular fa-star star3" value="3"></i>
+                            <i class="fa-regular fa-star star4" value="4"></i>
+                            <i class="fa-regular fa-star star5" value="5"></i>
+                        </p>
+                        <input name="rating" type="hidden" id="id_rating">
+                    </div>
+
+                    <div id="div_id_comment" class="mb-3"> 
+                        <label for="id_comment" class="form-label requiredField">
+                        Comment<span class="asteriskField">*</span> 
+                        </label>    
+                        <textarea name="comment" cols="40" rows="3" class="textarea form-control" required id="id_comment">
+                        </textarea> 
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-end">
+                            <input type="submit" class="btn btn-main" >
+                        </div>
+                    </div>
+                </form>
+            </div>
+              
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div> 
+    <div>
+        <div class="row mb-4">
+            <div class="col-12 text-end pb-4">
+                <a class="btn btn-second mb-4" href="{% url 'customer_account' %}" aria-label="return to my account"><i class="fa-solid fa-angles-left"></i> My account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</div>
+
+<div class="to-top">
+        <a class="d-flex h-100 to-top-link">
+            <i class="fa-solid fa-arrow-up"></i>
+        </a>
+    </div>
+{% endblock %}
+
+{% block extrapostjs %}
+    {{ block.super }}
+{% endblock %}

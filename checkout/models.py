@@ -1,12 +1,13 @@
 import uuid
 import json
 from decimal import Decimal
+from datetime import datetime
 
 from django.db import models
 from django.db.models import Sum, Q
 
 from core.models import UserProfile, SaleSettings, Announcements, Postage
-from product.models import Colour_var
+from product.models import Colour_var, Product
 
 # Create your models here.
 
@@ -37,7 +38,7 @@ class Order(models.Model):
     PCLASS = ((0, "2nd class"), (1, "1st class"))
     PSIZE = ((0, "small"), (1, "medium"))
 
-    created_on= models.DateTimeField(auto_now=True)
+    created_on= models.DateTimeField(auto_now_add=True)
     order_num = models.CharField(max_length=8, null=False, editable=False, unique=True)
     user_profile = models.ForeignKey(UserProfile, on_delete=models.SET_NULL, blank=True, null=True, related_name="orders")
     first_name= models.CharField(max_length=20, blank = False, null=False)
@@ -143,6 +144,9 @@ class Order(models.Model):
             self.order_num = self.__generate_order_num()
         super(Order, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return f'{self.order_num} created on {self.created_on.strftime("%d-%b-%y")}'
+
     class Meta:
         ordering = ['created_on',]
 
@@ -175,3 +179,13 @@ class YarnOrderLineitem(models.Model):
         self.linetotal = self.current_price * self.quantity
         self.lineweight = self.quantity * self.yarn.product_id.skein_weight
         super(YarnOrderLineitem, self).save()
+
+class ReviewYarns(models.Model):
+    """ """
+
+    order= models.ForeignKey(Order, null=True, blank = True, on_delete=models.SET_NULL, related_name = "reviews")
+    yarn = models.ForeignKey(Product, null=False, blank =False, on_delete=models.CASCADE, related_name='yarn')
+    updated_on = models.DateTimeField(auto_now = True)
+    rating = models.IntegerField(blank = False, null=False)
+    comment = models.TextField(blank=False, null=False)
+    approved = models.BooleanField(default = False)
