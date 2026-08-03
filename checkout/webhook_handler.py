@@ -16,18 +16,35 @@ import time
 import stripe
 
 class StripeWH_Handler:
-    """  """
+    """
+    Receives webhook events from `stripe` and determines the course of action.
+
+    **Methods**
+    `handle_event()`
+    `handle_payment_intent_succeeded()`
+    `handle_payment_intent_payment_failed()`
+    `_send_order_conf_email`
+    """
 
     def __init__(self, request):
         self.request = request
     
     def handle_event(self, event):
-        """ Handle generic/unknown/unexpected webhook event """
+        """ Handle all webhook events other than 'payment_intent.succeeded' 
+        and 'payment_intent.payment_failed' """
+
         return HttpResponse(
             content=f'Unhandled webhook receieved: {event['type']}',
             status=200)
 
     def _send_order_conf_email(self, order):
+        """
+        Sends email to customer on completion of an order.
+
+        **Email context**
+        `phone`
+        `order`
+        """
         phone = f'0{ShopContactInfo.objects.all()[0].shop_phone}'
         email_subject ="Your order with Loopy Yarns has been received!"
         html_message = render_to_string('checkout/email/order-received.html', 
@@ -44,7 +61,11 @@ class StripeWH_Handler:
         msg.send()
 
     def handle_payment_intent_succeeded(self, event):
-        """ Handle generic/unknown/unexpected webhook event """
+        """ 
+        Handles all instances of the webhook 'payment_intent.succeeded'
+
+        
+        """
         intent =event.data.object
         pid = intent.id
         

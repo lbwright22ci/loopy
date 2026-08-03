@@ -3,10 +3,10 @@ from . import views
 from .webhooks import webhook
 
 urlpatterns = [
+    path('cache_checkout_data/', views.cache_checkout_data, name ="cache_checkout_data"),
     path('step-one/', views.checkout_step1, name="checkout"),
     path('step-two/', views.checkout_step2, name='checkout-ship'),
     path('step-three/', views.checkout_step3, name='checkout-final'),
     path('success/<order_num>', views.checkout_success, name="checkout_success"),
     path('wh/', webhook, name="webhook"),
-    path('cache_checkout_data/', views.cache_checkout_data, name ="cache_checkout_data"),
 ]

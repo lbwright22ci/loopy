@@ -4,13 +4,21 @@ from django.contrib import messages
 from product.models import Colour_var, Product
 from core.models import UserProfile
 
-import json
 
 # Create your views here.
 
-
 def view_basket(request):
-    """ """
+    """ 
+    Displays current basket contents as well as customer favourites' list if they are logged in
+    (part of :model:`UserProfile`)
+
+    **Template** 
+    `basket/basket.html`
+
+    **Context** 
+    ``favourites_list`` - visible for authenticated users only.
+
+    """
     favourite_list=[]
 
     if request.user.is_authenticated:
@@ -37,7 +45,15 @@ def view_basket(request):
 
 
 def add_to_basket(request):
-    """ """
+    """ 
+    Adds a item to a basket saved to the current session and :model:`UserProfile` (if the user is authenticated)
+    On return, the page from which the request was made is reloaded and success message displayed to customer.
+
+    Items added to the basket are instances of :model:`product.Colour_var`. Maximum quantity of an item
+    which can be added to the basket corrected depending on whether it has `low_stock=True` property.
+
+    If the item is already in the basket then quantity is increased.
+    """
 
     quantity = int(request.POST.get('quantity'))
     col_var_id = request.POST['colour_var']
@@ -92,7 +108,14 @@ def add_to_basket(request):
     return redirect(redirect_url)
 
 def update_basket(request, item_id):
-    """ """
+    """ 
+    Increase or decrease quantity of instance of :model:`Colour_var` in session basket and 
+    :model:`UserProfile` field `temporary_basket`
+
+    Maximum quantity of an item depends on its `low_stock` property.
+
+    On return the `view_basket` view is reloaded.
+    """
     
     col_var = get_object_or_404(Colour_var, pk=item_id)
     quantity = int(request.POST.get('quantity'))
@@ -118,7 +141,11 @@ def update_basket(request, item_id):
     return redirect(reverse('view_basket'))
 
 def delete_from_basket(request, item_id):
-    """ """
+    """ 
+    Removes instance of :model:`Colour_var` from `basket` saved to session and :model:`UserProfile.temporary_basket`
+
+    returns HttpResponse 200 if successfully completed.
+    """
 
     try:
         col_var = get_object_or_404(Colour_var, pk=item_id)

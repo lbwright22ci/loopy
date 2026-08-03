@@ -15,6 +15,12 @@ import stripe
 
 @require_POST
 def cache_checkout_data(request):
+    """
+    Saves checkout data to the cache when a new instance of :model:`Order` is created by a POST request.
+
+    Adds the following fields to `metadata` field of stripe.PayemntIntent:
+    'basket', 'username', 'is_gift', 'gift_message', 'postage_class', 'parcel_size', 'save_details'
+    """
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
         stripe.api_key = settings.STRIPE_SECRET_KEY
@@ -37,7 +43,19 @@ def cache_checkout_data(request):
         return HttpResponse(content=e, status = 400)
 
 def checkout_step1(request):
-    """" """
+    """
+    First step of customer checkout flow before creating a new instance of :model:`Order`. Displays instance of 
+    :form:`ContactAndBillingForm`.
+
+    Data retrieved from POST request in this view is saved to the session.
+
+    **Template**
+    'checkout/checkout-step1.html'
+
+    **Context**
+    `form` : instance of :form:'ContactAndBillingForm'
+    `google_key` : key required for Google Maps API for autofill address facility ('static/js/address.js')
+    """
     
     basket = request.session.get('basket', ())
     if not basket:
@@ -92,7 +110,19 @@ def checkout_step1(request):
     return render(request, template, context)
 
 def checkout_step2(request):
-    """" """
+    """
+    Second step of customer checkout flow before creating a new instance of :model:`Order`. Displays instance of 
+    :form:`ShippingAddressForm`.
+    
+    Data retrieved from POST request in this view is saved to the session.
+    
+    **Template**
+    'checkout/checkout-step2.html'
+    
+    **Context**
+    'form' : instance of :form:`ShippingAddressForm`
+    'bs_same' : billing and shipping addresses are the same
+    """
     
     basket = request.session.get('basket', ())
     if not basket:
@@ -151,7 +181,62 @@ def checkout_step2(request):
     return render(request, template, context)
 
 def checkout_step3(request):
-    """" """
+    """
+    Last step of customer checkout flow to create a new instance of :model:`Order`. Displays instance of 
+    :form:`SaveDetailsForm`.
+     
+    Data retrieved from POST request in this view used to create an instance of :model:`Order`
+     
+    **Template**
+    'checkout/checkout-step3.html'
+     
+    **Context** 
+    'form': instance of :form:`SaveDetailsForm`
+    'first_name': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'second_name' : available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'full_name':available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'email': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'phone' : available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'billing_street_address1' : available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'billing_street_address2' : available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'billing_town' : available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'billing_county': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'billing_country': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'billing_postcode': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
+    'shipping_street_address1': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
+    'shipping_street_address2': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
+    'shipping_town': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'shipping_county': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
+    'shipping_country': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'shipping_postcode':available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'postage_class':available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'stripe_public_key':available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'client_secret': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'is_gift': available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    'gift_message' : available in page context so that order can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    """
     
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
@@ -310,7 +395,15 @@ def checkout_step3(request):
     return render(request, template, context)
 
 def checkout_success(request, order_num):
-    """ """
+    """
+    Displays details of a newly created instance of :model:`Order`
+
+    **Template**
+    'checkout/checkout-success.html'
+
+    **Context**
+    `order`
+    """
     order = get_object_or_404(Order, order_num = order_num)
     save_details = request.session.get('save_details')
 

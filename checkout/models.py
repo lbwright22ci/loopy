@@ -1,16 +1,38 @@
 import uuid
 import json
 from decimal import Decimal
+
 from django.db import models
 from django.db.models import Sum, Q
+
 from core.models import UserProfile, SaleSettings, Announcements, Postage
-from product.models import Colour_var, Product
+from product.models import Colour_var
 
 # Create your models here.
 
 
 class Order(models.Model):
-    """ """
+    """
+    Related to :model:`core.UserProfile` and :model:`YarnOrderLineItem`
+
+    Required fields of this model are:
+    'first_name', 'second_name', 'email', 'phone', 'billing_street_address1', 'billing_town',
+    'billing_county', 'billing_postcode', 'billing_country', 'shipping_street_address1', 'shipping_town',
+    'shipping_county', 'shipping_postcode', 'postage_class'
+
+    Fields which are not editable are:
+    'order_num', 'created_on', 'shipping_country', 'basket_contents', 'parcel_size', 'order_subtotal',
+    'order_discount', 'postage_cost', 'grand_total', 'amount_payable', 'stripe_pid'
+    
+    Other fields:
+    'billing_street_address2', 'shipping_street_address2', 'is_gift', 'gift_message', 'use_voucher',
+    'voucher_amount', 'is_shipped', 'refund_status', 
+
+    **Model methods**
+    `_generate_order_num`
+    `update_order`
+    `save`
+    """
 
     PCLASS = ((0, "2nd class"), (1, "1st class"))
     PSIZE = ((0, "small"), (1, "medium"))
@@ -51,11 +73,21 @@ class Order(models.Model):
     stripe_pid = models.CharField(max_length=254, null=False, blank=False, default="")
 
     def __generate_order_num(self):
-        """ """
+        """ 
+        Generates `order_num` using `uuid.uuid4()`
+        """
         return str(uuid.uuid4()).replace('-','')[:8]
 
     def update_order(self):
-        
+        """
+        Calculates fields `order_subtotal`, `order_discount`, `postage_cost`, 
+        `grand_total` and generates field `basket_contents`
+
+        Related to :model:`YarnOrderLineItem`, :model:`core.Announcements`,
+        :model:`core.Postage`
+
+        Function called by `signals.update_on_save()` and `signals.update_on_delete`
+        """
         ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
         self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
         
@@ -104,55 +136,9 @@ class Order(models.Model):
         self.save()
 
     def save(self, *args, **kwargs):
-        """"""
-        # if self.pk:
-        #     ball_count = self.lineitems.aggregate(Sum('quantity'))['quantity__sum'] or 0
-        #     self.order_subtotal = self.lineitems.aggregate(Sum('linetotal'))['linetotal__sum'] or 0
-
-        #     bulk_buy = Announcements.objects.filter(active=True)[0]
-            
-        #     yarn_weight = self.lineitems.aggregate(Sum('lineweight'))['lineweight__sum'] or 0
-            
-        #     if ball_count < 5:
-        #         yarn_weight = yarn_weight + 200
-        #     else:
-        #         yarn_weight = yarn_weight + 400
-            
-        #     small_ball_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
-        #     small_weight_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
-            
-
-        #     if ball_count < small_ball_limit and yarn_weight < small_weight_limit:
-        #         self.parcel_size = 0
-        #         self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
-        #     else:
-        #         self.parcel_size = 1
-        #         self.postage_cost = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=self.postage_class))[0].postage_cost
-
-        #     if bulk_buy.bulk_buy == True:
-        #         if ball_count > bulk_buy.upper_ball_num:
-        #             self.order_discount = self.order_subtotal*Decimal((bulk_buy.upper_discount)/100)
-        #         elif ball_count < bulk_buy.lower_ball_num:
-        #             self.order_discount = 0
-        #         else:
-        #             self.order_discount = self.order_subtotal*Decimal((bulk_buy.lower_discount)/100)
-        #     else:
-        #         if ball_count > bulk_buy.upper_ball_num:
-        #             self.order_discount = Postage.objects.filter(Q(parcel_size=self.parcel_size) & Q(postage_class=0))[0].postage_cost
-            
-        #     self.grand_total = self.order_subtotal - self.order_discount + self.postage_cost
-        #     if self.use_voucher:
-        #         self.amount_payable = self.grand_total - self.voucher_amount
-        #     else:
-        #         self.amount_payable = self.grand_total
-            
-        #     basket = {}
-        #     ylo = YarnOrderLineitem.objects.filter(order__pk = self.pk)
-        #     for i in range(0, ylo.all().count()):
-        #         basket[str(ylo[i].yarn.pk)]= int(ylo[i].quantity)
-
-        #     self.basket_contents = json.dumps(basket)
-
+        """
+        Adds `order_num` to an instance of the :model:`Order` on save if not already assigned
+        """
         if not self.order_num:
             self.order_num = self.__generate_order_num()
         super(Order, self).save(*args, **kwargs)
@@ -161,7 +147,14 @@ class Order(models.Model):
         ordering = ['created_on',]
 
 class YarnOrderLineitem(models.Model):
-    """"""
+    """
+    Related to :model:`Order`, :model:`product.Colour_var` and :model:`core.SaleSettings`
+
+    Fields are: 'order', 'yarn', 'quantity', 'current_price', 'linetotal', 'lineweight'
+
+    **Model methods**
+    `save`
+    """
     order= models.ForeignKey(Order, null=False, blank = False, on_delete=models.CASCADE, related_name = "lineitems")
     yarn = models.ForeignKey(Colour_var, null=True, blank = False, on_delete=models.SET_NULL, related_name = 'yarn')
     quantity = models.IntegerField(null=False, blank = False)
@@ -171,7 +164,9 @@ class YarnOrderLineitem(models.Model):
 
 
     def save(self):
-        """" """
+        """"
+        Calculates 'current_price', 'linetotal' and 'lineweight' on save
+        """
         sale_discount = SaleSettings.objects.filter(active=True)[0].sale_percent
         if self.yarn.product_id.on_promotion:
             self.current_price = Decimal(self.yarn.product_id.price*(100-sale_discount)/100)

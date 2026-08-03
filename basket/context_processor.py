@@ -1,7 +1,7 @@
 from decimal import Decimal
+
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
-from django.contrib import messages
 
 from core.models import SaleSettings, Postage, Announcements, UserProfile
 from product.models import Colour_var
@@ -9,6 +9,37 @@ from product.models import Colour_var
 import json
 
 def basket_contents(request):
+    """
+    Makes basket contents available to all templates across the site.
+
+    Dependent on :model: `core.SalesSettings` (for correcting product price if on sale),
+    :model: `core.Postage`, :model: `core.Announcements` (for calculating bulk buy discounts),
+    :model:`UserProfile` (for retriving saved basket items in someone's account when they log in),
+    :model:`Colour_var` (for product weight, price)
+
+    **Context**
+    ``basket_items``: a list of dictionaries. For each item in the list the following
+    data is available- 'item_id', 'quantity', 'col_var' and 'price'
+    (Price is adjusted depending on whether the product is on sale or not)
+    
+    ``total``: basket subtotal
+
+    ``ball_count``: total number of balls of wool in the basket
+
+    ``parcel_size``: '0' is small parcel, '1' is medium parcel (calculated on both weight and number of balls)
+
+    ``discount``: bulk buy discount according to shop settings 
+
+    ``estimated_postage``: second class postage for the basket contents based on current weight and
+    number of balls of wool (ie. parcel size)
+
+    ``grand_total``: Total payable if 2nd class postage
+
+    ``first_class``: cost of 1st class postage for the basket contents
+
+    ``grand_total_first``: Total payable if 1st class postage.
+
+    """
     basket_items=[]
     total=0
     ball_count = 0
