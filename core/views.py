@@ -1,7 +1,8 @@
-from django.shortcuts import render, reverse, redirect, get_object_or_404
+from django.shortcuts import render, reverse, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
+from django.db.models import Q
 from .models import HomePageSlides, UserProfile
-from .forms import AddressForm, DetailsForm, ReviewYarnForm
+from .forms import AddressForm, DetailsForm
 from checkout.models import Order, ReviewYarns
 from product.models import Colour_var, Product
 from django.contrib.auth.decorators import login_required
@@ -222,12 +223,41 @@ def leave_review(request, order_num):
     """
     """
     order = get_object_or_404(Order, order_num = order_num)
-    form = ReviewYarnForm()
+    # get reviews if they have already been created
+    reviews = ReviewYarns.objects.filter(order = order)
 
     context={
         'order': order,
-        'form' : form,
+        'reviews':reviews,
     }
 
     template='core/submit-review.html'
     return render(request, template, context)
+
+
+def submit_review(request, order_num):
+    """ """
+    order = get_object_or_404(Order, order_num = order_num)
+    if request.POST:
+        print(request.POST)
+        rating = request.POST.get('rating')
+        comment = request.POST.get('comment')
+        yarn = request.POST.get('yarn')
+        query = Q(order=order)& Q(yarn = yarn)
+        if not ReviewYarns.objects.filter(query):    
+            new_review = ReviewYarns(
+                order = order,
+                yarn = Colour_var.objects.get(id = (yarn)),
+                rating = rating,
+                comment = comment,
+            )
+            new_review.save()
+            messages.add_message(request, messages.SUCCESS, f'Thankyou for your review!')
+            return redirect(reverse('leave_review', kwargs={'order_num':order_num}))
+        else:
+            existing_review = ReviewYarns.objects.get(query)
+            existing_review.rating= rating
+            existing_review.comment = comment
+            existing_review.save()
+            messages.add_message(request, messages.SUCCESS, f'Updated your review!')
+            return redirect(reverse('leave_review', kwargs={'order_num':order_num}))

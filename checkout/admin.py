@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, YarnOrderLineitem
+from .models import Order, YarnOrderLineitem, ReviewYarns
 # Register your models here.
 
 class YarnOrderLineItemAdmin(admin.TabularInline):
@@ -13,3 +13,5 @@ class OrderAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Order, OrderAdmin)
+
+admin.site.register(ReviewYarns)

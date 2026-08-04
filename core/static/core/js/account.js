@@ -9,8 +9,6 @@ $(document).ready(function () {
             .done(function() {
                 location.reload();
             });
-    })
+    }) 
 
-    $(.)
-    
 })

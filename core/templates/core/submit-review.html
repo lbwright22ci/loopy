@@ -60,7 +60,12 @@
                 <p class="small-text">If you are unhappy with your order then do get in touch directly via
                     {{ shop_contact.shop_email }}
                 </p>
+                {% for r in reviews %}
+                {{ r.yarn }}
+                {{ r.comment }}
+                {% endfor %}
             </div>
+
             {% for item in order.lineitems.all %}
             <div class="col-6 col-md-3">
                 <a aria-label="Takes you to the product page for {{ item.yarn.product_id.name }}"
@@ -76,31 +81,47 @@
                 <p class="small-text"> {{ item.yarn.colour_cat_id.colour_name }}</p>
             </div>
             <div class="col-12 col-md-6">
-                <form action="" method="POST">
+                <form action="{% url 'submit_review' order.order_num %}" method="POST" class="feedback-form">
                     {% csrf_token %}
                     <div class="div_id_rating" class="mb-3">
-                        <label class="form-label required">
+                        <label class="form-label required" for="rating-{{ item.yarn.pk }}">
                         Rating<span class="asteriskField">*</span> 
                         </label>
-                        <p><i class="fa-regular fa-star star1" value="1"></i>
-                            <i class="fa-regular fa-star star2" value="2"></i>
-                            <i class="fa-regular fa-star star3" value="3"></i>
-                            <i class="fa-regular fa-star star4" value="4"></i>
-                            <i class="fa-regular fa-star star5" value="5"></i>
-                        </p>
-                        <input name="rating" type="hidden" id="id_rating">
+                        <!-- <p><i class="fa-regular fa-star star1" ></i>
+                            <i class="fa-regular fa-star star2" ></i>
+                            <i class="fa-regular fa-star star3" ></i>
+                            <i class="fa-regular fa-star star4" ></i>
+                            <i class="fa-regular fa-star star5" ></i>
+                        </p> -->
+                        <input name="rating" type="number" class="form-control" 
+                        min="1" max="5" step="1" id="rating-{{ item.yarn.pk }}"
+                        {% for r in reviews %}
+                        {% if r.yarn == item.yarn %}
+                        value="{{ r.rating }}"
+                        {% endif %}
+                        {% endfor %}>
                     </div>
 
                     <div id="div_id_comment" class="mb-3"> 
-                        <label for="id_comment" class="form-label requiredField">
+                        <label for="comment-{{ item.yarn.pk }}" class="form-label requiredField">
                         Comment<span class="asteriskField">*</span> 
-                        </label>    
-                        <textarea name="comment" cols="40" rows="3" class="textarea form-control" required id="id_comment">
-                        </textarea> 
+                        </label>
+                           
+                        <textarea name="comment" cols="40" rows="3" 
+                        class="textarea form-control cc" required 
+                        id="comment-{{ item.yarn.pk }}" >
+                        {% for r in reviews %}
+                        {% if r.yarn == item.yarn %} 
+                        {{ r.comment }}
+                        {% endif %}
+                        {% endfor %}
+                        </textarea>
+                        
                     </div>
                     <div class="row">
                         <div class="col-12 text-end">
-                            <input type="submit" class="btn btn-main" >
+                            <input type="hidden" value="{{ item.yarn.pk }}" name="yarn">
+                            <a class="btn btn-main feedback" role="button"> Submit </a>
                         </div>
                     </div>
                 </form>
@@ -135,4 +156,6 @@
 
 {% block extrapostjs %}
     {{ block.super }}
+
+    <script type="text/javascript" src="{% static 'core/js/leave-reviews.js' %}"></script>
 {% endblock %}

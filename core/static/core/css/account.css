@@ -85,14 +85,17 @@
     cursor: pointer;
 }
 
+
 i.fa-solid.fa-star{
     color:var(--background-highlight-color);
     opacity: 100%;
+    cursor: pointer;
 }
 
 i.fa-regular.fa-star{
     color:var(--primary-text-color);
     opacity: 50%;
+    cursor: pointer;
 }
 
 /* Media queries */
