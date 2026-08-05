@@ -268,7 +268,65 @@
                         <div class="row mb-4 mt-4 justify-content-center">
                                 <div class="col-12 col-lg-10">
                                         <div class="row">
-                                                Add reviews here
+                                                {% for r in reviews %}
+                                                <div class="col-12">
+                                                {% if r.rating == 1 %}
+                                                <p><i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            </p>
+                            {% elif r.rating == 2 %}
+                            <p><i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            </p>
+                            {% elif r.rating == 3 %}
+                            <p><i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            </p>
+                            {% elif r.rating == 4 %}
+                            <p><i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-regular fa-star"></i>
+                            </p>
+                            {% elif r.rating == 5 %}
+                            <p><i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            </p>
+                            {% endif %}
+                            <p class="quote"> "{{ r.comment }}"</p>
+                            <p class="small-text"> Shade: {{ r.yarn.colour_cat_id.colour_name }}
+                                                ({{ r.yarn.shade_code }})</p>
+                        <p class="small-text text-end"> {{ r.updated_on }} </p>
+                                                
+                                                
+                                                
+                                                <div class="row justify-content-center align-items-center">
+                <div class="col-4">
+                    <hr class="divider-dec">
+                </div>
+                <div class="col-2 text-center">
+                    <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
+                        class="divide-image">
+                </div>
+                <div class="col-4">
+                    <hr class="divider-dec">
+                </div>
+            </div>
+                                                </div>
+                                                {% endfor %}
                                         </div>
                                 </div>
                         </div>

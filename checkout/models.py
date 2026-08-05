@@ -185,7 +185,7 @@ class ReviewYarns(models.Model):
 
     order= models.ForeignKey(Order, null=True, blank = True, on_delete=models.SET_NULL, related_name = "reviews")
     yarn = models.ForeignKey(Colour_var, null=False, blank =False, on_delete=models.CASCADE, related_name='line_item')
-    updated_on = models.DateTimeField(auto_now = True)
     rating = models.IntegerField(blank = False, null=False)
     comment = models.TextField(blank=False, null=False)
+    updated_on = models.DateTimeField(auto_now = True)
     approved = models.BooleanField(default = False)

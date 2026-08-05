@@ -7,6 +7,7 @@ from django.db.models.functions import Lower
 
 from .models import Product
 from core.models import SaleSettings, UserProfile
+from checkout.models import ReviewYarns
 
 # Create your views here.
 
@@ -170,7 +171,7 @@ def ProductDetail(request, slug):
     'prod' : instance of :model:`Product`
     'colour_options' : instances of :model:`Colour_var` related to selected :model:`Product`
     'no_colours'
-    'recommend'
+    'recommend' : different yarns with the same thickness as the one detailed.
     'favourite' : related to instance of :model:`UserProfile` field `wish_list`
     """
     queryset = Product.objects.filter(visible=True)
@@ -178,6 +179,7 @@ def ProductDetail(request, slug):
     colour_options = prod.product.filter(in_stock=True).order_by('shade_code')
     no_colours= colour_options.count()
     recommend = Product.objects.filter(thickness_id = prod.thickness_id).order_by('price')[0:3]
+    reviews = ReviewYarns.objects.filter(yarn__product_id = prod).order_by('-updated_on')
 
     favourite = False 
 
@@ -200,6 +202,7 @@ def ProductDetail(request, slug):
         'no_colours':no_colours,
         'recommend': recommend,
         'favourite':favourite,
+        'reviews':reviews,
     }
 
     return render(request, template, context)

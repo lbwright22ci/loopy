@@ -267,6 +267,7 @@ def submit_review(request, order_num):
                     existing_review = ReviewYarns.objects.get(query)
                     existing_review.rating= rating
                     existing_review.comment = comment
+                    existing_review.approved = False
                     existing_review.save()
                     messages.add_message(request, messages.SUCCESS, f'Thank you for updating your review!')
                     return HttpResponse(status=200)
