@@ -239,25 +239,37 @@ def submit_review(request, order_num):
     """ """
     order = get_object_or_404(Order, order_num = order_num)
     if request.POST:
-        print(request.POST)
-        rating = request.POST.get('rating')
-        comment = request.POST.get('comment')
-        yarn = request.POST.get('yarn')
-        query = Q(order=order)& Q(yarn = yarn)
-        if not ReviewYarns.objects.filter(query):    
-            new_review = ReviewYarns(
-                order = order,
-                yarn = Colour_var.objects.get(id = (yarn)),
-                rating = rating,
-                comment = comment,
-            )
-            new_review.save()
-            messages.add_message(request, messages.SUCCESS, f'Thankyou for your review!')
-            return redirect(reverse('leave_review', kwargs={'order_num':order_num}))
-        else:
-            existing_review = ReviewYarns.objects.get(query)
-            existing_review.rating= rating
-            existing_review.comment = comment
-            existing_review.save()
-            messages.add_message(request, messages.SUCCESS, f'Updated your review!')
+        try:
+            rating = request.POST.get('rating')
+            comment = request.POST.get('comment')
+            yarn = request.POST.get('yarn')
+            query = Q(order=order)& Q(yarn = yarn)
+
+            if not rating:
+                messages.add_message(request, messages.ERROR, f'You need to submit a star rating')
+                return HttpResponse(status=200)
+                
+            if not comment:
+                messages.add_message(request, messages.ERROR, f'You need to submit a comment')
+                return HttpResponse(status=200)
+            if rating and comment:
+                if not ReviewYarns.objects.filter(query):    
+                    new_review = ReviewYarns(
+                        order = order,
+                        yarn = Colour_var.objects.get(id = (yarn)),
+                        rating = rating,
+                        comment = comment,
+                    )
+                    new_review.save()
+                    messages.add_message(request, messages.SUCCESS, f'Thankyou for your review!')
+                    return HttpResponse(status=200)
+                else:
+                    existing_review = ReviewYarns.objects.get(query)
+                    existing_review.rating= rating
+                    existing_review.comment = comment
+                    existing_review.save()
+                    messages.add_message(request, messages.SUCCESS, f'Thank you for updating your review!')
+                    return HttpResponse(status=200)
+        except Exception as e:
+            messages.add_message(request, messages.ERROR, f'Unable to submit or update your review due to error {e}')
             return redirect(reverse('leave_review', kwargs={'order_num':order_num}))

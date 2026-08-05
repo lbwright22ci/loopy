@@ -51,10 +51,10 @@
 </div>  
 
 {% else %}
-<div class="row mb-4 justify-content-center order-summary">
+<div class="row mb-4 justify-content-center">
    <div class="col-12 col-md-10">
         <div class="row">
-            <div class="col-12">
+            <div class="col-12 pb-4">
                 <p class="">We'd love to hear what you think!  Please leave us feedback for the items purchased.
                                 </p>
                 <p class="small-text">If you are unhappy with your order then do get in touch directly via
@@ -63,10 +63,11 @@
             </div>
 
             {% for item in order.lineitems.all %}
+            <div class="row">
             <div class="col-6 col-md-3">
                 <a aria-label="Takes you to the product page for {{ item.yarn.product_id.name }}"
                                 href="{% url 'productdetail' item.yarn.product_id.slug %}">
-                                <img class="product-image-thumb" src="{{ item.yarn.product_id.image.url }}"
+                                <img class="product-image-thumb-review" src="{{ item.yarn.product_id.image.url }}"
                                          alt="{{  item.yarn.product_id.name }}">
                                          </a>
             </div>
@@ -76,26 +77,26 @@
                                         </span> {{ item.yarn.product_id.name }} </p>
                 <p class="small-text"> {{ item.yarn.colour_cat_id.colour_name }}</p>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-6 pt-4 pt-md-0">
                 <form action="{% url 'submit_review' order.order_num %}" method="POST" class="feedback-form">
                     {% csrf_token %}
                     <div class="div_id_rating" class="mb-3">
-                        <label class="form-label required" for="rating-{{ item.yarn.pk }}">
+                        <label class="form-label required">
                         Rating<span class="asteriskField">*</span> 
                         </label>
-                        <p><i class="{{ item.yarn.pk }} fa-regular fa-star 1" ></i>
-                            <i class="{{ item.yarn.pk }} fa-regular fa-star 2" ></i>
-                            <i class="{{ item.yarn.pk }} fa-regular fa-star 3" ></i>
-                            <i class="{{ item.yarn.pk }} fa-regular fa-star 4" ></i>
-                            <i class="{{ item.yarn.pk }} fa-regular fa-star 5" ></i>
-                        </p>
-                        <!-- <input name="rating" type="range" class="form-range " 
-                        min="1" max="5" step="1" id="rating-{{ item.yarn.pk }}"
-                        {% for r in reviews %}
+                        <p><i class="fa-regular fa-star 1" data-yarn="{{ item.yarn.pk }}"></i>
+                            <i class="fa-regular fa-star 2" data-yarn="{{ item.yarn.pk }}"></i>
+                            <i class="fa-regular fa-star 3" data-yarn="{{ item.yarn.pk }}"></i>
+                            <i class="fa-regular fa-star 4" data-yarn="{{ item.yarn.pk }}"></i>
+                            <i class="fa-regular fa-star 5" data-yarn="{{ item.yarn.pk }}"></i>
+                        
+                        <span type="number" id="rating-{{ item.yarn.pk }}" class="d-none" name="rating" data-yarn="{{ item.yarn.pk }}"> {% for r in reviews %}
                         {% if r.yarn == item.yarn %}
-                        value="{{ r.rating }}"
+                        {{ r.rating }}
                         {% endif %}
-                        {% endfor %}> -->
+                        {% endfor %}
+                        </span></p>
+                        
                     </div>
 
                     <div id="div_id_comment" class="mb-3"> 
@@ -105,7 +106,7 @@
                            
                         <textarea name="comment" cols="40" rows="3" 
                         class="textarea form-control cc" required 
-                        id="comment-{{ item.yarn.pk }}" >
+                        id="comment-{{ item.yarn.pk }}" data-yarn="{{ item.yarn.pk }}">
                         {% for r in reviews %}
                         {% if r.yarn == item.yarn %} 
                         {{ r.comment }}
@@ -115,15 +116,30 @@
                         
                     </div>
                     <div class="row">
-                        <div class="col-12 text-end">
-                            <input type="hidden" value="" name="rating">
+                        <div class="col-8 ">
+                            <p data-yarn="{{ item.yarn.pk }}" class="red bold small-text"></p>
+                            </div>
+                            <div class="col-4 text-end">
                             <input type="hidden" value="{{ item.yarn.pk }}" name="yarn">
-                            <a class="btn btn-main feedback" role="button"> Submit </a>
+                            <a class="btn btn-main feedback" role="button" data-order="{{ order.order_num }}"
+                            data-csrf="{{ csrf_token }}" data-yarn="{{ item.yarn.pk }}"> Submit </a>
                         </div>
                     </div>
                 </form>
             </div>
-              
+              </div>
+              <div class="row justify-content-center align-items-center">
+                <div class="col-4">
+                    <hr class="divider-dec">
+                </div>
+                <div class="col-2 text-center">
+                    <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
+                        class="divide-image">
+                </div>
+                <div class="col-4">
+                    <hr class="divider-dec">
+                </div>
+            </div>
             {% endfor %}
         </div>
     </div>
