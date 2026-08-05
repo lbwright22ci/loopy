@@ -104,6 +104,17 @@ i.fa-regular.fa-star{
     font-size: 2.4rem;
 }
 
+.refund_link{
+    color:var(--hyperlink-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.refund_link:hover{
+    color:var(--hyperlink-hover-color);
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 /* Media queries */
 /* for sizes sm and above */

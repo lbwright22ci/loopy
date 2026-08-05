@@ -1,11 +1,14 @@
+from decimal import Decimal
+
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.conf import settings
 from django.contrib import messages
-from decimal import Decimal
+
+from django.contrib.auth.decorators import login_required
 from .forms import ContactAndBillingForm, ShippingAddressForm, SaveDetailsForm
-from .models import Order, YarnOrderLineitem
+from .models import Order, YarnOrderLineitem, Refund
 from core.models import UserProfile, SaleSettings
 from product.models import Colour_var
 from basket.context_processor import basket_contents
@@ -440,3 +443,42 @@ def checkout_success(request, order_num):
     template= 'checkout/checkout-success.html'
 
     return render(request, template, context)
+
+@login_required
+def Cancel_order(request, order_num):
+    """ """
+
+    order = get_object_or_404(Order, order_num = order_num)
+    stripe_public_key = settings.STRIPE_PUBLIC_KEY
+    stripe_secret_key = settings.STRIPE_SECRET_KEY
+
+    if request.POST:
+        amount= Decimal(request.POST.get('amount'))
+        print(amount, type(amount))
+        reason = request.POST.get('reason')
+        order_pid = request.POST.get('stripe_pid')
+
+        stripe.api_key = stripe_secret_key
+        refund = stripe.Refund.create(
+            payment_intent = order_pid,
+            amount = round(amount*100),
+            reason= 'requested_by_customer',
+            )
+        
+        refund_pid = refund.id
+        new_refund = Refund(
+            order = order,
+            reason = reason,
+            amount = amount,
+            refund_id = refund_pid,
+        )
+        new_refund.save()
+        order.refund_status = True
+        order.save()
+
+        messages.add_message(request, messages.SUCCESS, f'We are sorry that you changed your mind \
+                             about this order.  A refund has been issued and the money will be \
+                             returned to your payment card soon.')
+
+        return HttpResponse(status=200)
+    

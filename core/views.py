@@ -1,11 +1,12 @@
 from django.shortcuts import render, reverse, redirect, get_object_or_404, HttpResponse
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import HomePageSlides, UserProfile
 from .forms import AddressForm, DetailsForm
 from checkout.models import Order, ReviewYarns
 from product.models import Colour_var, Product
-from django.contrib.auth.decorators import login_required
+
 
 # Create your views here.
 

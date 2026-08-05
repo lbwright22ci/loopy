@@ -136,7 +136,7 @@
                         <p class="">Status: <span class="bold">
                                 {% if order.is_shipped %}
                                 <span class="green">Shipped!</span>
-                                {% elif order.is_refunded %}
+                                {% elif order.refund_status %}
                                 <span class="red">Refunded</span>
                                 {% else %}
                                 In progress
@@ -147,8 +147,10 @@
                         {% if order.is_shipped %}
                         <a href="{% url 'leave_review' order.order_num %}" aria-label="takes you to a page so you can leave feedback for your order"> Leave
                             Feedback </a>
-                        {% else %}
-                        <a href="" aria-label="Request a refund for your order"> Cancel </a>
+                        {% elif not order.refund_status %}
+                        <p class="refund_link" data-csrf="{{ csrf_token }}" data-order_num="{{ order.order_num }}"
+                        data-pid="{{ order.stripe_pid }}" data-total="{{ order.grand_total }}" 
+                        aria-label="Request a refund for your order"> Cancel </a>
                         {% endif %}
                         <a href="{% url 'past_order' order.order_num %}"
                             aria-label="takes you to a page to view the order and reorder items"

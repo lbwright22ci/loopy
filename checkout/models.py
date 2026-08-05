@@ -181,7 +181,11 @@ class YarnOrderLineitem(models.Model):
         super(YarnOrderLineitem, self).save()
 
 class ReviewYarns(models.Model):
-    """ """
+    """
+    Related to :model:`Order` and :model:`product.Colour_var`
+
+    Fields include are: 'order', 'yarn', 'rating', 'comment', 'updated_on', 'approved'
+    """
 
     order= models.ForeignKey(Order, null=True, blank = True, on_delete=models.SET_NULL, related_name = "reviews")
     yarn = models.ForeignKey(Colour_var, null=False, blank =False, on_delete=models.CASCADE, related_name='line_item')
@@ -189,3 +193,27 @@ class ReviewYarns(models.Model):
     comment = models.TextField(blank=False, null=False)
     updated_on = models.DateTimeField(auto_now = True)
     approved = models.BooleanField(default = False)
+
+    class Meta:
+        ordering=['-updated_on',]
+        verbose_name = 'reviews'
+        verbose_name_plural = 'reviews'
+
+    def __str__(self):
+        return f'{self.rating} star review for {self.yarn.product_id.name } {self.yarn.colour_cat_id.colour_name}\
+        left on {self.updated_on.strftime("%d-%b-%y")}'
+
+class Refund(models.Model):
+    """ 
+    """
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, blank = False, null=False, related_name='refunded_order')
+    created_on = models.DateTimeField(auto_now_add = True)
+    reason = models.CharField(max_length=500, blank = False, null=False)
+    amount = models.DecimalField(max_digits=5, decimal_places=2, blank = True, default=0)
+    refund_id= models.CharField(max_length=500, blank = False, null=False)
+
+class Shipped(models.Model):
+    """ """
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, blank = False, null=False, related_name='shipped')
+    dispatched_on = models.DateTimeField(auto_now_add = True)
+    tracking_num = models.CharField(blank=True, null=True, max_length=500)

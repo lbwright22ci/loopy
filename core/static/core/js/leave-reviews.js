@@ -95,6 +95,5 @@ $(document).ready(function () {
         $.post(url, data).done(function() {
                 location.reload();
             });
-        //form.submit();
 }});
 });

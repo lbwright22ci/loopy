@@ -42,7 +42,7 @@
                 <p class="">Status: <span class="bold">
                                     {% if order.is_shipped %}
                                     <span class="green">Shipped!</span>
-                                    {% elif order.is_refunded %}
+                                    {% elif order.refund_status %}
                                     <span class="red">Refunded</span>
                                     {% else %}
                                     In progress

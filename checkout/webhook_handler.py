@@ -218,3 +218,13 @@ class StripeWH_Handler:
         return HttpResponse(
             content=f'Webhook receieved: {event['type']}',
             status=200)
+
+    def handle_refund_updated(self, event):
+        """
+        """
+        intent =event.data.object
+        refund_pid = intent.id
+
+        return HttpResponse(
+            content = f'Webhook received: {event['type']}', status=200
+        )
