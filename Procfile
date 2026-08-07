@@ -1,1 +1,1 @@
-web: gunicorn loopy.wsgi
+web: gunicorn loopy.wsgi:application
