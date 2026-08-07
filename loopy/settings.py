@@ -194,10 +194,10 @@ if "USE_AWS" in os.environ:
 
     STORAGES ={
             'default':{
-                'BACKEND': 'custom_storage.MediaStorage',
+                'BACKEND': 'loopy.custom_storage.MediaStorage',
                 },
             'staticfiles':{
-                'BACKEND': 'custom_storage.StaticStorage',
+                'BACKEND': 'loopy.custom_storage.StaticStorage',
                 },
             }
     # Cache static files
@@ -205,9 +205,6 @@ if "USE_AWS" in os.environ:
         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
         'CacheControl': 'max-age=94000000',
     }
-    
-    
-
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
