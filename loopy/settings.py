@@ -39,7 +39,7 @@ else:
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '.herokuapp.com',
+    'loopy-71068af4c6d0.herokuapp.com',
 ]
 
 
