@@ -44,7 +44,7 @@ class Order(models.Model):
     first_name= models.CharField(max_length=20, blank = False, null=False)
     second_name= models.CharField(max_length=20, blank = False, null=False)
     email = models.EmailField(blank=False, null=False)
-    phone = models.IntegerField(null=False, blank=False)
+    phone = models.BigIntegerField(null=False, blank=False)
     billing_street_address1 = models.CharField(max_length=80, null=False, blank=False, verbose_name='Street Address 1', help_text="Orders can only be shipped to UK addresses")
     billing_street_address2 = models.CharField(max_length=80, null=True, blank=True, verbose_name='Street Address 2')
     billing_town = models.CharField(max_length=50, null=False, blank=False, verbose_name="Town or City")

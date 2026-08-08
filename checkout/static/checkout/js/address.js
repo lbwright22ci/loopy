@@ -71,7 +71,7 @@ async function fillInAddress(placePrediction) {
         }
 
         if (component.types.includes('country')) {
-            document.querySelector('#id_billing_country').value = component.longText;
+            document.querySelector('#id_billing_country').value = component.shortText;
         }
     }
 

@@ -118,7 +118,7 @@ class ShopContactInfo(models.Model):
     `shop postcode`, `updated on`
     """
     shop_email = models.EmailField(blank = True) 
-    shop_phone = models.IntegerField(blank = True ) 
+    shop_phone = models.BigIntegerField(blank = True ) 
     shop_street_address1 = models.CharField(max_length = 80, blank = True )
     shop_street_address2 = models.CharField(max_length = 80, blank = True  )
     shop_town = models.CharField(max_length = 50, blank = True )
