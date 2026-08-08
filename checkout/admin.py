@@ -10,7 +10,7 @@ class RefundAdmin(admin.TabularInline):
     model= Refund
 
 class OrderAdmin(admin.ModelAdmin):
-    inlines = (YarnOrderLineItemAdmin, RefundAdmin)
+    inlines = (RefundAdmin,)
     readonly_fields=['order_subtotal', 'grand_total', 'order_discount', 'postage_cost', 'parcel_size', 'order_num',
                      'amount_payable',]
 

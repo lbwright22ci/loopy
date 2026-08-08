@@ -2,6 +2,8 @@ from django.shortcuts import render, reverse, redirect, get_object_or_404, HttpR
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
+from django.contrib.auth.models import User
+
 from .models import HomePageSlides, UserProfile
 from .forms import AddressForm, DetailsForm
 from checkout.models import Order, ReviewYarns
@@ -96,14 +98,17 @@ def update_details(request):
     Updates 'first_name', 'second_name' and 'default_phone' fields of instance of :model:`UserProfile`
     """
     current_user = UserProfile.objects.get(user__id= request.user.id)
+    user = User.objects.get(id = request.user.id )
     try:
         if request.POST:
             details_form = DetailsForm(data=request.POST)
+            
             if details_form.is_valid():
-                current_user.user.first_name = request.POST.get('first_name')
-                current_user.user.last_name = request.POST.get('last_name')
+                user.first_name = request.POST.get('first_name')
+                user.last_name = request.POST.get('last_name')
                 current_user.default_phone = request.POST.get('Phone')
                 current_user.save()
+                user.save()
 
                 messages.add_message(request, messages.SUCCESS, f'Your account details have been updated!')
     except Exception as e:

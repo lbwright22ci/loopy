@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
@@ -412,6 +413,7 @@ def checkout_success(request, order_num):
 
     if request.user.is_authenticated:
         user_profile = get_object_or_404(UserProfile, user = request.user)
+        user = get_object_or_404(User, id = request.user.id)
         order.user_profile = user_profile
         order.save()
         if save_details:
@@ -421,10 +423,11 @@ def checkout_success(request, order_num):
             user_profile.default_town = order.billing_town
             user_profile.default_county = order.billing_county
             user_profile.default_country = order.billing_country
-            user_profile.user.first_name = order.first_name
-            user_profile.user.last_name = order.second_name
+            user.first_name = order.first_name
+            user.last_name = order.second_name
             user_profile.default_postcode = order.billing_postcode
             user_profile.save()
+            user.save()
 
     messages.add_message(request, messages.SUCCESS, f'Your order ({order.order_num}) has been placed!\
                          A confirmation email will be sent to {order.email}. Please check your spam\

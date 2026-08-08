@@ -14,7 +14,7 @@ class UserProfile(models.Model):
 
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    default_phone = models.CharField(max_length=20, null=True, blank=True, verbose_name="Phone")
+    default_phone = models.BigIntegerField( null=True, blank=True, verbose_name="Phone")
     default_street_address1 = models.CharField(max_length=80, null=True, blank=True, verbose_name='Street Address 1')
     default_street_address2 = models.CharField(max_length=80, null=True, blank=True, verbose_name='Street Address 2')
     default_town = models.CharField(max_length=50, null=True, blank=True, verbose_name='Town or City')

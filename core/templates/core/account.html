@@ -148,9 +148,9 @@
                         <a href="{% url 'leave_review' order.order_num %}" aria-label="takes you to a page so you can leave feedback for your order"> Leave
                             Feedback </a>
                         {% elif not order.refund_status %}
-                        <p class="refund_link" data-csrf="{{ csrf_token }}" data-order_num="{{ order.order_num }}"
+                        <span class="refund_link" data-csrf="{{ csrf_token }}" data-order_num="{{ order.order_num }}"
                         data-pid="{{ order.stripe_pid }}" data-total="{{ order.grand_total }}" 
-                        aria-label="Request a refund for your order"> Cancel </a>
+                        aria-label="Request a refund for your order"> Cancel </span>
                         {% endif %}
                         <a href="{% url 'past_order' order.order_num %}"
                             aria-label="takes you to a page to view the order and reorder items"

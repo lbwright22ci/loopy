@@ -2,6 +2,7 @@ from decimal import Decimal
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from .models import Order, YarnOrderLineitem
 from product.models import Colour_var
@@ -111,6 +112,7 @@ class StripeWH_Handler:
         username = None
         if userid != "AnonymousUser":
             username = UserProfile.objects.get(user = userid)
+            user = User.objects.get(id=userid)
             if save_details:
                 username.default_phone = billing_details.phone
                 username.default_street_address1 = billing_details.address.line1
@@ -118,10 +120,11 @@ class StripeWH_Handler:
                 username.default_town = billing_details.address.city
                 username.default_county = billing_details.address.state
                 username.default_country = shipping_details.address.country
-                username.user.first_name = billing_details.name.split()[0]
-                username.user.last_name = billing_details.name.split()[1]
+                user.first_name = billing_details.name.split()[0]
+                user.last_name = billing_details.name.split()[1]
                 username.default_postcode = shipping_details.address.postal_code
                 username.save()
+                user.save()
         
         order_exists = False
         attempt = 1
