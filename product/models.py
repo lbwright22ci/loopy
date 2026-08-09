@@ -113,5 +113,5 @@ class Colour_var(models.Model):
     in_stock = models.BooleanField(default = True)
 
     def __str__(self):
-        return f'{self.product_id.name} colour option {self.colour_cat_id.colour_name}' 
+        return f'{self.product_id.name} colour option {self.colour_cat_id}' 
 
