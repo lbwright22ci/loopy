@@ -176,36 +176,38 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 MEDIA_URL = '/media/'
 MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
 
-# if "USE_AWS" in os.environ:
+if "USE_AWS" in os.environ:
     
-#     AWS_ACCESS_KEY_ID= os.environ.get('AWS_ACCESS_KEY_ID')
-#     AWS_SECRET_ACCESS_KEY= os.environ.get('AWS_SECRET_ACCESS_KEY')
-#     AWS_S3_REGION_NAME ="us-east-1"
-#     AWS_STORAGE_BUCKET_NAME="loopy-yarns-uk"
-#     AWS_S3_FILE_OVERWRITE = False
-#     AWS_DEFAULT_ACL= None
-#     AWS_QUERYSTRING_AUTH = False
-#     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_REGION_NAME = "us-east-1"
+    AWS_STORAGE_BUCKET_NAME = "loopy-yarns-uk"
+    AWS_S3_FILE_OVERWRITE = False
 
-#     STATICFILES_LOCATION = 'static'
-#     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+    AWS_DEFAULT_ACL = 'public-read'
 
-#     MEDIAFILES_LOCATION = 'media'
-#     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+    AWS_QUERYSTRING_AUTH = True
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
 
-#     STORAGES ={
-#             'default':{
-#                 'BACKEND': 'loopy.custom_storage.MediaStorage',
-#                 },
-#             'staticfiles':{
-#                 'BACKEND': 'loopy.custom_storage.StaticStorage',
-#                 },
-#             }
-#     # Cache static files
-#     AWS_S3_OBJECT_PARAMETERS ={
-#         'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
-#         'CacheControl': 'max-age=94000000',
-#     }
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+
+    STATICFILES_LOCATION = 'static'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+
+    MEDIAFILES_LOCATION = 'media'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+
+    STORAGES = {
+        'default': {
+            'BACKEND': 'loopy.custom_storage.MediaStorage',
+        },
+        'staticfiles': {
+            'BACKEND': 'loopy.custom_storage.StaticStorage',
+        },
+    }
+
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
