@@ -208,7 +208,7 @@ if "USE_AWS" in os.environ:
         },
     }
 
-    STATIC_ROOT = [os.path.join(BASE_DIR, 'staticfiles'),]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
