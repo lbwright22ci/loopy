@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- created with aid of html.onlineviewer.net  -->
+</head>
+
+<body style="background-color: #fff; margin: 16px; padding: 16px;">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+        <tr>
+            <td colspan=2>
+                <p
+                    style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    Hi {{ refund.order.first_name }}! </p>
+                {% if reason_int == 1 %}
+                    <p
+                    style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    Sorry to hear that you have changed your mind about order #{{ refund.order.order_num }}<br>
+                </p>
+                {% else %}
+                <p
+                    style="font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    We are sorry to hear that you are disappointed with order #{{ refund.order.order_num }}<br>
+                </p>
+                {% endif %}
+                <p
+                    style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06; padding-bottom: 16px;">
+                    £ {{ refund.amount }} has been returned to your payment card. </p>
+                <p
+                    style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06; padding-bottom: 16px;">
+                    Thank you for supporting our small business. We hope to see you again soon. </p>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan=2>
+                <p style=" font-family: 'Montserrat ' , sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom:
+                                8px; color: #2c0f06; padding-top: 16px;">Kind regards</p>
+
+                <p
+                    style="font-family: 'Montserrat ', sans-serif; font-size: 16px; font-weight: normal; margin: 0; margin-bottom: 8px; color: #2c0f06;">
+                    Loopy Yarns UK </p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2 align="center">
+                <img src="https://loopy-yarns-uk.s3.us-east-1.amazonaws.com/static/images/cropped-logo.png"
+                    alt="Loopy yarns logo" width="300" height="111.5">
+            </td>
+        </tr>
+    </table>
+
+</body>
+
+</html>

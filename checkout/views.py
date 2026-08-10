@@ -457,7 +457,7 @@ def Cancel_order(request, order_num):
 
     if request.POST:
         amount= Decimal(request.POST.get('amount'))
-        print(amount, type(amount))
+        
         reason = request.POST.get('reason')
         order_pid = request.POST.get('stripe_pid')
 

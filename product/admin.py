@@ -11,4 +11,6 @@ class ProductAdmin(admin.ModelAdmin):
     inlines = (ColourVarAdmin,)
 
 
+
+
 admin.site.register(Product, ProductAdmin)

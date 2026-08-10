@@ -204,7 +204,10 @@ class ReviewYarns(models.Model):
         left on {self.updated_on.strftime("%d-%b-%y")}'
 
 class Refund(models.Model):
-    """ 
+    """
+    Related to :model:`Order`
+
+    Fields are: `order`, `created_on`, `reason`, `amount`, `refund_id`
     """
     order = models.OneToOneField(Order, on_delete=models.CASCADE, blank = False, null=False, related_name='refunded_order')
     created_on = models.DateTimeField(auto_now_add = True)

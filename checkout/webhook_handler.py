@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.conf import settings
 from django.contrib.auth.models import User
 
-from .models import Order, YarnOrderLineitem
+from .models import Order, YarnOrderLineitem, Refund
 from product.models import Colour_var
 from core.models import UserProfile, ShopContactInfo
 
@@ -58,6 +58,32 @@ class StripeWH_Handler:
             plain_message,
             settings.DEFAULT_FROM_EMAIL,
             [ order.email ],)
+        msg.attach_alternative(html_message, "text/html")
+        msg.send()
+
+    def _send_refund_order_email(self, refund):
+        """
+        Sends email to customer when their order has been cancelled.
+    
+        **Email context**
+        `refund`
+        """
+        if "cancel" in refund.reason:
+            reason_int = 1
+        else:
+            reason_int = 0 
+
+        email_subject ="Your order with Loopy Yarns has been refunded!"
+        html_message = render_to_string('checkout/email/cancel-order.html', 
+                                        { 'refund': refund, 'reason_int': reason_int,},
+                                )
+        plain_message = strip_tags(html_message)
+        
+        msg= EmailMultiAlternatives(
+            email_subject,
+            plain_message,
+            settings.DEFAULT_FROM_EMAIL,
+            [ refund.order.email ],)
         msg.attach_alternative(html_message, "text/html")
         msg.send()
 
@@ -128,10 +154,12 @@ class StripeWH_Handler:
         
         order_exists = False
         attempt = 1
+        time.sleep(1)
         while attempt <=5:
             try:
                 order = Order.objects.get(
-                    stripe_pid__iexact = pid,
+                    stripe_pid = pid,
+                    grand_total = grand_total,
                 )
 
                 # Historical orders with the same details would not have the same stripe_pid values.
@@ -201,9 +229,7 @@ class StripeWH_Handler:
                         linetotal = item_data * current_price,)
                     yarn_order_line_item.save()
 
-            except Exception as e:
-
-                print('error', e) 
+            except Exception as e: 
                 if order:
                     order.delete()
                 return HttpResponse(content = f'Webhook receieved: {event['type']} | ERROR: {e}', 
@@ -224,10 +250,73 @@ class StripeWH_Handler:
 
     def handle_refund_updated(self, event):
         """
+        Handles all instances of the webhook 'refund.updated'
+        
+        If an instance of :model:`Refund` with identical `refund_id` exists in the database
+        already then only :method: `_send_refund_order_email` is called.
+        
+        If instance of :model:`Refund` with `refund_id` does not exist in database after 5 
+        seconds then one is created and
+        the :method: `_send_refund_order_email` called.
+        
+        Else error message generated.
         """
         intent =event.data.object
         refund_pid = intent.id
+        amount = intent.amount
+        order = get_object_or_404(Order, stripe_pid = intent.payment_intent)
+        rreason = intent.reason
 
-        return HttpResponse(
-            content = f'Webhook received: {event['type']}', status=200
-        )
+        #test to see if refund exists in the database
+        refund_exists = False
+        attempt = 1
+        while attempt <=5:
+            try:
+                refund = Refund.objects.get(
+                            refund_id__iexact = refund_pid,
+                        )
+        
+                refund_exists = True
+        
+                break
+        
+            except Refund.DoesNotExist:
+                        
+                attempt +=1
+                time.sleep(1)
+        
+        if refund_exists:
+            self._send_refund_order_email(refund)    
+            return HttpResponse(content=f'Webhook receieved: {event['type']} | \
+                                SUCCESS: refund exists in the database',
+                                status=200)
+        else:
+            refund = None
+            try:
+                if rreason == "requested_by_customer":
+                     reason = "customer cancelled order"
+                else:
+                     reason = "admin refunded customer"
+                refund = Refund(
+                     order = order,
+                     reason = reason,
+                     amount = amount/100,
+                     refund_id = refund_pid,
+                    )
+                refund.save()
+                order.refund_status = True
+                order.save()
+                        
+                messages.add_message(request, messages.SUCCESS, f'We are sorry that you changed your mind \
+                                                     about this order.  A refund has been issued and the money will be \
+                                                     returned to your payment card soon.')
+            except Exception as e:
+            
+                if refund:
+                    refund.delete()
+                    return HttpResponse(content = f'Webhook receieved: {event['type']} | ERROR: {e}', 
+                                                status= 500)
+                        
+        self._send_refund_order_email(refund)
+        return HttpResponse(content=f'Webhook receieved: {event['type']} | \
+                            refund created in database by webhook', status=200)

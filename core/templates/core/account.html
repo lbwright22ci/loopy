@@ -148,7 +148,7 @@
                         <a href="{% url 'leave_review' order.order_num %}" aria-label="takes you to a page so you can leave feedback for your order"> Leave
                             Feedback </a>
                         {% elif not order.refund_status %}
-                        <span class="refund_link" data-csrf="{{ csrf_token }}" data-order_num="{{ order.order_num }}"
+                        <span class="refund_link me-2" data-csrf="{{ csrf_token }}" data-order_num="{{ order.order_num }}"
                         data-pid="{{ order.stripe_pid }}" data-total="{{ order.grand_total }}" 
                         aria-label="Request a refund for your order"> Cancel </span>
                         {% endif %}
@@ -277,6 +277,7 @@
         <i class="fa-solid fa-arrow-up"></i>
     </a>
 </div>
+
 {% endblock %}
 
 {% block extrapostjs %}

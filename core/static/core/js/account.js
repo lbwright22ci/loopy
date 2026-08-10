@@ -21,7 +21,7 @@ $(document).ready(function () {
         var data = {
             'csrfmiddlewaretoken': csrfToken,
             'amount':amount,
-            'reason':'customer canceled order',
+            'reason':'customer cancelled order',
             'stripe_pid': stripePid,
         };
 
