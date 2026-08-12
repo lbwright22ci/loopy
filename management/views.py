@@ -18,3 +18,49 @@ def management_home(request):
     template = 'management/admin-home.html'
 
     return render(request, template, context)
+
+
+@login_required
+def management_settings(request):
+    """ """
+    if not request.user.is_superuser:
+        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+                             Loopy Yarns staff.")
+        return redirect(reverse('home'))
+
+    context={
+
+    }
+    template = 'management/admin-settings.html'
+
+    return render(request, template, context)
+
+@login_required
+def management_products(request):
+    """ """
+    if not request.user.is_superuser:
+        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+                             Loopy Yarns staff.")
+        return redirect(reverse('home'))
+
+    context={
+
+    }
+    template = 'management/admin-products.html'
+
+    return render(request, template, context)
+
+@login_required
+def management_orders(request):
+    """ """
+    if not request.user.is_superuser:
+        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+                             Loopy Yarns staff.")
+        return redirect(reverse('home'))
+
+    context={
+
+    }
+    template = 'management/admin-orders.html'
+
+    return render(request, template, context)

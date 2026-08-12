@@ -34,6 +34,7 @@
     <div class="row pt-4 mb-4">
 
         <div class="col-12 col-md-6 col-lg-4">
+            <a class="card-link" href="{% url 'management_settings' %}" aria-label="takes you to a page to quick edit shop settings">
             <div class="card card-admin-home mb-4">
                 <div class="card-body">
                     <h2 class="card-title subtitles pb-2"><i class="fas fa-cog me-2"></i>Shop Settings</h2>
@@ -41,9 +42,11 @@
                     </p>
                 </div>
             </div>
+        </a>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
+            <a class="card-link" href="{% url 'management_products' %}" aria-label="take you to a page for quick edit and update of products">
             <div class="card card-admin-home mb-4">
                 <div class="card-body">
                     <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-gifts me-2"></i>Products</h2>
@@ -54,9 +57,11 @@
                     <a class="btn btn-second" href="{% url 'admin:product_product_changelist' %}" aria-label="takes you to a page to edit existing products"> Edit products</a> -->
                 </div>
             </div>
+            </a>
         </div>
 
         <div class="col-12 col-md-6 col-lg-4">
+            <a class="card-link" href="{% url 'management_orders' %}" aria-label="quick edit and update of orders">
             <div class="card card-admin-home mb-4">
                 <div class="card-body">
                     <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-receipt me-2"></i>Orders</h2>
@@ -64,9 +69,12 @@
                     </p>
                 </div>
             </div>
+            </a>
         </div>
 
+        
         <div class="col-12 col-md-6 col-lg-4">
+<a class="card-link" href="{% url 'admin:checkout_reviewyarns_changelist' %}" aria-label="takes you to admin page to view reviews">
             <div class="card card-admin-home mb-4">
                 <div class="card-body">
                     <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-thumbs-up me-2"></i>Reviews</h2>
@@ -74,18 +82,22 @@
                     </p>
                 </div>
             </div>
+        </a>
         </div>
+        
 
         <div class="col-12 col-md-6 col-lg-4">
+
+            <a class="card-link" href="{% url 'admin:get_in_touch_contact_changelist' %}" aria-label="takes you to admin page to view contact messages">
             <div class="card card-admin-home">
                 <div class="card-body">
-                    <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-message me-2"></i>Contact Requests</h2>
+                    <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-message me-2"></i>Messages</h2>
                     <p class="card-text text-muted">View pending messages from potential customers.
                     </p>
                 </div>
             </div>
+            </a>
         </div>
-
     </div>
 
 </div>

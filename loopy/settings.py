@@ -341,10 +341,10 @@ JAZZMIN_SETTINGS = {
 
         # external url that opens in a new window (Permissions can be added)
         {"name": "View Shop", "url": "home", "new_window": True},
-
+        {"name": "Quick Edit", "url": "management_home", "permissions":["auth.view_user"]},
         # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"model": "product.Product"},
-        {"model": "checkout.Order"},
+        # {"model": "product.Product"},
+        # {"model": "checkout.Order"},
     ],
 
     #############

@@ -14,7 +14,7 @@ class Contact(models.Model):
     email = models.EmailField(blank = False) 
     subject = models.IntegerField(choices=SUB_OPTIONS, default=2)
     message = models.CharField(max_length = 500, blank = False )
-    created_on = models.DateTimeField(auto_now = True )
+    created_on = models.DateTimeField(auto_now_add = True )
     read = models.BooleanField(default=False)
 
     class Meta:
@@ -23,4 +23,4 @@ class Contact(models.Model):
         verbose_name = "Customer contact message"
 
     def __str__(self):
-        return f"Message from {self.name}, about {self.get_subject_display()}. Read = {self.read} Date = {self.created_on}"
+        return f"Message sent = {self.created_on}"

@@ -64,24 +64,24 @@
                                                         <a class="nav-link " href="{% url 'management_home' %}" aria-label="Takes you to main shop admin page">Home</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="#"
+                                                        <a class="nav-link " href="{% url 'management_settings' %}"
                                                            aria-label="Goes to a page where you can edit shop settings">Shop Settings</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="#"
+                                                        <a class="nav-link " href="{% url 'management_products' %}"
                                                            aria-label="Goes to a page where you can add & edit products">Products</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="#"
+                                                        <a class="nav-link " href="{% url 'management_orders' %}"
                                                            aria-label="Goes to a page where you can view, dispatch and update orders">Orders</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="#"
+                                                        <a class="nav-link " href="{% url 'admin:checkout_reviewyarns_changelist' %}"
                                                            aria-label="Goes to a page where you can approve and publish">Reviews</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="#"
-                                                           aria-label="Goes to a page where you can manage contact requests">Contact Requests</a>
+                                                        <a class="nav-link " href="{% url 'admin:get_in_touch_contact_changelist' %}"
+                                                           aria-label="Goes to a page where you can manage contact requests">Messages</a>
                                                 </li>
                                         </ul>
                                         <ul class="navbar-nav ms-auto me-4">
@@ -160,7 +160,7 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"><a href="#"
+                                <p class="dropdown-item"><a href="{% url 'management_settings' %}"
                                                             aria-label="takes you to the shop settings page">
                                         Shop Settings</a>
                                 </p>
@@ -171,7 +171,7 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"><a href="#"
+                                <p class="dropdown-item"><a href="{% url 'management_products' %}"
                                                             aria-label="takes you to a page where you can add and edit products">
                                         Products</a>
                                 </p>
@@ -182,7 +182,7 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"><a href="#"
+                                <p class="dropdown-item"><a href="{% url 'management_orders' %}"
                                                             aria-label="takes you to a page where you can manage orders">
                                         Order</a>
                                 </p>
@@ -193,7 +193,7 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"><a href="#"
+                                <p class="dropdown-item"><a href="{% url 'admin:checkout_reviewyarns_changelist' %}"
                                                             aria-label="takes you to a page where you can approve reviews">
                                         Reviews</a>
                                 </p>
@@ -204,9 +204,9 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"><a href="#"
+                                <p class="dropdown-item"><a href="{% url 'admin:get_in_touch_contact_changelist' %}"
                                                             aria-label="takes you to a page where you can manage contact requests">
-                                        Contact Requests</a>
+                                        Messages</a>
                                 </p>
                         </div>
 

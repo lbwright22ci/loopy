@@ -36,4 +36,10 @@ nav .dropdown-menu{
     border: 1px solid var(--primary-text-color);
     box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
     min-height:20rem;
+
+}
+
+.card-link{
+    cursor: pointer;
+    text-decoration:none !important;
 }
