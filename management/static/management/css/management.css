@@ -23,3 +23,17 @@ nav .dropdown-menu{
     margin-top:0.5rem;
     left:-10vw;
     }
+
+.all-products-head{
+    height:6rem;
+    width:auto;
+    padding-right:2rem;
+}
+
+.card-admin-home{
+    padding: 2rem;
+    border-radius: 2rem;
+    border: 1px solid var(--primary-text-color);
+    box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
+    min-height:20rem;
+}

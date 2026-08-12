@@ -21,6 +21,80 @@
 
 
 {% block content %}
+<div class="container p-4">
+    <div class="row pt-4 mb-4">
+        <div class="col-12 ">
+            <img src="{% static 'images/balls-in-a-line.png'%}" alt="illustration of balls of wool"
+                class="all-products-head d-none d-sm-inline">
+
+            <h1 class="page-heading ms-2 d-inline">Dashboard </h1>
+        </div>
+    </div>
+
+    <div class="row pt-4 mb-4">
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card card-admin-home mb-4">
+                <div class="card-body">
+                    <h2 class="card-title subtitles pb-2"><i class="fas fa-cog me-2"></i>Shop Settings</h2>
+                    <p class="card-text text-muted">Edit shop address, postage options, sale discounts and bulk buy offers.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card card-admin-home mb-4">
+                <div class="card-body">
+                    <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-gifts me-2"></i>Products</h2>
+                    <p class="card-text text-muted">Manage product listings including quick edit of yarn visibility,
+                        stock levels or sale status.
+                    </p>
+                    <!-- <a class="btn btn-main text-center me-4" href="{% url 'admin:product_product_add' %}" aria-label="takes you to a page to add new products"> Add new product</a>
+                    <a class="btn btn-second" href="{% url 'admin:product_product_changelist' %}" aria-label="takes you to a page to edit existing products"> Edit products</a> -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card card-admin-home mb-4">
+                <div class="card-body">
+                    <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-receipt me-2"></i>Orders</h2>
+                    <p class="card-text text-muted">View pending orders, update status to 'shipped', issue refunds.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card card-admin-home mb-4">
+                <div class="card-body">
+                    <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-thumbs-up me-2"></i>Reviews</h2>
+                    <p class="card-text text-muted">Approve submitted customer reviews for publication on shop front.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="card card-admin-home">
+                <div class="card-body">
+                    <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-message me-2"></i>Contact Requests</h2>
+                    <p class="card-text text-muted">View pending messages from potential customers.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="to-top">
+    <a class="d-flex h-100 to-top-link">
+        <i class="fa-solid fa-arrow-up"></i>
+    </a>
+</div>
 
 {% endblock %}
 
