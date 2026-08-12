@@ -1,0 +1,163 @@
+/* Imported fonts from Google font 
+'Dancing Script' for logo font
+'Montserrat Alternatives' for majority of text 
+*/
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat+Alternates:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+/* Variables */
+:root {
+    --primary-font:'Montserrat Alternates', sans-serif;
+    --heading-font: 'Dancing Script', sans-serif;
+    --primary-background-color: #fff;
+    --primary-text-color: #2c0f06;
+    --hyperlink-color: #990099;
+    --hyperlink-hover-color: #009999;
+    --decorative-color: #06b1a0; 
+    --background-highlight-color: #c4b031;
+    --error-color: #b44145; 
+    --success-color: #448848; 
+    --shadow-color: #e9e7de;
+    --shadow-semi:#e9e7deaa;
+}
+
+/* Generic style rules*/
+/* html{
+    font-size: 10px;
+} */
+
+body{
+    font-size: 16px;
+    color: var(--primary-text-color);
+    font-family: var(--primary-font);
+}
+
+
+a,
+.nav-tabs .nav-link{
+    color: var(--hyperlink-color);
+}
+
+
+a:hover,
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:focus {
+    color:var(--hyperlink-hover-color);
+}
+
+
+.form-control,
+.form-select,
+input:-internal-autofill-selected{
+    font-size:1.6rem;
+    color:var(--primary-text-color) !important;
+    background-color: var(--primary-background-color) !important;
+    border-color: var(--primary-text-color);
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:var(--primary-text-color);
+    box-shadow: 0 0 0 0.25rem var(--shadow-color) ;
+}
+
+option{
+    width:fit-content !important;
+    padding-right:1rem !important;
+    font-size: 1.6rem !important;
+}
+
+.form-check-input,
+.form-check-input:checked,
+.form-check-input:active,
+.form-check-input:focus{
+    border:0.05rem solid var(--primary-text-color);
+}
+
+.form-check-input:checked{
+    background-color: var(--primary-text-color);
+}
+
+.form-check-input:active,
+.form-check-input:focus,
+.form-check-input:checked{
+    box-shadow: 1rem 1rem 2rem var(--shadow-semi);
+}
+
+
+.search-box{
+    border:1px solid var(--primary-text-color);
+}
+
+.search-sudo-button{
+    padding-top:0.5rem;
+}
+
+.btn-primary{
+    color:var(--primary-background-color);
+    font-size: 1rem;
+    border:1px solid var(--primary-text-color);
+    background-color: var(--primary-text-color);
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary:disabled{
+    color:var(--background-highlight-color);
+    border:1px solid var(--primary-text-color);
+    background-color: var(--primary-text-color);
+    shadow: 0 0 0 transparent;
+}
+
+.btn-success, 
+.btn-success:hover{
+    color:var(--primary-background-color);
+    font-size: 1rem;
+    border:1px solid var(--success-color);
+    background-color: var(--success-color);
+}
+
+.btn-error{
+    color:var(--primary-background-color);
+    font-size: 1rem;
+    border:1px solid var(--error-color);
+    background-color: var(--error-color);
+}
+
+.btn-error:hover,
+.btn-error:focus,
+.btn-error:active,
+.btn-error:disabled{
+    shadow: 0 0 0 transparent;
+}
+
+.btn-info,
+.btn-info:hover{
+    color:var(--primary-background-color);
+    font-size: 1rem;
+    border:1px solid var(--hyperlink-color);
+    background-color: var(--hyperlink-color);
+}
+
+.btn-secondary{
+    color:var(--primary-text-color);
+    font-size: 1rem;
+    border:1px solid var(--primary-text-color);
+    background-color: var(--primary-background-color);
+}
+
+.btn-secondary:hover{
+    color:var(--primary-text-color);
+    border:1px solid var(--primary-background-color);
+    background-color: var(--primary-background-color);
+}
+
+.button-disabled{
+    opacity: 60%;
+}
+.table>:not(caption)>*>*{
+    color:var(--primary-text-color);
+}
+th .table{
+    color:var(--primary-text-color);
+}

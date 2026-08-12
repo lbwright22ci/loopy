@@ -384,10 +384,17 @@ JAZZMIN_SETTINGS = {
     # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
     # for the full list of 5.13.0 free icon classes
     "icons": {
-        "core.postage": "fas fa-cog",
-        "core.announcement": "fas fa-cog",
+        "core": "fas fa-cog",
+        "core.announcements": "fa-solid fa-bullhorn",
         "get_in_touch.contact": "fa-solid fa-message",
         "core.userprofile": "fas fa-users",
+        "core.postage": "fa-solid fa-truck",
+        "core.salesettings": "fa-solid fa-tags",
+        "product":"fa-solid fa-shop",
+        "checkout": "fa-solid fa-basket-shopping",
+        "checkout.order":"fa-solid fa-receipt",
+        "product.product": "fa-solid fa-gifts",
+        "checkout.reviewyarns": "fa-solid fa-thumbs-up",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -403,7 +410,7 @@ JAZZMIN_SETTINGS = {
     # UI Tweaks #
     #############
     # Relative paths to custom CSS/JS scripts (must be present in static files)
-    "custom_css": None,
+    "custom_css": 'css/style-admin.css',
     "custom_js": None,
     # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
@@ -427,4 +434,6 @@ JAZZMIN_SETTINGS = {
 
 }
 
-
+JAZZMIN_UI_TWEAKS ={
+    "theme" : "materia",
+}
