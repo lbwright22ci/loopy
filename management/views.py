@@ -15,6 +15,6 @@ def management_home(request):
     context={
 
     }
-    template = 'management/home.html'
+    template = 'management/admin-home.html'
 
     return render(request, template, context)

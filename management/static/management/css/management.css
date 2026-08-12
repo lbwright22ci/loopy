@@ -1,0 +1,25 @@
+.navbar{
+    background-image: linear-gradient(180deg, #fff , #f7f7f3);
+    margin-top:0.8rem;
+    padding-bottom: 0.8rem;
+}
+
+#mobile-nav{
+    position:fixed;
+    top:0rem;
+    padding-top:2rem;
+    padding-left:1rem;
+    padding-right:1rem;
+    padding-bottom:2rem;
+    background-image: linear-gradient(180deg, #fff , #fbfaf9);
+}
+
+.footer{
+    height:auto;
+}
+
+nav .dropdown-menu[data-bs-popper],
+nav .dropdown-menu{
+    margin-top:0.5rem;
+    left:-10vw;
+    }
