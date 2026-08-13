@@ -117,14 +117,14 @@ class ShopContactInfo(models.Model):
     `shop street address 2`, `shop town`, `shop county`, `shop country`, 
     `shop postcode`, `updated on`
     """
-    shop_email = models.EmailField(blank = True) 
-    shop_phone = models.BigIntegerField(blank = True ) 
-    shop_street_address1 = models.CharField(max_length = 80, blank = True )
-    shop_street_address2 = models.CharField(max_length = 80, blank = True  )
-    shop_town = models.CharField(max_length = 50, blank = True )
-    shop_county = models.CharField(max_length = 40, blank = True )
-    shop_country = models.CharField(default = "GB"  )
-    shop_postcode = models.CharField(max_length= 9, blank = True )
+    shop_email = models.EmailField(blank = True, verbose_name = "Email") 
+    shop_phone = models.BigIntegerField(blank = True, verbose_name ="Phone") 
+    shop_street_address1 = models.CharField(max_length = 80, blank = True, verbose_name="Street Address 1" )
+    shop_street_address2 = models.CharField(max_length = 80, blank = True, verbose_name="Street Address 2" )
+    shop_town = models.CharField(max_length = 50, blank = True , verbose_name ="Town")
+    shop_county = models.CharField(max_length = 40, blank = True, verbose_name = "County")
+    shop_country = models.CharField(default = "GB", verbose_name = "Country"  )
+    shop_postcode = models.CharField(max_length= 9, blank = True , verbose_name= 'Postcode')
     updated_on = models.DateTimeField(auto_now = True )
 
     class Meta:

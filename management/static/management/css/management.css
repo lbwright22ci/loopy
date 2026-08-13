@@ -1,6 +1,6 @@
 .navbar{
     background-image: linear-gradient(180deg, #fff , #f7f7f3);
-    margin-top:0.8rem;
+    margin-top:0;
     padding-bottom: 0.8rem;
 }
 
@@ -42,4 +42,48 @@ nav .dropdown-menu{
 .card-link{
     cursor: pointer;
     text-decoration:none !important;
+}
+
+.divider-dec{
+    color:var(--decorative-color);
+    opacity: 100%;
+}
+
+.side-menu{
+    list-style: none;
+    padding-top:1rem;
+    padding-bottom:2rem;
+}
+
+.sub-menu{
+    margin-top:1rem;
+    text-decoration: none;
+}
+
+#id_sale_percent{
+    text-align: right;
+}
+
+.input-group-text{
+    font-size:1.6rem;
+    font-weight:600;
+    color:var(--primary-text-color);
+    border:none;
+    background-color: var(--primary-background-color);
+}
+
+/* for sizes md and above in Bootstrap */
+@media screen and (min-width:576px){
+
+    #side-menu{
+        padding-top:3rem;
+    }
+
+
+
+}
+/* for sizes lg and above in Bootstrap */
+@media screen and (min-width:992px){
+
+    
 }
