@@ -60,7 +60,11 @@ nav .dropdown-menu{
     text-decoration: none;
 }
 
-#id_sale_percent{
+#id_sale_percent,
+#id_upper_ball_num,
+#id_lower_ball_num,
+#id_lower_discount,
+#id_upper_discount{
     text-align: right;
 }
 
@@ -72,6 +76,17 @@ nav .dropdown-menu{
     background-color: var(--primary-background-color);
 }
 
+.an-form{
+    width:18rem;
+}
+.an{
+    width:6rem;
+}
+
+#which{
+    padding-top:1rem;
+    padding-bottom:4rem;
+}
 /* for sizes md and above in Bootstrap */
 @media screen and (min-width:576px){
 

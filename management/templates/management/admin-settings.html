@@ -154,7 +154,18 @@
 </div>
                         <form action="#" method="POST" id="shipping-offer" >
                             {% csrf_token %}
-                            {{ ship_offer| crispy }}
+                            
+                            <div id="div_id_upper_ball_num_ship" class="mb-3 input-group">
+                   
+                            <label for="id_upper_ball_num_ship" class="form-label an-form">
+                                Threshold for free shipping
+                            </label>  
+                        <input type="number" name="upper_ball_num" 
+                        value="{{ announcement.upper_ball_num }}" 
+                        autofocus class="numberinput form-control" id="id_upper_ball_num_ship" min="0" max="100">
+                        <span class="input-group-text an"> balls </span>
+                </div>
+                            
 
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
@@ -165,10 +176,41 @@
 
                         <form action="#" method="POST" id="bulk-offer" >
                             {% csrf_token %}
-                            {{ bulk_offer | crispy }}
+                            <div id="div_id_lower_ball_num" class="mb-3 input-group"> 
+                                <label for="id_lower_ball_num" class="form-label an-form">
+                Lower threshold
+            </label> 
+            <input type="number" name="lower_ball_num" value="{{ announcement.lower_ball_num }}" 
+            autofocus class="numberinput form-control" id="id_lower_ball_num" min="0"> 
+            <span class="input-group-text an"> balls</span>
+        </div> 
+        <div id="div_id_lower_discount" class="mb-3 input-group"> 
+            <label for="id_lower_discount" class="form-label an-form">
+                Lower discount
+            </label> 
+            <input type="number" name="lower_discount" value="{{ announcement.lower_discount }}" 
+            class="numberinput form-control" id="id_lower_discount" min="0"> 
+            <span class="input-group-text an">%</span>
+        </div> 
+            <div id="div_id_upper_ball_num" class="mb-3 input-group"> 
+                <label for="id_upper_ball_num" class="form-label an-form">
+                Upper threshold
+            </label> 
+            <input type="number" name="upper_ball_num" value="{{ announcement.upper_ball_num }}" 
+            class="numberinput form-control" id="id_upper_ball_num" min="0"> 
+        <span class="input-group-text an"> balls</span>
+        </div> 
+            <div id="div_id_upper_discount" class="mb-3 input-group"> 
+                <label for="id_upper_discount" class="form-label an-form">
+                Upper discount
+            </label> <input type="number" name="upper_discount" value="{{ announcement.upper_discount }}" 
+            class="numberinput form-control" id="id_upper_discount" min="0"> 
+            <span class="input-group-text an"> %</span>
+        </div>
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
-                                    <input class="ms-4 btn btn-main" role="button" type="submit" value="Update!">
+                                    <p id="error-messages" class="red bold"></p>
+                                    <a id="bulk" class="ms-4 btn btn-main" role="button">Update!</a>
                                 </div>
                             </div>
                         </form>
