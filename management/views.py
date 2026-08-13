@@ -2,7 +2,7 @@ from django.shortcuts import render,  redirect, reverse, get_object_or_404, Http
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .forms import SaleSettingsForm, ShopContactInfoForm, ShippingAnnouncementsForm, BulkAnnouncementsForm
+from .forms import ShopContactInfoForm, ShippingAnnouncementsForm, BulkAnnouncementsForm
 from core.models import SaleSettings, ShopContactInfo, Announcements
 
 
@@ -38,9 +38,16 @@ def management_settings(request):
     sale_rate = get_object_or_404(SaleSettings, active = True)
     sale_rate = sale_rate.sale_percent
 
+    announcement = Announcements.objects.all()[0]
+    ship_offer_form = ShippingAnnouncementsForm(instance = announcement)
+    bulk_offer_form = BulkAnnouncementsForm(instance = announcement)
+
     context={
         'shop_form':shop_form,
         'sale_rate' : sale_rate,
+        'ship_offer':ship_offer_form,
+        'bulk_offer':bulk_offer_form,
+        'current':announcement,
     }
     template = 'management/admin-settings.html'
 

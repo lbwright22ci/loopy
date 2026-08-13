@@ -13,19 +13,6 @@ class ShopContactInfoForm(forms.ModelForm):
         super(ShopContactInfoForm, self).__init__(*args, **kwargs)
         self.fields['shop_email'].widget.attrs['autofocus'] = True
 
-class SaleSettingsForm(forms.ModelForm):
-    """ """
-
-    class Meta:
-        model = SaleSettings
-        fields = ['sale_percent',]
-
-    def __init__(self, *args, **kwargs):
-        super(SaleSettingsForm, self).__init__(*args, **kwargs)
-        self.fields['sale_percent'].widget.attrs['autofocus'] = True
-        self.fields['sale_percent'].widget.attrs['max'] = 60
-        self.fields['sale_percent'].widget.attrs['min'] = 0
-
 
 class BulkAnnouncementsForm(forms.ModelForm):
     """ """
