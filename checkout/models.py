@@ -145,7 +145,7 @@ class Order(models.Model):
         super(Order, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.order_num} created on {self.created_on.strftime("%d-%b-%y")}'
+        return f'{self.order_num}'
 
     class Meta:
         ordering = ['created_on',]

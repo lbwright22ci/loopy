@@ -57,8 +57,8 @@ class Product(models.Model):
     'wash_temp', 'tumble_dry', 'wool_cycle', 'slug', 'sku', 'visible', 'on_promotion'
     'image
     """
-    brand_id = models.ForeignKey('Brand', null=True, blank=True, on_delete=models.CASCADE, related_name = "brand")
-    thickness_id = models.ForeignKey('Thickness', null=True, blank=True, on_delete=models.SET_NULL, related_name ="thickness")
+    brand_id = models.ForeignKey('Brand', null=True, blank=True, on_delete=models.CASCADE, related_name = "brand", verbose_name='brand')
+    thickness_id = models.ForeignKey('Thickness', null=True, blank=True, on_delete=models.SET_NULL, related_name ="thickness", verbose_name='thickness')
     name = models.CharField(max_length=200, null=False)
     summary = models.CharField(max_length=500, null=True, blank= True)
     price = models.DecimalField(max_digits=6, decimal_places=2, blank = False, verbose_name="Price in £")
@@ -80,7 +80,7 @@ class Product(models.Model):
     image = models.ImageField(blank = True, null=True)
 
     class Meta:
-        ordering=['name'] 
+        ordering=['name', 'brand_id', 'thickness_id'] 
 
     def __str__(self):
         return f'{self.brand_id.name} {self.name}, {self.skein_weight}g'
