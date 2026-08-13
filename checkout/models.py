@@ -200,7 +200,7 @@ class ReviewYarns(models.Model):
         verbose_name_plural = 'reviews'
 
     def __str__(self):
-        return f'{self.rating} star review for {self.yarn.product_id.name } {self.yarn.colour_cat_id.colour_name}\
+        return f'{self.yarn.product_id.name } {self.yarn.colour_cat_id.colour_name}\
         left on {self.updated_on.strftime("%d-%b-%y")}'
 
 class Refund(models.Model):

@@ -152,6 +152,22 @@ option{
     background-color: var(--primary-background-color);
 }
 
+.btn{
+    padding-top:0.25rem;
+    padding-bottom:0.25rem;
+    padding-left:0.5rem;
+    padding-right:0.5rem;
+    font-size: 0.875rem;
+}
+
+#searchbar.form-control{
+    padding: 0.375rem 0.75rem;
+}
+
+.form-group{
+    margin-bottom:0;
+}
+
 .button-disabled{
     opacity: 60%;
 }

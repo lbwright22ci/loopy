@@ -16,4 +16,20 @@ class OrderAdmin(admin.ModelAdmin):
 
 admin.site.register(Order, OrderAdmin)
 
-admin.site.register(ReviewYarns)
+@admin.action(description="Approve")
+def approve(modeladmin, request, queryset):
+    """ Bulk action to update reviews to approved for publication"""
+    queryset.update(approved=True)
+
+@admin.action(description="Reject")
+def remove_approval(modeladmin, request, queryset):
+    """ Bulk action to update reviews to unapproved for publication"""
+    queryset.update(approved=False)
+
+@admin.register(ReviewYarns)
+class ReviewYarnsAdmin(admin.ModelAdmin):
+    """ """
+
+    list_display = ('updated_on', 'yarn', 'rating', 'approved')
+    list_filter = ('approved', 'rating',)
+    actions = [approve, remove_approval]

@@ -61,7 +61,7 @@
                                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                         <ul class="navbar-nav mt-2">
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="{% url 'management_home' %}" aria-label="Takes you to main shop admin page">Home</a>
+                                                        <a class="nav-link " href="{% url 'management_home' %}" aria-label="Takes you to main shop admin page">Dashboard</a>
                                                 </li>
                                                 <li class="nav-item">
                                                         <a class="nav-link " href="{% url 'management_settings' %}"
@@ -76,11 +76,11 @@
                                                            aria-label="Goes to a page where you can view, dispatch and update orders">Orders</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="{% url 'admin:checkout_reviewyarns_changelist' %}"
+                                                        <a class="nav-link " href="{% url 'admin:checkout_reviewyarns_changelist' %}?approved__exact=0"
                                                            aria-label="Goes to a page where you can approve and publish">Reviews</a>
                                                 </li>
                                                 <li class="nav-item">
-                                                        <a class="nav-link " href="{% url 'admin:get_in_touch_contact_changelist' %}"
+                                                        <a class="nav-link " href="{% url 'admin:get_in_touch_contact_changelist' %}?read__exact=0"
                                                            aria-label="Goes to a page where you can manage contact requests">Messages</a>
                                                 </li>
                                         </ul>
@@ -151,7 +151,7 @@
                         <div class="col-12">
                                 <p class="dropdown-item"><a href="{% url 'management_home' %}"
                                                             aria-label="takes you to the shop admin home page">
-                                        Home</a>
+                                        Dashboard</a>
                                 </p>
                         </div>
 
@@ -193,7 +193,7 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'admin:checkout_reviewyarns_changelist' %}"
+                                <p class="dropdown-item"><a href="{% url 'admin:checkout_reviewyarns_changelist' %}?approved__exact=0"
                                                             aria-label="takes you to a page where you can approve reviews">
                                         Reviews</a>
                                 </p>
@@ -204,7 +204,7 @@
                 </div>
                 <div class="row">
                         <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'admin:get_in_touch_contact_changelist' %}"
+                                <p class="dropdown-item"><a href="{% url 'admin:get_in_touch_contact_changelist' %}?read__exact=0"
                                                             aria-label="takes you to a page where you can manage contact requests">
                                         Messages</a>
                                 </p>

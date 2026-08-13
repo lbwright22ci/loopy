@@ -74,7 +74,7 @@
 
         
         <div class="col-12 col-md-6 col-lg-4">
-<a class="card-link" href="{% url 'admin:checkout_reviewyarns_changelist' %}" aria-label="takes you to admin page to view reviews">
+<a class="card-link" href="{% url 'admin:checkout_reviewyarns_changelist' %}?approved__exact=0" aria-label="takes you to admin page to view reviews">
             <div class="card card-admin-home mb-4">
                 <div class="card-body">
                     <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-thumbs-up me-2"></i>Reviews</h2>
@@ -88,7 +88,7 @@
 
         <div class="col-12 col-md-6 col-lg-4">
 
-            <a class="card-link" href="{% url 'admin:get_in_touch_contact_changelist' %}" aria-label="takes you to admin page to view contact messages">
+            <a class="card-link" href="{% url 'admin:get_in_touch_contact_changelist' %}?read__exact=0" aria-label="takes you to admin page to view contact messages">
             <div class="card card-admin-home">
                 <div class="card-body">
                     <h2 class="card-title subtitles pb-2"><i class="fa-solid fa-message me-2"></i>Messages</h2>

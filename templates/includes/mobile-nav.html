@@ -72,13 +72,7 @@
                         <hr class="mt-2 mb-4">
                 </div>
         </div>
-        <div class="row">
-                <div class="col-12">
-                        <p><a class="dropdown-item" href="#" aria-label="takes you to buy a gift voucher"> Gift
-                                vouchers</a></p>
-                        <hr class="mt-2 mb-4">
-                </div>
-        </div>
+        
         <div class="row">
                 <div class="col-12">
                         <p><a class="dropdown-item" href="{% url 'contact_page' %}" aria-label="takes you to our contact page">
@@ -96,7 +90,7 @@
                                         <li><a class="dropdown-item small-text" href="{% url 'customer_account' %}" aria-label="Goes to account page with account information,
                                                                                                      past orders and favourites">My Account</a></li>
                                         {% if user.is_staff %}
-                                                <li><a class=" dropdown-item small-text" href="#"
+                                                <li><a class=" dropdown-item small-text" href="{% url 'management_home' %}"
                                                        aria-label="goes to shop management area">Shop Management</a>
                                                 </li>
                                         {% endif %}
