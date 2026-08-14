@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Order, YarnOrderLineitem, ReviewYarns, Refund
+from .models import Order, YarnOrderLineitem, ReviewYarns, Refund, Shipped
 # Register your models here.
 
 class YarnOrderLineItemAdmin(admin.TabularInline):
@@ -10,6 +10,10 @@ class RefundAdmin(admin.TabularInline):
     model= Refund
     readonly_fields =['refund_id', 'amount', 'order']
 
+class ShippedAdmin(admin.TabularInline):
+    model=Shipped
+    readonly_fields=['dispatched_on', 'order']
+
 class OrderAdmin(admin.ModelAdmin):
     """ Displays instances of :model:`ReviewYarns` in the Django admin panel for editing, creating new and updating.
     
@@ -18,7 +22,7 @@ class OrderAdmin(admin.ModelAdmin):
     Instances can be filtered by 'is_shipped' and 'refund_status' statuses
     Instances can be searched by 'email', 'order_num', 'second_name'
     """
-    inlines = (RefundAdmin,)
+    inlines = (RefundAdmin, ShippedAdmin)
     list_filter =('is_shipped', 'refund_status')
     list_display =('created_on', 'first_name', 'second_name', 'parcel_size', 'postage_class', 'grand_total', 'is_shipped', 'refund_status',)
     search_fields =['email', 'order_num', 'second_name',]

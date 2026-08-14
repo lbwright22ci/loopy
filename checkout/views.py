@@ -7,9 +7,14 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import messages
 
+from django.core.mail import EmailMultiAlternatives
+from django.utils.html import strip_tags
+from django.template.loader import render_to_string
+
 from django.contrib.auth.decorators import login_required
+
 from .forms import ContactAndBillingForm, ShippingAddressForm, SaveDetailsForm
-from .models import Order, YarnOrderLineitem, Refund
+from .models import Order, YarnOrderLineitem, Refund, Shipped
 from core.models import UserProfile, SaleSettings
 from product.models import Colour_var
 from basket.context_processor import basket_contents
@@ -484,4 +489,43 @@ def Cancel_order(request, order_num):
                              returned to your payment card soon.')
 
         return HttpResponse(status=200)
-    
+
+@login_required
+def mark_shipped(request):
+    """ """
+    if not request.user.is_superuser:
+            messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+                                 Loopy Yarns staff.")
+            return redirect(reverse('home'))
+    try:
+        if request.POST:
+            order = Order.objects.get(pk=int(request.POST.get('order')))
+            order.is_shipped = True
+            order.save()
+            shipped = Shipped(
+                order = order,
+                )
+            shipped.save()
+
+            email_subject ="Your order with Loopy Yarns has been shipped!"
+            html_message = render_to_string('checkout/email/shipped.html', 
+                                            { 'order': order,},
+                                    )
+            plain_message = strip_tags(html_message)
+            
+            msg= EmailMultiAlternatives(
+                email_subject,
+                plain_message,
+                settings.DEFAULT_FROM_EMAIL,
+                [ order.email ],)
+            msg.attach_alternative(html_message, "text/html")
+            msg.send()
+
+            messages.add_message(request, messages.SUCCESS, f'Order {order.order_num}\
+                                  has been marked as shipped')
+    except Exception as e:
+        order.is_shipped = False
+        order.save()
+        shipped.delete()
+        messages.add_message(request, messages.ERROR, f'Unable to mark order as shipped due to error {e}')
+    return redirect(reverse('management_orders'))

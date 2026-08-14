@@ -44,5 +44,10 @@ $(document).ready(function () {
 
     })
 
+    $('.ship').click(function(){
+        var form = $(this).closest('.ship-form');
+        form.submit();
+          });
+
 
 })

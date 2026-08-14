@@ -148,7 +148,7 @@ class Order(models.Model):
         return f'{self.order_num}'
 
     class Meta:
-        ordering = ['created_on',]
+        ordering = ['-created_on',]
 
 class YarnOrderLineitem(models.Model):
     """
@@ -219,4 +219,7 @@ class Shipped(models.Model):
     """ """
     order = models.OneToOneField(Order, on_delete=models.CASCADE, blank = False, null=False, related_name='shipped')
     dispatched_on = models.DateTimeField(auto_now_add = True)
-    tracking_num = models.CharField(blank=True, null=True, max_length=500)
+
+    class Meta:
+        verbose_name_plural = 'Shipped'
+    

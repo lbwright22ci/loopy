@@ -52,19 +52,43 @@
                         <h2 class="subtitles uppercase-text pb-4"><i class="fa-solid fa-star me-4"></i>Pending</h2>
 
                         <div class="col">
+                            {% if not pending %}
+                            <p> No pending orders </p>
+                            {% else %}
                             <div class="accordion" >
-                                {% for p in cancelled %}
+                                {% for p in pending %}
 
                                     <div class="mb-3 accordion-item">
                                         <a class="accordion-button dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
                                            data-bs-target="#{{ p.order_num }}" aria-expanded="false" aria-controls="{{ p.order_num }}">
-                                            #{{ p.order_num }}
+                                           <div>
+                                           <p class="mb-0">#{{ p.order_num }}</p> 
+                                            <p class="small-text mb-0"> Customer: {{ p.first_name }} {{ p.second_name }} <br>
+                                                Total: £ {{ p.grand_total|floatformat:2 }} <br>
+                                                Placed on: {{ p.created_on|date:'jS M y' }} <span class="button-disabled"> {{ p.created_on|time:'H:i' }}</span>
+                                            </p>
+                                            </div> 
                                         </a>
                                         <div id="{{ p.order_num }}" class="accordion-collapse collapse">
                                             <div class="row">
-                                                <div class="col-12 text-end">
-                                                    <p class="mb-0">{{ p.created_on|date:'jS M y' }}</p>
-                                                    <p class="mb-0">Pending </p>
+                                                <div class="col-12 mt-4 text-end">
+                                                    <form action="{% url 'mark_shipped' %}" method="POST" class="ship-form">
+                                                        {% csrf_token %}
+                                                        <input type="hidden" name="order" value="{{ p.pk }}">
+                                                        <a class="btn btn-main me-4 ship" aria-label="mark as shipped"
+                                                    >Mark as Shipped </a>
+                                                    </form>
+                                                    <form action="{% url 'cancel_order' %}" method="POST" class="cancel-form">
+                                                        {% csrf_token %}
+                                                        
+                                                        <input type="hidden" name="order" value="{{ p.pk }}">
+                                                        <a class="btn btn-main"> Cancel Order</a>
+                                                    </form>
+                                                    
+                                                </div>
+                                                <div class="col-12 text-start">
+                                                
+                                                    <p class=" bold">Pending </p>
                                                 </div>
                                                 <div class="col-12 col-sm-6">
                                                     <p class="uppercase-text">Customer</p>
@@ -79,7 +103,7 @@
                 {% endif %}
                 
                                                 </div>
-                                                <div class="col-12 col-sm-6">
+                                                <div class="col-12 mt-4 mt-sm-0 col-sm-6">
                 <p class="uppercase-text"> Shipping</p>
 
                 <p class="small-text">{{ p.shipping_street_address1 }} <br>
@@ -141,15 +165,16 @@
 
                                                     </div>
                                                 {% endfor %}
-                                                    </div>
-                                                </div>
-
-                                                <p class=" right-align small-text mb-0"><span class="uppercase-text">Subtotal</span> £ {{ p.order_subtotal|floatformat:2 }}</p>
-                <p class="right-align mb-0 {% if not discount %} button-disabled{% endif %}"
+                                            <p class=" right-align small-text mb-0"><span class="uppercase-text">Subtotal</span> £ {{ p.order_subtotal|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0 {% if not discount %} button-disabled{% endif %}"
                 > <span class="uppercase-text">Discount</span> £ {{ p.order_discount|floatformat:2 }}</p>
                 
-                <p class="right-align mb-0"><span class="uppercase-text">Postage</span> £ {{ p.postage_cost|floatformat:2 }}</p>
-                <p class="right-align mb-0"><span class="uppercase-text">Total</span> £ {{ p.grand_total|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Postage</span> £ {{ p.postage_cost|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Total</span> £ {{ p.grand_total|floatformat:2 }}</p>    
+                                            </div>
+                                                </div>
+
+                                                
 
                                             </div>
 
@@ -157,6 +182,396 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center align-items-center mt-4 mb-4">
+                        <div class="col-8">
+                            <hr class="divider-dec">
+                        </div>
+                    </div>
+
+                                        <div class="col-12" id="past">
+                        <h2 class="subtitles uppercase-text pb-4"><i class="fa-solid fa-truck-fast me-4"></i>Shipped</h2>
+
+                        <div class="col">
+                            {% if not past %}
+                            <p> No shipped orders </p>
+                            {% else %}
+                            <div class="accordion" >
+                                {% for p in past %}
+
+                                    <div class="mb-3 accordion-item">
+                                        <a class="accordion-button dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                           data-bs-target="#{{ p.order_num }}" aria-expanded="false" aria-controls="{{ p.order_num }}">
+                                           <div>
+                                           <p class="mb-0">#{{ p.order_num }}</p> 
+                                            <p class="small-text mb-0"> Customer: {{ p.first_name }} {{ p.second_name }} <br>
+                                                Total: £ {{ p.grand_total|floatformat:2 }} <br>
+                                                Placed on: {{ p.created_on|date:'jS M y' }} <span class="button-disabled"> {{ p.created_on|time:'H:i' }}</span>
+                                            </p>
+                                            </div> 
+                                        </a>
+                                        <div id="{{ p.order_num }}" class="accordion-collapse collapse">
+                                            <div class="row">
+                                                <div class="col-12 text-start">
+                                                
+                                                    <p class="mb-0 bold">Shipped on {{ p.shipped.dispatched_on|date:'jS M y'}}</p>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <p class="uppercase-text">Customer</p>
+                                                    <p class="small-text mb-0"> {{ p.first_name }} {{ p.second_name }}</p>
+                                                    <p class="small-text mb-0"> <i class="fa-regular fa-envelope me-2"></i> {{ p.email }}</p>
+                                                    <p class="small-text"> <i class="fa-solid fa-phone me-2"></i> 0{{ p.phone }}</p>
+                                                    {% if p.is_gift %}
+                    <p class="mb-0" ><span class="uppercase-text"> Is gift?: </span> Yes </p>
+                    <p class="mb-0 small-text"><i class="fa-solid fa-scroll me-2"></i> {{ p.gift_message }}</p>
+                {% else %}
+                    <p><span class="uppercase-text"> Is gift?: </span> No </p>
+                {% endif %}
+                
+                                                </div>
+                                                <div class="col-12 mt-4 mt-sm-0 col-sm-6">
+                <p class="uppercase-text"> Shipping</p>
+
+                <p class="small-text">{{ p.shipping_street_address1 }} <br>
+                {% if p.shipping_street_address2 %}
+                {{ p.shipping_street_address2 }} <br>
+                {% endif %}
+                {{ p.shipping_county }} <br>
+                {{ p.shipping_postcode }} <br>
+                {{ p.shipping_country }} <br>
+                </p>
+                <p class="small-text mb-0"><span class="uppercase-text">Postage</span> {{ p.get_postage_class_display }}</p>
+                <p class="small-text"><span class="uppercase-text">Parcel size</span> {{ p.get_parcel_size_display }}</p>
+            </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12">
+                                                    <p class="uppercase-text">Order summary:</p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-12 col-md-8">
+                                                <div class="row">
+                                                    <div class="col-4 text-end">
+                                                        <p class="uppercase-text d-sm-none mb-0"></p>
+                                                        <p class="uppercase-text d-none d-sm-block small-text mb-0"></p>
+                                                    </div>
+                                                    <div class="col-6 text-center">
+                                                        <p class="uppercase-text d-sm-none mb-0">Yarn</p>
+                                                        <p class="uppercase-text small-text d-none d-sm-block mb-0">Yarn</p>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        <p class="uppercase-text d-sm-none mb-0">Qty</p>
+                                                        <p class="uppercase-text d-none d-sm-block small-text mb-0">Qty</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                {% for item in p.lineitems.all %}
+                                                    <div class="row align-items-center">
+                                                        <div class="col-4 text-start">
+                                                            <p class="mb-0 small-text">
+                                                                SKU: {{ item.yarn.product_id.sku }}
+                                                            </p>
+                                                            <p class="mb-0 very-small-text">
+                                                                Shade: {{ item.yarn.shade_code }}
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="col-6 text-center">
+                                                            <p class="mb-0 small-text uppercase-text">
+                                                                {{ item.yarn.product_id.brand_id.name }}
+                                                            </span> {{ item.yarn.product_id.name }}
+                                                        </p>
+                                                        <p class="very-small-text">
+                                                            {{ item.yarn.colour_cat_id.colour_name|capfirst }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <p class="mb-0 small-text"> {{ item.quantity }} </p>
+                                                    </div>
+
+                                                    </div>
+                                                {% endfor %}
+                                            <p class=" right-align small-text mb-0"><span class="uppercase-text">Subtotal</span> £ {{ p.order_subtotal|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0 {% if not discount %} button-disabled{% endif %}"
+                > <span class="uppercase-text">Discount</span> £ {{ p.order_discount|floatformat:2 }}</p>
+                
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Postage</span> £ {{ p.postage_cost|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Total</span> £ {{ p.grand_total|floatformat:2 }}</p>    
+                                            </div>
+                                                </div>
+
+                                                
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center align-items-center mt-4 mb-4">
+                        <div class="col-8">
+                            <hr class="divider-dec">
+                        </div>
+                    </div>
+
+                                        <div class="col-12" id="refunded">
+                        <h2 class="subtitles uppercase-text pb-4"><i class="fa-solid fa-trash me-4"></i>Refunded</h2>
+
+                        <div class="col">
+                            {% if not refunded %}
+                            <p> No refunded orders </p>
+                            {% else %}
+                            <div class="accordion" >
+                                {% for p in refunded %}
+
+                                    <div class="mb-3 accordion-item">
+                                        <a class="accordion-button dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                           data-bs-target="#{{ p.order_num }}" aria-expanded="false" aria-controls="{{ p.order_num }}">
+                                           <div>
+                                           <p class="mb-0">#{{ p.order_num }}</p> 
+                                            <p class="small-text mb-0"> Customer: {{ p.first_name }} {{ p.second_name }} <br>
+                                                Total: £ {{ p.grand_total|floatformat:2 }} <br>
+                                                Placed on: {{ p.created_on|date:'jS M y' }} <span class="button-disabled"> {{ p.created_on|time:'H:i' }}</span>
+                                            </p>
+                                            </div> 
+                                        </a>
+                                        <div id="{{ p.order_num }}" class="accordion-collapse collapse">
+                                            <div class="row">
+                                                <div class="col-12 text-end">
+                                                
+                                                    <p class="mb-0">Refunded on {{ p.refunded_order.created_on|date:'jS M y' }} </p>
+                                                    <p class="mb-0 small-text"> Refund amount £ {{ p.refunded_order.amount|floatformat:2 }}</p>
+                                                    <p class="mb-0 small-text"> Reason: {{ p.refunded_order.reason }}</p>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <p class="uppercase-text">Customer</p>
+                                                    <p class="small-text mb-0"> {{ p.first_name }} {{ p.second_name }}</p>
+                                                    <p class="small-text mb-0"> <i class="fa-regular fa-envelope me-2"></i> {{ p.email }}</p>
+                                                    <p class="small-text"> <i class="fa-solid fa-phone me-2"></i> 0{{ p.phone }}</p>
+                                                    {% if p.is_gift %}
+                    <p class="mb-0" ><span class="uppercase-text"> Is gift?: </span> Yes </p>
+                    <p class="mb-0 small-text"><i class="fa-solid fa-scroll me-2"></i> {{ p.gift_message }}</p>
+                {% else %}
+                    <p><span class="uppercase-text"> Is gift?: </span> No </p>
+                {% endif %}
+                
+                                                </div>
+                                                <div class="col-12 mt-4 mt-sm-0 col-sm-6">
+                <p class="uppercase-text"> Shipping</p>
+
+                <p class="small-text">{{ p.shipping_street_address1 }} <br>
+                {% if p.shipping_street_address2 %}
+                {{ p.shipping_street_address2 }} <br>
+                {% endif %}
+                {{ p.shipping_county }} <br>
+                {{ p.shipping_postcode }} <br>
+                {{ p.shipping_country }} <br>
+                </p>
+                <p class="small-text mb-0"><span class="uppercase-text">Postage</span> {{ p.get_postage_class_display }}</p>
+                <p class="small-text"><span class="uppercase-text">Parcel size</span> {{ p.get_parcel_size_display }}</p>
+            </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12">
+                                                    <p class="uppercase-text">Order summary:</p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-12 col-md-8">
+                                                <div class="row">
+                                                    <div class="col-4 text-end">
+                                                        <p class="uppercase-text d-sm-none mb-0"></p>
+                                                        <p class="uppercase-text d-none d-sm-block small-text mb-0"></p>
+                                                    </div>
+                                                    <div class="col-6 text-center">
+                                                        <p class="uppercase-text d-sm-none mb-0">Yarn</p>
+                                                        <p class="uppercase-text small-text d-none d-sm-block mb-0">Yarn</p>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        <p class="uppercase-text d-sm-none mb-0">Qty</p>
+                                                        <p class="uppercase-text d-none d-sm-block small-text mb-0">Qty</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                {% for item in p.lineitems.all %}
+                                                    <div class="row align-items-center">
+                                                        <div class="col-4 text-start">
+                                                            <p class="mb-0 small-text">
+                                                                SKU: {{ item.yarn.product_id.sku }}
+                                                            </p>
+                                                            <p class="mb-0 very-small-text">
+                                                                Shade: {{ item.yarn.shade_code }}
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="col-6 text-center">
+                                                            <p class="mb-0 small-text uppercase-text">
+                                                                {{ item.yarn.product_id.brand_id.name }}
+                                                            </span> {{ item.yarn.product_id.name }}
+                                                        </p>
+                                                        <p class="very-small-text">
+                                                            {{ item.yarn.colour_cat_id.colour_name|capfirst }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <p class="mb-0 small-text"> {{ item.quantity }} </p>
+                                                    </div>
+
+                                                    </div>
+                                                {% endfor %}
+                                            <p class=" right-align small-text mb-0"><span class="uppercase-text">Subtotal</span> £ {{ p.order_subtotal|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0 {% if not discount %} button-disabled{% endif %}"
+                > <span class="uppercase-text">Discount</span> £ {{ p.order_discount|floatformat:2 }}</p>
+                
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Postage</span> £ {{ p.postage_cost|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Total</span> £ {{ p.grand_total|floatformat:2 }}</p>    
+                                            </div>
+                                                </div>
+
+                                                
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                    <div class="row justify-content-center align-items-center mt-4 mb-4">
+                        <div class="col-8">
+                            <hr class="divider-dec">
+                        </div>
+                    </div>
+
+                                        <div class="col-12" id="cancelled">
+                        <h2 class="subtitles uppercase-text pb-4"><i class="fa-solid fa-circle-xmark me-4"></i>Cancelled</h2>
+
+                        <div class="col">
+{% if not cancelled %}
+<p> No cancelled orders </p>
+{% else %}
+                            <div class="accordion" >
+                                {% for p in cancelled %}
+
+                                    <div class="mb-3 accordion-item">
+                                        <a class="accordion-button dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                                           data-bs-target="#{{ p.order_num }}" aria-expanded="false" aria-controls="{{ p.order_num }}">
+                                           <div>
+                                           <p class="mb-0">#{{ p.order_num }}</p> 
+                                            <p class="small-text mb-0"> Customer: {{ p.first_name }} {{ p.second_name }} <br>
+                                                Total: £ {{ p.grand_total|floatformat:2 }} <br>
+                                                Placed on: {{ p.created_on|date:'jS M y' }} <span class="button-disabled"> {{ p.created_on|time:'H:i' }}</span>
+                                            </p>
+                                            </div> 
+                                        </a>
+                                        <div id="{{ p.order_num }}" class="accordion-collapse collapse">
+                                            <div class="row">
+                                                <div class="col-12 text-end">
+                                                
+                                                    <p class="mb-0">Cancelled on {{ p.refunded_order.created_on|date:'jS M y' }} </p>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <p class="uppercase-text">Customer</p>
+                                                    <p class="small-text mb-0"> {{ p.first_name }} {{ p.second_name }}</p>
+                                                    <p class="small-text mb-0"> <i class="fa-regular fa-envelope me-2"></i> {{ p.email }}</p>
+                                                    <p class="small-text"> <i class="fa-solid fa-phone me-2"></i> 0{{ p.phone }}</p>
+                                                    {% if p.is_gift %}
+                    <p class="mb-0" ><span class="uppercase-text"> Is gift?: </span> Yes </p>
+                    <p class="mb-0 small-text"><i class="fa-solid fa-scroll me-2"></i> {{ p.gift_message }}</p>
+                {% else %}
+                    <p><span class="uppercase-text"> Is gift?: </span> No </p>
+                {% endif %}
+                
+                                                </div>
+                                                <div class="col-12 mt-4 mt-sm-0 col-sm-6">
+                <p class="uppercase-text"> Shipping</p>
+
+                <p class="small-text">{{ p.shipping_street_address1 }} <br>
+                {% if p.shipping_street_address2 %}
+                {{ p.shipping_street_address2 }} <br>
+                {% endif %}
+                {{ p.shipping_county }} <br>
+                {{ p.shipping_postcode }} <br>
+                {{ p.shipping_country }} <br>
+                </p>
+                <p class="small-text mb-0"><span class="uppercase-text">Postage</span> {{ p.get_postage_class_display }}</p>
+                <p class="small-text"><span class="uppercase-text">Parcel size</span> {{ p.get_parcel_size_display }}</p>
+            </div>
+                                            </div>
+                                            <div class="row mt-4">
+                                                <div class="col-12">
+                                                    <p class="uppercase-text">Order summary:</p>
+                                                </div>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-12 col-md-8">
+                                                <div class="row">
+                                                    <div class="col-4 text-end">
+                                                        <p class="uppercase-text d-sm-none mb-0"></p>
+                                                        <p class="uppercase-text d-none d-sm-block small-text mb-0"></p>
+                                                    </div>
+                                                    <div class="col-6 text-center">
+                                                        <p class="uppercase-text d-sm-none mb-0">Yarn</p>
+                                                        <p class="uppercase-text small-text d-none d-sm-block mb-0">Yarn</p>
+                                                    </div>
+                                                    <div class="col-2 text-end">
+                                                        <p class="uppercase-text d-sm-none mb-0">Qty</p>
+                                                        <p class="uppercase-text d-none d-sm-block small-text mb-0">Qty</p>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                {% for item in p.lineitems.all %}
+                                                    <div class="row align-items-center">
+                                                        <div class="col-4 text-start">
+                                                            <p class="mb-0 small-text">
+                                                                SKU: {{ item.yarn.product_id.sku }}
+                                                            </p>
+                                                            <p class="mb-0 very-small-text">
+                                                                Shade: {{ item.yarn.shade_code }}
+                                                            </p>
+                                                        </div>
+                                                        
+                                                        <div class="col-6 text-center">
+                                                            <p class="mb-0 small-text uppercase-text">
+                                                                {{ item.yarn.product_id.brand_id.name }}
+                                                            </span> {{ item.yarn.product_id.name }}
+                                                        </p>
+                                                        <p class="very-small-text">
+                                                            {{ item.yarn.colour_cat_id.colour_name|capfirst }}
+                                                        </p>
+                                                    </div>
+                                                    <div class="col-2 text-center">
+                                                        <p class="mb-0 small-text"> {{ item.quantity }} </p>
+                                                    </div>
+
+                                                    </div>
+                                                {% endfor %}
+                                            <p class=" right-align small-text mb-0"><span class="uppercase-text">Subtotal</span> £ {{ p.order_subtotal|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0 {% if not discount %} button-disabled{% endif %}"
+                > <span class="uppercase-text">Discount</span> £ {{ p.order_discount|floatformat:2 }}</p>
+                
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Postage</span> £ {{ p.postage_cost|floatformat:2 }}</p>
+                <p class="right-align small-text mb-0"><span class="uppercase-text">Total</span> £ {{ p.grand_total|floatformat:2 }}</p>    
+                                            </div>
+                                                </div>
+
+                                                
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
                         </div>
 
                     </div>

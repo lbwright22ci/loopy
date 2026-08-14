@@ -154,7 +154,8 @@ def management_orders(request):
     refunded_queryset = Q(refund_status = True) & Q(is_shipped= True)
     refunded = Order.objects.filter(refunded_queryset)
 
-    past = Order.objects.exclude(pending_queryset, cancelled_queryset, refunded_queryset)
+    past_queryset = Q(is_shipped=True) & Q(refund_status = False)
+    past = Order.objects.filter(past_queryset)
 
     context={
         'pending':pending,
