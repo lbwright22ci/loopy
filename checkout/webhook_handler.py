@@ -306,10 +306,13 @@ class StripeWH_Handler:
                 refund.save()
                 order.refund_status = True
                 order.save()
-                        
-                messages.add_message(request, messages.SUCCESS, f'We are sorry that you changed your mind \
+                if reason == 'customer cancelled order':
+                    messages.add_message(request, messages.SUCCESS, f'We are sorry that you changed your mind \
                                                      about this order.  A refund has been issued and the money will be \
                                                      returned to your payment card soon.')
+                else:
+                    messages.add_message(request, messages.SUCCESS, f'#{ order_num } has been refunded £{amount}.  \
+                                                 Customer has been notified.')
             except Exception as e:
             
                 if refund:

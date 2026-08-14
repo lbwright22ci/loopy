@@ -1,14 +1,16 @@
 $(document).ready(function () {
 
     var val = $('input[name="bulk"]:checked').val();
-        if(val == 'freeshipping'){
-            $('#shipping-offer').show();
-            $('#bulk-offer').hide();
-        }
-        else{
-            $('#shipping-offer').hide();
-            $('#bulk-offer').show();
-        };
+    if(val == 'freeshipping'){
+        $('#shipping-offer').show();
+        $('#bulk-offer').hide();
+    }
+    else{
+        $('#shipping-offer').hide();
+        $('#bulk-offer').show();
+    };
+    
+    $('.refund-form').hide();
 
     $('#which').on('change', 'input[name="bulk"]', function(){
         var val = $('input[name="bulk"]:checked').val();
@@ -48,6 +50,21 @@ $(document).ready(function () {
         var form = $(this).closest('.ship-form');
         form.submit();
           });
+    
+    $('.reveal-refund').click(function(){
+        $(this).hide('slow');
+        $('.ship').hide('slow');
+        $('.refund-form').show('slow');
+    })
 
+    $('.cancel-refund').click(function(){
+        $('.refund-form').hide('slow');
+        $('.reveal-refund').show('slow');
+        $('.ship').show('slow');
+    })
 
+    $('.refund').click(function(){
+        var form = $(this).closest('.refund-form');
+        form.submit();
+    })
 })

@@ -65,7 +65,8 @@ nav .dropdown-menu{
 #id_upper_ball_num,
 #id_lower_ball_num,
 #id_lower_discount,
-#id_upper_discount{
+#id_upper_discount,
+.am{
     text-align: right;
 }
 
