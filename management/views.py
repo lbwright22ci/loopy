@@ -102,6 +102,42 @@ def update_salesettings(request):
     return redirect(reverse('management_settings'))
 
 @login_required
+def update_announcements(request):
+    """ """
+    if not request.user.is_superuser:
+            messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+                                 Loopy Yarns staff.")
+            return redirect(reverse('home'))
+    
+    promo = Announcements.objects.all()[0]
+
+    try:
+        if request.POST:
+            if request.POST.get('bulk_buy') == 'False':
+                promo.bulk_buy = False
+            else:
+                 promo.bulk_buy = True
+            promo.lower_ball_num = request.POST.get('lower_ball_num')
+            promo.upper_ball_num = request.POST.get('upper_ball_num')
+            promo.lower_discount = request.POST.get('lower_discount')
+            promo.upper_discount = request.POST.get('upper_discount')
+            promo.save()
+            print (promo.bulk_buy, type(promo.bulk_buy))
+            if promo.bulk_buy:
+                messages.add_message(request, messages.SUCCESS, f'Bulk buy discounts are now:\
+                                     {promo.lower_discount}% for more than {promo.lower_ball_num} balls\
+                                        and {promo.upper_discount}% for more than {promo.upper_ball_num} balls')
+            else:
+                 messages.add_message(request, messages.SUCCESS, f'Bulk buy discounts are now:\
+                                                      Free 2nd class shipping for orders with more than {promo.upper_ball_num} balls\
+                                                         of yarn')
+
+    except Exception as e:
+        messages.add_message(request, messages.ERROR, f'Unable to update promotional settings. Error message: {e}')
+
+    return redirect(reverse('management_settings'))
+
+@login_required
 def management_orders(request):
     """ """
     if not request.user.is_superuser:

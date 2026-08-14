@@ -141,7 +141,7 @@
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="bulk" value="freeshipping" id="freeshipping" {% if not current.bulk_buy %} checked {% endif %}>
                                 <label class="form-check-label" for="freeshipping">
-                                    free 2nd class shipping
+                                    Free 2nd class shipping
                                 </label>
                         </div>
                         <div class="form-check">
@@ -152,7 +152,7 @@
                             </label>
                         </div>
 </div>
-                        <form action="#" method="POST" id="shipping-offer" >
+                        <form action="{% url 'update_announcements' %}" method="POST" id="shipping-offer" >
                             {% csrf_token %}
                             
                             <div id="div_id_upper_ball_num_ship" class="mb-3 input-group">
@@ -169,12 +169,16 @@
 
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
+                                    <input type="hidden" name="bulk_buy" value="False">
+                                    <input type="hidden" name="lower_ball_num" value="0">
+                                    <input type="hidden" name="lower_discount" value="0">
+                                    <input type="hidden" name="upper_discount" value="0">
                                     <input class="ms-4 btn btn-main" role="button" type="submit" value="Update!">
                                 </div>
                             </div>
                         </form>
 
-                        <form action="#" method="POST" id="bulk-offer" >
+                        <form action="{% url 'update_announcements' %}" method="POST" id="bulk-offer" >
                             {% csrf_token %}
                             <div id="div_id_lower_ball_num" class="mb-3 input-group"> 
                                 <label for="id_lower_ball_num" class="form-label an-form">
@@ -210,6 +214,7 @@
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
                                     <p id="error-messages" class="red bold"></p>
+                                    <input type="hidden" name="bulk_buy" value="True">
                                     <a id="bulk" class="ms-4 btn btn-main" role="button">Update!</a>
                                 </div>
                             </div>

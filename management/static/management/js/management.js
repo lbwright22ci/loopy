@@ -27,18 +27,18 @@ $(document).ready(function () {
         var error =0;
         var displayError = $('#error-messages');
 
-        if($('#id_lower_ball_num').val() > $('#id_upper_ball_num').val()){
-            errorMessage += "Lower threshold must be less than upper threshold";
+        if(parseInt($('#id_lower_ball_num').val()) >= parseInt($('#id_upper_ball_num').val())){
+            errorMessage += "Lower threshold must be less than upper threshold.  ";
             error += 1;
         };
-        if($('#id_lower_discount').val > $('#id_upper_discount').val()){
+        if(parseInt($('#id_lower_discount').val()) >= parseInt($('#id_upper_discount').val())){
             errorMessage += "Lower discount must be less than upper discount";
             error +=1;
         };
         displayError.text(errorMessage);
 
         if(error==0){
-            var form = $(this).closest(('#bulk-offer'));
+            var form = $(this).closest('#bulk-offer');
             form.submit();
         }
 

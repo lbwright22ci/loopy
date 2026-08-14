@@ -150,7 +150,7 @@
                             <p class="bold"> Buy {{ announcement.lower_ball_num|subtract:ball_count }} more balls for a
                                 {{ announcement.lower_discount}}% discount! </p>
                         {% else %}
-                            <p class="bold"> Buy {{ announcement.upper_ball_num|subtract:ball_count }} more balls for free shipping! </p>
+                            <p class="bold"> Buy {{ announcement.upper_ball_num|subtract:ball_count }} more balls for free 2nd class shipping! </p>
                         {% endif %}
                     {% else %}
                         {% if announcement.bulk_buy and announcement.active %}
@@ -161,7 +161,7 @@
                                 <p>{{ announcement.upper_discount}}% discount applied! </p>
                             {% endif %}
                         {% else %}
-                            <p>Free postage applied! </p>
+                            <p>Free 2nd class postage applied! </p>
                         {% endif %}
                     {% endif %}
                 </div>
