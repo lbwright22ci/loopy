@@ -88,6 +88,22 @@ nav .dropdown-menu{
     padding-top:1rem;
     padding-bottom:4rem;
 }
+
+.accordion-button{
+    font-size: 1.6rem;
+    padding-right:2rem;
+    color:var(--primary-text-color);
+}
+
+.accordion-button:not(.collapsed),
+.accordion-button:hover{
+    color:var(--primary-text-color);
+}
+
+a{
+    text-decoration: none;
+}
+
 /* for sizes md and above in Bootstrap */
 @media screen and (min-width:576px){
 
