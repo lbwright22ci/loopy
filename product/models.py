@@ -105,12 +105,17 @@ class Colour_var(models.Model):
     
     Fields include 'product_id', 'colour_cat_id', 'shade_code', 'dye_lot', 'low_stock', 'in_stock'
     """
-    product_id = models.ForeignKey('Product', null=False, blank =False, on_delete=models.CASCADE, related_name='product')
-    colour_cat_id = models.ForeignKey('Colour_cat', null=True, blank = True, on_delete=models.SET_NULL, related_name='colour')
+    product_id = models.ForeignKey('Product', null=False, blank =False, on_delete=models.CASCADE, verbose_name='Yarn', related_name='product')
+    colour_cat_id = models.ForeignKey('Colour_cat', null=True, blank = True, on_delete=models.SET_NULL,verbose_name='shade', related_name='colour')
     shade_code = models.IntegerField(null=False, blank = False)
     dye_lot = models.IntegerField(blank= False, null=False)
     low_stock = models.BooleanField(default= False)
     in_stock = models.BooleanField(default = True)
+
+    class Meta:
+        ordering=['product_id',]
+        verbose_name = 'Yarn shade'
+        verbose_name_plural= 'Yarn shades'
 
     def __str__(self):
         return f'{self.product_id.name} colour option {self.colour_cat_id}' 

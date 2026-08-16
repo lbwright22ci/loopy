@@ -394,6 +394,7 @@ JAZZMIN_SETTINGS = {
         "checkout": "fa-solid fa-basket-shopping",
         "checkout.order":"fa-solid fa-receipt",
         "product.product": "fa-solid fa-gifts",
+        'product.colour_var':'fa-solid fa-palette',
         "checkout.reviewyarns": "fa-solid fa-thumbs-up",
     },
     # Icons that are used when one is not manually specified

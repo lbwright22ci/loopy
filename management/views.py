@@ -11,7 +11,13 @@ from checkout.models import Order
 
 @login_required
 def management_home(request):
-    """ """
+    """
+    Landing page (accessible to superusers only) for bespoke shop admin area with links to admin.site.urls as well as bespoke pages.
+
+    **Template**
+    'management/admin-home.html'
+
+    """
     if not request.user.is_superuser:
         messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                              Loopy Yarns staff.")
@@ -26,7 +32,20 @@ def management_home(request):
 
 @login_required
 def management_settings(request):
-    """ """
+    """
+    Page assessible to superusers only which displays current active instances of :model:`core.ShopContactInfo`,
+    :model:`core.SaleSettings` and :model:`core.Announcements` as well as links to active instances of 
+    :model:`Postage` and :model:`UserProfile`
+
+    **Template**
+    'management/admin-settings.html'
+
+    **Context**
+    'shop_form'
+    'sale_rate'
+    'current'
+
+    """
     if not request.user.is_superuser:
         messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                              Loopy Yarns staff.")
@@ -52,7 +71,10 @@ def management_settings(request):
 
 @login_required
 def update_shopsettings(request):
-    """ """
+    """
+    View accessible to superusers only which updates current active instance of :model:`ShopContactInfo`
+
+    """
     if not request.user.is_superuser:
             messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                                  Loopy Yarns staff.")
@@ -82,7 +104,9 @@ def update_shopsettings(request):
 
 @login_required
 def update_salesettings(request):
-    """ """
+    """
+    View accessible to superusers only which updates active instance of :model:`SaleSettings`
+    """
     if not request.user.is_superuser:
             messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                                  Loopy Yarns staff.")
@@ -103,7 +127,9 @@ def update_salesettings(request):
 
 @login_required
 def update_announcements(request):
-    """ """
+    """
+    View accessible to superusers only which updates current active instance of :model:`Announcements`
+    """
     if not request.user.is_superuser:
             messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                                  Loopy Yarns staff.")
@@ -139,7 +165,19 @@ def update_announcements(request):
 
 @login_required
 def management_orders(request):
-    """ """
+    """ 
+    Page displaying all instances of :model:`Order`
+
+    Orders are categorised as 'Pending', 'Shipped', 'Refunded' and 'Cancelled'
+    **Template**
+    'management/admin-orders.html'
+    
+    **Context**
+    'pending'
+    'cancelled'
+    'refunded'
+    'past'    
+    """
     if not request.user.is_superuser:
         messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                              Loopy Yarns staff.")

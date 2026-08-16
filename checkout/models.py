@@ -216,7 +216,10 @@ class Refund(models.Model):
     refund_id= models.CharField(max_length=500, blank = False, null=False)
 
 class Shipped(models.Model):
-    """ """
+    """
+    Related to :model:`Order`
+    Fields are: 'order', 'dispatched_on'
+    """
     order = models.OneToOneField(Order, on_delete=models.CASCADE, blank = False, null=False, related_name='shipped')
     dispatched_on = models.DateTimeField(auto_now_add = True)
 

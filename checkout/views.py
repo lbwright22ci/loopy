@@ -454,7 +454,14 @@ def checkout_success(request, order_num):
 
 @login_required
 def Cancel_order(request, order_num):
-    """ """
+    """
+    Creates a new instance of the :model:`Refund` (related to :model:`Order` by a one-to-one relationship)
+
+    Returns the user to the page from which they submitted the refund request (for customers this will
+    be their account page and for shop admin it will be the order page in the admin area.)
+
+    Refund payment is handled by Stripe.
+    """
 
     order = get_object_or_404(Order, order_num = order_num)
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
@@ -505,7 +512,12 @@ def Cancel_order(request, order_num):
 
 @login_required
 def mark_shipped(request):
-    """ """
+    """
+    Creates a new instance of :model:`Shipped` (related to :model:`Order` in a one-to-one relationship
+    
+    Success or failure message is displayed to shop admin and an email is sent to customer.
+    )
+    """
     if not request.user.is_superuser:
             messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                                  Loopy Yarns staff.")
