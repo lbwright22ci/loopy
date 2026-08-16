@@ -94,21 +94,22 @@
                                                                 </label>
                                                                 <span class="input-group-text"> £ </span>
                                                                 <input type="number" name="amount" placeholder="{{ p.grand_total }}"
-                                                                       class="numberinput form-control am" id="id_amount" min="0" max="{{ p.grand_total }}">
+                                                                       class="numberinput form-control am" id="amount-{{ p.pk }}" min="0" max="{{ p.grand_total }}">
                                                             </div>
-                                                            <input type="hidden" name="reason" value="duplicate">
+                                                            <p class="red bold" id="errors-{{ p.pk }}"></p>
+                                                            <!-- <input type="hidden" name="reason" value="duplicate"> -->
                                                             <input type="hidden" name="stripe_pid" value="{{ p.stripe_pid }}">
                                                             <div class="row justify-content-end">
                                                                 <div class="col-12 text-end">
                                                                     <a class="btn btn-second me-4 cancel-refund" aria-label="leave refund form">Cancel</a>
-                                                                    <a class="btn btn-main refund" aria-label="Refund"
-                                                                    >Refund </a>
+                                                                    <a class="btn btn-main refund" data-max="{{ p.grand_total }}" data-pk="{{ p.pk }}" aria-label="Refund">Refund </a>
                                                                 </div>
-                                                        <p class="red bold"> <i class="fa-solid fa-triangle-exclamation"></i> This action cannot be reversed.  Are you sure?
-
-                                                        </p></div>  
-                                                    </form>
-                                                </div>
+                                                                <p class="red bold"> <i class="fa-solid fa-triangle-exclamation"></i> This action cannot be reversed.  Are you sure?</p>
+                                                            </div>  
+                                                        </form>
+                                                    </div>
+                                                </div>  
+                                                <div class="row">
                                                 <div class="col-12 text-start">
 
                                                     <p class=" bold">Pending </p>
@@ -237,6 +238,37 @@
                                                 </div>
                                             </a>
                                             <div id="{{ p.order_num }}" class="accordion-collapse collapse">
+                                                <div class="row justify-content-end">
+                                                    <div class="col-3 col-md-2 col-lg-2 mt-4 text-end">
+                                                        <p class="btn btn-main reveal-refund"> Refund</p>
+                                                    </div>
+                                                </div>
+                                                <div class="row justify-content-end">
+                                                    <div class="col-8">
+                                                        <form action="{% url 'cancel_order' p.order_num %}" method="POST" id="{{ p.pk }}" class="refund-form">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="order" value="{{ p.pk }}">
+                                                            <div class="mb-3 input-group">
+                                                                <label for="id_amount" class="form-label">
+                                                                    Amount to refund
+                                                                </label>
+                                                                <span class="input-group-text"> £ </span>
+                                                                <input type="number" name="amount" placeholder="{{ p.grand_total }}"
+                                                                       class="numberinput form-control am" id="amount-{{ p.pk }}" min="0" max="{{ p.grand_total }}">
+                                                            </div>
+                                                            <p class="red bold" id="errors-{{ p.pk }}"></p>
+                                                            <!-- <input type="hidden" name="reason" value="duplicate"> -->
+                                                            <input type="hidden" name="stripe_pid" value="{{ p.stripe_pid }}">
+                                                            <div class="row justify-content-end">
+                                                                <div class="col-12 text-end">
+                                                                    <a class="btn btn-second me-4 cancel-refund" aria-label="leave refund form">Cancel</a>
+                                                                    <a class="btn btn-main refund" data-pk="{{ p.pk }}" aria-label="Refund" data-max = "{{ p.grand_total }}">Refund </a>
+                                                                </div>
+                                                                <p class="red bold"> <i class="fa-solid fa-triangle-exclamation"></i> This action cannot be reversed.  Are you sure?</p>
+                                                            </div>  
+                                                        </form>
+                                                    </div>
+                                                </div> 
                                                 <div class="row">
                                                     <div class="col-12 text-start">
 
@@ -361,17 +393,18 @@
                                                     <p class="mb-0">#{{ p.order_num }}</p>
                                                     <p class="small-text mb-0"> Customer: {{ p.first_name }} {{ p.second_name }} <br>
                                                         Total: £ {{ p.grand_total|floatformat:2 }} <br>
+                                                        <span class='red'>Refund amount: £ {{ p.refunded_order.amount|floatformat:2 }}</span> <br>
                                                         Placed on: {{ p.created_on|date:'jS M y' }} <span class="button-disabled"> {{ p.created_on|time:'H:i' }}</span>
                                                     </p>
                                                 </div>
                                             </a>
                                             <div id="{{ p.order_num }}" class="accordion-collapse collapse">
                                                 <div class="row">
-                                                    <div class="col-12 text-end">
+                                                    <div class="col-12 text-start mt-4">
 
-                                                        <p class="mb-0">Refunded on {{ p.refunded_order.created_on|date:'jS M y' }} </p>
-                                                        <p class="mb-0 small-text"> Refund amount £ {{ p.refunded_order.amount|floatformat:2 }}</p>
-                                                        <p class="mb-0 small-text"> Reason: {{ p.refunded_order.reason }}</p>
+                                                        <p class="mb-0 bold">Refunded on: {{ p.refunded_order.created_on|date:'jS M y' }} </p>
+                                                        <p class="mb-0 small-text"> Refund amount: £ {{ p.refunded_order.amount|floatformat:2 }}</p>
+                                                        <p class="small-text"> Reason: {{ p.refunded_order.reason }}</p>
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <p class="uppercase-text">Customer</p>
@@ -498,9 +531,9 @@
                                             </a>
                                             <div id="{{ p.order_num }}" class="accordion-collapse collapse">
                                                 <div class="row">
-                                                    <div class="col-12 text-end">
+                                                    <div class="col-12 text-start mt-4">
 
-                                                        <p class="mb-0">Cancelled on {{ p.refunded_order.created_on|date:'jS M y' }} </p>
+                                                        <p class=" bold">Cancelled on {{ p.refunded_order.created_on|date:'jS M y' }} </p>
                                                     </div>
                                                     <div class="col-12 col-sm-6">
                                                         <p class="uppercase-text">Customer</p>

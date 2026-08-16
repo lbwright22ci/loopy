@@ -148,10 +148,10 @@ def management_orders(request):
     pending_queryset = Q(is_shipped = False) & Q(refund_status = False)
     pending = Order.objects.filter(pending_queryset)
 
-    cancelled_queryset = Q(is_shipped = False) & Q(refund_status = True)
+    cancelled_queryset = Q(is_shipped = False) & Q(refunded_order__reason__contains="cancel") & Q(refund_status='True')
     cancelled = Order.objects.filter(cancelled_queryset)
 
-    refunded_queryset = Q(refund_status = True) & Q(is_shipped= True)
+    refunded_queryset = Q(refund_status = True) & Q(refunded_order__reason__contains="refund")
     refunded = Order.objects.filter(refunded_queryset)
 
     past_queryset = Q(is_shipped=True) & Q(refund_status = False)

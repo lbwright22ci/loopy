@@ -65,6 +65,19 @@ $(document).ready(function () {
 
     $('.refund').click(function(){
         var form = $(this).closest('.refund-form');
-        form.submit();
-    })
+        var pk = $(this).data('pk');
+        var aS = `#amount-${pk}`;
+        var eP = `#errors-${pk}`;
+        var errorPara = $(eP);
+        var maxAmount = parseFloat($(this).data('max'));
+        var amountSubmitted = parseFloat($(aS).val());
+
+        if(maxAmount < amountSubmitted ){
+            var errorText = `The maximum amount you can refund for this order is £${maxAmount}`;
+            $(eP).text( errorText);
+        }
+        else{
+            form.submit();
+        }
+    });
 })

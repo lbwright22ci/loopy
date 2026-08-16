@@ -314,7 +314,7 @@ class StripeWH_Handler:
                     messages.add_message(request, messages.SUCCESS, f'#{ order_num } has been refunded £{amount}.  \
                                                  Customer has been notified.')
             except Exception as e:
-            
+                
                 if refund:
                     refund.delete()
                     return HttpResponse(content = f'Webhook receieved: {event['type']} | ERROR: {e}', 
