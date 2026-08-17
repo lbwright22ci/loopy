@@ -136,7 +136,7 @@
                                                                 <input type="hidden" name="redirect_url" value="{{ request.path }}">
                                                                 <div class="text-center div-colour-select-form">
                                                                         <input type="submit" aria-label=" adds yarns to your shopping basket" class="btn btn-main mb-4 mt-4"
-                                                                               role="button" value="Add to basket">
+                                                                                value="Add to basket">
                                                                 </div>
                                                         </div>
 
@@ -156,11 +156,11 @@
                         <div class="col ms-2 me-2">
                                 <div class="accordion" id="product-info">
                                         <div class="mb-3 accordion-item">
-                                                <a class="accordion-button dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
-                                                   data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                <a class="accordion-button dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
+                                                   data-bs-target="#collapseOneB" aria-expanded="false" aria-controls="collapseOneB">
                                                         Product Specification
                                                 </a>
-                                                <div id="collapseOne" class="accordion-collapse collapse">
+                                                <div id="collapseOneB" class="accordion-collapse collapse">
                                                         <p><span class="bold">Thickness: </span> {{ prod.thickness_id.name }}</p>
                                                         <p><span class="bold">Fibre content: </span> {{ prod.fibre }}</p>
                                                         <p><span class="bold">Weight: </span> {{ prod.skein_weight }}g</p>
@@ -169,11 +169,11 @@
                                                 </div>
                                         </div>
                                         <div class="mb-3 accordion-item">
-                                                <a class="accordion-button  dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
-                                                   data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                <a class="accordion-button  dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
+                                                   data-bs-target="#collapseTwoB" aria-expanded="false" aria-controls="collapseTwoB">
                                                         Care Instructions
                                                 </a>
-                                                <div id="collapseTwo" class="accordion-collapse collapse">
+                                                <div id="collapseTwoB" class="accordion-collapse collapse">
                                                         {% if prod.machine_wash %}
                                                                 <p> Machine washable
                                                                         {% if prod.wool_cycle %}
@@ -198,11 +198,11 @@
                                                 </div>
                                         </div>
                                         <div class="mb-3 accordion-item">
-                                                <a class="accordion-button dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
-                                                   data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <a class="accordion-button dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
+                                                   data-bs-target="#collapseThreeB" aria-expanded="false" aria-controls="collapseThreeB">
                                                         Tips & Patterns
                                                 </a>
-                                                <div id="collapseThree" class="accordion-collapse collapse">
+                                                <div id="collapseThreeB" class="accordion-collapse collapse">
 
                                                         <p><span class="bold">Recommended needle size: </span> {{ prod.needle_size }}mm</p>
                                                         <p><span class="bold">Tension*: </span> {{ prod.knitting_tension }}</p>
