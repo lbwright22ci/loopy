@@ -23,7 +23,7 @@
                                 <form class="d-flex" role="search" method="GET" action="{% url 'allproducts' %}">
                                         <input class="form-control me-2 search-box" type="search" name="q"
                                                placeholder="Find your yarn!" aria-label="Search">
-                                        <span class="search-sudo-button" type="submit"><i
+                                        <span class="search-sudo-button" ><i
                                                 class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                                 </form>
                         </div>
@@ -44,7 +44,7 @@
                 <div class="row d-block d-lg-none">
                         <div class="col-12 text-end">
                                 <a class="btn btn-second" data-bs-toggle="offcanvas"
-                                   href="#mob-filter-sort" role="button"
+                                   href="#mob-filter-sort"
                                    aria-label="opens filter and sort menu"> <i class="fa-solid fa-arrow-down-wide-short"></i> Filter  | Sort </a>
                         </div>
                 </div>
@@ -175,8 +175,7 @@
                                                         <div class="col-12 col-md-6 col-lg-4 text-center">
 
                                                                 <div class="card">
-                                                                        <a class="card-link" href="{% url 'productdetail' product.slug %} "
-                                                                           aria-label="takes you to a page where you can find out more information about {{ product.name }}">
+                                                                        <div class="row justify-content-center">
                                                                                 <div class="prod-image-container">
                                                                                         <img src="{{ product.image.url }}"
                                                                                              class="card-img-top product-page-images"
@@ -189,6 +188,8 @@
                                                                                         {% endif %}
                                                                                         
                                                                                 </div>
+                                                                        </div>
+
                                                                                 <div class="card-body">
                                                                                         <p>{% if user.is_authenticated %}
                                         
@@ -228,7 +229,8 @@
                                                                                         </p>
                                                                                         
                                                                                 </div>
-                                                                        </a>
+                                                                        <a class="overlay-link card-link" href="{% url 'productdetail' product.slug %} "
+                                                                           aria-label="takes you to a page where you can find out more information about {{ product.name }}"></a>
                                                                 </div>
 
                                                         </div>
@@ -247,19 +249,19 @@
                         <i class="fa-solid fa-arrow-up"></i>
                 </a>
         </div>
-        <div class="offcanvas offcanvas-start" id="mob-filter-sort" tab-index="-1"
-             aria-label="filter and sort yarns" data-bs-backdrop="static">
+        <div class="offcanvas offcanvas-start" id="mob-filter-sort" 
+              data-bs-backdrop="static">
                 <div class="container offcanvas-body">
                         <div class="row">
                                 <div class="col-6 text-start ms-auto">
                                         <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
-                                             id="mob-header-logo"></a>
+                                             class="mob-header-logo">
                         </div>
                         <div class="col-6 text-end">
-                                <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
-                                        class="fa-solid fa-x"></i></a>
+                                <span data-bs-dismiss="offcanvas" role="button" aria-label="Close"><i
+                                        class="fa-solid fa-x"></i></span>
                         </div>
-                {% include 'product/includes/filter-and-sort.html' %}
+                {% include 'product/includes/filter-and-sort-mob.html' %}
                 </div>
         </div>        
         </div>

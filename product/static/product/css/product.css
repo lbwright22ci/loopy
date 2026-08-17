@@ -16,7 +16,22 @@
 
 .card{
     border:none;
-    display:flex
+    display:flex;
+    position:relative;
+}
+
+.overlay-link{
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    z-index:10;
+}
+
+.fav-icon{
+    position:relative;
+    z-index:12;
 }
 
 .prod-image-container{
@@ -98,7 +113,7 @@ a{
 }
 
 
-div#filter-acc.accordion{
+div.filter-acc.accordion{
     --bs-accordion-border-color:none;
 }
 

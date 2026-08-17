@@ -4,7 +4,7 @@
         <div class="container-fluid fixed-top d-block d-lg-none" id="mobile-nav">
                 <div class="row justify-content-between">
                         <div class="col-6 text-start">
-                                <a data-bs-toggle="offcanvas" href="#expand-hambuger" role="button"
+                                <a data-bs-toggle="offcanvas" href="#expand-hambuger"
                                    aria-label="takes you to expanded menu options on mobile">
                                         <span id="mobile-hamburger"><i class="fa-solid fa-bars nav-icon"></i></span>
                                 </a>
@@ -40,7 +40,7 @@
 
 </div>
 
-<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" aria-label="mobile menu" role="button"
+<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" 
      data-bs-scroll="true">
         <div class="container">
                 <div class="row ">
@@ -49,7 +49,7 @@
                                      class="mob-header-logo">
                 </div>
                 <div class="col-6 text-end">
-                        <span role="button" data-bs-dismiss="offcanvas"  aria-label="Close"><i
+                        <span data-bs-dismiss="offcanvas" role="button"  aria-label="Close"><i
                                 class="fa-solid fa-x"></i></span>
                 </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="row">
                 <div class="col-12">
                         <p class="dropdown-item"><a data-bs-toggle="offcanvas" href="#mob-yarn-filter-menu"
-                                                    role="button" aria-label="takes you to choice of yarn menu"> Yarn shop
+                                                 aria-label="takes you to choice of yarn menu"> Yarn shop
                                 <i class="fa-solid fa-arrow-right ms-4"></i>
                         </a></p>
                         <hr class="mt-2 mb-4">
@@ -84,7 +84,7 @@
         </div>
         <div class="row mt-2">
                 <div class="col-12 dropdown">
-                        <a class="dropdown-toggle" href="#" role="button" aria-expanded="false"
+                        <a class="dropdown-toggle" href="#" aria-expanded="false"
                            data-bs-toggle="dropdown"><i class="fa-regular fa-user nav-icon"></i></a>
                         <ul class="dropdown-menu mt-4">
                                 {% if user.is_authenticated %}
@@ -111,7 +111,6 @@
 </div>
 
 <div class="offcanvas offcanvas-start" id="mob-yarn-filter-menu" tabindex="-1" 
-aria-label="yarn-filter selection menu" role="button"
      data-bs-scroll="true">
         <div class="container">
                 <div class="row">
@@ -120,14 +119,14 @@ aria-label="yarn-filter selection menu" role="button"
                                      class="mob-header-logo">
                 </div>
                 <div class="col-6 text-end">
-                        <span role="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                        <span role="button" data-bs-dismiss="offcanvas"  aria-label="Close"><i
                                 class="fa-solid fa-x"></i></span>
                 </div>
         </div>
         <div class="row">
                 <div class="col-12">
                         <p><a data-bs-toggle="offcanvas" href="#expand-hambuger"
-                              role="button" aria-label="takes you to main menu on mobile"> <i
+                         aria-label="takes you to main menu on mobile"> <i
                                 class="fa-solid fa-arrow-left me-4"></i>Back
                         </a></p>
                         <hr class="mt-2 mb-4">
