@@ -234,11 +234,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-12 mb-4 text-end">
-                    <a href="{}" aria-label="takes you to your accout to view your full favourites list" >See more...</p>
-                </div>
-            </div>
+
         {% endif %}
     </div>
 
@@ -254,6 +250,6 @@
 {% block extrapostjs %}
     {{ block.super }}
 
-    <script src="{% static 'basket/js/basket.js' %}" type="text/javascript"></script>
+    <script src="{% static 'basket/js/basket.js' %}"></script>
 
 {% endblock %}
