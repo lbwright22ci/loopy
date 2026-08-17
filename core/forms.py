@@ -31,10 +31,7 @@ class AddressForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super(AddressForm, self).__init__(*args, **kwargs)
-        """
-        Adjust the widget attributes attached to default street address 1
-        """
-        self.fields['default_street_address1'].widget.attrs['autofocus'] = True
+        
 
 
 class ReviewYarnForm(forms.ModelForm):
