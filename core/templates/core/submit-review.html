@@ -80,7 +80,7 @@
             <div class="col-12 col-md-6 pt-4 pt-md-0">
                 <form action="{% url 'submit_review' order.order_num %}" method="POST" class="feedback-form">
                     {% csrf_token %}
-                    <div class="div_id_rating" class="mb-3">
+                    <div class="div_id_rating mb-3">
                         <label class="form-label required">
                         Rating<span class="asteriskField">*</span> 
                         </label>
@@ -90,7 +90,7 @@
                             <i class="fa-regular fa-star 4" data-yarn="{{ item.yarn.pk }}"></i>
                             <i class="fa-regular fa-star 5" data-yarn="{{ item.yarn.pk }}"></i>
                         
-                        <span type="number" id="rating-{{ item.yarn.pk }}" class="d-none" name="rating" data-yarn="{{ item.yarn.pk }}"> {% for r in reviews %}
+                        <span id="rating-{{ item.yarn.pk }}" class="d-none rating" data-yarn="{{ item.yarn.pk }}"> {% for r in reviews %}
                         {% if r.yarn == item.yarn %}
                         {{ r.rating }}
                         {% endif %}
@@ -170,5 +170,5 @@
 {% block extrapostjs %}
     {{ block.super }}
 
-    <script type="text/javascript" src="{% static 'core/js/leave-reviews.js' %}"></script>
+    <script src="{% static 'core/js/leave-reviews.js' %}"></script>
 {% endblock %}

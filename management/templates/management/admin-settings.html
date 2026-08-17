@@ -46,7 +46,7 @@
                         <i class="fa-solid fa-truck me-4"></i>Postage </a></li>
                     <li class="sub-menu"><a href="{% url 'admin:core_userprofile_changelist' %}"
                                             aria-label="View customer details such as address and phone number">
-                        <i class="fa-solid fa-users me-4"></i>Customer management </a></li>
+                        <i class="fa-solid fa-users me-4"></i>Customer Management </a></li>
                 </ul>
             </div>
             <div class="col-12 col-md-9 col-lg-7">
@@ -55,7 +55,7 @@
                         <h2 class="subtitles uppercase-text pb-4"><i class="fa-solid fa-location-dot me-4"></i>Shop Address</h2>
                         <p> Update shop contact information visible to customers.</p>
 
-                        <div id="">
+                        <div >
                             <form action="{% url 'update_shopsettings' %}" method="POST">
                                 {% csrf_token %}
                                 <div class="row">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="row justify-content-end mt-4">
                                     <div class="col-12 text-end pt-4">
-                                        <input class="ms-4 btn btn-main" role="button" type="submit" value="Update!">
+                                        <input class="ms-4 btn btn-main"  type="submit" value="Update!">
                                     </div>
                                 </div>
                             </form>
@@ -106,7 +106,7 @@
                                 <label for="id_sale_percent" class="form-label requiredField me-4">
                                     Discount*
                                 </label>
-                                <input type="number" name="sale_percent" autofocus max="60" min="0"
+                                <input type="number" name="sale_percent"  max="60" min="0"
                                        value="{{ sale_rate }}"
                                        class="form-control numberinput ms-4" required id="id_sale_percent">
                                 <span class="input-group-text"> %
@@ -114,7 +114,7 @@
                             </div>
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
-                                    <input class="ms-4 btn btn-main" role="button" type="submit" value="Update!">
+                                    <input class="ms-4 btn btn-main" type="submit" value="Update!">
                                 </div>
                             </div>
                         </form>
@@ -162,7 +162,7 @@
                             </label>  
                         <input type="number" name="upper_ball_num" 
                         value="{{ announcement.upper_ball_num }}" 
-                        autofocus class="numberinput form-control" id="id_upper_ball_num_ship" min="0" max="100">
+                         class="numberinput form-control" id="id_upper_ball_num_ship" min="0" max="100">
                         <span class="input-group-text an"> balls </span>
                 </div>
                             
@@ -173,7 +173,7 @@
                                     <input type="hidden" name="lower_ball_num" value="0">
                                     <input type="hidden" name="lower_discount" value="0">
                                     <input type="hidden" name="upper_discount" value="0">
-                                    <input class="ms-4 btn btn-main" role="button" type="submit" value="Update!">
+                                    <input class="ms-4 btn btn-main" type="submit" value="Update!">
                                 </div>
                             </div>
                         </form>
@@ -185,7 +185,7 @@
                 Lower threshold
             </label> 
             <input type="number" name="lower_ball_num" value="{{ announcement.lower_ball_num }}" 
-            autofocus class="numberinput form-control" id="id_lower_ball_num" min="0"> 
+             class="numberinput form-control" id="id_lower_ball_num" min="0"> 
             <span class="input-group-text an"> balls</span>
         </div> 
         <div id="div_id_lower_discount" class="mb-3 input-group"> 
@@ -245,5 +245,5 @@
 
 {% block extrapostjs %}
     {{ block.super }}
-    <script src="{% static 'management/js/management.js' %}" type="text/javascript"></script>
+    <script src="{% static 'management/js/management.js' %}" ></script>
 {% endblock %}

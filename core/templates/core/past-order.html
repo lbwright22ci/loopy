@@ -163,7 +163,7 @@
                     {% csrf_token %}
                     <input type="hidden" name="colour_var" value="{{ item.yarn.pk }}">
                     <input type="hidden" name="quantity" value="{{ item.quantity }}">
-                    <a class="reorder" aria-label="reorder this item">Reorder</a>    
+                    <a class="reorder" href="#">Reorder</a>    
                 </form>
             </div>
         </div>
@@ -204,5 +204,5 @@
 
 {% block extrapostjs %}
     {{ block.super }}
-    <script src="{% static 'core/js/reorder.js' %}" type="text/javascript"></script>
+    <script src="{% static 'core/js/reorder.js' %}" ></script>
 {% endblock %}
