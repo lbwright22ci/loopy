@@ -7,29 +7,31 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mt-2">
-        <li class="nav-item dropdown">
+      <div class="navbar-nav mt-2 inline">
+        <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Yarn Shop
           </a>
-          <ul class="dropdown-menu">
+          <div class="dropdown-menu">
             <div class=" row mb-4">
               <div class="col-lg-6 ">
+                <ul>
                 <li><a class="dropdown-item" href="{% url 'allproducts' %}" aria-label="go to a list of all yarns for sale">All yarn</a></li>
                 <li><a class="dropdown-item" href="{% url 'allproducts' %}?sale=true" aria-label="filter to show only yarn on promotion">Promotions</a></li>
+                  </ul>
               </div>
 
               <div class="col-lg-3">
                 <form class="d-flex" role="search" method="GET" action="{% url 'allproducts' %}">
                   <input class="form-control me-2 search-box" type="search" name="q" placeholder="Find your yarn!" aria-label="Search">
-                  <span class="search-sudo-button" type="submit"><i class="fa-solid fa-magnifying-glass nav-icon"></i></span>
+                  <span class="search-sudo-button"><i class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                 </form>
               </div>
 
             </div>
             <div class="row mt-4">
               <div class="col-lg-3">
-                <li class="uppercase-text">Brands</li>
+                <p class="uppercase-text mb-0">Brands</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?brand=drops" aria-label="Filter to show only yarn with brand 'Drops'">Drops</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?brand=sirdar" aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a></li>
@@ -37,7 +39,7 @@
                 </ul>
               </div>
               <div class="col-lg-3">
-                <li class="uppercase-text">Thickness</li>
+                <p class="uppercase-text mb-0">Thickness</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=2" aria-label="filter to show only yarn with thickness 2 ply">2 ply</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?thickness=4" aria-label="filter to show only yarn with thickness 4 ply">4 ply</a></li>
@@ -48,7 +50,7 @@
                 </ul>
               </div>
               <div class="col-lg-3">
-                <li class="uppercase-text">Fibre</li>
+                <p class="uppercase-text mb-0">Fibre</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=Alpaca" aria-label="filter to show only yarn containing alpaca yarn"> Alpaca</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?fibre=Acrylic" aria-label="filter to show only yarn containing acrylic yarn">Acrylic</a></li>
@@ -59,7 +61,7 @@
                 </ul>
               </div>
               <div class="col-lg-3">
-                <li class="uppercase-text">Price range</li>
+                <p class="uppercase-text mb-0">Price range</p>
                 <ul>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(0,2)" aria-label="filter to show only yarns in the price range 0-£2"> £0-£2.00</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(2,4)" aria-label="filter to show only yarns in the price range £2-£4">£2.01-£4</a></li>
@@ -71,16 +73,16 @@
               </div>
             </div>
 
-          </ul>
-        </li>
+          </div>
+        </div>
 
-        <li class="nav-item">
+        <div class="nav-item">
           <a class="nav-link " href="{% url 'contact_page' %}" 
           aria-label="Goes to a page where you can get in touch with the business owners">Get in Touch</a>
-        </li>
-      </ul>
-      <ul class="navbar-nav ms-auto me-4">
-        <li class="nav-item dropdown mt-2">
+        </div>
+      </div>
+      <div class="navbar-nav ms-auto me-4">
+        <div class="nav-item dropdown mt-2">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-regular fa-user nav-icon"></i>
           </a>
@@ -97,16 +99,16 @@
               <li><a class="dropdown-item" href="{% url 'account_signup' %}" aria-label="Register for a Loopy yarns account">Register</a></li>
             {% endif %}
           </ul>
-        </li>
-        <li class="nav-item mt-2 mb-2" id="basket">
+        </div>
+        <div class="nav-item mt-2 mb-2" id="basket">
           <span class="nav-link"><i class="fa-solid fa-basket-shopping position-relative nav-icon">
             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill basket-counter small-text">
               {{ ball_count }}
               <span class="visually-hidden">Number of items in your basket </span>
             </span>
           </i></span>
-        </li>
-      </ul>
+        </div>
+      </div>
 
     </div>
   </div>

@@ -29,27 +29,28 @@
         <div class="preview-basket d-none d-lg-none" id="show-basket-mob" >
                 <div class="pe-3 mb-3" >
                         <div class="toast-basket">
-        {% include 'includes/basket-preview-contents.html'  %}
-    </div>
-  </div>
-        
+                                {% include 'includes/basket-preview-contents.html'  %}
+
+                        </div>
+                </div>
+        </div>  
 </nav>
 
 <div class="container-fluid box">
 
 </div>
 
-<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" aria-label="mobile menu"
+<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" aria-label="mobile menu" role="button"
      data-bs-scroll="true">
         <div class="container">
                 <div class="row ">
                         <div class="col-6 text-start ms-auto">
                                 <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
-                                     id="mob-header-logo"></a>
+                                     class="mob-header-logo">
                 </div>
                 <div class="col-6 text-end">
-                        <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
-                                class="fa-solid fa-x"></i></a>
+                        <span role="button" data-bs-dismiss="offcanvas"  aria-label="Close"><i
+                                class="fa-solid fa-x"></i></span>
                 </div>
         </div>
         <div class="row">
@@ -109,17 +110,18 @@
 </div>
 </div>
 
-<div class="offcanvas offcanvas-start" id="mob-yarn-filter-menu" tabindex="-1" aria-label="yarn-filter selection menu"
+<div class="offcanvas offcanvas-start" id="mob-yarn-filter-menu" tabindex="-1" 
+aria-label="yarn-filter selection menu" role="button"
      data-bs-scroll="true">
         <div class="container">
                 <div class="row">
                         <div class="col-6 text-start ms-auto">
                                 <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
-                                     id="mob-header-logo">
+                                     class="mob-header-logo">
                 </div>
                 <div class="col-6 text-end">
-                        <a type="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
-                                class="fa-solid fa-x"></i></a>
+                        <span role="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                                class="fa-solid fa-x"></i></span>
                 </div>
         </div>
         <div class="row">
@@ -146,7 +148,7 @@
                                 <span><input class="form-control me-2 search-box" type="search" name="q"
                                              placeholder="Find your yarn!" aria-label="Search">
                                 </span>
-                                <span class="search-sudo-button ms-4" type="submit">
+                                <span class="search-sudo-button ms-4">
                                         <i
                                                 class="fa-solid fa-magnifying-glass nav-icon"></i></span>
                         </form>
@@ -159,7 +161,7 @@
         </div>
         <div class=" accordion" id="mob-yarn-filter-accord">
                 <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                 Brands
                         </a>
@@ -179,7 +181,7 @@
                         </div>
                 </div>
                 <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
+                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                 Thickness
                         </a>
@@ -210,8 +212,8 @@
                         </div>
                 </div>
                 <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
-                           data-bs-target="#collapseThree" aria-expanded="false"
+                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" data-bs-toggle="collapse"
+                           data-bs-target="#collapseThree" aria-expanded="false" href="#"
                            aria-controls="collapseThree">
                                 Fibre
                         </a>
@@ -242,8 +244,8 @@
                         </div>
                 </div>
                 <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" type="button" data-bs-toggle="collapse"
-                           data-bs-target="#collapseFour" aria-expanded="false"
+                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" data-bs-toggle="collapse"
+                           data-bs-target="#collapseFour" aria-expanded="false" href="#"
                            aria-controls="collapseFour">
                                 Price range
                         </a>

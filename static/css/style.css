@@ -318,7 +318,7 @@ li .sub-menu-item,
     background-image: linear-gradient(180deg, #fff , #fbfaf9);
 }
 
-#mob-header-logo{
+.mob-header-logo{
     height:5rem;
     padding-bottom:2rem;
 }
