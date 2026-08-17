@@ -11,14 +11,10 @@
 /* for sizes md and above in Bootstrap */
 @media screen and (min-width:576px){
     .contact-page-image{
-    width:40vw;
-    aspect-ratio: 1/1;
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
-}
-}
-/* for sizes lg and above in Bootstrap */
-@media screen and (min-width:992px){
-    
+        width:40vw;
+        aspect-ratio: 1/1;
+        display:block;
+        margin-left:auto;
+        margin-right:auto;
+    }
 }

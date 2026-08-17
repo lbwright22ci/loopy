@@ -76,14 +76,15 @@
     align-items: center;
     justify-content: center;
     margin:0;
-    height:100%
+    height:100%;
 }
 
 /* to format Google address input widget */
 
-gmp-place-autocomplete::part(focus-ring){
-    display:none;
+gmp-place-autocomplete::part(focus-ring) {
+    border:none;
 }
+
 gmp-place-autocomplete{
     color:var(--primary-text-color);
     border-color: var(--primary-text-color);
@@ -150,7 +151,4 @@ gmp-place-autocomplete{
         font-size:1.2rem;
     }
 }
-/* for sizes lg and above in Bootstrap */
-@media screen and (min-width:992px){
 
-}

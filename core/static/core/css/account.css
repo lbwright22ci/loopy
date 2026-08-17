@@ -143,11 +143,5 @@ i.fa-regular.fa-star{
     }
     .product-image-thumb-review{
     max-width: 12rem;
-}
-}
-/* for sizes lg and above in Bootstrap */
-@media screen and (min-width:992px){
-
-}
-
+    }
 }

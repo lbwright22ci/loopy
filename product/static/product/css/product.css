@@ -13,7 +13,6 @@
     box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
 }
 
-
 .card{
     border:none;
     display:flex;
@@ -112,7 +111,6 @@ a{
     text-decoration: none;
 }
 
-
 div.filter-acc.accordion{
     --bs-accordion-border-color:none;
 }
@@ -157,7 +155,6 @@ div.filter-acc.accordion{
     justify-self: center;
 }
 
-
 .low-stock{
     font-weight: 600;
     position: absolute;
@@ -180,19 +177,18 @@ div.filter-acc.accordion{
     box-shadow: 0 0 10px var(--decorative-color);
 }
 
-
 .div-colour-select-form{
     max-width:17rem;
     position: relative;
     margin-bottom:4rem;
 }
 
-
 .mini-selected-swatch{
     position:absolute;
     right:calc(50% - 2rem);
     bottom:-5rem;
 }
+
 #low-stock-warning{
     position:absolute;
     bottom: -13.5rem;
@@ -241,11 +237,11 @@ i.fa-regular.fa-star{
 /* for very small screen widths 370px and less */
 @media screen and (max-width:370px){
     .all-products-head{
-    display: none;
-}
-.page-heading{
-    font-size: 2.8rem;
-}
+        display: none;
+    }
+    .page-heading{
+        font-size: 2.8rem;
+    }
 }
 /* for screens of md and above */
 @media screen and (min-width:576px){
@@ -253,20 +249,19 @@ i.fa-regular.fa-star{
         width:18rem;
     }
     .mini-selected-swatch{
-    right:-6rem;
-    bottom:0rem;
-}
-#low-stock-warning{
-    bottom: revert-layer;
-    left:0;
-}
-.input-group.div-colour-select-form{
-    padding-top:0;
-}
+        right:-6rem;
+        bottom:0rem;
+    }
+    #low-stock-warning{
+        bottom: revert-layer;
+        left:0;
+    }
+    .input-group.div-colour-select-form{
+        padding-top:0;
+    }
 }
 /* for sizes lg and above in Bootstrap */
 @media screen and (min-width:992px){
-
     #product-info{
         padding-left:8rem;
         padding-right:8rem;

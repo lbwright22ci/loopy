@@ -22,7 +22,7 @@ nav .dropdown-menu[data-bs-popper],
 nav .dropdown-menu{
     margin-top:0.5rem;
     left:-10vw;
-    }
+}
 
 .all-products-head{
     height:6rem;
@@ -36,7 +36,6 @@ nav .dropdown-menu{
     border: 1px solid var(--primary-text-color);
     box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
     min-height:20rem;
-
 }
 
 .card-link{
@@ -81,6 +80,7 @@ nav .dropdown-menu{
 .an-form{
     width:18rem;
 }
+
 .an{
     width:6rem;
 }
@@ -107,16 +107,7 @@ a{
 
 /* for sizes md and above in Bootstrap */
 @media screen and (min-width:576px){
-
     #side-menu{
         padding-top:3rem;
     }
-
-
-
-}
-/* for sizes lg and above in Bootstrap */
-@media screen and (min-width:992px){
-
-    
 }

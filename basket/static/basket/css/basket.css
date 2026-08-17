@@ -13,7 +13,6 @@
     box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
 }
 
-
 .card{
     border:none;
     display:flex
@@ -66,8 +65,6 @@
     border-radius: 2rem;
     box-shadow: 0.3rem 0.3rem 0.3rem 0.1rem var(--shadow-color);
 }
-
-
 
 .discount-statement{
     border: 1px solid var(--decorative-color);
