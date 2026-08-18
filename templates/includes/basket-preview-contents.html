@@ -3,59 +3,59 @@
 
 <div class="row">
   {% if ball_count == 0 %}
-  <p class="small-text"> No yarns in your basket yet!</p>
-  <div class="row justify-content-center">
-    <div class="col-12 text-center mb-4">
-      <a href="{% url 'allproducts' %}" class="btn btn-second"
-        aria-label="Close basket preview and takes you to yarn shop">Continue Shopping</a>
-    </div>
+    <p class="small-text"> No yarns in your basket yet!</p>
+    <div class="row justify-content-center">
+      <div class="col-12 text-center mb-4">
+        <a href="{% url 'allproducts' %}" class="btn btn-second"
+           aria-label="Close basket preview and takes you to yarn shop">Continue Shopping</a>
+      </div>
 
-  </div>
+    </div>
 
   {% else %}
-  <p class="small-text"> Yarns in your basket are:</p>
-  <div class="basket-preview-wrapper">
-    {% for item in basket_items|dictsort:"col_var.product_id.name" %}
-    <div class="row">
-      <div class="col-6">
-        <p class="small-text my-0"> <span class="uppercase-text">{{ item.col_var.product_id.brand_id.name }}
-          </span> {{ item.col_var.product_id.name }},
-          {{ item.col_var.product_id.skein_weight }}g</p>
-        <p class="very-small-text"> {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})</p>
-      </div>
-      <div class="col-1">
-        <p class="small-text">{{ item.quantity }}</p>
-      </div>
-      <div class="col-5">
-        <p class="very-small-text my-0"> Price: £{{ item.price|floatformat:2 }}</p>
-        <p class="very-small-text "> Sub total: £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</p>
-      </div>
-      <hr class="mt-2 mb-2">
+    <p class="small-text"> Yarns in your basket are:</p>
+    <div class="basket-preview-wrapper">
+      {% for item in basket_items|dictsort:"col_var.product_id.name" %}
+        <div class="row">
+          <div class="col-6">
+            <p class="small-text my-0"> <span class="uppercase-text">{{ item.col_var.product_id.brand_id.name }}
+            </span> {{ item.col_var.product_id.name }},
+              {{ item.col_var.product_id.skein_weight }}g</p>
+            <p class="very-small-text"> {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})</p>
+          </div>
+          <div class="col-1">
+            <p class="small-text">{{ item.quantity }}</p>
+          </div>
+          <div class="col-5">
+            <p class="very-small-text my-0"> Price: £{{ item.price|floatformat:2 }}</p>
+            <p class="very-small-text "> Sub total: £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</p>
+          </div>
+          <hr class="mt-2 mb-2">
+        </div>
+      {% endfor %}
     </div>
-    {% endfor %}
-  </div>
-  <div class="col-12 text-end">
-    <a href="{% url 'view_basket' %}" aria-label="view and edit your basket"> View & Edit </a>
-  </div>
-  <div class="col-12 mt-4 text-end">
-    <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
-    <p class="basket-totals {% if not discount %} button-disabled{% endif %}"> Discount : £ {{ discount|floatformat:2 }}
-    </p>
-    <p> Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
-    <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
-  </div>
-
-  <div class="row justify-content-center">
-    <div class="col-12 text-center mb-4 ">
-      <a href="{% url 'view_basket' %}"
-        aria-label="takes you to a page where you can view, edit and update basket contents"
-        class="btn btn-main ps-2 pe-2"> Checkout! </a>
+    <div class="col-12 text-end">
+      <a href="{% url 'view_basket' %}" aria-label="view and edit your basket"> View & Edit </a>
     </div>
-    <div class="col-12 text-center mb-4">
-      <button type="button" class="btn btn-second close-b-prev" aria-label="Close basket preview">Continue
-        Shopping</button>
+    <div class="col-12 mt-4 text-end">
+      <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
+      <p class="basket-totals {% if not discount %} button-disabled{% endif %}"> Discount : £ {{ discount|floatformat:2 }}
+      </p>
+      <p> Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
+      <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
     </div>
 
-  </div>
+    <div class="row justify-content-center">
+      <div class="col-12 text-center mb-4 ">
+        <a href="{% url 'view_basket' %}"
+           aria-label="takes you to a page where you can view, edit and update basket contents"
+           class="btn btn-main ps-2 pe-2"> Checkout! </a>
+      </div>
+      <div class="col-12 text-center mb-4">
+        <button type="button" class="btn btn-second close-b-prev" aria-label="Close basket preview">Continue
+          Shopping</button>
+      </div>
+
+    </div>
   {% endif %}
 </div>

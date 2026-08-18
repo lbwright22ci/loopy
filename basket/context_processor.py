@@ -1,3 +1,4 @@
+import json
 from decimal import Decimal
 
 from django.shortcuts import get_object_or_404
@@ -6,7 +7,7 @@ from django.db.models import Q
 from core.models import SaleSettings, Postage, Announcements, UserProfile
 from product.models import Colour_var
 
-import json
+
 
 def basket_contents(request):
     """
@@ -21,7 +22,7 @@ def basket_contents(request):
     ``basket_items``: a list of dictionaries. For each item in the list the following
     data is available- 'item_id', 'quantity', 'col_var' and 'price'
     (Price is adjusted depending on whether the product is on sale or not)
-    
+
     ``total``: basket subtotal
 
     ``ball_count``: total number of balls of wool in the basket
@@ -40,13 +41,13 @@ def basket_contents(request):
     ``grand_total_first``: Total payable if 1st class postage.
 
     """
-    basket_items=[]
-    total=0
+    basket_items = []
+    total = 0
     ball_count = 0
-    order_weight =0
-    discount=0
-    estimated_postage=0
-    parcel_size =0
+    order_weight = 0
+    discount = 0
+    estimated_postage = 0
+    parcel_size = 0
 
     sale_discount = SaleSettings.objects.filter(active=True)[0].sale_percent
     bulk_buy = Announcements.objects.filter(active=True)[0]
@@ -55,28 +56,27 @@ def basket_contents(request):
     remove_item = []
 
     if request.user.is_authenticated:
-        current_user = UserProfile.objects.get(user__id= request.user.id)
+        current_user = UserProfile.objects.get(user__id=request.user.id)
         saved_basket = current_user.temporary_basket
-        
+
         if saved_basket:
             converted_basket = json.loads(saved_basket)
-            
+
             # add contents of saved basket to the session basket when the user logs back in
             for key, value in converted_basket.items():
                 if key in basket:
                     pass
                 else:
-                    basket[key]= int(value)
+                    basket[key] = int(value)
         basket_string = str(basket)
         basket_string = basket_string.replace("\'", "\"")
-        current_user.temporary_basket= str(basket_string)
+        current_user.temporary_basket = str(basket_string)
         current_user.save()
 
-        request.session['basket']=basket
-        
+        request.session['basket'] = basket
 
     for item_id, item_data in basket.items():
-        col_var = get_object_or_404(Colour_var, pk = item_id)
+        col_var = get_object_or_404(Colour_var, pk=item_id)
         if not col_var.product_id.visible:
             remove_item.append(item_id)
             continue
@@ -84,7 +84,8 @@ def basket_contents(request):
             remove_item.append(item_id)
             continue
         if col_var.product_id.on_promotion:
-            total += item_data * Decimal(col_var.product_id.price*(100-sale_discount)/100)
+            total += item_data * \
+                Decimal(col_var.product_id.price*(100-sale_discount)/100)
             price = Decimal(col_var.product_id.price*(100-sale_discount)/100)
         else:
             total += item_data * col_var.product_id.price
@@ -94,23 +95,23 @@ def basket_contents(request):
         basket_items.append({
             'item_id': item_id,
             'quantity': item_data,
-            'col_var':col_var,
+            'col_var': col_var,
             'price': price,
         })
 
     for out_of_stock_item in remove_item:
         basket.pop(str(out_of_stock_item))
 
-    #take into account any items removed if now out of stock or not visible:
-    request.session['basket']= basket
+    # take into account any items removed if now out of stock or not visible:
+    request.session['basket'] = basket
 
-    #need to update saved basket if the user is logged in
+    # need to update saved basket if the user is logged in
 
     if request.user.is_authenticated:
-        current_user = UserProfile.objects.filter(user__id= request.user.id)
+        current_user = UserProfile.objects.filter(user__id=request.user.id)
         basket_string = str(basket)
         basket_string = basket_string.replace("\'", "\"")
-        current_user.update(temporary_basket= str(basket_string))
+        current_user.update(temporary_basket=str(basket_string))
 
     # take account of order discount based on number of balls of yarn in the basket
     if bulk_buy.bulk_buy == True:
@@ -120,7 +121,6 @@ def basket_contents(request):
             discount = 0
         else:
             discount = total*Decimal((bulk_buy.lower_discount)/100)
-        
 
     # find parcel size for postage
     # first adjust order weight to account for the weight of packing materials
@@ -129,25 +129,31 @@ def basket_contents(request):
     else:
         order_weight = order_weight + 400
 
-    small_ball_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
-    small_weight_limit = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
-    
+    small_ball_limit = Postage.objects.filter(
+        Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
+    small_weight_limit = Postage.objects.filter(
+        Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
+
     if ball_count < small_ball_limit and order_weight < small_weight_limit:
         parcel_size = 0
-        estimated_postage = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=0))[0].postage_cost
-        first_class = Postage.objects.filter(Q(parcel_size=0) & Q(postage_class=1))[0].postage_cost
+        estimated_postage = Postage.objects.filter(
+            Q(parcel_size=0) & Q(postage_class=0))[0].postage_cost
+        first_class = Postage.objects.filter(
+            Q(parcel_size=0) & Q(postage_class=1))[0].postage_cost
     else:
         parcel_size = 1
-        estimated_postage = Postage.objects.filter(Q(parcel_size=1) & Q(postage_class=0))[0].postage_cost
-        first_class = Postage.objects.filter(Q(parcel_size=1) & Q(postage_class=1))[0].postage_cost
-    
+        estimated_postage = Postage.objects.filter(
+            Q(parcel_size=1) & Q(postage_class=0))[0].postage_cost
+        first_class = Postage.objects.filter(
+            Q(parcel_size=1) & Q(postage_class=1))[0].postage_cost
+
     if not bulk_buy.bulk_buy and ball_count > bulk_buy.upper_ball_num:
         discount = estimated_postage
-    
+
     grand_total = total + estimated_postage - discount
     grand_total_first = total + first_class - discount
 
-    return{
+    return {
         'basket_items': basket_items,
         'total': total,
         'ball_count': ball_count,
@@ -155,7 +161,6 @@ def basket_contents(request):
         'discount': discount,
         'estimated_postage': estimated_postage,
         'grand_total': grand_total,
-        'first_class':first_class,
-        'grand_total_first':grand_total_first,
+        'first_class': first_class,
+        'grand_total_first': grand_total_first,
     }
-    

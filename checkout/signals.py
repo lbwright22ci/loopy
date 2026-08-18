@@ -3,6 +3,7 @@ from django.dispatch import receiver
 
 from .models import YarnOrderLineitem
 
+
 @receiver(post_save, sender=YarnOrderLineitem)
 def update_on_save(sender, instance, created, **kwargs):
     """
@@ -10,6 +11,7 @@ def update_on_save(sender, instance, created, **kwargs):
     is created or updated.
     """
     instance.order.update_order()
+
 
 @receiver(post_delete, sender=YarnOrderLineitem)
 def update_on_delete(sender, instance, **kwargs):

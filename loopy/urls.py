@@ -28,4 +28,4 @@ urlpatterns = [
     path('management/', include('management.urls')),
     path('yarns/', include('product.urls')),
     path('', include('core.urls')),
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

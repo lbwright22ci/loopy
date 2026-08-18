@@ -1,6 +1,8 @@
 from django.db import models
 
 # Create your models here.
+
+
 class Contact(models.Model):
     """"
     Stores contact equiries from customers and potential customers
@@ -8,13 +10,14 @@ class Contact(models.Model):
     Fields in this model are `name`, `email`, `subject`, 
     `message`, `created_on`, `read`
     """
-    SUB_OPTIONS =( (0, "A question about a product"), (1, "A question about my order"), (2, "Other"))
-    
-    name = models.CharField(max_length=80, blank = False)
-    email = models.EmailField(blank = False) 
+    SUB_OPTIONS = ((0, "A question about a product"),
+                   (1, "A question about my order"), (2, "Other"))
+
+    name = models.CharField(max_length=80, blank=False)
+    email = models.EmailField(blank=False)
     subject = models.IntegerField(choices=SUB_OPTIONS, default=2)
-    message = models.CharField(max_length = 500, blank = False )
-    created_on = models.DateTimeField(auto_now_add = True, verbose_name="Sent" )
+    message = models.CharField(max_length=500, blank=False)
+    created_on = models.DateTimeField(auto_now_add=True, verbose_name="Sent")
     read = models.BooleanField(default=False)
 
     class Meta:

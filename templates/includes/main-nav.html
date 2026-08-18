@@ -16,9 +16,9 @@
             <div class=" row mb-4">
               <div class="col-lg-6 ">
                 <ul>
-                <li><a class="dropdown-item" href="{% url 'allproducts' %}" aria-label="go to a list of all yarns for sale">All yarn</a></li>
-                <li><a class="dropdown-item" href="{% url 'allproducts' %}?sale=true" aria-label="filter to show only yarn on promotion">Promotions</a></li>
-                  </ul>
+                  <li><a class="dropdown-item" href="{% url 'allproducts' %}" aria-label="go to a list of all yarns for sale">All yarn</a></li>
+                  <li><a class="dropdown-item" href="{% url 'allproducts' %}?sale=true" aria-label="filter to show only yarn on promotion">Promotions</a></li>
+                </ul>
               </div>
 
               <div class="col-lg-3">
@@ -68,7 +68,7 @@
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(4,6)" aria-label="filter to show only yarns in the price range £4-£6">£4.01-£6</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(6,10)" aria-label="filter to show only yarns in the price range £6-£10"> £6.01-£10</a></li>
                   <li class="sub-menu-item"><a class="dropdown-item" href="{% url 'allproducts' %}?price=(10,20)" aria-label="filter to show only yarns with price above £10"> £10.01+ </a></li>
-                  
+
                 </ul>
               </div>
             </div>
@@ -77,8 +77,8 @@
         </div>
 
         <div class="nav-item">
-          <a class="nav-link " href="{% url 'contact_page' %}" 
-          aria-label="Goes to a page where you can get in touch with the business owners">Get in Touch</a>
+          <a class="nav-link " href="{% url 'contact_page' %}"
+             aria-label="Goes to a page where you can get in touch with the business owners">Get in Touch</a>
         </div>
       </div>
       <div class="navbar-nav ms-auto me-4">
@@ -89,7 +89,7 @@
           <ul class="dropdown-menu" id="menu-account">
             {% if user.is_authenticated %}
               <li><a class="dropdown-item" href="{% url 'customer_account' %}" aria-label="Goes to account page with account information,
-                                                                past orders and favourites">My Account</a></li>
+                                                                                           past orders and favourites">My Account</a></li>
               {% if user.is_staff %}
                 <li><a class="dropdown-item" href="{% url 'management_home' %}" aria-label="goes to shop management area">Shop Management</a></li>
               {% endif %}
@@ -112,7 +112,7 @@
 
     </div>
   </div>
-{% include 'includes/basket-preview.html' %}
+  {% include 'includes/basket-preview.html' %}
 
 </nav>
 <div class="container-fluid box">

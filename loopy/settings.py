@@ -82,7 +82,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "allauth.account.middleware.AccountMiddleware", # Middleware needed for AllAuth
+    "allauth.account.middleware.AccountMiddleware",  # Middleware needed for AllAuth
 ]
 
 ROOT_URLCONF = 'loopy.urls'
@@ -116,7 +116,7 @@ WSGI_APPLICATION = 'loopy.wsgi.application'
 MESSAGE_TAGS = {
     messages.SUCCESS: 'alert-success',
     messages.ERROR: 'alert-danger',
-    
+
 }
 
 # Database
@@ -129,7 +129,7 @@ MESSAGE_TAGS = {
 #     }
 # }
 
-DATABASES ={
+DATABASES = {
     'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
 
@@ -179,10 +179,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'),]
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT =os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 if "USE_AWS" in os.environ:
-    
+
     AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
     AWS_S3_REGION_NAME = "us-east-1"
@@ -230,7 +230,7 @@ EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_APP_PASSWORD')
-DEFAULT_FROM_EMAIL= os.environ.get('EMAIL_HOST_USER')
+DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 
 # AllAuth
 
@@ -249,7 +249,7 @@ SOCIALACCOUNT_PROVIDERS = {
             'secret': os.environ.get('GOOGLE_SECRET'),
             'key': ''
         },
-        'SCOPE':[
+        'SCOPE': [
             'profile',
             'email',
         ],
@@ -259,9 +259,9 @@ SOCIALACCOUNT_PROVIDERS = {
     },
 }
 
-SITE_ID= 1
+SITE_ID = 1
 
-ACCOUNT_LOGIN_METHODS ={'email'}
+ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_SIGNUP_FIELDS = ['email*', 'password1*', 'password2*']
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_UNIQUE_EMAIL = True
@@ -274,10 +274,10 @@ LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
-SOCIALACCOUNT_EMAIL_AUTHENTICATION= True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 
-## Stripe
+# Stripe
 
 STRIPE_CURRENCY = 'gbp'
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
@@ -285,104 +285,44 @@ STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_WH_SECRET = os.environ.get('STRIPE_WEBHOOKS_SECRET')
 
 
-##Google Maps
+# Google Maps
 GOOGLE_MAPS_DEMO = os.environ.get('GOOGLE_MAPS_DEMO_KEY')
 
-##Jazzmin
+# Jazzmin
 
 JAZZMIN_SETTINGS = {
 
-    # title of the window (Will default to current_admin_site.site_title if absent or None)
     "site_title": "Loopy Yarns Shop",
-
-    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_header": "Loopy",
-
-    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
     "site_brand": "Loopy",
-
-    # Logo to use for your site, must be present in static files, used for brand on top left
     "site_logo": "/images/balls-in-a-line.png",
-
-    # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": "/images/purple.webp",
-
-    # Logo to use for login form in dark themes (defaults to login_logo)
     "login_logo_dark": "images/highlight-ball.png",
-
-    # CSS classes that are applied to the logo above
     "site_logo_classes": "img-circle",
-
-    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
     "site_icon": "/favicon/favicon-96x96.png",
-
-    # Welcome text on the login screen
     "welcome_sign": "Welcome Loopy Yarns Admin",
-
-    # Copyright on the footer
     "copyright": "Loopy Yarns UK, Louise Wright",
-
-    # List of model admins to search from the search bar, search bar omitted if excluded
-    # If you want to use a single search field you dont need to use a list, you can use a simple string 
-    # "search_model": ["checkout.Order", "product.Product"],
-
-    # Field name on user model that contains avatar ImageField/URLField/Charfield or a callable that receives the user
     "user_avatar": None,
 
-    ############
-    # Top Menu #
-    ############
-
-    # Links to put along the top menu
     "topmenu_links": [
-
-        # Url that gets reversed (Permissions can be added)
-        {"name": "Home",  "url": "admin:index", "permissions": ["auth.view_user"]},
-
-        # external url that opens in a new window (Permissions can be added)
+        {"name": "Home",  "url": "admin:index",
+            "permissions": ["auth.view_user"]},
         {"name": "View Shop", "url": "home", "new_window": True},
-        {"name": "Quick Edit", "url": "management_home", "permissions":["auth.view_user"]},
-        # App with dropdown menu to all its models pages (Permissions checked against models)
-        # {"model": "product.Product"},
-        # {"model": "checkout.Order"},
+        {"name": "Quick Edit", "url": "management_home",
+            "permissions": ["auth.view_user"]},
     ],
 
-    #############
-    # User Menu #
-    #############
-
-    # Additional links to include in the user menu on the top right ("app" url type is not allowed)
     "usermenu_links": [
         {"name": "View shop", "url": "home", "new_window": True},
         {"model": "auth.user"}
     ],
 
-    #############
-    # Side Menu #
-    #############
-
-    # Whether to display the side menu
     "show_sidebar": True,
-
-    # Whether to aut expand the menu
     "navigation_expanded": True,
-
-    # Hide these apps when generating side menu e.g (auth)
     "hide_apps": ["auth", "sites", "socialaccount", "account",],
-
-    # Hide these models when generating side menu (e.g auth.user)
     "hide_models": ["core.shopcontactinfo", "core.homepageslides",],
-
-    # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": ["checkout", "product", "get_in_touch", "core",],
 
-    # Custom links to append to app groups, keyed on app name
-    "custom_links": {
-        
-    },
-
-    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
-    # for the full list of 5.13.0 free icon classes
     "icons": {
         "core": "fas fa-cog",
         "core.announcements": "fa-solid fa-bullhorn",
@@ -390,51 +330,29 @@ JAZZMIN_SETTINGS = {
         "core.userprofile": "fas fa-users",
         "core.postage": "fa-solid fa-truck",
         "core.salesettings": "fa-solid fa-tags",
-        "product":"fa-solid fa-shop",
+        "product": "fa-solid fa-shop",
         "checkout": "fa-solid fa-basket-shopping",
-        "checkout.order":"fa-solid fa-receipt",
+        "checkout.order": "fa-solid fa-receipt",
         "product.product": "fa-solid fa-gifts",
-        'product.colour_var':'fa-solid fa-palette',
+        'product.colour_var': 'fa-solid fa-palette',
         "checkout.reviewyarns": "fa-solid fa-thumbs-up",
     },
-    # Icons that are used when one is not manually specified
+
     "default_icon_parents": "fas fa-chevron-circle-right",
     "default_icon_children": "fas fa-circle",
 
-    #################
-    # Related Modal #
-    #################
-    # Use modals instead of popups
     "related_modal_active": False,
 
-    #############
-    # UI Tweaks #
-    #############
-    # Relative paths to custom CSS/JS scripts (must be present in static files)
     "custom_css": 'css/style-admin.css',
     "custom_js": None,
-    # Whether to link font from fonts.googleapis.com (use custom_css to supply font otherwise)
     "use_google_fonts_cdn": True,
-    # Whether to show the UI customizer on the sidebar
     "show_ui_builder": False,
 
-    ###############
-    # Change view #
-    ###############
-    # Render out the change view as a single form, or in tabs, current options are
-    # - single
-    # - horizontal_tabs (default)
-    # - vertical_tabs
-    # - collapsible
-    # - carousel
     "changeform_format": "horizontal_tabs",
-    # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
-    # Add a language dropdown into the admin
     "language_chooser": False,
-
 }
 
-JAZZMIN_UI_TWEAKS ={
-    "theme" : "materia",
+JAZZMIN_UI_TWEAKS = {
+    "theme": "materia",
 }

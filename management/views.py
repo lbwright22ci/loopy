@@ -9,6 +9,7 @@ from checkout.models import Order
 
 # Create your views here.
 
+
 @login_required
 def management_home(request):
     """
@@ -23,7 +24,7 @@ def management_home(request):
                              Loopy Yarns staff.")
         return redirect(reverse('home'))
 
-    context={
+    context = {
     }
     template = 'management/admin-home.html'
 
@@ -52,17 +53,17 @@ def management_settings(request):
         return redirect(reverse('home'))
 
     shop_details = ShopContactInfo.objects.all()[0]
-    shop_form = ShopContactInfoForm(instance = shop_details)
+    shop_form = ShopContactInfoForm(instance=shop_details)
 
-    sale_rate = get_object_or_404(SaleSettings, active = True)
+    sale_rate = get_object_or_404(SaleSettings, active=True)
     sale_rate = sale_rate.sale_percent
 
     announcement = Announcements.objects.all()[0]
 
-    context={
-        'shop_form':shop_form,
-        'sale_rate' : sale_rate,
-        'current':announcement,
+    context = {
+        'shop_form': shop_form,
+        'sale_rate': sale_rate,
+        'current': announcement,
     }
     template = 'management/admin-settings.html'
 
@@ -76,31 +77,36 @@ def update_shopsettings(request):
 
     """
     if not request.user.is_superuser:
-            messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                                  Loopy Yarns staff.")
-            return redirect(reverse('home'))
-    
+        return redirect(reverse('home'))
+
     shop_details = ShopContactInfo.objects.all()[0]
 
     try:
         if request.POST:
-            shop_form = ShopContactInfoForm(data= request.POST)
+            shop_form = ShopContactInfoForm(data=request.POST)
             if shop_form.is_valid:
                 shop_details.shop_email = request.POST.get('shop_email')
                 shop_details.shop_phone = request.POST.get('shop_phone')
-                shop_details.shop_street_address1 = request.POST.get('shop_street_address1')
-                shop_details.shop_street_address2 = request.POST.get('shop_street_address2')
+                shop_details.shop_street_address1 = request.POST.get(
+                    'shop_street_address1')
+                shop_details.shop_street_address2 = request.POST.get(
+                    'shop_street_address2')
                 shop_details.shop_town = request.POST.get('shop_town')
                 shop_details.shop_county = request.POST.get('shop_county')
                 shop_details.shop_country = request.POST.get('shop_country')
                 shop_details.shop_postcode = request.POST.get('shop_postcode')
                 shop_details.save()
-                messages.add_message(request, messages.SUCCESS, f'Shop address settings updated!')
+                messages.add_message(
+                    request, messages.SUCCESS, f'Shop address settings updated!')
 
     except Exception as e:
-        messages.add_message(request, messages.ERROR, f'Unable to update shop settings. Error message: {e}')
+        messages.add_message(
+            request, messages.ERROR, f'Unable to update shop settings. Error message: {e}')
 
     return redirect(reverse('management_settings'))
+
 
 @login_required
 def update_salesettings(request):
@@ -108,22 +114,25 @@ def update_salesettings(request):
     View accessible to superusers only which updates active instance of :model:`SaleSettings`
     """
     if not request.user.is_superuser:
-            messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                                  Loopy Yarns staff.")
-            return redirect(reverse('home'))
-    
+        return redirect(reverse('home'))
+
     sale = SaleSettings.objects.filter(active=True)[0]
 
     try:
         if request.POST:
             sale.sale_percent = request.POST.get('sale_percent')
             sale.save()
-            messages.add_message(request, messages.SUCCESS, f'Items on sale will now have {sale.sale_percent}% discount applied')
+            messages.add_message(
+                request, messages.SUCCESS, f'Items on sale will now have {sale.sale_percent}% discount applied')
 
     except Exception as e:
-        messages.add_message(request, messages.ERROR, f'Unable to update sale settings. Error message: {e}')
+        messages.add_message(
+            request, messages.ERROR, f'Unable to update sale settings. Error message: {e}')
 
     return redirect(reverse('management_settings'))
+
 
 @login_required
 def update_announcements(request):
@@ -131,10 +140,10 @@ def update_announcements(request):
     View accessible to superusers only which updates current active instance of :model:`Announcements`
     """
     if not request.user.is_superuser:
-            messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
                                  Loopy Yarns staff.")
-            return redirect(reverse('home'))
-    
+        return redirect(reverse('home'))
+
     promo = Announcements.objects.all()[0]
 
     try:
@@ -142,26 +151,28 @@ def update_announcements(request):
             if request.POST.get('bulk_buy') == 'False':
                 promo.bulk_buy = False
             else:
-                 promo.bulk_buy = True
+                promo.bulk_buy = True
             promo.lower_ball_num = request.POST.get('lower_ball_num')
             promo.upper_ball_num = request.POST.get('upper_ball_num')
             promo.lower_discount = request.POST.get('lower_discount')
             promo.upper_discount = request.POST.get('upper_discount')
             promo.save()
-            print (promo.bulk_buy, type(promo.bulk_buy))
+            print(promo.bulk_buy, type(promo.bulk_buy))
             if promo.bulk_buy:
                 messages.add_message(request, messages.SUCCESS, f'Bulk buy discounts are now:\
                                      {promo.lower_discount}% for more than {promo.lower_ball_num} balls\
                                         and {promo.upper_discount}% for more than {promo.upper_ball_num} balls')
             else:
-                 messages.add_message(request, messages.SUCCESS, f'Bulk buy discounts are now:\
+                messages.add_message(request, messages.SUCCESS, f'Bulk buy discounts are now:\
                                                       Free 2nd class shipping for orders with more than {promo.upper_ball_num} balls\
                                                          of yarn')
 
     except Exception as e:
-        messages.add_message(request, messages.ERROR, f'Unable to update promotional settings. Error message: {e}')
+        messages.add_message(
+            request, messages.ERROR, f'Unable to update promotional settings. Error message: {e}')
 
     return redirect(reverse('management_settings'))
+
 
 @login_required
 def management_orders(request):
@@ -171,7 +182,7 @@ def management_orders(request):
     Orders are categorised as 'Pending', 'Shipped', 'Refunded' and 'Cancelled'
     **Template**
     'management/admin-orders.html'
-    
+
     **Context**
     'pending'
     'cancelled'
@@ -183,23 +194,25 @@ def management_orders(request):
                              Loopy Yarns staff.")
         return redirect(reverse('home'))
 
-    pending_queryset = Q(is_shipped = False) & Q(refund_status = False)
+    pending_queryset = Q(is_shipped=False) & Q(refund_status=False)
     pending = Order.objects.filter(pending_queryset)
 
-    cancelled_queryset = Q(is_shipped = False) & Q(refunded_order__reason__contains="cancel") & Q(refund_status='True')
+    cancelled_queryset = Q(is_shipped=False) & Q(
+        refunded_order__reason__contains="cancel") & Q(refund_status='True')
     cancelled = Order.objects.filter(cancelled_queryset)
 
-    refunded_queryset = Q(refund_status = True) & Q(refunded_order__reason__contains="refund")
+    refunded_queryset = Q(refund_status=True) & Q(
+        refunded_order__reason__contains="refund")
     refunded = Order.objects.filter(refunded_queryset)
 
-    past_queryset = Q(is_shipped=True) & Q(refund_status = False)
+    past_queryset = Q(is_shipped=True) & Q(refund_status=False)
     past = Order.objects.filter(past_queryset)
 
-    context={
-        'pending':pending,
-        'cancelled':cancelled,
-        'refunded':refunded,
-        'past':past,
+    context = {
+        'pending': pending,
+        'cancelled': cancelled,
+        'refunded': refunded,
+        'past': past,
     }
     template = 'management/admin-orders.html'
 

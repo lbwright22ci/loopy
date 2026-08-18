@@ -9,9 +9,9 @@
 
                 <title>Loopy Yarns Admin | {% block titlehead %} Home {% endblock %} </title>
                 <meta name="description" content=" Home of good quality yarn for
-                                                          all your knitting and crochet projects {% block headdescription %}{% endblock %}">
-                <meta name="keywords" content=" 
-                                                       yarn shop, wool shop, knitting supplies, crochet supplies
+                                                  all your knitting and crochet projects {% block headdescription %}{% endblock %}">
+                <meta name="keywords" content="
+                                               yarn shop, wool shop, knitting supplies, crochet supplies
                                                {% block headkey %}{% endblock %}">
 
     <!-- Bootstrap 5 CSS -->
@@ -128,141 +128,141 @@
                                         </div>
                                 </div>
                         </div>
-                
 
-</nav>
 
-<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" 
-     data-bs-scroll="true">
-        <div class="container">
-                <div class="row ">
-                        <div class="col-6 text-start ms-auto">
-                                <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
-                                     class="mob-header-logo">
-                        </div>
+                </nav>
 
-                        <div class="col-6 text-end">
-                                <span role="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
-                                        class="fa-solid fa-x"></i></span>
+                <div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1"
+                     data-bs-scroll="true">
+                        <div class="container">
+                                <div class="row ">
+                                        <div class="col-6 text-start ms-auto">
+                                                <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
+                                                     class="mob-header-logo">
+                                        </div>
+
+                                        <div class="col-6 text-end">
+                                                <span role="button" data-bs-dismiss="offcanvas" aria-label="Close"><i
+                                                        class="fa-solid fa-x"></i></span>
+                                        </div>
+                                </div>
+                                <div class="row">
+                                        <div class="col-12">
+                                                <p class="dropdown-item"><a href="{% url 'management_home' %}"
+                                                                            aria-label="takes you to the shop admin home page">
+                                                        Dashboard</a>
+                                                </p>
+                                        </div>
+
+                                        <hr class="mt-2 mb-4">
+
+                                </div>
+                                <div class="row">
+                                        <div class="col-12">
+                                                <p class="dropdown-item"><a href="{% url 'management_settings' %}"
+                                                                            aria-label="takes you to the shop settings page">
+                                                        Shop Settings</a>
+                                                </p>
+                                        </div>
+
+                                        <hr class="mt-2 mb-4">
+
+                                </div>
+                                <div class="row">
+                                        <div class="col-12">
+                                                <p class="dropdown-item"><a href="{% url 'admin:product_product_changelist' %}"
+                                                                            aria-label="takes you to a page where you can add and edit products">
+                                                        Products</a>
+                                                </p>
+                                        </div>
+
+                                        <hr class="mt-2 mb-4">
+
+                                </div>
+                                <div class="row">
+                                        <div class="col-12">
+                                                <p class="dropdown-item"><a href="{% url 'management_orders' %}"
+                                                                            aria-label="takes you to a page where you can manage orders">
+                                                        Order</a>
+                                                </p>
+                                        </div>
+
+                                        <hr class="mt-2 mb-4">
+
+                                </div>
+                                <div class="row">
+                                        <div class="col-12">
+                                                <p class="dropdown-item"><a href="{% url 'admin:checkout_reviewyarns_changelist' %}?approved__exact=0"
+                                                                            aria-label="takes you to a page where you can approve reviews">
+                                                        Reviews</a>
+                                                </p>
+                                        </div>
+
+                                        <hr class="mt-2 mb-4">
+
+                                </div>
+                                <div class="row">
+                                        <div class="col-12">
+                                                <p class="dropdown-item"><a href="{% url 'admin:get_in_touch_contact_changelist' %}?read__exact=0"
+                                                                            aria-label="takes you to a page where you can manage contact requests">
+                                                        Messages</a>
+                                                </p>
+                                        </div>
+
+                                        <hr class="mt-2 mb-4">
+
+                                </div>
                         </div>
                 </div>
-                <div class="row">
-                        <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'management_home' %}"
-                                                            aria-label="takes you to the shop admin home page">
-                                        Dashboard</a>
-                                </p>
-                        </div>
+                <main>
 
-                        <hr class="mt-2 mb-4">
-
-                </div>
-                <div class="row">
-                        <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'management_settings' %}"
-                                                            aria-label="takes you to the shop settings page">
-                                        Shop Settings</a>
-                                </p>
-                        </div>
-
-                        <hr class="mt-2 mb-4">
-
-                </div>
-                <div class="row">
-                        <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'admin:product_product_changelist' %}"
-                                                            aria-label="takes you to a page where you can add and edit products">
-                                        Products</a>
-                                </p>
-                        </div>
-
-                        <hr class="mt-2 mb-4">
-
-                </div>
-                <div class="row">
-                        <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'management_orders' %}"
-                                                            aria-label="takes you to a page where you can manage orders">
-                                        Order</a>
-                                </p>
-                        </div>
-
-                        <hr class="mt-2 mb-4">
-
-                </div>
-                <div class="row">
-                        <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'admin:checkout_reviewyarns_changelist' %}?approved__exact=0"
-                                                            aria-label="takes you to a page where you can approve reviews">
-                                        Reviews</a>
-                                </p>
-                        </div>
-
-                        <hr class="mt-2 mb-4">
-
-                </div>
-                <div class="row">
-                        <div class="col-12">
-                                <p class="dropdown-item"><a href="{% url 'admin:get_in_touch_contact_changelist' %}?read__exact=0"
-                                                            aria-label="takes you to a page where you can manage contact requests">
-                                        Messages</a>
-                                </p>
-                        </div>
-
-                        <hr class="mt-2 mb-4">
-
-                </div>
-        </div>
-</div>
-<main>
-
-        {% block content %}
-        {% endblock content %}
+                        {% block content %}
+                        {% endblock content %}
 
             <!-- messages-->
-        {% if messages %}
-                <div aria-live="polite" aria-atomic="true">
-                        {% for message in messages %}
-                                {% with message.level as level %}
-                                        {% if level == 40 %}
-                                                {% include 'includes/toasts/toast_error.html' %}
-                                        {% else %}
-                                                {% include 'includes/toasts/toast_success.html' %}
-                                        {% endif %}
-                                {% endwith %}
-                        {% endfor %}
+                        {% if messages %}
+                                <div aria-live="polite" aria-atomic="true">
+                                        {% for message in messages %}
+                                                {% with message.level as level %}
+                                                        {% if level == 40 %}
+                                                                {% include 'includes/toasts/toast_error.html' %}
+                                                        {% else %}
+                                                                {% include 'includes/toasts/toast_success.html' %}
+                                                        {% endif %}
+                                                {% endwith %}
+                                        {% endfor %}
 
-                </div>
-        {% endif %}
+                                </div>
+                        {% endif %}
 
-</main>
+                </main>
 
     <!--footer-->
-<footer class="mt-auto footer container-fluid">
+                <footer class="mt-auto footer container-fluid">
 
-    <div class="row align-items-center justify-content-center">
+                        <div class="row align-items-center justify-content-center">
 
-        <div class="row" id="footer-base">
-            <div class="col-12 text-center">
-                <p class="text-small">For educational purposes only. Copyright loopyyarnsuk, Louise Wright</p>
-            </div>
-        </div>
-    </div>
-</footer>
+                                <div class="row" id="footer-base">
+                                        <div class="col-12 text-center">
+                                                <p class="text-small">For educational purposes only. Copyright loopyyarnsuk, Louise Wright</p>
+                                        </div>
+                                </div>
+                        </div>
+                </footer>
 
     <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+                        crossorigin="anonymous"></script>
 
     <!-- Font Awesome kit -->
-<script src="https://kit.fontawesome.com/24174e6ffa.js" crossorigin="anonymous"></script>
+                <script src="https://kit.fontawesome.com/24174e6ffa.js" crossorigin="anonymous"></script>
 
     <!-- Script for controling menus -->
-<script src="{% static 'js/base.js' %}" ></script>
+                <script src="{% static 'js/base.js' %}" ></script>
 
-{% block extrapostjs %}
-{% endblock %}
-</body>
+                {% block extrapostjs %}
+                {% endblock %}
+        </body>
 
 </html>

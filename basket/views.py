@@ -4,8 +4,8 @@ from django.contrib import messages
 from product.models import Colour_var, Product
 from core.models import UserProfile
 
-
 # Create your views here.
+
 
 def view_basket(request):
     """ 
@@ -19,27 +19,26 @@ def view_basket(request):
     ``favourites_list`` - visible for authenticated users only.
 
     """
-    favourite_list=[]
+    favourite_list = []
 
     if request.user.is_authenticated:
-        current_user = get_object_or_404(UserProfile, user__id = request.user.id)
+        current_user = get_object_or_404(UserProfile, user__id=request.user.id)
         fave_list = current_user.wish_list
 
         if fave_list:
-            #convert str to list
+            # convert str to list
             fav_list = fave_list.split()
             for item in fav_list:
-                yarn = get_object_or_404(Product, pk = int(item))
+                yarn = get_object_or_404(Product, pk=int(item))
                 favourite_list.append({
                     'prod_id': int(item),
-                    'yarn':yarn
+                    'yarn': yarn
                 })
 
-
     context = {
-        'favourites':favourite_list,
+        'favourites': favourite_list,
     }
-    template ='basket/basket.html'
+    template = 'basket/basket.html'
 
     return render(request, template, context)
 
@@ -59,7 +58,7 @@ def add_to_basket(request):
     col_var_id = request.POST['colour_var']
     col_var = get_object_or_404(Colour_var, pk=col_var_id)
     redirect_url = request.POST.get('redirect_url')
-    
+
     basket = request.session.get('basket', {})
 
     if col_var_id in list(basket.keys()):
@@ -67,7 +66,7 @@ def add_to_basket(request):
             test = basket[col_var_id] + quantity
             if test < 10:
                 basket[col_var_id] += quantity
-                
+
                 messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name} to {test} balls')
             else:
@@ -83,15 +82,15 @@ def add_to_basket(request):
                 messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name} to {test} balls')
             else:
-                
+
                 messages.add_message(request, messages.ERROR, f'Insufficient stock! Unable to add {quantity} extra \
                                balls of {col_var.product_id.brand_id.name} {col_var.product_id.name}\
                                to your basket.')
                 return redirect(redirect_url)
-                
+
     else:
         basket[col_var_id] = quantity
-        
+
         messages.add_message(request, messages.SUCCESS, f'Added {quantity} ball(s) of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name}')
 
@@ -100,12 +99,13 @@ def add_to_basket(request):
     # add to user profile temporary basket if the user is logged in.
 
     if request.user.is_authenticated:
-        current_user = UserProfile.objects.filter(user__id= request.user.id)
+        current_user = UserProfile.objects.filter(user__id=request.user.id)
         basket_string = str(basket)
         basket_string = basket_string.replace("\'", "\"")
-        current_user.update(temporary_basket= str(basket_string))
+        current_user.update(temporary_basket=str(basket_string))
 
     return redirect(redirect_url)
+
 
 def update_basket(request, item_id):
     """ 
@@ -116,7 +116,7 @@ def update_basket(request, item_id):
 
     On return the `view_basket` view is reloaded.
     """
-    
+
     col_var = get_object_or_404(Colour_var, pk=item_id)
     quantity = int(request.POST.get('quantity'))
 
@@ -124,21 +124,21 @@ def update_basket(request, item_id):
     try:
         basket[str(item_id)] = quantity
         request.session['basket'] = basket
-        
+
         if request.user.is_authenticated:
-            current_user = UserProfile.objects.filter(user__id= request.user.id)
+            current_user = UserProfile.objects.filter(user__id=request.user.id)
             basket_string = str(basket)
             basket_string = basket_string.replace("\'", "\"")
-            current_user.update(temporary_basket= str(basket_string))
-        
+            current_user.update(temporary_basket=str(basket_string))
+
         messages.add_message(request, messages.SUCCESS, f'Updated {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
                                shade {col_var.colour_cat_id.colour_name} to {quantity} balls.')
     except:
         messages.add_message(request, messages.ERROR, f'Unable to update the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
                                shade {col_var.colour_cat_id.colour_name} in your basket.')
 
-
     return redirect(reverse('view_basket'))
+
 
 def delete_from_basket(request, item_id):
     """ 
@@ -155,10 +155,10 @@ def delete_from_basket(request, item_id):
                                shade {col_var.colour_cat_id.colour_name} from your basket.')
         request.session['basket'] = basket
         if request.user.is_authenticated:
-            current_user = UserProfile.objects.filter(user__id= request.user.id)
+            current_user = UserProfile.objects.filter(user__id=request.user.id)
             basket_string = str(basket)
             basket_string = basket_string.replace("\'", "\"")
-            current_user.update(temporary_basket= str(basket_string))
+            current_user.update(temporary_basket=str(basket_string))
 
         return HttpResponse(status=200)
     except Exception as e:

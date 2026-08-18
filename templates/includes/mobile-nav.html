@@ -10,19 +10,19 @@
                                 </a>
                         </div>
                         <div class="col-6 text-end" id="basket-mob">
-                                
-                                        <span class="nav-link">
-                                                <i class="fa-solid fa-basket-shopping position-relative nav-icon">
-                                                        <span class="position-absolute top-0 start-100
-                                                                     translate-middle badge rounded-pill basket-counter
-                                                                     small-text">{{ ball_count }}
-                                                                <span class="visually-hidden">
-                                                                        Number of items in your basket
-                                                                </span>
+
+                                <span class="nav-link">
+                                        <i class="fa-solid fa-basket-shopping position-relative nav-icon">
+                                                <span class="position-absolute top-0 start-100
+                                                             translate-middle badge rounded-pill basket-counter
+                                                             small-text">{{ ball_count }}
+                                                        <span class="visually-hidden">
+                                                                Number of items in your basket
                                                         </span>
-                                                </i>
-                                        </span>
-                                
+                                                </span>
+                                        </i>
+                                </span>
+
                         </div>
                 </div>
         </div>
@@ -33,238 +33,238 @@
 
                         </div>
                 </div>
-        </div>  
+        </div>
 </nav>
 
 <div class="container-fluid box">
 
 </div>
 
-<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1" 
+<div class="offcanvas offcanvas-start" id="expand-hambuger" tabindex="-1"
      data-bs-scroll="true">
         <div class="container">
                 <div class="row ">
                         <div class="col-6 text-start ms-auto">
                                 <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
                                      class="mob-header-logo">
+                        </div>
+                        <div class="col-6 text-end">
+                                <span data-bs-dismiss="offcanvas" role="button"  aria-label="Close"><i
+                                        class="fa-solid fa-x"></i></span>
+                        </div>
                 </div>
-                <div class="col-6 text-end">
-                        <span data-bs-dismiss="offcanvas" role="button"  aria-label="Close"><i
-                                class="fa-solid fa-x"></i></span>
+                <div class="row">
+                        <div class="col-12">
+                                <p class="dropdown-item"><a href="{% url 'home' %}"
+                                                            aria-label="takes you to the home page">
+                                        <i class="fa-solid fa-house nav-icon me-4"></i>Home</a>
+                                </p>
+                        </div>
+
+                        <hr class="mt-2 mb-4">
+
                 </div>
-        </div>
-        <div class="row">
-                <div class="col-12">
-                        <p class="dropdown-item"><a href="{% url 'home' %}"
-                                                    aria-label="takes you to the home page">
-                                <i class="fa-solid fa-house nav-icon me-4"></i>Home</a>
-                        </p>
+                <div class="row">
+                        <div class="col-12">
+                                <p class="dropdown-item"><a data-bs-toggle="offcanvas" href="#mob-yarn-filter-menu"
+                                                            aria-label="takes you to choice of yarn menu"> Yarn shop
+                                        <i class="fa-solid fa-arrow-right ms-4"></i>
+                                </a></p>
+                                <hr class="mt-2 mb-4">
+                        </div>
                 </div>
 
-                <hr class="mt-2 mb-4">
-
-        </div>
-        <div class="row">
-                <div class="col-12">
-                        <p class="dropdown-item"><a data-bs-toggle="offcanvas" href="#mob-yarn-filter-menu"
-                                                 aria-label="takes you to choice of yarn menu"> Yarn shop
-                                <i class="fa-solid fa-arrow-right ms-4"></i>
-                        </a></p>
-                        <hr class="mt-2 mb-4">
+                <div class="row">
+                        <div class="col-12">
+                                <p><a class="dropdown-item" href="{% url 'contact_page' %}" aria-label="takes you to our contact page">
+                                        Get in touch!</a>
+                                </p>
+                                <hr class="mt-2 mb-4">
+                        </div>
                 </div>
-        </div>
-        
-        <div class="row">
-                <div class="col-12">
-                        <p><a class="dropdown-item" href="{% url 'contact_page' %}" aria-label="takes you to our contact page">
-                                Get in touch!</a>
-                        </p>
-                        <hr class="mt-2 mb-4">
-                </div>
-        </div>
-        <div class="row mt-2">
-                <div class="col-12 dropdown">
-                        <a class="dropdown-toggle" href="#" aria-expanded="false"
-                           data-bs-toggle="dropdown"><i class="fa-regular fa-user nav-icon"></i></a>
-                        <ul class="dropdown-menu mt-4">
-                                {% if user.is_authenticated %}
-                                        <li><a class="dropdown-item small-text" href="{% url 'customer_account' %}" aria-label="Goes to account page with account information,
-                                                                                                     past orders and favourites">My Account</a></li>
-                                        {% if user.is_staff %}
-                                                <li><a class=" dropdown-item small-text" href="{% url 'management_home' %}"
-                                                       aria-label="goes to shop management area">Shop Management</a>
+                <div class="row mt-2">
+                        <div class="col-12 dropdown">
+                                <a class="dropdown-toggle" href="#" aria-expanded="false"
+                                   data-bs-toggle="dropdown"><i class="fa-regular fa-user nav-icon"></i></a>
+                                <ul class="dropdown-menu mt-4">
+                                        {% if user.is_authenticated %}
+                                                <li><a class="dropdown-item small-text" href="{% url 'customer_account' %}" aria-label="Goes to account page with account information,
+                                                                                                                                        past orders and favourites">My Account</a></li>
+                                                {% if user.is_staff %}
+                                                        <li><a class=" dropdown-item small-text" href="{% url 'management_home' %}"
+                                                               aria-label="goes to shop management area">Shop Management</a>
+                                                        </li>
+                                                {% endif %}
+                                                <li><a class="dropdown-item small-text" href="{% url 'account_logout' %}"
+                                                       aria-label="Logout of my account">Logout</a></li>
+                                        {% else %}
+                                                <li><a class="dropdown-item small-text" href="{% url 'account_login' %}"
+                                                       aria-label="Login to your Loopy yarns account">Login</a></li>
+                                                <li><a class="dropdown-item small-text" href="{% url 'account_signup' %}"
+                                                       aria-label="Register for a Loopy yarns account">Register</a>
                                                 </li>
                                         {% endif %}
-                                        <li><a class="dropdown-item small-text" href="{% url 'account_logout' %}"
-                                               aria-label="Logout of my account">Logout</a></li>
-                                {% else %}
-                                        <li><a class="dropdown-item small-text" href="{% url 'account_login' %}"
-                                               aria-label="Login to your Loopy yarns account">Login</a></li>
-                                        <li><a class="dropdown-item small-text" href="{% url 'account_signup' %}"
-                                               aria-label="Register for a Loopy yarns account">Register</a>
-                                        </li>
-                                {% endif %}
-                        </ul>
+                                </ul>
+                        </div>
                 </div>
         </div>
 </div>
-</div>
 
-<div class="offcanvas offcanvas-start" id="mob-yarn-filter-menu" tabindex="-1" 
+<div class="offcanvas offcanvas-start" id="mob-yarn-filter-menu" tabindex="-1"
      data-bs-scroll="true">
         <div class="container">
                 <div class="row">
                         <div class="col-6 text-start ms-auto">
                                 <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
                                      class="mob-header-logo">
-                </div>
-                <div class="col-6 text-end">
-                        <span role="button" data-bs-dismiss="offcanvas"  aria-label="Close"><i
-                                class="fa-solid fa-x"></i></span>
-                </div>
-        </div>
-        <div class="row">
-                <div class="col-12">
-                        <p><a data-bs-toggle="offcanvas" href="#expand-hambuger"
-                         aria-label="takes you to main menu on mobile"> <i
-                                class="fa-solid fa-arrow-left me-4"></i>Back
-                        </a></p>
-                        <hr class="mt-2 mb-4">
-                </div>
-        </div>
-        <div class="row mb-4">
-                <div class="col-12">
-                        <p><a  href="{% url 'allproducts' %}" aria-label="go to a list of all yarns for sale">All
-                                yarn</a></p>
-                        <p><a  href="{% url 'allproducts' %}?sale=true"
-                              aria-label="filter to show only yarn on promotion">Promotions</a>
-                        </p>
-                </div>
-        </div>
-        <div class="row mt-4 mb-4">
-                <div class="col-12">
-                        <form class="d-flex mb-4" role="search" method="GET" action="{% url 'allproducts' %}">
-                                <span><input class="form-control me-2 search-box" type="search" name="q"
-                                             placeholder="Find your yarn!" aria-label="Search">
-                                </span>
-                                <span class="search-sudo-button ms-4">
-                                        <i
-                                                class="fa-solid fa-magnifying-glass nav-icon"></i></span>
-                        </form>
-                </div>
-        </div>
-        <div class="row mt-4">
-                <div class="col-12">
-                        <p>Filter by:</p>
-                </div>
-        </div>
-        <div class=" accordion" id="mob-yarn-filter-accord">
-                <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
-                           data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                                Brands
-                        </a>
-                        <div id="collapseOne" class="accordion-collapse collapse"
-                             data-bs-parent="#mob-yarn-filter-accord">
-                                <ul class="accord-list">
-                                        <li><a class="text-small" href="{% url 'allproducts' %}?brand=drops"
-                                               aria-label="Filter to show only yarn with brand 'Drops'">Drops</a>
-                                        </li>
-                                        <li><a class="text-small" href="{% url 'allproducts' %}?brand=sirdar"
-                                               aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a>
-                                        </li>
-                                        <li><a class="text-small" href="{% url 'allproducts' %}?brand=stylecraft"
-                                               aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a>
-                                        </li>
-                                </ul>
+                        </div>
+                        <div class="col-6 text-end">
+                                <span role="button" data-bs-dismiss="offcanvas"  aria-label="Close"><i
+                                        class="fa-solid fa-x"></i></span>
                         </div>
                 </div>
-                <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
-                           data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                Thickness
-                        </a>
-                        <div id="collapseTwo" class="accordion-collapse collapse"
-                             data-bs-parent="#mob-yarn-filter-accord">
-                                <ul class="accord-list">
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=2"
-                                               aria-label="Filter to show only 2 ply yarn">2 ply</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=4"
-                                               aria-label="Filter to show only 4 ply yarn">4 ply</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=DK"
-                                               aria-label="Filter to show only double knit yarn">Double
-                                                knit</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Aran"
-                                               aria-label="Filter to show only aran">Aran</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Chunky"
-                                               aria-label="Filter to show only chunky yarn">Chunky</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Super"
-                                               aria-label="Filter to show only super chunky yarn">Super
-                                                Chunky</a>
-                                        </li>
-                                </ul>
+                <div class="row">
+                        <div class="col-12">
+                                <p><a data-bs-toggle="offcanvas" href="#expand-hambuger"
+                                      aria-label="takes you to main menu on mobile"> <i
+                                        class="fa-solid fa-arrow-left me-4"></i>Back
+                                </a></p>
+                                <hr class="mt-2 mb-4">
                         </div>
                 </div>
-                <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" data-bs-toggle="collapse"
-                           data-bs-target="#collapseThree" aria-expanded="false" href="#"
-                           aria-controls="collapseThree">
-                                Fibre
-                        </a>
-                        <div id="collapseThree" class="accordion-collapse collapse"
-                             data-bs-parent="#mob-yarn-filter-accord">
-                                <ul class="accord-list">
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Alpaca"
-                                               aria-label="Filter to show only alpaca yarn">Alpaca</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Acrylic"
-                                               aria-label="Filter to show only acrylic yarn">Acrylic</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Cotton"
-                                               aria-label="Filter to show only cotton yarn">Cotton</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Merino"
-                                               aria-label="Filter to show only merino yarn">Merino</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Wool"
-                                               aria-label="Filter to show only wool yarn">Wool</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?natural=true"
-                                               aria-label="Filter to show only natural yarn">100%
-                                                Natural
-                                                fibres</a>
-                                        </li>
-                                </ul>
+                <div class="row mb-4">
+                        <div class="col-12">
+                                <p><a  href="{% url 'allproducts' %}" aria-label="go to a list of all yarns for sale">All
+                                        yarn</a></p>
+                                <p><a  href="{% url 'allproducts' %}?sale=true"
+                                      aria-label="filter to show only yarn on promotion">Promotions</a>
+                                </p>
                         </div>
                 </div>
-                <div class="accordion-item">
-                        <a class="accordion-button uppercase-text dropdown-toggle collapsed" data-bs-toggle="collapse"
-                           data-bs-target="#collapseFour" aria-expanded="false" href="#"
-                           aria-controls="collapseFour">
-                                Price range
-                        </a>
-                        <div id="collapseFour" class="accordion-collapse collapse"
-                             data-bs-parent="#mob-yarn-filter-accord">
-                                <ul class="accord-list">
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(0,2)" aria-label="filter to show only yarns in the price range 0-£2"> £0-£2.00</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(2,4)" aria-label="filter to show only yarns in the price range £2-£4">£2.01-£4</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(4,6)" aria-label="filter to show only yarns in the price range £4-£6">£4.01-£6</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(6,10)" aria-label="filter to show only yarns in the price range £6-£10"> £6.01-£10</a>
-                                        </li>
-                                        <li><a class="small-text" href="{% url 'allproducts' %}?price=(10,20)" aria-label="filter to show only yarns with price above £10"> £10.01+ </a>
-                                        </li>
+                <div class="row mt-4 mb-4">
+                        <div class="col-12">
+                                <form class="d-flex mb-4" role="search" method="GET" action="{% url 'allproducts' %}">
+                                        <span><input class="form-control me-2 search-box" type="search" name="q"
+                                                     placeholder="Find your yarn!" aria-label="Search">
+                                        </span>
+                                        <span class="search-sudo-button ms-4">
+                                                <i
+                                                        class="fa-solid fa-magnifying-glass nav-icon"></i></span>
+                                </form>
+                        </div>
+                </div>
+                <div class="row mt-4">
+                        <div class="col-12">
+                                <p>Filter by:</p>
+                        </div>
+                </div>
+                <div class=" accordion" id="mob-yarn-filter-accord">
+                        <div class="accordion-item">
+                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                        Brands
+                                </a>
+                                <div id="collapseOne" class="accordion-collapse collapse"
+                                     data-bs-parent="#mob-yarn-filter-accord">
+                                        <ul class="accord-list">
+                                                <li><a class="text-small" href="{% url 'allproducts' %}?brand=drops"
+                                                       aria-label="Filter to show only yarn with brand 'Drops'">Drops</a>
+                                                </li>
+                                                <li><a class="text-small" href="{% url 'allproducts' %}?brand=sirdar"
+                                                       aria-label="Filter to show only yarn with brand 'Sirdar'">Sirdar</a>
+                                                </li>
+                                                <li><a class="text-small" href="{% url 'allproducts' %}?brand=stylecraft"
+                                                       aria-label="Filter to show only yarn with brand 'Stylecraft'">Stylecraft</a>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </div>
+                        <div class="accordion-item">
+                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" href="#" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Thickness
+                                </a>
+                                <div id="collapseTwo" class="accordion-collapse collapse"
+                                     data-bs-parent="#mob-yarn-filter-accord">
+                                        <ul class="accord-list">
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?thickness=2"
+                                                       aria-label="Filter to show only 2 ply yarn">2 ply</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?thickness=4"
+                                                       aria-label="Filter to show only 4 ply yarn">4 ply</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?thickness=DK"
+                                                       aria-label="Filter to show only double knit yarn">Double
+                                                        knit</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Aran"
+                                                       aria-label="Filter to show only aran">Aran</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Chunky"
+                                                       aria-label="Filter to show only chunky yarn">Chunky</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?thickness=Super"
+                                                       aria-label="Filter to show only super chunky yarn">Super
+                                                        Chunky</a>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </div>
+                        <div class="accordion-item">
+                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseThree" aria-expanded="false" href="#"
+                                   aria-controls="collapseThree">
+                                        Fibre
+                                </a>
+                                <div id="collapseThree" class="accordion-collapse collapse"
+                                     data-bs-parent="#mob-yarn-filter-accord">
+                                        <ul class="accord-list">
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Alpaca"
+                                                       aria-label="Filter to show only alpaca yarn">Alpaca</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Acrylic"
+                                                       aria-label="Filter to show only acrylic yarn">Acrylic</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Cotton"
+                                                       aria-label="Filter to show only cotton yarn">Cotton</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Merino"
+                                                       aria-label="Filter to show only merino yarn">Merino</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?fibre=Wool"
+                                                       aria-label="Filter to show only wool yarn">Wool</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?natural=true"
+                                                       aria-label="Filter to show only natural yarn">100%
+                                                        Natural
+                                                        fibres</a>
+                                                </li>
+                                        </ul>
+                                </div>
+                        </div>
+                        <div class="accordion-item">
+                                <a class="accordion-button uppercase-text dropdown-toggle collapsed" data-bs-toggle="collapse"
+                                   data-bs-target="#collapseFour" aria-expanded="false" href="#"
+                                   aria-controls="collapseFour">
+                                        Price range
+                                </a>
+                                <div id="collapseFour" class="accordion-collapse collapse"
+                                     data-bs-parent="#mob-yarn-filter-accord">
+                                        <ul class="accord-list">
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?price=(0,2)" aria-label="filter to show only yarns in the price range 0-£2"> £0-£2.00</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?price=(2,4)" aria-label="filter to show only yarns in the price range £2-£4">£2.01-£4</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?price=(4,6)" aria-label="filter to show only yarns in the price range £4-£6">£4.01-£6</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?price=(6,10)" aria-label="filter to show only yarns in the price range £6-£10"> £6.01-£10</a>
+                                                </li>
+                                                <li><a class="small-text" href="{% url 'allproducts' %}?price=(10,20)" aria-label="filter to show only yarns with price above £10"> £10.01+ </a>
+                                                </li>
 
-                                </ul>
+                                        </ul>
+                                </div>
                         </div>
                 </div>
         </div>
-</div>
 </div>

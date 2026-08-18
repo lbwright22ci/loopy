@@ -1,5 +1,6 @@
 from django.db.models import Q
-from .models import Postage, Announcements, SaleSettings, ShopContactInfo, UserProfile
+from .models import Postage, Announcements, SaleSettings, ShopContactInfo
+
 
 def postage_settings(request):
     """
@@ -21,7 +22,7 @@ def postage_settings(request):
     """
     query_sm_first = Q(parcel_size=0) & Q(postage_class=1)
     small_first_class = Postage.objects.filter(query_sm_first)[0]
-    
+
     query_sm_second = Q(parcel_size=0) & Q(postage_class=0)
     small_second_class = Postage.objects.filter(query_sm_second)[0]
 
@@ -31,16 +32,17 @@ def postage_settings(request):
     query_lg_second = Q(parcel_size=1) & Q(postage_class=0)
     large_second_class = Postage.objects.filter(query_lg_second)[0]
 
-    return{
-        'small_first_class':small_first_class,
-        'small_second_class':small_second_class,
-        'large_first_class':large_first_class,
-        'large_second_class':large_second_class,
+    return {
+        'small_first_class': small_first_class,
+        'small_second_class': small_second_class,
+        'large_first_class': large_first_class,
+        'large_second_class': large_second_class,
     }
+
 
 def announcement_banner(request):
     """ Function returns the most recent instance of :model:`Announcements`
-    
+
     **Context**
     ``announcement``
     Criteria and discount rates for bulk buy.
@@ -48,9 +50,10 @@ def announcement_banner(request):
     """
     data = Announcements.objects.all()[0]
 
-    return{
-        'announcement':data,
+    return {
+        'announcement': data,
     }
+
 
 def sale_rate(request):
     """ 
@@ -64,9 +67,10 @@ def sale_rate(request):
     """
     rate = SaleSettings.objects.filter(active=True)[0]
 
-    return{
-        'rate':rate,
+    return {
+        'rate': rate,
     }
+
 
 def shop_address(request):
     """
@@ -75,15 +79,12 @@ def shop_address(request):
     **Context**
     `contact`
     Contact information for the business
-    
+
     """
     contact = ShopContactInfo.objects.all()[0]
     phone_num = f'0{contact.shop_phone}'
 
-    return{
+    return {
         'shop_contact': contact,
-        'phone_num':phone_num
+        'phone_num': phone_num
     }
-
-
-        

@@ -5,18 +5,18 @@ from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.template.loader import render_to_string
 
-from .models import Contact
 from .forms import ContactForm
 from core.models import ShopContactInfo
 from core.models import HomePageSlides
 
 # Create your views here.
 
+
 def contact_page(request):
     """ Renders contact page containing a single instance of :form:`ContactForm`
     to capture information to create a new instance of :model:`Contact`and send 
     email to user to state that their message has been received.
-    
+
     **Template**
     'get_in_touch/contact-page.html'
 
@@ -33,7 +33,7 @@ def contact_page(request):
     if request.method == "POST":
         form = ContactForm(data=request.POST)
         if form.is_valid():
-            in_touch= form.save(commit=False)
+            in_touch = form.save(commit=False)
             messages.add_message(
                 request, messages.SUCCESS,
                 'Thank you for contacting Loopy Yarns UK.  We will'
@@ -41,18 +41,18 @@ def contact_page(request):
                 ' "spam" or "junk" folder if you have not heard from us'
                 ' within 2 working days.'
             )
-            email_subject ="Thank you for contacting Loopy Yarns!"
-            html_message = render_to_string('get_in_touch/email/contact_received.html', 
-                                            { 'in_touch': in_touch, 'phone': phone},
+            email_subject = "Thank you for contacting Loopy Yarns!"
+            html_message = render_to_string('get_in_touch/email/contact_received.html',
+                                            {'in_touch': in_touch, 'phone': phone},
                                             )
             plain_message = strip_tags(html_message)
 
-            msg= EmailMultiAlternatives(
+            msg = EmailMultiAlternatives(
                 email_subject,
                 plain_message,
                 settings.DEFAULT_FROM_EMAIL,
-                [ in_touch.email ],
-                
+                [in_touch.email],
+
             )
             msg.attach_alternative(html_message, "text/html")
             msg.send()
@@ -61,11 +61,11 @@ def contact_page(request):
     else:
         form = ContactForm()
 
-    context ={ 
+    context = {
         'form': form,
-        'top_image':top_image,
-        'bottom_image':bottom_image,
-              }
+        'top_image': top_image,
+        'bottom_image': bottom_image,
+    }
     template = 'get_in_touch/contact-page.html'
 
     return render(request, template, context)
