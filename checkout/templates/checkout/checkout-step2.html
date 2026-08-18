@@ -22,15 +22,15 @@
 
 {% block content %}
 
-<div class="container p-4">
+    <div class="container p-4">
 
-    <div class="row mb-4">
-        <div class="col-12 text-end">
-            <a class="btn btn-second" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
-            <a class="btn btn-second" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
+        <div class="row mb-4">
+            <div class="col-12 text-end">
+                <a class="btn btn-second" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
+                <a class="btn btn-second" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
+            </div>
         </div>
-    </div>
-<div class="row pt-4 mb-4">
+        <div class="row pt-4 mb-4">
             <div class="col-12 ">
                 <img src="{% static 'images/balls-in-a-line.png'%}"
                      alt="illustration of balls of wool" class="all-products-head d-none d-sm-inline">
@@ -38,152 +38,152 @@
                 <h1 class="page-heading ms-2 d-inline">Checkout! </h1>
             </div>
         </div>
-        
-<div class="row mb-4 pe-md-4">
-    <div class="col-12 col-md-6">
-        {% if not user.is_authenticated %}
-        <div class="row ">
-            <div class="col-12 text-center">
-                <p><a href="{% url 'account_login' %}" aria-label="log into your account">Log in </a> or 
-                    <a href="{% url 'account_signup' %}" aria-label="create an account with Loopy Yarns">register</a> for an account for 
-                faster checkout & order management <br>
-                 OR continue as a guest.</p>
+
+        <div class="row mb-4 pe-md-4">
+            <div class="col-12 col-md-6">
+                {% if not user.is_authenticated %}
+                    <div class="row ">
+                        <div class="col-12 text-center">
+                            <p><a href="{% url 'account_login' %}" aria-label="log into your account">Log in </a> or
+                                <a href="{% url 'account_signup' %}" aria-label="create an account with Loopy Yarns">register</a> for an account for
+                                faster checkout & order management <br>
+                                OR continue as a guest.</p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <form method="POST" action="{% url 'checkout-ship' %}">
+                    {% csrf_token %}
+
+                    {% if bs_same == False %}
+                        <h2 class="subtitle"> Shipping Address </h2>
+
+                        <div class="row justify-content-end">
+                            <div class="col-12">
+                                {{ form.shipping_street_address1 | as_crispy_field }}
+                            </div>
+                            <div class="col-12">
+                                {{ form.shipping_street_address2 | as_crispy_field }}
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                {{ form.shipping_town | as_crispy_field }}
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                {{ form.shipping_county | as_crispy_field }}
+                            </div>
+                            <div class="col-12 col-lg-6">
+                                {{ form.shipping_postcode | as_crispy_field }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <h2 class="subtitle"> Shipping Class </h2>
+                    <div class="row justify-content-end pb-4">
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="shippingClass" id="second-class" value="0" checked>
+                                <label class="form-check-label" for="second-class">
+                                    Second Class (£{{ estimated_postage|floatformat:2 }})
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="shippingClass" id="first-class" value="1">
+                                <label class="form-check-label" for="first-class">
+                                    First Class (£{{ first_class|floatformat:2 }})
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <h2 class="subtitle"> Gifting </h2>
+                    <div class="row justify-content-end pb-4">
+                        <div class="col-12">
+                            {{ form.is_gift | as_crispy_field }}
+                        </div>
+                        <div class="col-12">
+                            {{ form.gift_message | as_crispy_field }}
+                        </div>
+                    </div>
+
+                    <div class="row justify-content-end mt-4 mb-4">
+                        <div class="col-6 text-start">
+                            <a href="{% url 'checkout' %}" aria-label="Takes you back to edit billing information" class="btn btn-second"> <i class="fa-solid fa-angles-left"></i> Billing Info</a>
+                        </div>
+                        <div class="col-6 text-end">
+                            <input type="submit" class="btn btn-main" value="Next">
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-12 col-md-6 ps-md-4">
+                <h2 class="subtitle mb-4"> Basket Details </h2>
+                {% for item in basket_items|dictsort:"col_var.product_id.name" %}
+                    <div class="row p-2 mx-2 mt-4">
+                        <div class="col-4">
+                            <img class="product-image-thumb" src="{{ item.col_var.product_id.image.url }}"
+                                 alt="{{  item.col_var.product_id.name }}">
+                        </div>
+                        <div class="col-3">
+                            <img class="colour-image" src="{{ item.col_var.colour_cat_id.image.url }}"
+                                 alt="{{ item.col_var.colour_cat_id.colour_name }}">
+                        </div>
+                        <div class="col-5">
+                            <p class="small-text">        <span class="uppercase-text"> {{ item.col_var.product_id.brand_id.name }}
+                            </span> {{ item.col_var.product_id.name }},
+                                {{ item.col_var.product_id.skein_weight }}g</p>
+
+                            <p class="very-small-text">{{ item.col_var.product_id.thickness_id.name}}, {{item.col_var.product_id.fibre}}
+                                <br>
+                                {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row p-2 mx-2 align-items-center justify-content-end">
+                        <div class="col-12 text-end">
+                            <p class="small-text mb-0"> Quantity: {{ item.quantity }}</p>
+                            <p class="small-text mb-0"> Price: {% if item.col_var.product_id.on_promotion %}
+                                <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
+
+                                <span class="sale-price"> £{{ item.price }}</span>
+                            {% else %}
+                                £{{ item.price }}
+                            {% endif %}</p>
+
+                            <p class="small-text mb-4 "> Subtotal: {% if item.col_var.product_id.on_promotion %}
+                                <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
+                            {% else %}
+                                £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
+                            {% endif %}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end mb-4">
+                    <div class="col-12 text-end">
+                        <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
+                        <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
+                        > Discount : £ {{ discount|floatformat:2 }}</p>
+                        <p > Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
+                        <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
+                    </div>
+                </div>
+                <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end">
+                    <a class="text-end" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
+                </div>
             </div>
         </div>
-        {% endif %}
-    
-<form method="POST" action="{% url 'checkout-ship' %}">
-    {% csrf_token %}
-    
-    {% if bs_same == False %}
-    <h2 class="subtitle"> Shipping Address </h2>
-    
-    <div class="row justify-content-end">
-        <div class="col-12">
-            {{ form.shipping_street_address1 | as_crispy_field }}
+
+
+        <div class="row mb-4">
+
+
         </div>
-        <div class="col-12">
-            {{ form.shipping_street_address2 | as_crispy_field }}
-        </div>
-        <div class="col-12 col-lg-6">
-            {{ form.shipping_town | as_crispy_field }}
-        </div>
-        <div class="col-12 col-lg-6">
-            {{ form.shipping_county | as_crispy_field }}
-        </div>
-        <div class="col-12 col-lg-6">
-            {{ form.shipping_postcode | as_crispy_field }}
-        </div>
+
     </div>
-    {% endif %}    
-        <h2 class="subtitle"> Shipping Class </h2>
-    <div class="row justify-content-end pb-4">
-        <div class="col-12">
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="shippingClass" id="second-class" value="0" checked>
-                <label class="form-check-label" for="second-class">
-            Second Class (£{{ estimated_postage|floatformat:2 }})
-                </label>
-            </div>
-            <div class="form-check">
-                <input class="form-check-input" type="radio" name="shippingClass" id="first-class" value="1">
-                <label class="form-check-label" for="first-class">
-                    First Class (£{{ first_class|floatformat:2 }})
-                </label>
-            </div>
 
-        </div>
-    </div>
-        
-    <h2 class="subtitle"> Gifting </h2>
-    <div class="row justify-content-end pb-4">
-        <div class="col-12">
-            {{ form.is_gift | as_crispy_field }}
-        </div>
-        <div class="col-12">
-            {{ form.gift_message | as_crispy_field }}
-        </div>
-    </div>
-
-    <div class="row justify-content-end mt-4 mb-4">
-        <div class="col-6 text-start">
-            <a href="{% url 'checkout' %}" aria-label="Takes you back to edit billing information" class="btn btn-second"> <i class="fa-solid fa-angles-left"></i> Billing Info</a>
-        </div>
-        <div class="col-6 text-end">
-            <input type="submit" class="btn btn-main" value="Next">
-        </div>
-    </div>
-
-</form>
-
-    </div>
-    
-    <div class="col-12 col-md-6 ps-md-4">
-        <h2 class="subtitle mb-4"> Basket Details </h2>
-        {% for item in basket_items|dictsort:"col_var.product_id.name" %}
-        <div class="row p-2 mx-2 mt-4">
-            <div class="col-4">
-                <img class="product-image-thumb" src="{{ item.col_var.product_id.image.url }}"
-                                         alt="{{  item.col_var.product_id.name }}">
-            </div>
-            <div class="col-3">
-                <img class="colour-image" src="{{ item.col_var.colour_cat_id.image.url }}"
-                                         alt="{{ item.col_var.colour_cat_id.colour_name }}">
-            </div>
-            <div class="col-5">
-                               <p class="small-text">        <span class="uppercase-text"> {{ item.col_var.product_id.brand_id.name }}
-                                        </span> {{ item.col_var.product_id.name }},
-                                        {{ item.col_var.product_id.skein_weight }}g</p> 
-                                    
-                                    <p class="very-small-text">{{ item.col_var.product_id.thickness_id.name}}, {{item.col_var.product_id.fibre}}
-                                        <br>
-                                        {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})
-                                    </p>
-            </div>
-        </div>
-        <div class="row p-2 mx-2 align-items-center justify-content-end">
-            <div class="col-12 text-end">
-                <p class="small-text mb-0"> Quantity: {{ item.quantity }}</p>
-                <p class="small-text mb-0"> Price: {% if item.col_var.product_id.on_promotion %}
-                                        <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
-                                    
-                                        <span class="sale-price"> £{{ item.price }}</span>
-                                    {% else %}
-                                        £{{ item.price }}
-                                    {% endif %}</p>
-                                    
-                <p class="small-text mb-4 "> Subtotal: {% if item.col_var.product_id.on_promotion %}
-                                        <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
-                                    {% else %}
-                                        £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
-                                    {% endif %}</p>
-            </div>
-        </div>
-        {% endfor %}
-        <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end mb-4">
-            <div class="col-12 text-end">
-                <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
-                <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
-                > Discount : £ {{ discount|floatformat:2 }}</p>
-                <p > Estimated Postage : £ {{ estimated_postage|floatformat:2 }}</p>
-                <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
-            </div>
-        </div>
-        <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end">
-<a class="text-end" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
-        </div>
-    </div>
-</div>
-
-
-<div class="row mb-4">
-
-
-</div>
-
-</div>
-
-<div class="to-top">
+    <div class="to-top">
         <a class="d-flex h-100 to-top-link">
             <i class="fa-solid fa-arrow-up"></i>
         </a>
@@ -193,5 +193,5 @@
 {% block extrapostjs %}
     {{ block.super }}
 
-    
+
 {% endblock %}

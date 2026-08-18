@@ -22,15 +22,15 @@
 
 {% block content %}
 
-<div class="container p-4">
+    <div class="container p-4">
 
-    <div class="row mb-4">
-        <div class="col-12 text-end">
-            <a class="btn btn-second" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
-            <a class="btn btn-second" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
+        <div class="row mb-4">
+            <div class="col-12 text-end">
+                <a class="btn btn-second" href="{% url 'allproducts' %}" aria-label="Continue shopping"> Continue shopping</a>
+                <a class="btn btn-second" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
+            </div>
         </div>
-    </div>
-<div class="row pt-4 mb-4">
+        <div class="row pt-4 mb-4">
             <div class="col-12 ">
                 <img src="{% static 'images/balls-in-a-line.png'%}"
                      alt="illustration of balls of wool" class="all-products-head d-none d-sm-inline">
@@ -38,210 +38,210 @@
                 <h1 class="page-heading ms-2 d-inline">Checkout! </h1>
             </div>
         </div>
-        
-<div class="row mb-4 pe-md-4">
-    <div class="col-12 col-md-6">
-        {% if not user.is_authenticated %}
-        <div class="row ">
-            <div class="col-12 text-center">
-                <p><a href="{% url 'account_login' %}" aria-label="log into your account">Log in </a> or 
-                    <a href="{% url 'account_signup' %}" aria-label="create an account with Loopy Yarns">register</a> for an account for 
-                faster checkout & order management <br>
-                 OR continue as a guest.</p>
-            </div>
-        </div>
-        {% endif %}
-    
-<form method="POST" action="{% url 'checkout-final' %}" id="confirm-form">
-    {% csrf_token %}
-    <h2 class="subtitle"> Order Summary</h2>
-    <div class="row">
-        <div class="col-12">
-            <p class="very-small-text">
-                Name: {{ first_name }} {{ second_name }} <br>
-                Email: {{ email }} <br>
-                {% if phone %}
-                Phone: 0{{ phone }}
+
+        <div class="row mb-4 pe-md-4">
+            <div class="col-12 col-md-6">
+                {% if not user.is_authenticated %}
+                    <div class="row ">
+                        <div class="col-12 text-center">
+                            <p><a href="{% url 'account_login' %}" aria-label="log into your account">Log in </a> or
+                                <a href="{% url 'account_signup' %}" aria-label="create an account with Loopy Yarns">register</a> for an account for
+                                faster checkout & order management <br>
+                                OR continue as a guest.</p>
+                        </div>
+                    </div>
                 {% endif %}
-            </p>
-        </div>
-        <div class="col-6">
-            <p class="small-text mb-0"> Billing Address </p>
-            <p class="very-small-text">
-                {{ billing_street_address1 }} <br>
-                {% if billing_street_address2 %}
-                {{ billing_street_address2 }} <br>
-                {% endif %}
-                {{ billing_county }} <br>
-                {{ billing_postcode }} <br>
-                {{ billing_country }} <br>
-                <a href="{% url 'checkout' %}" aria-label="change billing address details">Edit</a>
-            </p>
-        </div>
-        <div class="col-6">
-            <p class="small-text mb-0"> Shipping Address </p>
-            <p class="very-small-text">
-                {{ shipping_street_address1 }} <br>
-                {% if shipping_street_address2 %}
-                {{ shipping_street_address2 }} <br>
-                {% endif %}
-                {{ shipping_county }} <br>
-                {{ shipping_postcode }} <br>
-                {{ shipping_country }} <br>
-                <a href="{% url 'checkout-ship' %}" aria-label="change shipping address details">Edit</a>
-            </p>
-        </div>
-    </div>
-        
-    
-        <div class="row">
-        <div class="col-12">{% if is_gift %}
-            <p class="small-text mb-0"> This order is a gift.</p>
-            <p class="small-text"><span class="uppercase-text">Gift message </span> {{ gift_message}}</p>
-            {% else %}
-            <p class="small-text mb-0"> This order is not a gift.</p>
-            {% endif %}
-            </div>
-            </div>
-    
-            {% if user.is_authenticated %}
-    <div class="row">
-        <div class="col-12">
-            {{ form|crispy }}
+
+                <form method="POST" action="{% url 'checkout-final' %}" id="confirm-form">
+                    {% csrf_token %}
+                    <h2 class="subtitle"> Order Summary</h2>
+                    <div class="row">
+                        <div class="col-12">
+                            <p class="very-small-text">
+                                Name: {{ first_name }} {{ second_name }} <br>
+                                Email: {{ email }} <br>
+                                {% if phone %}
+                                    Phone: 0{{ phone }}
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small-text mb-0"> Billing Address </p>
+                            <p class="very-small-text">
+                                {{ billing_street_address1 }} <br>
+                                {% if billing_street_address2 %}
+                                    {{ billing_street_address2 }} <br>
+                                {% endif %}
+                                {{ billing_county }} <br>
+                                {{ billing_postcode }} <br>
+                                {{ billing_country }} <br>
+                                <a href="{% url 'checkout' %}" aria-label="change billing address details">Edit</a>
+                            </p>
+                        </div>
+                        <div class="col-6">
+                            <p class="small-text mb-0"> Shipping Address </p>
+                            <p class="very-small-text">
+                                {{ shipping_street_address1 }} <br>
+                                {% if shipping_street_address2 %}
+                                    {{ shipping_street_address2 }} <br>
+                                {% endif %}
+                                {{ shipping_county }} <br>
+                                {{ shipping_postcode }} <br>
+                                {{ shipping_country }} <br>
+                                <a href="{% url 'checkout-ship' %}" aria-label="change shipping address details">Edit</a>
+                            </p>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-12">{% if is_gift %}
+                            <p class="small-text mb-0"> This order is a gift.</p>
+                            <p class="small-text"><span class="uppercase-text">Gift message </span> {{ gift_message}}</p>
+                        {% else %}
+                            <p class="small-text mb-0"> This order is not a gift.</p>
+                        {% endif %}
+                        </div>
+                    </div>
+
+                    {% if user.is_authenticated %}
+                        <div class="row">
+                            <div class="col-12">
+                                {{ form|crispy }}
             <!-- <p class="small-text">Your billing address details will be saved to your account.</p> -->
-        </div>
-    </div>
-    {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
 
-    <div class="row">
-        <div class="col-12 text-end">
-            <p class="small-text">
-                Subtotal: £ {{ total|floatformat:2 }} <br>
-                Discount: £ {{ discount|floatformat:2 }} <br>
-                {% if postage_class == 0 %}
-                Postage (2nd Class) = £ {{ estimated_postage|floatformat:2 }}<br>
-                Total = £ {{ grand_total|floatformat:2 }}
-                {% else %}
-                Postage (1st Class) = £ {{ first_class|floatformat:2 }}<br>
-                Total = £ {{ grand_total_first|floatformat:2 }}
-                {% endif %}
-            </p>
-        </div>
-    </div>
-    
+                    <div class="row">
+                        <div class="col-12 text-end">
+                            <p class="small-text">
+                                Subtotal: £ {{ total|floatformat:2 }} <br>
+                                Discount: £ {{ discount|floatformat:2 }} <br>
+                                {% if postage_class == 0 %}
+                                    Postage (2nd Class) = £ {{ estimated_postage|floatformat:2 }}<br>
+                                    Total = £ {{ grand_total|floatformat:2 }}
+                                {% else %}
+                                    Postage (1st Class) = £ {{ first_class|floatformat:2 }}<br>
+                                    Total = £ {{ grand_total_first|floatformat:2 }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
 
-        
-        <h2 class="subtitle"> Payment </h2>
-    <div class="row  pb-4">
-        <div class="col-12">
+
+
+                    <h2 class="subtitle"> Payment </h2>
+                    <div class="row  pb-4">
+                        <div class="col-12">
             <!-- Stripe card element goes here-->
-                    <div class="mb-3" id="card-element"></div>
+                            <div class="mb-3" id="card-element"></div>
                     <!-- used to display form errors -->
-                    <div class="mb-3 red" id="card-errors" role="alert"></div>
-                    <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                            <div class="mb-3 red" id="card-errors" role="alert"></div>
+                            <input type="hidden" value="{{ client_secret }}" name="client_secret">
+                        </div>
+                    </div>
+
+
+
+                    <div class="row justify-content-end mt-4 mb-4">
+                        <div class="col-6 text-start">
+                            <a href="{% url 'checkout-ship' %}" aria-label="Takes you back to edit shipping information" class="btn btn-second"> <i class="fa-solid fa-angles-left"></i> Shipping Info</a>
+                        </div>
+                        <div class="col-6 text-end">
+                            <input type="submit" class="btn btn-main" value="Pay" id="submit-button">
+                        </div>
+                        <div class="col-12 text-end pt-4 pb-4">
+                            <p class="red small-text"> <i class="fa-solid fa-triangle-exclamation"></i> Your card will be charged
+                                {% if postage_class == 0 %}
+                                    £ {{ grand_total|floatformat:2 }}
+                                {% else %}
+                                    £ {{ grand_total_first|floatformat:2 }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+
+            <div class="col-12 col-md-6 ps-md-4" id="basket-det-checkout">
+                <h2 class="subtitle mb-4"> Basket Details </h2>
+                {% for item in basket_items|dictsort:"col_var.product_id.name" %}
+                    <div class="row p-2 mx-2 mt-4">
+                        <div class="col-4">
+                            <img class="product-image-thumb" src="{{ item.col_var.product_id.image.url }}"
+                                 alt="{{  item.col_var.product_id.name }}">
+                        </div>
+                        <div class="col-3">
+                            <img class="colour-image" src="{{ item.col_var.colour_cat_id.image.url }}"
+                                 alt="{{ item.col_var.colour_cat_id.colour_name }}">
+                        </div>
+                        <div class="col-5">
+                            <p class="small-text">        <span class="uppercase-text"> {{ item.col_var.product_id.brand_id.name }}
+                            </span> {{ item.col_var.product_id.name }},
+                                {{ item.col_var.product_id.skein_weight }}g</p>
+
+                            <p class="very-small-text">{{ item.col_var.product_id.thickness_id.name}}, {{item.col_var.product_id.fibre}}
+                                <br>
+                                {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row p-2 mx-2 align-items-center justify-content-end">
+                        <div class="col-12 text-end">
+                            <p class="small-text mb-0"> Quantity: {{ item.quantity }}</p>
+                            <p class="small-text mb-0"> Price: {% if item.col_var.product_id.on_promotion %}
+                                <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
+
+                                <span class="sale-price"> £{{ item.price }}</span>
+                            {% else %}
+                                £{{ item.price }}
+                            {% endif %}</p>
+
+                            <p class="small-text mb-4 "> Subtotal: {% if item.col_var.product_id.on_promotion %}
+                                <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
+                            {% else %}
+                                £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
+                            {% endif %}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end mb-4">
+                    <div class="col-12 text-end">
+                        <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
+                        <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
+                        > Discount : £ {{ discount|floatformat:2 }}</p>
+                        {% if postage_class == 0 %}
+                            <p> Postage (2nd class) : £ {{ estimated_postage|floatformat:2 }}</p>
+                            <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
+                        {% else %}
+                            <p> Postage (1st class) : £ {{ first_class|floatformat:2 }}</p>
+                            <p class="subtitle bold"> Total : £ {{ grand_total_first|floatformat:2 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end">
+                    <a class="text-end" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
+                </div>
+            </div>
         </div>
+
+
+        <div class="row mb-4">
+
+
+        </div>
+
     </div>
-        
 
-
-    <div class="row justify-content-end mt-4 mb-4">
-        <div class="col-6 text-start">
-            <a href="{% url 'checkout-ship' %}" aria-label="Takes you back to edit shipping information" class="btn btn-second"> <i class="fa-solid fa-angles-left"></i> Shipping Info</a>
-        </div>
-        <div class="col-6 text-end">
-            <input type="submit" class="btn btn-main" value="Pay" id="submit-button">
-            </div>
-            <div class="col-12 text-end pt-4 pb-4">
-            <p class="red small-text"> <i class="fa-solid fa-triangle-exclamation"></i> Your card will be charged 
-                {% if postage_class == 0 %}
-                £ {{ grand_total|floatformat:2 }}
-                {% else %}
-                £ {{ grand_total_first|floatformat:2 }}
-                {% endif %}
-            </p>
-        </div>
+    <div id="loading-overlay" >
+        <div class="loading-spinner">
+            <span class="loader"></span></div>
     </div>
 
-</form>
-
-    </div>
-    
-    <div class="col-12 col-md-6 ps-md-4" id="basket-det-checkout">
-        <h2 class="subtitle mb-4"> Basket Details </h2>
-        {% for item in basket_items|dictsort:"col_var.product_id.name" %}
-        <div class="row p-2 mx-2 mt-4">
-            <div class="col-4">
-                <img class="product-image-thumb" src="{{ item.col_var.product_id.image.url }}"
-                                         alt="{{  item.col_var.product_id.name }}">
-            </div>
-            <div class="col-3">
-                <img class="colour-image" src="{{ item.col_var.colour_cat_id.image.url }}"
-                                         alt="{{ item.col_var.colour_cat_id.colour_name }}">
-            </div>
-            <div class="col-5">
-                               <p class="small-text">        <span class="uppercase-text"> {{ item.col_var.product_id.brand_id.name }}
-                                        </span> {{ item.col_var.product_id.name }},
-                                        {{ item.col_var.product_id.skein_weight }}g</p> 
-                                    
-                                    <p class="very-small-text">{{ item.col_var.product_id.thickness_id.name}}, {{item.col_var.product_id.fibre}}
-                                        <br>
-                                        {{ item.col_var.colour_cat_id.colour_name|capfirst }} ({{ item.col_var.shade_code }}|{{ item.col_var.dye_lot }})
-                                    </p>
-            </div>
-        </div>
-        <div class="row p-2 mx-2 align-items-center justify-content-end">
-            <div class="col-12 text-end">
-                <p class="small-text mb-0"> Quantity: {{ item.quantity }}</p>
-                <p class="small-text mb-0"> Price: {% if item.col_var.product_id.on_promotion %}
-                                        <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
-                                    
-                                        <span class="sale-price"> £{{ item.price }}</span>
-                                    {% else %}
-                                        £{{ item.price }}
-                                    {% endif %}</p>
-                                    
-                <p class="small-text mb-4 "> Subtotal: {% if item.col_var.product_id.on_promotion %}
-                                        <span class="sale-price"> £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}</span>
-                                    {% else %}
-                                        £{{ item.price|calc_subtotal:item.quantity|floatformat:2 }}
-                                    {% endif %}</p>
-            </div>
-        </div>
-        {% endfor %}
-        <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end mb-4">
-            <div class="col-12 text-end">
-                <p class="basket-totals"> Subtotal : £ {{ total|floatformat:2 }}</p>
-                <p class="basket-totals {% if not discount %} button-disabled{% endif %}"
-                > Discount : £ {{ discount|floatformat:2 }}</p>
-                {% if postage_class == 0 %}
-                <p> Postage (2nd class) : £ {{ estimated_postage|floatformat:2 }}</p>
-                <p class="subtitle bold"> Total : £ {{ grand_total|floatformat:2 }}</p>
-                {% else %}
-                <p> Postage (1st class) : £ {{ first_class|floatformat:2 }}</p>
-                <p class="subtitle bold"> Total : £ {{ grand_total_first|floatformat:2 }}</p>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row px-2 mx-2 px-md-0 mx-md-0 justify-content-end">
-<a class="text-end" href="{% url 'view_basket' %}" aria-label="Return to basket to edit your order"> Edit basket</a>
-        </div>
-    </div>
-</div>
-
-
-<div class="row mb-4">
-
-
-</div>
-
-</div>
-
-<div id="loading-overlay" >
-    <div class="loading-spinner">
-    <span class="loader"></span></div>
-</div>
-
-<div class="to-top">
+    <div class="to-top">
         <a class="d-flex h-100 to-top-link">
             <i class="fa-solid fa-arrow-up"></i>
         </a>
@@ -253,24 +253,24 @@
     {{ stripe_public_key|json_script:"id_stripe_public_key"}}
     {{ client_secret|json_script:"id_client_secret"}}
     <!-- pass in all the payment address information from session here -->
-    {{ full_name|json_script:"id_full_name" }} 
-    {{ email|json_script:"id_email" }} 
+    {{ full_name|json_script:"id_full_name" }}
+    {{ email|json_script:"id_email" }}
     {{ phone|json_script:"id_phone" }}
     {{ billing_street_address1|json_script:"id_billing_street_address1" }}
     {{ billing_street_address2|json_script:"id_billing_street_address2" }}
-    {{ billing_town|json_script:"id_billing_town" }} 
-    {{ billing_county|json_script:"id_billing_county" }} 
-    {{ billing_country|json_script:"id_billing_country" }} 
-    {{ billing_postcode|json_script:"id_billing_postcode" }} 
-    {{ shipping_street_address1|json_script:"id_shipping_street_address1" }} 
-    {{ shipping_street_address2|json_script:"id_shipping_street_address2" }} 
-    {{ shipping_town|json_script:"id_shipping_town" }} 
-    {{ shipping_county|json_script:"id_shipping_county" }} 
+    {{ billing_town|json_script:"id_billing_town" }}
+    {{ billing_county|json_script:"id_billing_county" }}
+    {{ billing_country|json_script:"id_billing_country" }}
+    {{ billing_postcode|json_script:"id_billing_postcode" }}
+    {{ shipping_street_address1|json_script:"id_shipping_street_address1" }}
+    {{ shipping_street_address2|json_script:"id_shipping_street_address2" }}
+    {{ shipping_town|json_script:"id_shipping_town" }}
+    {{ shipping_county|json_script:"id_shipping_county" }}
     {{ shipping_country|json_script:"id_shipping_country" }}
     {{ shipping_postcode|json_script:"id_shipping_postcode" }}
     {{ is_gift|json_script:"id_is_gift" }}
     {{ gift_message|json_script:"is_gift_message" }}
 
     <script src="{% static 'checkout/js/checkout.js' %}" ></script>
-    
+
 {% endblock %}

@@ -1,8 +1,8 @@
 $(document).ready(function () {
     
     // Required for Bootstrap custom tooltips to be enabled.
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
 
     /**
      * Disables 'plus' and 'minus' quantity buttons so that
@@ -16,14 +16,14 @@ $(document).ready(function () {
         var plusDisabled = currentvalue > plusLimit-1;
         $('[data-item-id-plus= "'+colourId+'" ]').prop('disabled', plusDisabled);
         $('[data-item-id-minus= "'+colourId+'" ]').prop('disabled', minusDisabled);
-    };
+    }
 
     // check all input fields plus and minus buttons are correct on page load: required for basket page
     var allQtyInputs = $('.qty-input');
     for(var i = 0; i < allQtyInputs.length; i++){
         var colourId = $(allQtyInputs[i]).data('item_id');
         handleEnableDisable(colourId);
-    };
+    }
 
     $('.increment-qty').click(function() {
        var closestInput = $(this).closest('.input-group').find('.qty-input')[0];
@@ -61,5 +61,4 @@ $(document).ready(function () {
                 location.reload();
             });
     });
-
-})
+});

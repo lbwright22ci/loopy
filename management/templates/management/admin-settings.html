@@ -38,8 +38,8 @@
                     <li class="sub-menu"><a href="#sale"
                                             aria-label="Update percentage discount applied to sale items">
                         <i class="fa-solid fa-tags me-4"></i>Sale Settings </a></li>
-                    <li class="sub-menu"><a href="#promo" 
-                        aria-label="update promotional policies to encouarge larger orders">
+                    <li class="sub-menu"><a href="#promo"
+                                            aria-label="update promotional policies to encouarge larger orders">
                         <i class="fa-solid fa-bullhorn me-4"></i>Promotional Discounts </a></li>
                     <li class="sub-menu"><a href="{% url 'admin:core_postage_changelist' %}"
                                             aria-label="Update postage settings for online orders">
@@ -136,36 +136,36 @@
                     <div class="col-12 mt-4" id="promo">
                         <h2 class="subtitles uppercase-text pb-4"><i class="fa-solid fa-bullhorn me-4"></i>Promotions</h2>
                         <p> Offer applied to all larger orders: </p>
-                        
+
                         <div id="which">
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="bulk" value="freeshipping" id="freeshipping" {% if not current.bulk_buy %} checked {% endif %}>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="bulk" value="freeshipping" id="freeshipping" {% if not current.bulk_buy %} checked {% endif %}>
                                 <label class="form-check-label" for="freeshipping">
                                     Free 2nd class shipping
                                 </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="bulk" value="percent" id="percent" {% if current.bulk_buy %} checked {% endif %}>
+                                <label class="form-check-label" for="percent"
+                                >
+                                    % discounts
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="bulk" value="percent" id="percent" {% if current.bulk_buy %} checked {% endif %}>
-                            <label class="form-check-label" for="percent"
-                            >
-                            % discounts
-                            </label>
-                        </div>
-</div>
                         <form action="{% url 'update_announcements' %}" method="POST" id="shipping-offer" >
                             {% csrf_token %}
-                            
+
                             <div id="div_id_upper_ball_num_ship" class="mb-3 input-group">
-                   
-                            <label for="id_upper_ball_num_ship" class="form-label an-form">
-                                Threshold for free shipping
-                            </label>  
-                        <input type="number" name="upper_ball_num" 
-                        value="{{ announcement.upper_ball_num }}" 
-                         class="numberinput form-control" id="id_upper_ball_num_ship" min="0" max="100">
-                        <span class="input-group-text an"> balls </span>
-                </div>
-                            
+
+                                <label for="id_upper_ball_num_ship" class="form-label an-form">
+                                    Threshold for free shipping
+                                </label>
+                                <input type="number" name="upper_ball_num"
+                                       value="{{ announcement.upper_ball_num }}"
+                                       class="numberinput form-control" id="id_upper_ball_num_ship" min="0" max="100">
+                                <span class="input-group-text an"> balls </span>
+                            </div>
+
 
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
@@ -180,37 +180,37 @@
 
                         <form action="{% url 'update_announcements' %}" method="POST" id="bulk-offer" >
                             {% csrf_token %}
-                            <div id="div_id_lower_ball_num" class="mb-3 input-group"> 
+                            <div id="div_id_lower_ball_num" class="mb-3 input-group">
                                 <label for="id_lower_ball_num" class="form-label an-form">
-                Lower threshold
-            </label> 
-            <input type="number" name="lower_ball_num" value="{{ announcement.lower_ball_num }}" 
-             class="numberinput form-control" id="id_lower_ball_num" min="0"> 
-            <span class="input-group-text an"> balls</span>
-        </div> 
-        <div id="div_id_lower_discount" class="mb-3 input-group"> 
-            <label for="id_lower_discount" class="form-label an-form">
-                Lower discount
-            </label> 
-            <input type="number" name="lower_discount" value="{{ announcement.lower_discount }}" 
-            class="numberinput form-control" id="id_lower_discount" min="0"> 
-            <span class="input-group-text an">%</span>
-        </div> 
-            <div id="div_id_upper_ball_num" class="mb-3 input-group"> 
-                <label for="id_upper_ball_num" class="form-label an-form">
-                Upper threshold
-            </label> 
-            <input type="number" name="upper_ball_num" value="{{ announcement.upper_ball_num }}" 
-            class="numberinput form-control" id="id_upper_ball_num" min="0"> 
-        <span class="input-group-text an"> balls</span>
-        </div> 
-            <div id="div_id_upper_discount" class="mb-3 input-group"> 
-                <label for="id_upper_discount" class="form-label an-form">
-                Upper discount
-            </label> <input type="number" name="upper_discount" value="{{ announcement.upper_discount }}" 
-            class="numberinput form-control" id="id_upper_discount" min="0"> 
-            <span class="input-group-text an"> %</span>
-        </div>
+                                    Lower threshold
+                                </label>
+                                <input type="number" name="lower_ball_num" value="{{ announcement.lower_ball_num }}"
+                                       class="numberinput form-control" id="id_lower_ball_num" min="0">
+                                <span class="input-group-text an"> balls</span>
+                            </div>
+                            <div id="div_id_lower_discount" class="mb-3 input-group">
+                                <label for="id_lower_discount" class="form-label an-form">
+                                    Lower discount
+                                </label>
+                                <input type="number" name="lower_discount" value="{{ announcement.lower_discount }}"
+                                       class="numberinput form-control" id="id_lower_discount" min="0">
+                                <span class="input-group-text an">%</span>
+                            </div>
+                            <div id="div_id_upper_ball_num" class="mb-3 input-group">
+                                <label for="id_upper_ball_num" class="form-label an-form">
+                                    Upper threshold
+                                </label>
+                                <input type="number" name="upper_ball_num" value="{{ announcement.upper_ball_num }}"
+                                       class="numberinput form-control" id="id_upper_ball_num" min="0">
+                                <span class="input-group-text an"> balls</span>
+                            </div>
+                            <div id="div_id_upper_discount" class="mb-3 input-group">
+                                <label for="id_upper_discount" class="form-label an-form">
+                                    Upper discount
+                                </label> <input type="number" name="upper_discount" value="{{ announcement.upper_discount }}"
+                                                class="numberinput form-control" id="id_upper_discount" min="0">
+                                <span class="input-group-text an"> %</span>
+                            </div>
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
                                     <p id="error-messages" class="red bold"></p>
@@ -219,7 +219,7 @@
                                 </div>
                             </div>
                         </form>
-                        
+
                     </div>
                     <div class="row justify-content-center align-items-center mt-4 mb-4">
                         <div class="col-8">
@@ -228,7 +228,7 @@
                     </div>
 
                 </div>
-                
+
             </div>
 
         </div>

@@ -186,49 +186,49 @@
                                                                                                         <span class="visually-hidden"> On promotion</span>
                                                                                                 </span>
                                                                                         {% endif %}
-                                                                                        
+
                                                                                 </div>
                                                                         </div>
 
-                                                                                <div class="card-body">
-                                                                                        <p>{% if user.is_authenticated %}
-                                        
-                                                        {% if product.id in favourite_list %}
-                                                        <a role="button" class="fav-icon" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
-                                                        data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" 
-                                                        data-bs-title="Remove from my wishlist">
-                                                        <i class="solid-heart-all fa-solid fa-heart" ></i></a>
-                                                        <span class="visually-hidden">Remove from my favourites list</span>
-                                                        
-                                                        {% else %}
-                                                        
-                                                        <a class="fav-icon" role="button" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
-                                                        data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" 
-                                                        data-bs-title="Add to my wishlist">
-                                                        <i class="open-heart-all fa-regular fa-heart" ></i> </a>
-                                                        <span class="visually-hidden">Add to my favourites list</span>
-                                                        {% endif %}
-                                                        
-                                                
-                                                
-                                        {% endif %}
-                                                                                                
-                                                                                                
-                                                                                                <span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
-                                                                                                {{ product.name }}</p>
-                                                                                        <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
-                                                                                        <p>
-                                                                                                {% if product.on_promotion %}
-                                                                                                        <span class="small-text pre-sale-price">£{{ product.price }} </span>
-                                                                                                        <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
-                                                                                                {% else %}
-                                                                                                        <strong>£{{ product.price }}</strong>
-                                                                                                {% endif %}
+                                                                        <div class="card-body">
+                                                                                <p>{% if user.is_authenticated %}
 
-                                        
-                                                                                        </p>
-                                                                                        
-                                                                                </div>
+                                                                                        {% if product.id in favourite_list %}
+                                                                                                <a role="button" class="fav-icon" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
+                                                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
+                                                                                                   data-bs-title="Remove from my wishlist">
+                                                                                                        <i class="solid-heart-all fa-solid fa-heart" ></i></a>
+                                                                                                <span class="visually-hidden">Remove from my favourites list</span>
+
+                                                                                        {% else %}
+
+                                                                                                <a class="fav-icon" role="button" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
+                                                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
+                                                                                                   data-bs-title="Add to my wishlist">
+                                                                                                        <i class="open-heart-all fa-regular fa-heart" ></i> </a>
+                                                                                                <span class="visually-hidden">Add to my favourites list</span>
+                                                                                        {% endif %}
+
+
+
+                                                                                {% endif %}
+
+
+                                                                                        <span class="uppercase-text"><strong>{{ product.brand_id.name }}</strong></span>
+                                                                                        {{ product.name }}</p>
+                                                                                <p class="small-text">{{ product.skein_weight }}g / {{ product.thickness_id.name }} / {{ product.fibre }}</p>
+                                                                                <p>
+                                                                                        {% if product.on_promotion %}
+                                                                                                <span class="small-text pre-sale-price">£{{ product.price }} </span>
+                                                                                                <span class="sale-price"> £{{ product.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                                                        {% else %}
+                                                                                                <strong>£{{ product.price }}</strong>
+                                                                                        {% endif %}
+
+
+                                                                                </p>
+
+                                                                        </div>
                                                                         <a class="overlay-link card-link" href="{% url 'productdetail' product.slug %} "
                                                                            aria-label="takes you to a page where you can find out more information about {{ product.name }}"></a>
                                                                 </div>
@@ -249,21 +249,21 @@
                         <i class="fa-solid fa-arrow-up"></i>
                 </a>
         </div>
-        <div class="offcanvas offcanvas-start" id="mob-filter-sort" 
-              data-bs-backdrop="static">
+        <div class="offcanvas offcanvas-start" id="mob-filter-sort"
+             data-bs-backdrop="static">
                 <div class="container offcanvas-body">
                         <div class="row">
                                 <div class="col-6 text-start ms-auto">
                                         <img src="{% static 'images/logo.webp' %}" alt="Loopy yarn shop logo"
                                              class="mob-header-logo">
+                                </div>
+                                <div class="col-6 text-end">
+                                        <span data-bs-dismiss="offcanvas" role="button" aria-label="Close"><i
+                                                class="fa-solid fa-x"></i></span>
+                                </div>
+                                {% include 'product/includes/filter-and-sort-mob.html' %}
                         </div>
-                        <div class="col-6 text-end">
-                                <span data-bs-dismiss="offcanvas" role="button" aria-label="Close"><i
-                                        class="fa-solid fa-x"></i></span>
-                        </div>
-                {% include 'product/includes/filter-and-sort-mob.html' %}
                 </div>
-        </div>        
         </div>
 {% endblock content %}
 

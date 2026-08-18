@@ -50,23 +50,23 @@
                                                 </span>
                                         {% endif %}
                                         {% if user.is_authenticated %}
-                                                
+
                                                 <span class="favourite">
                                                         {% if favourite %}
-                                                        <a role="button" class="fav-icon" data-product_id="{{ prod.id }}" data-csrf="{{ csrf_token }}"
-                                                        data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" 
-                                                        data-bs-title="Remove from my wishlist">
-                                                        <i class="solid-heart fa-solid fa-heart" ></i></a>
-                                                        <span class="visually-hidden">Remove from my favourites list</span>
+                                                                <a role="button" class="fav-icon" data-product_id="{{ prod.id }}" data-csrf="{{ csrf_token }}"
+                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
+                                                                   data-bs-title="Remove from my wishlist">
+                                                                        <i class="solid-heart fa-solid fa-heart" ></i></a>
+                                                                <span class="visually-hidden">Remove from my favourites list</span>
                                                         {% else %}
-                                                        <a class="fav-icon" role="button" data-product_id="{{ prod.id }}" data-csrf="{{ csrf_token }}"
-                                                        data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" 
-                                                        data-bs-title="Add to my wishlist">
-                                                        <i class="open-heart fa-regular fa-heart" ></i> </a>
-                                                        <span class="visually-hidden">Add to my favourites list</span>
+                                                                <a class="fav-icon" role="button" data-product_id="{{ prod.id }}" data-csrf="{{ csrf_token }}"
+                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
+                                                                   data-bs-title="Add to my wishlist">
+                                                                        <i class="open-heart fa-regular fa-heart" ></i> </a>
+                                                                <span class="visually-hidden">Add to my favourites list</span>
                                                         {% endif %}
                                                 </span>
-                                                
+
                                         {% endif %}
                                 </div>
                                 <p class="centre-align mt-4"><span class="green bold">{{ no_colours }}</span> Shades available </p>
@@ -99,49 +99,49 @@
                                 <div class="row justify-content-center mb-4">
                                         <div class="col-8">
                                                 {% if no_colours == 0 %}
-                                                <p class="red centre-align"> Sorry all shades of this yarn are out of stock at the moment.</p>
+                                                        <p class="red centre-align"> Sorry all shades of this yarn are out of stock at the moment.</p>
                                                 {% else %}
-                                                <form action="{% url 'add_to_basket' %}" method="POST" >
-                                                        {% csrf_token %}
-                                                        <div  class="div-colour-select-form">
-                                                                <div class="mini-selected-swatch" >
+                                                        <form action="{% url 'add_to_basket' %}" method="POST" >
+                                                                {% csrf_token %}
+                                                                <div  class="div-colour-select-form">
+                                                                        <div class="mini-selected-swatch" >
+                                                                        </div>
+                                                                        <select name="colour_var" class="select form-select form-select-sm"
+                                                                                aria-label="colour options available" id="colour-options-form">
+                                                                                <option value="0" selected>Choose a colour </option>
+                                                                                {% for c in colour_options %}
+                                                                                        <option value="{{ c.id }}"
+                                                                                        > {{ c.colour_cat_id.colour_name }}</option>
+                                                                                {% endfor %}
+                                                                        </select>
+                                                                        <p id="low-stock-warning" class="very-small-text"></p>
                                                                 </div>
-                                                                <select name="colour_var" class="select form-select form-select-sm"
-                                                                        aria-label="colour options available" id="colour-options-form">
-                                                                        <option value="0" selected>Choose a colour </option>
-                                                                        {% for c in colour_options %}
-                                                                                <option value="{{ c.id }}"
-                                                                                > {{ c.colour_cat_id.colour_name }}</option>
-                                                                        {% endfor %}
-                                                                </select>
-                                                                <p id="low-stock-warning" class="very-small-text"></p>
-                                                        </div>
 
-                                                        <div  id="quant-in" class="d-none">
-                                                                <div class="input-group div-colour-select-form">
-                                                                        <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="">
-                                                                                <span >
-                                                                                        <i class="fas fa-minus"></i>
-                                                                                </span>
-                                                                        </button>
-                                                                        <input class="form-control qty-input"
-                                                                               type="number" name="quantity" value="1"  min="1" data-item_id=""
-                                                                        >
-                                                                        <button class="increment-qty btn btn-main " type="button" data-item-id-plus="">
-                                                                                <span >
-                                                                                        <i class="fas fa-plus"></i>
-                                                                                </span>
-                                                                        </button>
+                                                                <div  id="quant-in" class="d-none">
+                                                                        <div class="input-group div-colour-select-form">
+                                                                                <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="">
+                                                                                        <span >
+                                                                                                <i class="fas fa-minus"></i>
+                                                                                        </span>
+                                                                                </button>
+                                                                                <input class="form-control qty-input"
+                                                                                       type="number" name="quantity" value="1"  min="1" data-item_id=""
+                                                                                >
+                                                                                <button class="increment-qty btn btn-main " type="button" data-item-id-plus="">
+                                                                                        <span >
+                                                                                                <i class="fas fa-plus"></i>
+                                                                                        </span>
+                                                                                </button>
+                                                                        </div>
+                                                                        <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                                                                        <div class="text-center div-colour-select-form">
+                                                                                <input type="submit" aria-label=" adds yarns to your shopping basket" class="btn btn-main mb-4 mt-4"
+                                                                                       value="Add to basket">
+                                                                        </div>
                                                                 </div>
-                                                                <input type="hidden" name="redirect_url" value="{{ request.path }}">
-                                                                <div class="text-center div-colour-select-form">
-                                                                        <input type="submit" aria-label=" adds yarns to your shopping basket" class="btn btn-main mb-4 mt-4"
-                                                                                value="Add to basket">
-                                                                </div>
-                                                        </div>
 
 
-                                                </form>
+                                                        </form>
                                                 {% endif %}
                                         </div>
                                 </div>
@@ -269,63 +269,63 @@
                                 <div class="col-12 col-lg-10">
                                         <div class="row">
                                                 {% for r in reviews %}
-                                                <div class="col-12">
-                                                {% if r.rating == 1 %}
-                                                <p><i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            </p>
-                            {% elif r.rating == 2 %}
-                            <p><i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            </p>
-                            {% elif r.rating == 3 %}
-                            <p><i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            </p>
-                            {% elif r.rating == 4 %}
-                            <p><i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-regular fa-star"></i>
-                            </p>
-                            {% elif r.rating == 5 %}
-                            <p><i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            </p>
-                            {% endif %}
-                            <p class="quote"> "{{ r.comment }}"</p>
-                            <p class="small-text"> Shade: {{ r.yarn.colour_cat_id.colour_name }}
-                                                ({{ r.yarn.shade_code }})</p>
-                        <p class="small-text text-end"> {{ r.updated_on }} </p>
-                                                
-                                                
-                                                
-                                                <div class="row justify-content-center align-items-center">
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-                <div class="col-2 text-center">
-                    <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
-                        class="divide-image">
-                </div>
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-            </div>
-                                                </div>
+                                                        <div class="col-12">
+                                                                {% if r.rating == 1 %}
+                                                                        <p><i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                        </p>
+                                                                {% elif r.rating == 2 %}
+                                                                        <p><i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                        </p>
+                                                                {% elif r.rating == 3 %}
+                                                                        <p><i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                        </p>
+                                                                {% elif r.rating == 4 %}
+                                                                        <p><i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-regular fa-star"></i>
+                                                                        </p>
+                                                                {% elif r.rating == 5 %}
+                                                                        <p><i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                                <i class="fa-solid fa-star"></i>
+                                                                        </p>
+                                                                {% endif %}
+                                                                <p class="quote"> "{{ r.comment }}"</p>
+                                                                <p class="small-text"> Shade: {{ r.yarn.colour_cat_id.colour_name }}
+                                                                        ({{ r.yarn.shade_code }})</p>
+                                                                <p class="small-text text-end"> {{ r.updated_on }} </p>
+
+
+
+                                                                <div class="row justify-content-center align-items-center">
+                                                                        <div class="col-4">
+                                                                                <hr class="divider-dec">
+                                                                        </div>
+                                                                        <div class="col-2 text-center">
+                                                                                <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
+                                                                                     class="divide-image">
+                                                                        </div>
+                                                                        <div class="col-4">
+                                                                                <hr class="divider-dec">
+                                                                        </div>
+                                                                </div>
+                                                        </div>
                                                 {% endfor %}
                                         </div>
                                 </div>

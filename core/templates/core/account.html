@@ -10,61 +10,106 @@
 {% block headkey %} {% endblock %}
 
 {% block extracss %}
-<link rel="stylesheet" href="{% static 'core/css/account.css' %}">
+    <link rel="stylesheet" href="{% static 'core/css/account.css' %}">
 {% endblock %}
 
 
 {% block page_header %}
-<div class="top-padding">
-</div>
+    <div class="top-padding">
+    </div>
 {% endblock %}
 
 
 {% block content %}
 
-<div class="container p-4">
+    <div class="container p-4">
 
 
-    <div class="row pt-4 mb-4">
-        <div class="col-12 ">
-            <img src="{% static 'images/balls-in-a-line.png'%}" alt="illustration of balls of wool"
-                class="all-products-head d-none d-sm-inline">
+        <div class="row pt-4 mb-4">
+            <div class="col-12 ">
+                <img src="{% static 'images/balls-in-a-line.png'%}" alt="illustration of balls of wool"
+                     class="all-products-head d-none d-sm-inline">
 
-            <h1 class="page-heading ms-2 d-inline">{% if user.first_name %}
-                {{ user.first_name }}'s
+                <h1 class="page-heading ms-2 d-inline">{% if user.first_name %}
+                    {{ user.first_name }}'s
                 {% else %}
-                Your
+                    Your
                 {% endif %} Account! </h1>
+            </div>
         </div>
-    </div>
 
-    <div class="row pt-4 mb-4 justify-content-center">
-        <div class="col-12 col-md-9 col-lg-6">
-            <div class="row">
-                <div class="col-12">
-                    <h2>My details</h2>
-                    <div >
-                        <form action="{% url 'update_details' %}" method="POST">
+        <div class="row pt-4 mb-4 justify-content-center">
+            <div class="col-12 col-md-9 col-lg-6">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>My details</h2>
+                        <div >
+                            <form action="{% url 'update_details' %}" method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        {{ details_form.first_name | as_crispy_field }}
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        {{ details_form.last_name | as_crispy_field }}
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        {{ details_form.Phone | as_crispy_field }}
+                                    </div>
+                                </div>
+                                <div class="row justify-content-end mt-4">
+                                    <div class="col-12 text-end pt-4">
+                                        <a href="{% url 'account_change_password' %}" aria-label=""> Reset my password</a>
+                                        <input class="ms-4 btn btn-main" type="submit" value="Update!">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-4">
+                            <hr class="divider-dec">
+                        </div>
+                        <div class="col-2 text-center">
+                            <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
+                                 class="divide-image">
+                        </div>
+                        <div class="col-4">
+                            <hr class="divider-dec">
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <h2>Saved addess</h2>
+                        <form action="{% url 'update_address' %}" method="POST">
                             {% csrf_token %}
                             <div class="row">
-                                <div class="col-12 col-md-6">
-                                    {{ details_form.first_name | as_crispy_field }}
+                                <div class="col-12">
+                                    {{ address_form.default_street_address1| as_crispy_field }}
+                                </div>
+                                <div class="col-12">
+                                    {{ address_form.default_street_address2| as_crispy_field }}
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    {{ details_form.last_name | as_crispy_field }}
+                                    {{ address_form.default_town| as_crispy_field }}
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    {{ details_form.Phone | as_crispy_field }}
+                                    {{ address_form.default_county| as_crispy_field }}
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    {{ address_form.default_postcode| as_crispy_field }}
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    {{ address_form.default_country| as_crispy_field }}
                                 </div>
                             </div>
                             <div class="row justify-content-end mt-4">
                                 <div class="col-12 text-end pt-4">
-                                    <a href="{% url 'account_change_password' %}" aria-label=""> Reset my password</a>
-                                    <input class="ms-4 btn btn-main" type="submit" value="Update!">
+                                    <input class="ms-4 btn btn-main"  type="submit" value="Update!">
                                 </div>
                             </div>
                         </form>
                     </div>
+
                 </div>
                 <div class="row justify-content-center align-items-center">
                     <div class="col-4">
@@ -72,215 +117,170 @@
                     </div>
                     <div class="col-2 text-center">
                         <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
-                            class="divide-image">
+                             class="divide-image">
                     </div>
                     <div class="col-4">
                         <hr class="divider-dec">
                     </div>
                 </div>
                 <div class="col-12">
-                    <h2>Saved addess</h2>
-                    <form action="{% url 'update_address' %}" method="POST">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-12">
-                                {{ address_form.default_street_address1| as_crispy_field }}
-                            </div>
-                            <div class="col-12">
-                                {{ address_form.default_street_address2| as_crispy_field }}
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {{ address_form.default_town| as_crispy_field }}
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {{ address_form.default_county| as_crispy_field }}
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {{ address_form.default_postcode| as_crispy_field }}
-                            </div>
-                            <div class="col-12 col-md-6">
-                                {{ address_form.default_country| as_crispy_field }}
-                            </div>
-                        </div>
-                        <div class="row justify-content-end mt-4">
-                            <div class="col-12 text-end pt-4">
-                                <input class="ms-4 btn btn-main"  type="submit" value="Update!">
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    <h2>My orders</h2>
 
-            </div>
-            <div class="row justify-content-center align-items-center">
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-                <div class="col-2 text-center">
-                    <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
-                        class="divide-image">
-                </div>
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-            </div>
-            <div class="col-12">
-                <h2>My orders</h2>
-
-                {% if not past_orders|length == 0 %}
-                {% for order in past_orders %}
-                <div class="row ">
-                    <div class="col-12 pe-4 ps-4">
-                        <p class="mb-0 bold text-end"> #{{ order.order_num }}</p>
-                        <p class="mb-0">Date: {{ order.created_on|date:'jS M y' }}</p>
-                        <p class="mb-0">Total: £ {{ order.grand_total }}</p>
-                        <p class="">Status: <span class="bold">
-                                {% if order.is_shipped %}
-                                <span class="green">Shipped!</span>
-                                {% elif order.refund_status %}
-                                <span class="red">Refunded</span>
-                                {% else %}
-                                In progress
-                                {% endif %}</span>
-                        </p>
-                    </div>
-                    <div class="col-12 text-end">
-                        {% if order.is_shipped %}
-                        <a href="{% url 'leave_review' order.order_num %}" aria-label="takes you to a page so you can leave feedback for your order"> Leave
-                            Feedback </a>
-                        {% elif not order.refund_status %}
-                        <span class="refund_link me-2" data-csrf="{{ csrf_token }}" data-order_num="{{ order.order_num }}"
-                        data-pid="{{ order.stripe_pid }}" data-total="{{ order.grand_total }}" 
-                        aria-label="Request a refund for your order" role="button"> Cancel </span>
-                        {% endif %}
-                        <a href="{% url 'past_order' order.order_num %}"
-                            aria-label="takes you to a page to view the order and reorder items"
-                            class="ms-2 btn btn-main"> View </a>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-8">
-                            <hr class="order-div">
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-                {% else %}
-                <p> No previous orders saved to this account. </p>
-                {% endif %}
-            </div>
-            <div class="row justify-content-center align-items-center">
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-                <div class="col-2 text-center">
-                    <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
-                        class="divide-image">
-                </div>
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-lg-6 justify-content-center col-md-9">
-            <div class="row">
-
-                <div class="col-12">
-                    <h2>My favourites!</h2>
-                </div>
-                {% if not favourites|length == 0 %}
-
-                <div class="row mt-4 justify-content-center ">
-                    <div class="col-12 col-lg-10 mb-4">
-                        <div class="row mb-4">
-                            {% for item in favourites %}
-                            {% if item.yarn.visible %}
-                            <div class="col-12 mt-4 mb-4">
-                                <div class="row align-items-center">
-                                    <div class="col-6">
-                                        <div class="prod-image-container">
-                                            <img src="{{ item.yarn.image.url }}" class="fav-list-images"
-                                                alt=" A picture of {{ item.yarn.name }}">
-                                            {% if item.yarn.on_promotion %}
-                                            <span class="translate-middle sale-ticket"><i
-                                                    class=" sale-icon fa-solid fa-tags"></i>
-                                                <span class="visually-hidden"> On promotion</span>
-                                            </span>
-                                            {% endif %}
-                                        </div>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <p><span class="uppercase-text"><strong>{{ item.yarn.brand_id.name }}</strong></span>
-                                            {{ item.yarn.name }}</p>
-                                        <p class="small-text">{{ item.yarn.skein_weight }}g / {{ item.yarn.thickness_id.name }} / {{ item.yarn.fibre }}</p>
-                                        <p>
-                                            {% if item.yarn.on_promotion %}
-                                            <span class="small-text pre-sale-price">£{{ item.yarn.price }} </span>
-                                            <span class="sale-price"> £{{ item.yarn.price|discount:rate.sale_percent|floatformat:2 }}</span>
-                                            {% else %}
-                                            <strong>£{{ item.yarn.price }}</strong>
-                                            {% endif %}
-                                        </p>
-                                        <a class="btn btn-main mb-2" href="{% url 'productdetail' item.yarn.slug %}"
-                                            aria-label="add item to your basket">Buy!</a><br>
-
-                                    </div>
-                                    <div class="col-12 text-end">
-                                        <a role='button' class="small-text fav-icon"
-                                            data-product_id="{{ item.yarn.id }}" data-csrf="{{ csrf_token }}"
-                                            data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
-                                            data-bs-title="Remove from my wishlist"
-                                            aria-label="remove from my favourites list">
-                                            Remove from my favourites list
-                                        </a>
+                    {% if not past_orders|length == 0 %}
+                        {% for order in past_orders %}
+                            <div class="row ">
+                                <div class="col-12 pe-4 ps-4">
+                                    <p class="mb-0 bold text-end"> #{{ order.order_num }}</p>
+                                    <p class="mb-0">Date: {{ order.created_on|date:'jS M y' }}</p>
+                                    <p class="mb-0">Total: £ {{ order.grand_total }}</p>
+                                    <p class="">Status: <span class="bold">
+                                        {% if order.is_shipped %}
+                                            <span class="green">Shipped!</span>
+                                        {% elif order.refund_status %}
+                                            <span class="red">Refunded</span>
+                                        {% else %}
+                                            In progress
+                                        {% endif %}</span>
+                                    </p>
+                                </div>
+                                <div class="col-12 text-end">
+                                    {% if order.is_shipped %}
+                                        <a href="{% url 'leave_review' order.order_num %}" aria-label="takes you to a page so you can leave feedback for your order"> Leave
+                                            Feedback </a>
+                                    {% elif not order.refund_status %}
+                                        <span class="refund_link me-2" data-csrf="{{ csrf_token }}" data-order_num="{{ order.order_num }}"
+                                              data-pid="{{ order.stripe_pid }}" data-total="{{ order.grand_total }}"
+                                              aria-label="Request a refund for your order" role="button"> Cancel </span>
+                                    {% endif %}
+                                    <a href="{% url 'past_order' order.order_num %}"
+                                       aria-label="takes you to a page to view the order and reorder items"
+                                       class="ms-2 btn btn-main"> View </a>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <div class="col-8">
+                                        <hr class="order-div">
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
-                            {% endfor %}
-                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p> No previous orders saved to this account. </p>
+                    {% endif %}
+                </div>
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-4">
+                        <hr class="divider-dec">
+                    </div>
+                    <div class="col-2 text-center">
+                        <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
+                             class="divide-image">
+                    </div>
+                    <div class="col-4">
+                        <hr class="divider-dec">
                     </div>
                 </div>
-                {% else %}
-                <div class="row mt-4 justify-content-center ">
-                    <div class="col-12 col-lg-10 mb-4">
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <p> You have no favourite items at the moment.
-                            
-                                </p>
-                                <p class=small-text"> Why not add some by clicking on <i class="open-heart fa-regular fa-heart" ></i> for your favourite yarns?</p>
+            </div>
+            <div class="col-12 col-lg-6 justify-content-center col-md-9">
+                <div class="row">
+
+                    <div class="col-12">
+                        <h2>My favourites!</h2>
+                    </div>
+                    {% if not favourites|length == 0 %}
+
+                        <div class="row mt-4 justify-content-center ">
+                            <div class="col-12 col-lg-10 mb-4">
+                                <div class="row mb-4">
+                                    {% for item in favourites %}
+                                        {% if item.yarn.visible %}
+                                            <div class="col-12 mt-4 mb-4">
+                                                <div class="row align-items-center">
+                                                    <div class="col-6">
+                                                        <div class="prod-image-container">
+                                                            <img src="{{ item.yarn.image.url }}" class="fav-list-images"
+                                                                 alt=" A picture of {{ item.yarn.name }}">
+                                                            {% if item.yarn.on_promotion %}
+                                                                <span class="translate-middle sale-ticket"><i
+                                                                    class=" sale-icon fa-solid fa-tags"></i>
+                                                                    <span class="visually-hidden"> On promotion</span>
+                                                                </span>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6 text-end">
+                                                        <p><span class="uppercase-text"><strong>{{ item.yarn.brand_id.name }}</strong></span>
+                                                            {{ item.yarn.name }}</p>
+                                                        <p class="small-text">{{ item.yarn.skein_weight }}g / {{ item.yarn.thickness_id.name }} / {{ item.yarn.fibre }}</p>
+                                                        <p>
+                                                            {% if item.yarn.on_promotion %}
+                                                                <span class="small-text pre-sale-price">£{{ item.yarn.price }} </span>
+                                                                <span class="sale-price"> £{{ item.yarn.price|discount:rate.sale_percent|floatformat:2 }}</span>
+                                                            {% else %}
+                                                                <strong>£{{ item.yarn.price }}</strong>
+                                                            {% endif %}
+                                                        </p>
+                                                        <a class="btn btn-main mb-2" href="{% url 'productdetail' item.yarn.slug %}"
+                                                           aria-label="add item to your basket">Buy!</a><br>
+
+                                                    </div>
+                                                    <div class="col-12 text-end">
+                                                        <a role='button' class="small-text fav-icon"
+                                                           data-product_id="{{ item.yarn.id }}" data-csrf="{{ csrf_token }}"
+                                                           data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
+                                                           data-bs-title="Remove from my wishlist"
+                                                           aria-label="remove from my favourites list">
+                                                            Remove from my favourites list
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-            <div class="row justify-content-center align-items-center">
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-                <div class="col-2 text-center">
-                    <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
-                        class="divide-image">
-                </div>
-                <div class="col-4">
-                    <hr class="divider-dec">
-                </div>
-            </div>
-        </div>
+                    {% else %}
+                        <div class="row mt-4 justify-content-center ">
+                            <div class="col-12 col-lg-10 mb-4">
+                                <div class="row mb-4">
+                                    <div class="col-12">
+                                        <p> You have no favourite items at the moment.
 
-    </div>
-</div>
+                                        </p>
+                                        <p class=small-text"> Why not add some by clicking on <i class="open-heart fa-regular fa-heart" ></i> for your favourite yarns?</p>
+                                                                                                                                       </div>
+                                                                                                                                       </div>
+                                                                                                                                       </div>
+                                                                                                                                       </div>
+                                                                                                                   {% endif %}
+                                                                                                                   </div>
+                                                                                                                   <div class="row justify-content-center align-items-center">
+                                                                                             <div class="col-4">
+                                                         <hr class="divider-dec">
+                                                                  </div>
+                                                                  <div class="col-2 text-center">
+                                                                     <img src="{% static 'images/decorative-ball.png'%}" alt="illustration of a ball of wool"
+                                                                                                                                   class="divide-image">
+                                           </div>
+                                           <div class="col-4">
+                                                         <hr class="divider-dec">
+                                                                  </div>
+                                                                  </div>
+                                                                  </div>
+
+                                                                  </div>
+                                                                  </div>
 
 
-<div class="to-top">
-    <a class="d-flex h-100 to-top-link">
-        <i class="fa-solid fa-arrow-up"></i>
-    </a>
-</div>
+                                                                  <div class="to-top">
+                                          <a class="d-flex h-100 to-top-link">
+                                                              <i class="fa-solid fa-arrow-up"></i>
+                                                              </a>
+                                                              </div>
 
-{% endblock %}
+                                          {% endblock %}
 
-{% block extrapostjs %}
-{{ block.super }}
-<script src="{% static 'core/js/account.js' %}" ></script>
-{% endblock %}
+                                          {% block extrapostjs %}
+                                              {{ block.super }}
+                                              <script src="{% static 'core/js/account.js' %}" ></script>
+                                                  {% endblock %}

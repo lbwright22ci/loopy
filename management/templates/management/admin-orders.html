@@ -105,104 +105,104 @@
                                                                     <a class="btn btn-main refund" data-max="{{ p.grand_total }}" data-pk="{{ p.pk }}">Refund </a>
                                                                 </div>
                                                                 <p class="red bold"> <i class="fa-solid fa-triangle-exclamation"></i> This action cannot be reversed.  Are you sure?</p>
-                                                            </div>  
+                                                            </div>
                                                         </form>
                                                     </div>
-                                                </div>  
+                                                </div>
                                                 <div class="row">
-                                                <div class="col-12 text-start">
+                                                    <div class="col-12 text-start">
 
-                                                    <p class=" bold">Pending </p>
-                                                </div>
-                                                <div class="col-12 col-sm-6">
-                                                    <p class="uppercase-text">Customer</p>
-                                                    <p class="small-text mb-0"> {{ p.first_name }} {{ p.second_name }}</p>
-                                                    <p class="small-text mb-0"> <i class="fa-regular fa-envelope me-2"></i> {{ p.email }}</p>
-                                                    <p class="small-text"> <i class="fa-solid fa-phone me-2"></i> 0{{ p.phone }}</p>
-                                                    {% if p.is_gift %}
-                                                        <p class="mb-0" ><span class="uppercase-text"> Is gift?: </span> Yes </p>
-                                                        <p class="mb-0 small-text"><i class="fa-solid fa-scroll me-2"></i> {{ p.gift_message }}</p>
-                                                    {% else %}
-                                                        <p><span class="uppercase-text"> Is gift?: </span> No </p>
-                                                    {% endif %}
-
-                                                </div>
-                                                <div class="col-12 mt-4 mt-sm-0 col-sm-6">
-                                                    <p class="uppercase-text"> Shipping</p>
-
-                                                    <p class="small-text">{{ p.shipping_street_address1 }} <br>
-                                                        {% if p.shipping_street_address2 %}
-                                                            {{ p.shipping_street_address2 }} <br>
+                                                        <p class=" bold">Pending </p>
+                                                    </div>
+                                                    <div class="col-12 col-sm-6">
+                                                        <p class="uppercase-text">Customer</p>
+                                                        <p class="small-text mb-0"> {{ p.first_name }} {{ p.second_name }}</p>
+                                                        <p class="small-text mb-0"> <i class="fa-regular fa-envelope me-2"></i> {{ p.email }}</p>
+                                                        <p class="small-text"> <i class="fa-solid fa-phone me-2"></i> 0{{ p.phone }}</p>
+                                                        {% if p.is_gift %}
+                                                            <p class="mb-0" ><span class="uppercase-text"> Is gift?: </span> Yes </p>
+                                                            <p class="mb-0 small-text"><i class="fa-solid fa-scroll me-2"></i> {{ p.gift_message }}</p>
+                                                        {% else %}
+                                                            <p><span class="uppercase-text"> Is gift?: </span> No </p>
                                                         {% endif %}
-                                                        {{ p.shipping_county }} <br>
-                                                        {{ p.shipping_postcode }} <br>
-                                                        {{ p.shipping_country }} <br>
-                                                    </p>
-                                                    <p class="small-text mb-0"><span class="uppercase-text">Postage</span> {{ p.get_postage_class_display }}</p>
-                                                    <p class="small-text"><span class="uppercase-text">Parcel size</span> {{ p.get_parcel_size_display }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="row mt-4">
-                                                <div class="col-12">
-                                                    <p class="uppercase-text">Order summary:</p>
-                                                </div>
-                                                <div class="row justify-content-center">
-                                                    <div class="col-12 col-md-8">
-                                                        <div class="row">
-                                                            <div class="col-4 text-end">
-                                                                <p class="uppercase-text d-sm-none mb-0"></p>
-                                                                <p class="uppercase-text d-none d-sm-block small-text mb-0"></p>
-                                                            </div>
-                                                            <div class="col-6 text-center">
-                                                                <p class="uppercase-text d-sm-none mb-0">Yarn</p>
-                                                                <p class="uppercase-text small-text d-none d-sm-block mb-0">Yarn</p>
-                                                            </div>
-                                                            <div class="col-2 text-end">
-                                                                <p class="uppercase-text d-sm-none mb-0">Qty</p>
-                                                                <p class="uppercase-text d-none d-sm-block small-text mb-0">Qty</p>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        {% for item in p.lineitems.all %}
-                                                            <div class="row align-items-center">
-                                                                <div class="col-4 text-start">
-                                                                    <p class="mb-0 small-text">
-                                                                        SKU: {{ item.yarn.product_id.sku }}
-                                                                    </p>
-                                                                    <p class="mb-0 very-small-text">
-                                                                        Shade: {{ item.yarn.shade_code }}
-                                                                    </p>
-                                                                </div>
 
-                                                                <div class="col-6 text-center">
-                                                                    <p class="mb-0 small-text"><span class=" uppercase-text">
-                                                                        {{ item.yarn.product_id.brand_id.name }}
-                                                                    </span> {{ item.yarn.product_id.name }}
-                                                                </p>
-                                                                <p class="very-small-text">
-                                                                    {{ item.yarn.colour_cat_id.colour_name|capfirst }}
-                                                                </p>
-                                                            </div>
-                                                            <div class="col-2 text-center">
-                                                                <p class="mb-0 small-text"> {{ item.quantity }} </p>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-12 mt-4 mt-sm-0 col-sm-6">
+                                                        <p class="uppercase-text"> Shipping</p>
 
-                                                            </div>
-                                                        {% endfor %}
-                                                        <p class=" right-align small-text mb-0"><span class="uppercase-text">Subtotal</span> £ {{ p.order_subtotal|floatformat:2 }}</p>
-                                                        <p class="right-align small-text mb-0 {% if not discount %} button-disabled{% endif %}"
-                                                        > <span class="uppercase-text">Discount</span> £ {{ p.order_discount|floatformat:2 }}</p>
-
-                                                        <p class="right-align small-text mb-0"><span class="uppercase-text">Postage</span> £ {{ p.postage_cost|floatformat:2 }}</p>
-                                                        <p class="right-align small-text mb-0"><span class="uppercase-text">Total</span> £ {{ p.grand_total|floatformat:2 }}</p>
+                                                        <p class="small-text">{{ p.shipping_street_address1 }} <br>
+                                                            {% if p.shipping_street_address2 %}
+                                                                {{ p.shipping_street_address2 }} <br>
+                                                            {% endif %}
+                                                            {{ p.shipping_county }} <br>
+                                                            {{ p.shipping_postcode }} <br>
+                                                            {{ p.shipping_country }} <br>
+                                                        </p>
+                                                        <p class="small-text mb-0"><span class="uppercase-text">Postage</span> {{ p.get_postage_class_display }}</p>
+                                                        <p class="small-text"><span class="uppercase-text">Parcel size</span> {{ p.get_parcel_size_display }}</p>
                                                     </div>
                                                 </div>
+                                                <div class="row mt-4">
+                                                    <div class="col-12">
+                                                        <p class="uppercase-text">Order summary:</p>
+                                                    </div>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-12 col-md-8">
+                                                            <div class="row">
+                                                                <div class="col-4 text-end">
+                                                                    <p class="uppercase-text d-sm-none mb-0"></p>
+                                                                    <p class="uppercase-text d-none d-sm-block small-text mb-0"></p>
+                                                                </div>
+                                                                <div class="col-6 text-center">
+                                                                    <p class="uppercase-text d-sm-none mb-0">Yarn</p>
+                                                                    <p class="uppercase-text small-text d-none d-sm-block mb-0">Yarn</p>
+                                                                </div>
+                                                                <div class="col-2 text-end">
+                                                                    <p class="uppercase-text d-sm-none mb-0">Qty</p>
+                                                                    <p class="uppercase-text d-none d-sm-block small-text mb-0">Qty</p>
+                                                                </div>
+                                                            </div>
+                                                            <hr>
+                                                            {% for item in p.lineitems.all %}
+                                                                <div class="row align-items-center">
+                                                                    <div class="col-4 text-start">
+                                                                        <p class="mb-0 small-text">
+                                                                            SKU: {{ item.yarn.product_id.sku }}
+                                                                        </p>
+                                                                        <p class="mb-0 very-small-text">
+                                                                            Shade: {{ item.yarn.shade_code }}
+                                                                        </p>
+                                                                    </div>
+
+                                                                    <div class="col-6 text-center">
+                                                                        <p class="mb-0 small-text"><span class=" uppercase-text">
+                                                                            {{ item.yarn.product_id.brand_id.name }}
+                                                                        </span> {{ item.yarn.product_id.name }}
+                                                                        </p>
+                                                                        <p class="very-small-text">
+                                                                            {{ item.yarn.colour_cat_id.colour_name|capfirst }}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-2 text-center">
+                                                                        <p class="mb-0 small-text"> {{ item.quantity }} </p>
+                                                                    </div>
+
+                                                                </div>
+                                                            {% endfor %}
+                                                            <p class=" right-align small-text mb-0"><span class="uppercase-text">Subtotal</span> £ {{ p.order_subtotal|floatformat:2 }}</p>
+                                                            <p class="right-align small-text mb-0 {% if not discount %} button-disabled{% endif %}"
+                                                            > <span class="uppercase-text">Discount</span> £ {{ p.order_discount|floatformat:2 }}</p>
+
+                                                            <p class="right-align small-text mb-0"><span class="uppercase-text">Postage</span> £ {{ p.postage_cost|floatformat:2 }}</p>
+                                                            <p class="right-align small-text mb-0"><span class="uppercase-text">Total</span> £ {{ p.grand_total|floatformat:2 }}</p>
+                                                        </div>
+                                                    </div>
 
 
+
+                                                </div>
 
                                             </div>
-
-                                        </div>
                                         </div>
                                     {% endfor %}
                                 </div>
@@ -265,10 +265,10 @@
                                                                     <a class="btn btn-main refund" data-pk="{{ p.pk }}"  data-max = "{{ p.grand_total }}">Refund </a>
                                                                 </div>
                                                                 <p class="red bold"> <i class="fa-solid fa-triangle-exclamation"></i> This action cannot be reversed.  Are you sure?</p>
-                                                            </div>  
+                                                            </div>
                                                         </form>
                                                     </div>
-                                                </div> 
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-12 text-start">
 
@@ -338,14 +338,14 @@
                                                                         <p class="mb-0 small-text"><span class=" uppercase-text">
                                                                             {{ item.yarn.product_id.brand_id.name }}
                                                                         </span> {{ item.yarn.product_id.name }}
-                                                                    </p>
-                                                                    <p class="very-small-text">
-                                                                        {{ item.yarn.colour_cat_id.colour_name|capfirst }}
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-2 text-center">
-                                                                    <p class="mb-0 small-text"> {{ item.quantity }} </p>
-                                                                </div>
+                                                                        </p>
+                                                                        <p class="very-small-text">
+                                                                            {{ item.yarn.colour_cat_id.colour_name|capfirst }}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-2 text-center">
+                                                                        <p class="mb-0 small-text"> {{ item.quantity }} </p>
+                                                                    </div>
 
                                                                 </div>
                                                             {% endfor %}
@@ -470,14 +470,14 @@
                                                                         <p class="mb-0 small-text"><span class=" uppercase-text">
                                                                             {{ item.yarn.product_id.brand_id.name }}
                                                                         </span> {{ item.yarn.product_id.name }}
-                                                                    </p>
-                                                                    <p class="very-small-text">
-                                                                        {{ item.yarn.colour_cat_id.colour_name|capfirst }}
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-2 text-center">
-                                                                    <p class="mb-0 small-text"> {{ item.quantity }} </p>
-                                                                </div>
+                                                                        </p>
+                                                                        <p class="very-small-text">
+                                                                            {{ item.yarn.colour_cat_id.colour_name|capfirst }}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-2 text-center">
+                                                                        <p class="mb-0 small-text"> {{ item.quantity }} </p>
+                                                                    </div>
 
                                                                 </div>
                                                             {% endfor %}
@@ -599,14 +599,14 @@
                                                                         <p class="mb-0 small-text"><span class=" uppercase-text">
                                                                             {{ item.yarn.product_id.brand_id.name }}
                                                                         </span> {{ item.yarn.product_id.name }}
-                                                                    </p>
-                                                                    <p class="very-small-text">
-                                                                        {{ item.yarn.colour_cat_id.colour_name|capfirst }}
-                                                                    </p>
-                                                                </div>
-                                                                <div class="col-2 text-center">
-                                                                    <p class="mb-0 small-text"> {{ item.quantity }} </p>
-                                                                </div>
+                                                                        </p>
+                                                                        <p class="very-small-text">
+                                                                            {{ item.yarn.colour_cat_id.colour_name|capfirst }}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div class="col-2 text-center">
+                                                                        <p class="mb-0 small-text"> {{ item.quantity }} </p>
+                                                                    </div>
 
                                                                 </div>
                                                             {% endfor %}
