@@ -1,9 +1,9 @@
 $(document).ready(function () {
 
   var comments = $('textarea');
-  for(var i=0; i< comments.length; i++){
-    var cc = $('textarea').eq(i).val().trim();
-    $('textarea').eq(i).val(cc);
+  for(var j=0; j< comments.length; j++){
+    var cc = $('textarea').eq(j).val().trim();
+    $('textarea').eq(j).val(cc);
   }
 
   var rating = $('span.rating');
@@ -24,9 +24,10 @@ $(document).ready(function () {
         $('span.rating').eq(i).prevAll('.1, .2, .3, .4').removeClass('fa-regular').addClass('fa-solid');
       }
       else if(currentValue==5){
-      $('span.rating').eq(i).prevAll('.1, .2, .3, .4, .5').removeClass('fa-regular').addClass('fa-solid');};
-  };
-  };
+      $('span.rating').eq(i).prevAll('.1, .2, .3, .4, .5').removeClass('fa-regular').addClass('fa-solid');
+    }
+  }
+  }
 
   $('.1').click(function(){
     $(this).nextAll().removeClass('fa-solid').addClass('fa-regular');
@@ -75,15 +76,15 @@ $(document).ready(function () {
         
         var csrf=$(this).data('csrf');
         var order=$(this).data('order');
-        var ttemp = `textarea[name=comment][data-yarn=${yarn}]`
+        var ttemp = `textarea[name=comment][data-yarn=${yarn}]`;
         var comment = $(ttemp).val();
 
         if(!rating){
           $(`p[data-yarn=${yarn}]`).text('Have you forgotten to enter a star rating?');
-        };
+        }
         if(!comment){
           $(`p[data-yarn=${yarn}]`).text('Please leave a comment to submit your feedback.');
-        };
+        }
         if(rating && comment){
         var url = `/my_account/review/submit/${order}/`;
 
@@ -92,7 +93,7 @@ $(document).ready(function () {
           'comment':comment,
           'yarn':yarn,
           'csrfmiddlewaretoken':csrf,
-        }
+        };
         $.post(url, data).done(function() {
                 location.reload();
             });

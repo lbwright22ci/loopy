@@ -8,7 +8,7 @@ $(document).ready(function () {
     else{
         $('#shipping-offer').hide();
         $('#bulk-offer').show();
-    };
+    }
     
     $('.refund-form').hide();
 
@@ -32,19 +32,18 @@ $(document).ready(function () {
         if(parseInt($('#id_lower_ball_num').val()) >= parseInt($('#id_upper_ball_num').val())){
             errorMessage += "Lower threshold must be less than upper threshold.  ";
             error += 1;
-        };
+        }
         if(parseInt($('#id_lower_discount').val()) >= parseInt($('#id_upper_discount').val())){
             errorMessage += "Lower discount must be less than upper discount";
             error +=1;
-        };
+        }
         displayError.text(errorMessage);
 
         if(error==0){
             var form = $(this).closest('#bulk-offer');
             form.submit();
         }
-
-    })
+    });
 
     $('.ship').click(function(){
         var form = $(this).closest('.ship-form');
@@ -55,7 +54,7 @@ $(document).ready(function () {
         $(this).hide('slow');
         $('.ship').hide('slow');
         $('.refund-form').show('slow');
-    })
+    });
 
     $('.cancel-refund').click(function(){
         $('.refund-form').hide('slow');
@@ -80,4 +79,4 @@ $(document).ready(function () {
             form.submit();
         }
     });
-})
+});
