@@ -21,29 +21,22 @@
 }
 
 /* Generic style rules*/
-/* html{
-    font-size: 10px;
-} */
-
 body{
     font-size: 16px;
     color: var(--primary-text-color);
     font-family: var(--primary-font);
 }
 
-
 a,
 .nav-tabs .nav-link{
     color: var(--hyperlink-color);
 }
-
 
 a:hover,
 .nav-tabs .nav-link.active,
 .nav-tabs .nav-link:focus {
     color:var(--hyperlink-hover-color);
 }
-
 
 .form-control,
 .form-select,
@@ -106,7 +99,7 @@ option{
     color:var(--background-highlight-color);
     border:1px solid var(--primary-text-color);
     background-color: var(--primary-text-color);
-    shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent;
 }
 
 .btn-success, 
@@ -128,7 +121,7 @@ option{
 .btn-error:focus,
 .btn-error:active,
 .btn-error:disabled{
-    shadow: 0 0 0 transparent;
+    box-shadow: 0 0 0 transparent;
 }
 
 .btn-info,
@@ -171,9 +164,11 @@ option{
 .button-disabled{
     opacity: 60%;
 }
+
 .table>:not(caption)>*>*{
     color:var(--primary-text-color);
 }
+
 th .table{
     color:var(--primary-text-color);
 }
