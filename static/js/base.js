@@ -11,21 +11,20 @@ $(document).ready(function(){
         $("ul:first-of-type").removeClass("show");
     });
 
-
     $(document).mouseup(function(e){
         if(!$("#show-basket").hasClass("d-none")){
             if($(e.target).closest("#show-basket").length===0){
                 $('#show-basket').addClass("d-none");
-            };
-        };
+            }
+        }
     });
 
     $(document).mouseup(function(e){
         if(!$("#show-basket-mob").hasClass("d-none")){
             if($(e.target).closest("#show-basket-mob").length===0){
                 $('#show-basket-mob').addClass("d-none");
-            };
-        };
+            }
+        }
     });
 
     $('#basket').click(function(e){
@@ -49,7 +48,7 @@ $(document).ready(function(){
             $('#show-basket').addClass('d-none');
         } else if (!$('#show-basket-mob').hasClass('d-none')){
             $('#show-basket-mob').addClass('d-none');
-        };
+        }
     });
 
     $('.toast').toast('show');

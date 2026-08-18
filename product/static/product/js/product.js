@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
     // Enables Bootstrap custom tooltips
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
+    var tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    var tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
     
     $('.sort-selector').change(function () {
         var selector = $(this);
@@ -37,7 +37,7 @@ $(document).ready(function () {
             $(this).text(revealedText);
         } else {
             $(this).text(hiddenText);
-        };
+        }
     });
 
     /**
@@ -53,9 +53,9 @@ $(document).ready(function () {
                 $(allSwatch[i]).removeClass('selected-colour-option');
             } else {
                 $(allSwatch[i]).addClass('selected-colour-option');
-            };
-        };
-    };
+            }
+        }
+    }
 
     /**
      * Changes the selected instance of :model:`Colour_var` in form input select field
@@ -63,7 +63,7 @@ $(document).ready(function () {
      */
     function changeSelected(colourId){
         $('form select[name=colour_var]').val(colourId).change();
-    };
+    }
 
     /**
      * When an instance of :model:`Colour_var` is selected then a mini swatch of this 
@@ -74,7 +74,7 @@ $(document).ready(function () {
         var src = $(`.colvar_id_${colourId}`).attr('src');
         var altText = $(`.colvar_id_${colourId}`).attr('src');
         $('.mini-selected-swatch').html(`<img src=${src} alt=${altText} class='img-mini-selected'>`);
-    };
+    }
 
     /**
      * When user has selected which instance of :model:`Colour_var` they would like
@@ -100,7 +100,7 @@ $(document).ready(function () {
 
         $('.qty-input').attr('data-item_id', `${colourId}`);
         $('.qty-input').attr('max', `${maxBalls}`);
-    };
+    }
 
     /**
      * Returns quantity fields to generic values
@@ -115,7 +115,7 @@ $(document).ready(function () {
         $('.qty-input').val(1);
         $('#low-stock-warning').text('');
         $('.mini-selected-swatch').html('');
-    };
+    }
 
     /**
      * Disables plus and minus quantity toggle buttons so that quantity can not go 
@@ -125,7 +125,7 @@ $(document).ready(function () {
      */
     function handleEnableDisable(colourId, colLS){
         var currentvalue = parseInt($('[data-item_id ="'+colourId+'" ]').val());
-        var plusLimit =0
+        var plusLimit =0;
         if (colLS == true){
             plusLimit = 9;
         }else{
@@ -135,7 +135,7 @@ $(document).ready(function () {
         var plusDisabled = currentvalue > plusLimit;
         $('[data-item-id-plus= "'+colourId+'" ]').prop('disabled', plusDisabled);
         $('[data-item-id-minus= "'+colourId+'" ]').prop('disabled', minusDisabled);
-    };
+    }
 
     // check all input fields plus and minus buttons are correct on page load: required for basket page
     var allQtyInputs = $('.qty-input');
@@ -143,8 +143,7 @@ $(document).ready(function () {
         var colourId = $(allQtyInputs[i]).data('item_id');
        var colLS=$(`.colvar_id_${colourId}`).data('col_ls');
         handleEnableDisable(colourId, colLS);
-    };
-
+    }
 
     $('.swatches').click(function(){
         var colourId = $(this).data('colvar_id');
@@ -176,7 +175,6 @@ $(document).ready(function () {
         displayQuantityField(colourId, colLS);
         handleEnableDisable(colourId, colLS);}
     });
-
 
     $('.increment-qty').click(function() {
        
@@ -214,6 +212,6 @@ $(document).ready(function () {
             .done(function() {
                 location.reload();
             });
-    })
+    });
 
-})
+});
