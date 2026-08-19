@@ -1,27 +1,31 @@
 from django import template
 
+
 register = template.Library()
+
 
 @register.filter(name='discount')
 def discount(value, arg):
     """ Applies a percentage discount of arg to input value """
     try:
-        return float(value) * (100-float(arg)) / 100
+        return float(value) * (100 - float(arg)) / 100
     except (ValueError, TypeError):
         return ''
 
+
 @register.filter(name='calc_subtotal')
 def calc_subtotal(price, quantity):
-    """ """
+    """Multiplies price and quantity """
     try:
-        return float(price)* float(quantity)
+        return float(price) * float(quantity)
     except (ValueError, TypeError):
         return ''
-    
+
+
 @register.filter(name='subtract')
 def subtract(value, args):
-    """ """
+    """subtracts second value from the first """
     try:
         return value - args
-    except(ValueError, TypeError):
+    except (ValueError, TypeError):
         return ''

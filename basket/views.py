@@ -1,4 +1,5 @@
-from django.shortcuts import render, HttpResponse, redirect, get_object_or_404, reverse
+from django.shortcuts import (render, HttpResponse, redirect,
+                              get_object_or_404, reverse)
 from django.contrib import messages
 
 from product.models import Colour_var, Product
@@ -8,14 +9,15 @@ from core.models import UserProfile
 
 
 def view_basket(request):
-    """ 
-    Displays current basket contents as well as customer favourites' list if they are logged in
-    (part of :model:`UserProfile`)
+    """
+    Displays current basket contents as well as customer favourites'
+      list if they are
+    logged in (part of :model:`UserProfile`)
 
-    **Template** 
+    **Template**
     `basket/basket.html`
 
-    **Context** 
+    **Context**
     ``favourites_list`` - visible for authenticated users only.
 
     """
@@ -44,12 +46,17 @@ def view_basket(request):
 
 
 def add_to_basket(request):
-    """ 
-    Adds a item to a basket saved to the current session and :model:`UserProfile` (if the user is authenticated)
-    On return, the page from which the request was made is reloaded and success message displayed to customer.
+    """
+    Adds a item to a basket saved to the current session and
+    :model:`UserProfile`
+      (if the user is authenticated)
+    On return, the page from which the request was made is reloaded and success
+    message displayed to customer.
 
-    Items added to the basket are instances of :model:`product.Colour_var`. Maximum quantity of an item
-    which can be added to the basket corrected depending on whether it has `low_stock=True` property.
+    Items added to the basket are instances of :model:`product.Colour_var`.
+    Maximum quantity of an item
+    which can be added to the basket corrected depending on whether it has
+    `low_stock=True` property.
 
     If the item is already in the basket then quantity is increased.
     """
@@ -67,32 +74,52 @@ def add_to_basket(request):
             if test < 10:
                 basket[col_var_id] += quantity
 
-                messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
-                               shade {col_var.colour_cat_id.colour_name} to {test} balls')
+                messages.add_message(
+                    request, messages.SUCCESS, f'Updated the quantity of {
+                        col_var.product_id.brand_id.name} {
+                        col_var.product_id.name},\
+                               shade {
+                        col_var.colour_cat_id.colour_name} to {test} balls')
             else:
                 # can not add to basket- error message and redirect
-                messages.add_message(request, messages.ERROR, f'Low stock! Unable to add {quantity} extra \
-                               balls of {col_var.product_id.brand_id.name} {col_var.product_id.name}\
+                messages.add_message(
+                    request, messages.ERROR, f'Low stock! Unable to add \
+                          {quantity} extra balls of {
+                        col_var.product_id.brand_id.name} {
+                        col_var.product_id.name}\
                                to your basket.')
                 return redirect(redirect_url)
         else:
             test = basket[col_var_id] + quantity
             if test < 50:
                 basket[col_var_id] += quantity
-                messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
-                               shade {col_var.colour_cat_id.colour_name} to {test} balls')
+                messages.add_message(
+                    request, messages.SUCCESS, f'Updated the quantity of {
+                        col_var.product_id.brand_id.name} {
+                        col_var.product_id.name},\
+                               shade {
+                        col_var.colour_cat_id.colour_name} to {test} balls')
             else:
 
-                messages.add_message(request, messages.ERROR, f'Insufficient stock! Unable to add {quantity} extra \
-                               balls of {col_var.product_id.brand_id.name} {col_var.product_id.name}\
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f'Insufficient stock! Unable to add {quantity} extra \
+                               balls of {
+                        col_var.product_id.brand_id.name} {
+                        col_var.product_id.name}\
                                to your basket.')
                 return redirect(redirect_url)
 
     else:
         basket[col_var_id] = quantity
 
-        messages.add_message(request, messages.SUCCESS, f'Added {quantity} ball(s) of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
-                               shade {col_var.colour_cat_id.colour_name}')
+        messages.add_message(
+            request, messages.SUCCESS, f'Added {quantity} ball(s) of {
+                col_var.product_id.brand_id.name} {
+                col_var.product_id.name},\
+                               shade {
+                col_var.colour_cat_id.colour_name}')
 
     request.session['basket'] = basket
 
@@ -108,8 +135,9 @@ def add_to_basket(request):
 
 
 def update_basket(request, item_id):
-    """ 
-    Increase or decrease quantity of instance of :model:`Colour_var` in session basket and 
+    """
+    Increase or decrease quantity of instance of :model:`Colour_var` in
+    session basket and
     :model:`UserProfile` field `temporary_basket`
 
     Maximum quantity of an item depends on its `low_stock` property.
@@ -131,18 +159,27 @@ def update_basket(request, item_id):
             basket_string = basket_string.replace("\'", "\"")
             current_user.update(temporary_basket=str(basket_string))
 
-        messages.add_message(request, messages.SUCCESS, f'Updated {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
-                               shade {col_var.colour_cat_id.colour_name} to {quantity} balls.')
-    except:
-        messages.add_message(request, messages.ERROR, f'Unable to update the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
-                               shade {col_var.colour_cat_id.colour_name} in your basket.')
+        messages.add_message(
+            request, messages.SUCCESS, f'Updated {
+                col_var.product_id.brand_id.name} {
+                col_var.product_id.name} in \
+                               shade {
+                col_var.colour_cat_id.colour_name} to {quantity} balls.')
+    except BaseException:
+        messages.add_message(
+            request, messages.ERROR, f'Unable to update the quantity of {
+                col_var.product_id.brand_id.name} {
+                col_var.product_id.name} in \
+                               shade {
+                col_var.colour_cat_id.colour_name} in your basket.')
 
     return redirect(reverse('view_basket'))
 
 
 def delete_from_basket(request, item_id):
-    """ 
-    Removes instance of :model:`Colour_var` from `basket` saved to session and :model:`UserProfile.temporary_basket`
+    """
+    Removes instance of :model:`Colour_var` from `basket` saved to session
+      and :model:`UserProfile.temporary_basket`
 
     returns HttpResponse 200 if successfully completed.
     """
@@ -151,8 +188,12 @@ def delete_from_basket(request, item_id):
         col_var = get_object_or_404(Colour_var, pk=item_id)
         basket = request.session.get('basket', {})
         basket.pop(str(item_id))
-        messages.add_message(request, messages.SUCCESS, f'Removed {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
-                               shade {col_var.colour_cat_id.colour_name} from your basket.')
+        messages.add_message(
+            request, messages.SUCCESS, f'Removed {
+                col_var.product_id.brand_id.name} {
+                col_var.product_id.name} in \
+                               shade {
+                col_var.colour_cat_id.colour_name} from your basket.')
         request.session['basket'] = basket
         if request.user.is_authenticated:
             current_user = UserProfile.objects.filter(user__id=request.user.id)
@@ -163,7 +204,11 @@ def delete_from_basket(request, item_id):
         return HttpResponse(status=200)
     except Exception as e:
         print('here', e)
-        messages.add_message(request, messages.ERROR, f'Unable to remove {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
-                               shade {col_var.colour_cat_id.colour_name} from your basket.\
+        messages.add_message(
+            request, messages.ERROR, f'Unable to remove {
+                col_var.product_id.brand_id.name} {
+                col_var.product_id.name} in \
+                               shade {
+                col_var.colour_cat_id.colour_name} from your basket.\
                                Error code {e}.')
         return HttpResponse(status=500)

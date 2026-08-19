@@ -8,18 +8,21 @@ from core.models import SaleSettings, Postage, Announcements, UserProfile
 from product.models import Colour_var
 
 
-
 def basket_contents(request):
     """
     Makes basket contents available to all templates across the site.
 
-    Dependent on :model: `core.SalesSettings` (for correcting product price if on sale),
-    :model: `core.Postage`, :model: `core.Announcements` (for calculating bulk buy discounts),
-    :model:`UserProfile` (for retriving saved basket items in someone's account when they log in),
+    Dependent on :model: `core.SalesSettings` (for correcting product
+    price if on sale),
+    :model: `core.Postage`, :model: `core.Announcements` (for calculating
+    bulk buy discounts),
+    :model:`UserProfile` (for retriving saved basket items in someone's
+    account when they log in),
     :model:`Colour_var` (for product weight, price)
 
     **Context**
-    ``basket_items``: a list of dictionaries. For each item in the list the following
+    ``basket_items``: a list of dictionaries. For each item in the list
+    the following
     data is available- 'item_id', 'quantity', 'col_var' and 'price'
     (Price is adjusted depending on whether the product is on sale or not)
 
@@ -27,11 +30,13 @@ def basket_contents(request):
 
     ``ball_count``: total number of balls of wool in the basket
 
-    ``parcel_size``: '0' is small parcel, '1' is medium parcel (calculated on both weight and number of balls)
+    ``parcel_size``: '0' is small parcel, '1' is medium parcel (calculated
+    on both weight and number of balls)
 
-    ``discount``: bulk buy discount according to shop settings 
+    ``discount``: bulk buy discount according to shop settings
 
-    ``estimated_postage``: second class postage for the basket contents based on current weight and
+    ``estimated_postage``: second class postage for the basket contents
+      based on current weight and
     number of balls of wool (ie. parcel size)
 
     ``grand_total``: Total payable if 2nd class postage
@@ -62,7 +67,8 @@ def basket_contents(request):
         if saved_basket:
             converted_basket = json.loads(saved_basket)
 
-            # add contents of saved basket to the session basket when the user logs back in
+            # add contents of saved basket to the session basket when
+            #  the user logs back in
             for key, value in converted_basket.items():
                 if key in basket:
                     pass
@@ -85,13 +91,14 @@ def basket_contents(request):
             continue
         if col_var.product_id.on_promotion:
             total += item_data * \
-                Decimal(col_var.product_id.price*(100-sale_discount)/100)
-            price = Decimal(col_var.product_id.price*(100-sale_discount)/100)
+                Decimal(col_var.product_id.price * (100 - sale_discount) / 100)
+            price = Decimal(col_var.product_id.price *
+                            (100 - sale_discount) / 100)
         else:
             total += item_data * col_var.product_id.price
             price = col_var.product_id.price
         ball_count += item_data
-        order_weight += col_var.product_id.skein_weight*item_data
+        order_weight += col_var.product_id.skein_weight * item_data
         basket_items.append({
             'item_id': item_id,
             'quantity': item_data,
@@ -113,14 +120,15 @@ def basket_contents(request):
         basket_string = basket_string.replace("\'", "\"")
         current_user.update(temporary_basket=str(basket_string))
 
-    # take account of order discount based on number of balls of yarn in the basket
-    if bulk_buy.bulk_buy == True:
+    # take account of order discount based on number of balls of
+    #  yarn in the basket
+    if bulk_buy.bulk_buy is True:
         if ball_count > bulk_buy.upper_ball_num:
-            discount = total*Decimal((bulk_buy.upper_discount)/100)
+            discount = total * Decimal((bulk_buy.upper_discount) / 100)
         elif ball_count < bulk_buy.lower_ball_num:
             discount = 0
         else:
-            discount = total*Decimal((bulk_buy.lower_discount)/100)
+            discount = total * Decimal((bulk_buy.lower_discount) / 100)
 
     # find parcel size for postage
     # first adjust order weight to account for the weight of packing materials
@@ -132,7 +140,7 @@ def basket_contents(request):
     small_ball_limit = Postage.objects.filter(
         Q(parcel_size=0) & Q(postage_class=0))[0].max_no_balls
     small_weight_limit = Postage.objects.filter(
-        Q(parcel_size=0) & Q(postage_class=0))[0].max_weight*1000
+        Q(parcel_size=0) & Q(postage_class=0))[0].max_weight * 1000
 
     if ball_count < small_ball_limit and order_weight < small_weight_limit:
         parcel_size = 0
