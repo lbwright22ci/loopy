@@ -6,6 +6,7 @@ from decimal import Decimal
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
@@ -13,7 +14,8 @@ from django.template.loader import render_to_string
 
 from .models import Order, YarnOrderLineitem, Refund
 from product.models import Colour_var
-from core.models import UserProfile, ShopContactInfo
+from core.models import UserProfile, ShopContactInfo, SaleSettings
+
 
 class StripeWH_Handler:
     """
@@ -30,7 +32,7 @@ class StripeWH_Handler:
         self.request = request
 
     def handle_event(self, event):
-        """ Handle all webhook events other than 'payment_intent.succeeded' 
+        """ Handle all webhook events other than 'payment_intent.succeeded'
         and 'payment_intent.payment_failed' """
 
         return HttpResponse(
@@ -91,10 +93,12 @@ class StripeWH_Handler:
         """
         Handles all instances of the webhook 'payment_intent.succeeded'
 
-        If an instance of :model:`Order` with identical `stripe_pid` exists in the database
+        If an instance of :model:`Order` with identical
+        `stripe_pid` exists in the database
         already then only :method: `_send_order_conf_email` is called.
 
-        If instance of :model:`Order` with `stripe_pid` does not exist in database after 5 
+        If instance of :model:`Order` with `stripe_pid` does
+        not exist in database after 5
         seconds then one is created, details are saved to the
         related instance of :model:`UserProfile` if relavent and
         the :method: `_send_order_conf_email` called.
@@ -162,7 +166,8 @@ class StripeWH_Handler:
                     grand_total=grand_total,
                 )
 
-                # Historical orders with the same details would not have the same stripe_pid values.
+                # Historical orders with the same details would not have the
+                # same stripe_pid values.
 
                 order_exists = True
 
@@ -176,7 +181,8 @@ class StripeWH_Handler:
         if order_exists:
             self._send_order_conf_email(order)
             return HttpResponse(
-                content=f'Webhook receieved: {event['type']} | SUCCESS: order exists in the database',
+                content=f'Webhook receieved: {
+                    event['type']} | SUCCESS: order exists in the database',
                 status=200)
         else:
             order = None
@@ -217,10 +223,12 @@ class StripeWH_Handler:
                 for item_id, item_data in json.loads(basket).items():
                     col_var = get_object_or_404(Colour_var, pk=item_id)
                     if col_var.product_id.on_promotion:
-                        sale_discount = SaleSettings.objects.filter(active=True)[
+                        sale_discount = SaleSettings.objects.filter(
+                            active=True)[
                             0].sale_percent
                         current_price = Decimal(
-                            col_var.product_id.price*(100-sale_discount)/100)
+                            col_var.product_id.price * (
+                                100 - sale_discount) / 100)
                     else:
                         current_price = col_var.product_id.price
                     yarn_order_line_item = YarnOrderLineitem(
@@ -234,16 +242,18 @@ class StripeWH_Handler:
             except Exception as e:
                 if order:
                     order.delete()
-                return HttpResponse(content=f'Webhook receieved: {event['type']} | ERROR: {e}',
-                                    status=500)
+                return HttpResponse(
+                    content=f'Webhook receieved: {
+                        event['type']} | ERROR: {e}', status=500)
 
         self._send_order_conf_email(order)
         return HttpResponse(
-            content=f'Webhook receieved: {event['type']} | order created in database by webhook',
+            content=f'Webhook receieved: {
+                event['type']} | order created in database by webhook',
             status=200)
 
     def handle_payment_intent_payment_failure(self, event):
-        """ 
+        """
         Handles instances of webhook `payment_intent.payment_failure`
         """
         return HttpResponse(
@@ -254,10 +264,12 @@ class StripeWH_Handler:
         """
         Handles all instances of the webhook 'refund.updated'
 
-        If an instance of :model:`Refund` with identical `refund_id` exists in the database
+        If an instance of :model:`Refund` with identical
+        `refund_id` exists in the database
         already then only :method: `_send_refund_order_email` is called.
 
-        If instance of :model:`Refund` with `refund_id` does not exist in database after 5 
+        If instance of :model:`Refund` with `refund_id` does not
+          exist in database after 5
         seconds then one is created and
         the :method: `_send_refund_order_email` called.
 
@@ -289,9 +301,11 @@ class StripeWH_Handler:
 
         if refund_exists:
             self._send_refund_order_email(refund)
-            return HttpResponse(content=f'Webhook receieved: {event['type']} | \
+            return HttpResponse(
+                content=f'Webhook receieved: {
+                    event['type']} | \
                                 SUCCESS: refund exists in the database',
-                                status=200)
+                status=200)
         else:
             refund = None
             try:
@@ -302,25 +316,30 @@ class StripeWH_Handler:
                 refund = Refund(
                     order=order,
                     reason=reason,
-                    amount=amount/100,
+                    amount=amount / 100,
                     refund_id=refund_pid,
                 )
                 refund.save()
                 order.refund_status = True
                 order.save()
                 if reason == 'customer cancelled order':
-                    messages.add_message(request, messages.SUCCESS, f'We are sorry that you changed your mind \
-                                                     about this order.  A refund has been issued and the money will be \
+                    messages.add_message(
+                        event, messages.SUCCESS, 'We are sorry that you changed your \
+                                                     mind about this order.  A refund has \
+                                                        been issued and the money will be \
                                                      returned to your payment card soon.')
                 else:
-                    messages.add_message(request, messages.SUCCESS, f'#{order_num} has been refunded £{amount}.  \
+                    messages.add_message(
+                        event, messages.SUCCESS, f'#{order.order_num} has been \
+                                                 refunded £{amount}.  \
                                                  Customer has been notified.')
             except Exception as e:
 
                 if refund:
                     refund.delete()
-                    return HttpResponse(content=f'Webhook receieved: {event['type']} | ERROR: {e}',
-                                        status=500)
+                    return HttpResponse(
+                        content=f'Webhook receieved: {
+                            event['type']} | ERROR: {e}', status=500)
 
         self._send_refund_order_email(refund)
         return HttpResponse(content=f'Webhook receieved: {event['type']} | \

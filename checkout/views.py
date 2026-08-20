@@ -24,10 +24,13 @@ import stripe
 @require_POST
 def cache_checkout_data(request):
     """
-    Saves checkout data to the cache when a new instance of :model:`Order` is created by a POST request.
+    Saves checkout data to the cache when a new instance of
+      :model:`Order` is created by a POST request.
 
-    Adds the following fields to `metadata` field of stripe.PayemntIntent:
-    'basket', 'username', 'is_gift', 'gift_message', 'postage_class', 'parcel_size', 'save_details'
+    Adds the following fields to `metadata` field of
+    stripe.PayemntIntent:
+    'basket', 'username', 'is_gift', 'gift_message',
+    'postage_class', 'parcel_size', 'save_details'
     """
     try:
         pid = request.POST.get('client_secret').split('_secret')[0]
@@ -46,14 +49,16 @@ def cache_checkout_data(request):
 
         return HttpResponse(status=200)
     except Exception as e:
-        messages.add_message(request, messages.ERROR, 'Sorry your payment can not be processed \
+        messages.add_message(request, messages.ERROR,
+                             'Sorry your payment can not be processed \
                        right now.  Please try again later')
         return HttpResponse(content=e, status=400)
 
 
 def checkout_step1(request):
     """
-    First step of customer checkout flow before creating a new instance of :model:`Order`. Displays instance of 
+    First step of customer checkout flow before creating a new
+    instance of :model:`Order`. Displays instance of
     :form:`ContactAndBillingForm`.
 
     Data retrieved from POST request in this view is saved to the session.
@@ -63,7 +68,8 @@ def checkout_step1(request):
 
     **Context**
     `form` : instance of :form:'ContactAndBillingForm'
-    `google_key` : key required for Google Maps API for autofill address facility ('static/js/address.js')
+    `google_key` : key required for Google Maps API for autofill
+    address facility ('static/js/address.js')
     """
 
     basket = request.session.get('basket', ())
@@ -127,7 +133,8 @@ def checkout_step1(request):
 
 def checkout_step2(request):
     """
-    Second step of customer checkout flow before creating a new instance of :model:`Order`. Displays instance of 
+    Second step of customer checkout flow before creating a new instance
+      of :model:`Order`. Displays instance of
     :form:`ShippingAddressForm`.
 
     Data retrieved from POST request in this view is saved to the session.
@@ -149,14 +156,17 @@ def checkout_step2(request):
     bs_same = request.session['bs_same']
 
     if bs_same:
-        shipping_form = ShippingAddressForm(initial={
-            'shipping_street_address1': request.session.get('billing_street_address1'),
-            'shipping_street_address2': request.session.get('billing_street_address2'),
-            'shipping_town': request.session.get('billing_town'),
-            'shipping_county': request.session.get('billing_county'),
-            'shipping_country': request.session.get('billing_country'),
-            'shipping_postcode': request.session.get('billing_postcode'),
-        })
+        shipping_form = ShippingAddressForm(
+            initial={
+                'shipping_street_address1': request.session.get(
+                    'billing_street_address1'),
+                'shipping_street_address2': request.session.get(
+                    'billing_street_address2'),
+                'shipping_town': request.session.get('billing_town'),
+                'shipping_county': request.session.get('billing_county'),
+                'shipping_country': request.session.get('billing_country'),
+                'shipping_postcode': request.session.get('billing_postcode'),
+            })
     else:
         shipping_form = ShippingAddressForm()
 
@@ -211,68 +221,110 @@ def checkout_step2(request):
 
 def checkout_step3(request):
     """
-    Last step of customer checkout flow to create a new instance of :model:`Order`. Displays instance of 
+    Last step of customer checkout flow to create a new instance
+      of :model:`Order`. Displays instance of
     :form:`SaveDetailsForm`.
 
-    Data retrieved from POST request in this view used to create an instance of :model:`Order`
+    Data retrieved from POST request in this view used to create
+      an instance of :model:`Order`
 
     **Template**
     'checkout/checkout-step3.html'
 
-    **Context** 
+    **Context**
     'form': instance of :form:`SaveDetailsForm`
     'first_name': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
     'second_name' : available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
     'full_name':available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
     'email': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
     'phone' : available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'billing_street_address1' : available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'billing_street_address2' : available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'billing_town' : available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'billing_county': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'billing_country': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'billing_postcode': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
-    'shipping_street_address1': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
-    'shipping_street_address2': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
-    'shipping_town': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'shipping_county': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary 
-    'shipping_country': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'shipping_postcode':available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'postage_class':available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'stripe_public_key':available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'client_secret': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'is_gift': available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
-    'gift_message' : available in page context so that order can be created by
-    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded` if necessary
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'billing_street_address1' : available in page context so that order
+     can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'billing_street_address2' : available in page context so that order
+     can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'billing_town' : available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'billing_county': available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
+    'billing_country': available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
+    'billing_postcode': available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'shipping_street_address1': available in page context so that order
+    can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'shipping_street_address2': available in page context so that order
+    can be created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'shipping_town': available in page context so that order can be
+     created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
+    'shipping_county': available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
+    'shipping_country': available in page context so that order can be
+     created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
+    'shipping_postcode':available in page context so that order can be
+     created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
+    'postage_class':available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'stripe_public_key':available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'client_secret': available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+    if necessary
+    'is_gift': available in page context so that order can be created
+     by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
+    'gift_message' : available in page context so that order can be
+    created by
+    `webhook_handler.StripeWH_handler.handle_payment_intent_succeeded`
+     if necessary
     """
 
     stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     if not stripe_public_key:
-        messages.add_message(request, messages.ERROR, 'Stripe Public Key is missing. We can not '
-                             'process your order.  Please email loopyyarnsuk@gmail.com')
+        messages.add_message(
+            request, messages.ERROR, 'Stripe Public Key is missing. We can \
+             not process your order.  Please email loopyyarnsuk@gmail.com')
         return redirect(reverse('view_basket'))
 
     first_name = request.session.get('first_name')
@@ -307,7 +359,7 @@ def checkout_step3(request):
         messages.add_message(request, messages.ERROR,
                              'Postage class not assigned to the order')
 
-    stripe_total = round(total*100)
+    stripe_total = round(total * 100)
     stripe.api_key = stripe_secret_key
     intent = stripe.PaymentIntent.create(
         amount=stripe_total,
@@ -363,7 +415,7 @@ def checkout_step3(request):
                         sale_discount = SaleSettings.objects.filter(active=True)[
                             0].sale_percent
                         current_price = Decimal(
-                            col_var.product_id.price*(100-sale_discount)/100)
+                            col_var.product_id.price * (100 - sale_discount) / 100)
                     else:
                         current_price = col_var.product_id.price
                     yarn_order_line_item = YarnOrderLineitem(
@@ -374,16 +426,24 @@ def checkout_step3(request):
                         linetotal=item_data * current_price,)
                     yarn_order_line_item.save()
                 except Colour_var.DoesNotExist:
-                    messages.add_message(request, messages.ERROR, 'One of the items in your order is no longer '
-                                         'available.  Please email us for assitance: loopyyarnsuk@gmail.com')
+                    messages.add_message(
+                        request, messages.ERROR, 'One of the items in your order \
+                                is no longer available.  Please email us for \
+                                assitance: loopyyarnsuk@gmail.com')
                     order.delete()
                     return redirect(reverse('view_basket'))
 
-            return redirect(reverse('checkout_success', args=[order.order_num]))
+            return redirect(
+                reverse(
+                    'checkout_success',
+                    args=[
+                        order.order_num]))
 
         else:
             messages.add_message(
-                request, messages.ERROR, 'Form is incorrectly completed. Please check your details')
+                request,
+                messages.ERROR,
+                'Form is incorrectly completed. Please check your details')
 
     else:
         extra_form = SaveDetailsForm()
@@ -391,8 +451,10 @@ def checkout_step3(request):
         basket = request.session.get('basket', ())
 
         if not basket:
-            messages.add_message(request, messages.ERROR,
-                                 'There is nothing in your basket at the moment')
+            messages.add_message(
+                request,
+                messages.ERROR,
+                'There is nothing in your basket at the moment')
             return redirect(reverse('allproducts'))
 
     context = {
@@ -457,8 +519,11 @@ def checkout_success(request, order_num):
             user_profile.save()
             user.save()
 
-    messages.add_message(request, messages.SUCCESS, f'Your order ({order.order_num}) has been placed!\
-                         A confirmation email will be sent to {order.email}. Please check your spam\
+    messages.add_message(
+        request, messages.SUCCESS, f'Your order ({
+            order.order_num}) has been placed!\
+                         A confirmation email will be sent to {
+            order.email}. Please check your spam\
                          folder if you do not receive it.')
 
     if 'basket' in request.session:
@@ -479,16 +544,18 @@ def checkout_success(request, order_num):
 @login_required
 def Cancel_order(request, order_num):
     """
-    Creates a new instance of the :model:`Refund` (related to :model:`Order` by a one-to-one relationship)
+    Creates a new instance of the :model:`Refund` (related to
+      :model:`Order` by a one-to-one relationship)
 
-    Returns the user to the page from which they submitted the refund request (for customers this will
-    be their account page and for shop admin it will be the order page in the admin area.)
+    Returns the user to the page from which they submitted the
+      refund request (for customers this will
+    be their account page and for shop admin it will be the
+    order page in the admin area.)
 
     Refund payment is handled by Stripe.
     """
 
     order = get_object_or_404(Order, order_num=order_num)
-    stripe_public_key = settings.STRIPE_PUBLIC_KEY
     stripe_secret_key = settings.STRIPE_SECRET_KEY
 
     if request.POST:
@@ -503,14 +570,14 @@ def Cancel_order(request, order_num):
             rreason = 'requested_by_customer'
             refund = stripe.Refund.create(
                 payment_intent=order_pid,
-                amount=round(amount*100),
+                amount=round(amount * 100),
                 reason=rreason,
             )
         else:
             reason = 'admin refunded customer'
             refund = stripe.Refund.create(
                 payment_intent=order_pid,
-                amount=round(amount*100),
+                amount=round(amount * 100),
             )
         refund_pid = refund.id
         new_refund = Refund(
@@ -524,13 +591,16 @@ def Cancel_order(request, order_num):
         order.save()
 
         if reason == 'customer cancelled order':
-            messages.add_message(request, messages.SUCCESS, f'We are sorry that you changed your mind \
-                             about this order.  A refund has been issued and the money will be \
-                             returned to your payment card soon.')
+            messages.add_message(
+                request, messages.SUCCESS, 'We are sorry that you changed \
+                             your min about this order.  A refund has been \
+                             issued and the money \
+                             will be returned to your payment card soon.')
             return HttpResponse(status=200)
         else:
-            messages.add_message(request, messages.SUCCESS, f'#{order_num} has been refunded £{amount}.  \
-                                 Customer has been notified.')
+            messages.add_message(
+                request, messages.SUCCESS, f'#{order_num} has been \
+                refunded £{amount}.Customer has been notified.')
 
             return redirect(reverse('management_orders'))
 
@@ -538,13 +608,16 @@ def Cancel_order(request, order_num):
 @login_required
 def mark_shipped(request):
     """
-    Creates a new instance of :model:`Shipped` (related to :model:`Order` in a one-to-one relationship
+    Creates a new instance of :model:`Shipped` (related to
+      :model:`Order` in a one-to-one relationship
 
-    Success or failure message is displayed to shop admin and an email is sent to customer.
+    Success or failure message is displayed to shop admin and
+      an email is sent to customer.
     )
     """
     if not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(
+            request, messages.ERROR, "This page is only accessible for \
                                  Loopy Yarns staff.")
         return redirect(reverse('home'))
     try:
@@ -571,12 +644,15 @@ def mark_shipped(request):
             msg.attach_alternative(html_message, "text/html")
             msg.send()
 
-            messages.add_message(request, messages.SUCCESS, f'Order {order.order_num}\
+            messages.add_message(request, messages.SUCCESS,
+                                 f'Order {order.order_num}\
                                   has been marked as shipped')
     except Exception as e:
         order.is_shipped = False
         order.save()
         shipped.delete()
-        messages.add_message(request, messages.ERROR,
-                             f'Unable to mark order as shipped due to error {e}')
+        messages.add_message(
+            request,
+            messages.ERROR,
+            f'Unable to mark order as shipped due to error {e}')
     return redirect(reverse('management_orders'))
