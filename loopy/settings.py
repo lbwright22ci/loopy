@@ -13,7 +13,6 @@ import os
 import sys
 import dj_database_url
 
-
 from django.contrib.messages import constants as messages
 
 from pathlib import Path
@@ -82,7 +81,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "allauth.account.middleware.AccountMiddleware",  # Middleware needed for AllAuth
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'loopy.urls'
@@ -305,7 +304,7 @@ JAZZMIN_SETTINGS = {
     "user_avatar": None,
 
     "topmenu_links": [
-        {"name": "Home",  "url": "admin:index",
+        {"name": "Home", "url": "admin:index",
             "permissions": ["auth.view_user"]},
         {"name": "View Shop", "url": "home", "new_window": True},
         {"name": "Quick Edit", "url": "management_home",
@@ -349,7 +348,8 @@ JAZZMIN_SETTINGS = {
     "show_ui_builder": False,
 
     "changeform_format": "horizontal_tabs",
-    "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "changeform_format_overrides": {"auth.user": "collapsible",
+                                    "auth.group": "vertical_tabs"},
     "language_chooser": False,
 }
 
