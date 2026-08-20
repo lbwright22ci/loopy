@@ -1,4 +1,4 @@
-from django.shortcuts import render,  redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.db.models import Q
@@ -13,14 +13,16 @@ from checkout.models import Order
 @login_required
 def management_home(request):
     """
-    Landing page (accessible to superusers only) for bespoke shop admin area with links to admin.site.urls as well as bespoke pages.
+    Landing page (accessible to superusers only) for bespoke shop admin
+      area with links to admin.site.urls as well as bespoke pages.
 
     **Template**
     'management/admin-home.html'
 
     """
     if not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, "This page is \
+                             only accessible for \
                              Loopy Yarns staff.")
         return redirect(reverse('home'))
 
@@ -34,8 +36,10 @@ def management_home(request):
 @login_required
 def management_settings(request):
     """
-    Page assessible to superusers only which displays current active instances of :model:`core.ShopContactInfo`,
-    :model:`core.SaleSettings` and :model:`core.Announcements` as well as links to active instances of 
+    Page assessible to superusers only which displays current active
+      instances of :model:`core.ShopContactInfo`,
+    :model:`core.SaleSettings` and :model:`core.Announcements` as well
+      as links to active instances of
     :model:`Postage` and :model:`UserProfile`
 
     **Template**
@@ -48,7 +52,8 @@ def management_settings(request):
 
     """
     if not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, "This page is only \
+                             accessible for \
                              Loopy Yarns staff.")
         return redirect(reverse('home'))
 
@@ -73,11 +78,13 @@ def management_settings(request):
 @login_required
 def update_shopsettings(request):
     """
-    View accessible to superusers only which updates current active instance of :model:`ShopContactInfo`
+    View accessible to superusers only which updates current active
+    instance of :model:`ShopContactInfo`
 
     """
     if not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, "This page is only \
+                             accessible for \
                                  Loopy Yarns staff.")
         return redirect(reverse('home'))
 
@@ -99,11 +106,14 @@ def update_shopsettings(request):
                 shop_details.shop_postcode = request.POST.get('shop_postcode')
                 shop_details.save()
                 messages.add_message(
-                    request, messages.SUCCESS, f'Shop address settings updated!')
+                    request,
+                    messages.SUCCESS,
+                    'Shop address settings updated!')
 
     except Exception as e:
         messages.add_message(
-            request, messages.ERROR, f'Unable to update shop settings. Error message: {e}')
+            request, messages.ERROR, f'Unable to update shop \
+                settings. Error message: {e}')
 
     return redirect(reverse('management_settings'))
 
@@ -111,10 +121,12 @@ def update_shopsettings(request):
 @login_required
 def update_salesettings(request):
     """
-    View accessible to superusers only which updates active instance of :model:`SaleSettings`
+    View accessible to superusers only which updates active instance
+      of :model:`SaleSettings`
     """
     if not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, "This page is \
+                             only accessible for \
                                  Loopy Yarns staff.")
         return redirect(reverse('home'))
 
@@ -125,11 +137,14 @@ def update_salesettings(request):
             sale.sale_percent = request.POST.get('sale_percent')
             sale.save()
             messages.add_message(
-                request, messages.SUCCESS, f'Items on sale will now have {sale.sale_percent}% discount applied')
+                request, messages.SUCCESS, f'Items on sale will now \
+                    have {sale.sale_percent}% discount applied')
 
     except Exception as e:
         messages.add_message(
-            request, messages.ERROR, f'Unable to update sale settings. Error message: {e}')
+            request,
+            messages.ERROR,
+            f'Unable to update sale settings. Error message: {e}')
 
     return redirect(reverse('management_settings'))
 
@@ -137,10 +152,13 @@ def update_salesettings(request):
 @login_required
 def update_announcements(request):
     """
-    View accessible to superusers only which updates current active instance of :model:`Announcements`
+    View accessible to superusers only which updates current active
+      instance of :model:`Announcements`
     """
     if not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(
+            request, messages.ERROR, "This page is only accessible\
+                              for \
                                  Loopy Yarns staff.")
         return redirect(reverse('home'))
 
@@ -159,24 +177,32 @@ def update_announcements(request):
             promo.save()
             print(promo.bulk_buy, type(promo.bulk_buy))
             if promo.bulk_buy:
-                messages.add_message(request, messages.SUCCESS, f'Bulk buy discounts are now:\
-                                     {promo.lower_discount}% for more than {promo.lower_ball_num} balls\
-                                        and {promo.upper_discount}% for more than {promo.upper_ball_num} balls')
+                messages.add_message(
+                    request, messages.SUCCESS, f'Bulk buy discounts are now:\
+                                     {promo.lower_discount}% for more than \
+                                        {promo.lower_ball_num} balls\
+                                        and {promo.upper_discount}% for more \
+                                            than {promo.upper_ball_num} balls')
             else:
-                messages.add_message(request, messages.SUCCESS, f'Bulk buy discounts are now:\
-                                                      Free 2nd class shipping for orders with more than {promo.upper_ball_num} balls\
+                messages.add_message(
+                    request, messages.SUCCESS, f'Bulk buy discounts \
+                                     are now:\
+                                     Free 2nd class shipping for orders \
+                                     with more than {promo.upper_ball_num} \
+                                        balls\
                                                          of yarn')
 
     except Exception as e:
         messages.add_message(
-            request, messages.ERROR, f'Unable to update promotional settings. Error message: {e}')
+            request, messages.ERROR, f'Unable to update promotional settings. \
+                Error message: {e}')
 
     return redirect(reverse('management_settings'))
 
 
 @login_required
 def management_orders(request):
-    """ 
+    """
     Page displaying all instances of :model:`Order`
 
     Orders are categorised as 'Pending', 'Shipped', 'Refunded' and 'Cancelled'
@@ -187,10 +213,11 @@ def management_orders(request):
     'pending'
     'cancelled'
     'refunded'
-    'past'    
+    'past'
     """
     if not request.user.is_superuser:
-        messages.add_message(request, messages.ERROR, f"This page is only accessible for \
+        messages.add_message(request, messages.ERROR, "This page is only \
+                             accessible for \
                              Loopy Yarns staff.")
         return redirect(reverse('home'))
 

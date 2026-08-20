@@ -9,5 +9,6 @@ urlpatterns = [
          name="update_shopsettings"),
     path('settings/promo', views.update_announcements,
          name="update_announcements"),
-    path('settings/sale', views.update_salesettings, name="update_salesettings"),
+    path('settings/sale', views.update_salesettings,
+         name="update_salesettings"),
 ]
