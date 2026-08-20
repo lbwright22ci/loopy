@@ -260,7 +260,7 @@ class StripeWH_Handler:
             content=f'Webhook receieved: {event['type']}',
             status=200)
 
-    def handle_refund_updated(self, event):
+    def handle_refund_updated(self, event, request):
         """
         Handles all instances of the webhook 'refund.updated'
 
@@ -324,13 +324,13 @@ class StripeWH_Handler:
                 order.save()
                 if reason == 'customer cancelled order':
                     messages.add_message(
-                        event, messages.SUCCESS, 'We are sorry that you changed your \
+                        request, messages.SUCCESS, 'We are sorry that you changed your \
                                                      mind about this order.  A refund has \
                                                         been issued and the money will be \
                                                      returned to your payment card soon.')
                 else:
                     messages.add_message(
-                        event, messages.SUCCESS, f'#{order.order_num} has been \
+                        request, messages.SUCCESS, f'#{order.order_num} has been \
                                                  refunded £{amount}.  \
                                                  Customer has been notified.')
             except Exception as e:

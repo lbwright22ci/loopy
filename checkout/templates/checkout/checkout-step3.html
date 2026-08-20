@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
+{% block extraheadjs %}
+   <!-- Stripe JS-->
+        <script src="https://js.stripe.com/dahlia/stripe.js"></script>
+{% endblock %}
+
 
 {% block page_header %}
     <div class="top-padding">
