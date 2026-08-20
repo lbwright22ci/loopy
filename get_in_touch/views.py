@@ -13,8 +13,10 @@ from core.models import HomePageSlides
 
 
 def contact_page(request):
-    """ Renders contact page containing a single instance of :form:`ContactForm`
-    to capture information to create a new instance of :model:`Contact`and send 
+    """ Renders contact page containing a single instance of
+    :form:`ContactForm`
+    to capture information to create a new instance of
+    :model:`Contact`and send
     email to user to state that their message has been received.
 
     **Template**
@@ -42,9 +44,10 @@ def contact_page(request):
                 ' within 2 working days.'
             )
             email_subject = "Thank you for contacting Loopy Yarns!"
-            html_message = render_to_string('get_in_touch/email/contact_received.html',
-                                            {'in_touch': in_touch, 'phone': phone},
-                                            )
+            html_message = render_to_string(
+                'get_in_touch/email/contact_received.html',
+                {'in_touch': in_touch, 'phone': phone},
+            )
             plain_message = strip_tags(html_message)
 
             msg = EmailMultiAlternatives(

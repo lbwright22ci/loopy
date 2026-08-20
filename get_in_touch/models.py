@@ -7,7 +7,7 @@ class Contact(models.Model):
     """"
     Stores contact equiries from customers and potential customers
 
-    Fields in this model are `name`, `email`, `subject`, 
+    Fields in this model are `name`, `email`, `subject`,
     `message`, `created_on`, `read`
     """
     SUB_OPTIONS = ((0, "A question about a product"),

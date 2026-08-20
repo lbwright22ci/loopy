@@ -18,7 +18,8 @@ def mark_unread(modeladmin, request, queryset):
 
 @admin.register(Contact)
 class ContactAdmin(admin.ModelAdmin):
-    """ Displays instances of :model:`Contact` in the Django admin panel for editing, creating new and updating.
+    """ Displays instances of :model:`Contact` in the Django
+    admin panel for editing, creating new and updating.
 
     Fields in list display are: 'created_on', 'name', 'subject', 'read'
     Instances can be filtered by 'read' status
