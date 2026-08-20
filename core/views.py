@@ -1,4 +1,5 @@
-from django.shortcuts import render, reverse, redirect, get_object_or_404, HttpResponse
+from django.shortcuts import (render, reverse, redirect,
+                              get_object_or_404, HttpResponse)
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -14,7 +15,7 @@ from product.models import Colour_var, Product
 
 def home_page(request):
     """
-    Renders the home page for the Loopy e-commerce site, displaying 
+    Renders the home page for the Loopy e-commerce site, displaying
     the 5 most recently updated instances of :model:`HomePageSlides`
 
     **Template**
@@ -36,12 +37,15 @@ def home_page(request):
 @login_required
 def customer_account(request):
     """
-    Renders a page for authenticated Users displaying account information, past orders and 
+    Renders a page for authenticated Users displaying account
+      information, past orders and
     their favourites list.
 
-    Displays information related to instance of :model:`UserProfile` and associated instances of 
+    Displays information related to instance of :model:`UserProfile`
+      and associated instances of
     :model:`Order`.
-    Displays instance of :form:`DetailsForm` and :form:`AddressForm` to enable user to update 
+    Displays instance of :form:`DetailsForm` and :form:`AddressForm`
+      to enable user to update
     name & saved phone number and address details respectively.
 
     **Template**
@@ -97,7 +101,8 @@ def customer_account(request):
 @login_required
 def update_details(request):
     """"
-    Updates 'first_name', 'second_name' and 'default_phone' fields of instance of :model:`UserProfile`
+    Updates 'first_name', 'second_name' and 'default_phone' fields
+    of instance of :model:`UserProfile`
     """
     current_user = UserProfile.objects.get(user__id=request.user.id)
     user = User.objects.get(id=request.user.id)
@@ -113,10 +118,12 @@ def update_details(request):
                 user.save()
 
                 messages.add_message(
-                    request, messages.SUCCESS, f'Your account details have been updated!')
+                    request, messages.SUCCESS, 'Your \
+                    account details have been updated!')
     except Exception as e:
         messages.add_message(
-            request, messages.ERROR, f'Unable to update your account details. Error message: {e}')
+            request, messages.ERROR, f'Unable to update your \
+            account details. Error message: {e}')
 
     return redirect(reverse('customer_account'))
 
@@ -124,8 +131,10 @@ def update_details(request):
 @login_required
 def update_address(request):
     """"
-    Updates 'default_street_address1', 'default_street_address2', 'default_town',
-    'default_county', 'default_postcode' and 'default_country' fields of instance of 
+    Updates 'default_street_address1', 'default_street_address2',
+      'default_town',
+    'default_county', 'default_postcode' and 'default_country'
+    fields of instance of
     :model:`UserProfile`
     """
     current_user = UserProfile.objects.get(user__id=request.user.id)
@@ -147,10 +156,12 @@ def update_address(request):
                 current_user.save()
 
                 messages.add_message(
-                    request, messages.SUCCESS, f'Your address details have been updated!')
+                    request, messages.SUCCESS, 'Your address \
+                      details have been updated!')
     except Exception as e:
         messages.add_message(
-            request, messages.ERROR, f'Unable to update your address details. Error message: {e}')
+            request, messages.ERROR, f'Unable to update your \
+                  address details. Error message: {e}')
 
     return redirect(reverse('customer_account'))
 
@@ -158,7 +169,8 @@ def update_address(request):
 @login_required
 def past_order(request, order_num):
     """
-    Displays all information relating to instance of :model:`checkout.models.Order`
+    Displays all information relating to instance of
+    :model:`checkout.models.Order`
 
     **Template**
     'checkout/past-order.html'
@@ -178,10 +190,12 @@ def past_order(request, order_num):
 
 
 def reorder(request):
-    """ 
-    Adds instance of :model:`product.model.Colour_var` to session basket 
-    (and UserProfile.temporary_basket) with 
-    the same 'quantity' as in instance of :model:`checkout.model.Order` related to 
+    """
+    Adds instance of :model:`product.model.Colour_var` to
+      session basket
+    (and UserProfile.temporary_basket) with
+    the same 'quantity' as in instance of
+    :model:`checkout.model.Order` related to
     :model:`UserProfile`.
 
     User is redirected to 'view_basket'
@@ -199,31 +213,47 @@ def reorder(request):
             if test < 10:
                 basket[col_var_id] += quantity
 
-                messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
-                               shade {col_var.colour_cat_id.colour_name} to {test} balls')
+                messages.add_message(request,
+                                     messages.SUCCESS, f'Updated \
+                                        the quantity of \
+                                        {col_var.product_id.brand_id.name} \
+                                        {col_var.product_id.name},\
+                                        shade \
+                                        {col_var.colour_cat_id.colour_name} \
+                                        to {test} balls')
             else:
                 # can not add to basket- error message and redirect
-                messages.add_message(request, messages.ERROR, f'Low stock! Unable to add {quantity} extra \
-                               balls of {col_var.product_id.brand_id.name} {col_var.product_id.name}\
+                messages.add_message(request, messages.ERROR, f'Low stock! \
+                                      Unable to add {quantity} extra \
+                               balls of {col_var.product_id.brand_id.name} \
+                                {col_var.product_id.name}\
                                to your basket.')
                 return redirect(reverse('view_basket'))
         else:
             test = basket[col_var_id] + quantity
             if test < 50:
                 basket[col_var_id] += quantity
-                messages.add_message(request, messages.SUCCESS, f'Updated the quantity of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
-                               shade {col_var.colour_cat_id.colour_name} to {test} balls')
+                messages.add_message(
+                    request, messages.SUCCESS, f'Updated the quantity of \
+                        {col_var.product_id.brand_id.name} \
+                            {col_var.product_id.name},\
+                               shade {col_var.colour_cat_id.colour_name} \
+                                to {test} balls')
             else:
 
-                messages.add_message(request, messages.ERROR, f'Insufficient stock! Unable to add {quantity} extra \
-                               balls of {col_var.product_id.brand_id.name} {col_var.product_id.name}\
+                messages.add_message(request, messages.ERROR, f'Insufficient \
+                                     stock! Unable to add {quantity} extra \
+                               balls of {col_var.product_id.brand_id.name} \
+                                {col_var.product_id.name}\
                                to your basket.')
                 return redirect(reverse('view_basket'))
 
     else:
         basket[col_var_id] = quantity
 
-        messages.add_message(request, messages.SUCCESS, f'Added {quantity} ball(s) of {col_var.product_id.brand_id.name} {col_var.product_id.name},\
+        messages.add_message(
+            request, messages.SUCCESS, f'Added {quantity} ball(s) of \
+                {col_var.product_id.brand_id.name} {col_var.product_id.name},\
                                shade {col_var.colour_cat_id.colour_name}')
 
     request.session['basket'] = basket
@@ -242,6 +272,16 @@ def reorder(request):
 @login_required
 def leave_review(request, order_num):
     """
+    Displays all instances of :model:`checkout.ReviewYarns` related to
+    the current instance of :model:`checkout.Order` for customers who
+    placed their order as site users.
+
+    **Template**
+    `core/submit-review.html`
+
+    **Context**
+    `order`
+    `reviews`
     """
     order = get_object_or_404(Order, order_num=order_num)
     # get reviews if they have already been created
@@ -257,7 +297,9 @@ def leave_review(request, order_num):
 
 
 def submit_review(request, order_num):
-    """ """
+    """
+    Updates instance of :model:`checkout.ReviewYarns`.
+    """
     order = get_object_or_404(Order, order_num=order_num)
     if request.POST:
         try:
@@ -268,12 +310,14 @@ def submit_review(request, order_num):
 
             if not rating:
                 messages.add_message(
-                    request, messages.ERROR, f'You need to submit a star rating')
+                    request,
+                    messages.ERROR,
+                    'You need to submit a star rating')
                 return HttpResponse(status=200)
 
             if not comment:
                 messages.add_message(
-                    request, messages.ERROR, f'You need to submit a comment')
+                    request, messages.ERROR, 'You need to submit a comment')
                 return HttpResponse(status=200)
             if rating and comment:
                 if not ReviewYarns.objects.filter(query):
@@ -285,7 +329,7 @@ def submit_review(request, order_num):
                     )
                     new_review.save()
                     messages.add_message(
-                        request, messages.SUCCESS, f'Thankyou for your review!')
+                        request, messages.SUCCESS, 'Thankyou for your review!')
                     return HttpResponse(status=200)
                 else:
                     existing_review = ReviewYarns.objects.get(query)
@@ -294,9 +338,17 @@ def submit_review(request, order_num):
                     existing_review.approved = False
                     existing_review.save()
                     messages.add_message(
-                        request, messages.SUCCESS, f'Thank you for updating your review!')
+                        request,
+                        messages.SUCCESS,
+                        'Thank you for updating your review!')
                     return HttpResponse(status=200)
         except Exception as e:
             messages.add_message(
-                request, messages.ERROR, f'Unable to submit or update your review due to error {e}')
-            return redirect(reverse('leave_review', kwargs={'order_num': order_num}))
+                request,
+                messages.ERROR,
+                f'Unable to submit or update your review due to error {e}')
+            return redirect(
+                reverse(
+                    'leave_review',
+                    kwargs={
+                        'order_num': order_num}))

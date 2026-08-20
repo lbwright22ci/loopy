@@ -6,7 +6,8 @@ from checkout.models import ReviewYarns
 
 class DetailsForm(forms.ModelForm):
     """ Creates :form: from the :model:`core.UserProfile`
-    Fields collected by the form are 'user__first_name', 'user__second_name' 'user__email', 'default_email'
+    Fields collected by the form are 'user__first_name',
+    'user__second_name' 'user__email', 'default_email'
     """
     Phone = forms.IntegerField(required=False)
 
@@ -24,11 +25,13 @@ class DetailsForm(forms.ModelForm):
 
 class AddressForm(forms.ModelForm):
     """ Creates :form: from the :model:`core.UserProfile`
-    Fields collected by the form are 'user__first_name', 'user__second_name' 'user__email', 'default_email'
+    Fields collected by the form are 'user__first_name',
+    'user__second_name' 'user__email', 'default_email'
     """
     class Meta:
         model = UserProfile
-        fields = ['default_street_address1', 'default_street_address2', 'default_town',
+        fields = ['default_street_address1', 'default_street_address2',
+                  'default_town',
                   'default_county', 'default_postcode', 'default_country', ]
 
     def __init__(self, *args, **kwargs):

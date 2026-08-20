@@ -10,7 +10,7 @@ class UserProfile(models.Model):
     """ UserProfile model is related to :model:`User`
 
     The fields of this model are `default phone`, `default street address1`,
-    `default street address 2`, `default town`, `default county`, 
+    `default street address 2`, `default town`, `default county`,
     `default postcode`, `default country`, `temporary basket`, `wish_list`
 
     """
@@ -28,7 +28,8 @@ class UserProfile(models.Model):
     default_postcode = models.CharField(
         max_length=9, null=True, blank=True, verbose_name='Postcode')
     default_country = models.CharField(
-        max_length=20, default="GB", blank=True, null=True, verbose_name='Country')
+        max_length=20, default="GB", blank=True,
+        null=True, verbose_name='Country')
     temporary_basket = models.CharField(max_length=600, blank=True, null=True)
     wish_list = models.CharField(max_length=400, null=True, blank=True)
 
@@ -71,20 +72,25 @@ class Postage(models.Model):
         verbose_name_plural = "Postage"
 
     def __str__(self):
-        return f"Class: {self.get_postage_class_display()},  {self.get_parcel_size_display()}"
+        return f"Class: {
+            self. get_postage_class_display()}, {
+            self. get_parcel_size_display()}"
 
 
 class Announcements(models.Model):
-    """ Used to control text in the annoucement banner at the top of all pages as
+    """ Used to control text in the annoucement banner at the top of all
+      pages as
     well as conditions for bulk buy discounts
 
-    fields in this model are: `bulk buy`, `lower ball num`, `lower discount`, 
+    fields in this model are: `bulk buy`, `lower ball num`, `lower discount`,
     `upper ball num`, `upper discount`, `active`, `updated on`
 
     Announcement displayed is the most recently updated instance of this model.
-    If bulk buy = false, free shipping is offered on orders containing more than
+    If bulk buy = false, free shipping is offered on orders containing
+    more than
     `upper ball num` balls of yarn.
-    If `bulk buy` = true, lower discount% for orders over lower ball num balls of yarn
+    If `bulk buy` = true, lower discount% for orders over lower ball num
+      balls of yarn
     and upper discount% for orders over upper ball num balls of yarn
     """
 
@@ -112,7 +118,7 @@ class Announcements(models.Model):
 
 
 class SaleSettings(models.Model):
-    """ 
+    """
     Used to set the discount rate for sale items.
 
     Fields in this model are `sales percent`, `active` and `updated on`
@@ -134,8 +140,9 @@ class ShopContactInfo(models.Model):
     """"
     Stores Shop contact information
 
-    Fields in this model are `shop email`, `shop phone`, `shop street address1`, 
-    `shop street address 2`, `shop town`, `shop county`, `shop country`, 
+    Fields in this model are `shop email`, `shop phone`,
+    `shop street address1`,
+    `shop street address 2`, `shop town`, `shop county`, `shop country`,
     `shop postcode`, `updated on`
     """
     shop_email = models.EmailField(blank=True, verbose_name="Email")
@@ -158,7 +165,9 @@ class ShopContactInfo(models.Model):
         verbose_name_plural = "Shop Contact Information"
 
     def __str__(self):
-        return f"Shop address with postcode {self.shop_postcode}, email {self.shop_email} & phone {self.shop_phone}"
+        return f"Shop address with postcode \
+                    {self.shop_postcode}, email \
+                        {self.shop_email} & phone {self.shop_phone}"
 
 
 class HomePageSlides(models.Model):

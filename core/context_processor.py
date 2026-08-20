@@ -56,12 +56,13 @@ def announcement_banner(request):
 
 
 def sale_rate(request):
-    """ 
-    Function returns the most recently updated instance of the :model:`SaleSettings`
+    """
+    Function returns the most recently updated instance of the
+    :model:`SaleSettings`
     which is active.
 
     **Context**
-    ``rate`` 
+    ``rate``
     Discount percentage to be applied to products which are on offer.
 
     """
@@ -74,7 +75,8 @@ def sale_rate(request):
 
 def shop_address(request):
     """
-    Function returns the most recently updated instance of the :model:`ShopContactInfo`
+    Function returns the most recently updated instance of the
+    :model:`ShopContactInfo`
 
     **Context**
     `contact`
