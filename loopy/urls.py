@@ -30,6 +30,6 @@ urlpatterns = [
     path('yarns/', include('product.urls')),
     path('', include('core.urls')),
     path('robots.txt',
-         TemplateView.as_view(template_name=robots.txt,
+         TemplateView.as_view(template_name='robots.txt',
                               content_type="text/plain"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
