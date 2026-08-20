@@ -1,4 +1,5 @@
-from django.shortcuts import render, reverse, redirect, get_object_or_404, HttpResponse
+from django.shortcuts import (render, reverse, redirect,
+                              get_object_or_404, HttpResponse)
 from django.db.models import Q, Case, When, FloatField, F
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -17,7 +18,8 @@ def AllProducts(request):
     Only products with field 'visible = True' are shown.
 
     Queryset filters available are:
-    'q', 'brand', 'thickness', 'fibre', 'price', 'sale', 'natural', 'machine_wash'
+    'q', 'brand', 'thickness', 'fibre', 'price', 'sale',
+    'natural', 'machine_wash'
     'natural'
 
     Sorting available by:
@@ -58,7 +60,7 @@ def AllProducts(request):
     direction = None
 
     discount_adjust = (
-        100-SaleSettings.objects.filter(active=True)[0].sale_percent)/100
+        100 - SaleSettings.objects.filter(active=True)[0].sale_percent) / 100
 
     if request.GET:
         if 'sort' in request.GET:
@@ -69,11 +71,16 @@ def AllProducts(request):
                 product_list = product_list.annotate(lower_name=Lower('name'))
             if sortparam == 'price':
                 sortparam = 'corrected_price'
-                product_list = product_list.annotate(corrected_price=Case(
-                    When(on_promotion=True, then=(F('price')*discount_adjust)),
-                    default=(F('price')),
-                    output_field=FloatField()
-                ))
+                product_list = product_list.annotate(
+                    corrected_price=Case(
+                        When(
+                            on_promotion=True,
+                            then=(
+                                F('price') *
+                                discount_adjust)),
+                        default=(
+                            F('price')),
+                        output_field=FloatField()))
             if 'direction' in request.GET:
                 direction = request.GET['direction']
                 if direction == 'desc':
@@ -84,11 +91,16 @@ def AllProducts(request):
             query = request.GET['q']
             if not query:
                 messages.add_message(
-                    request, messages.ERROR, "There was nothing in your search request")
+                    request, messages.ERROR, "There was nothing \
+                        in your search request")
 
                 return redirect(reverse('allproducts'))
-            queries = Q(name__icontains=query) | Q(fibre__icontains=query) | Q(thickness_id__name__icontains=query) | Q(
-                thickness_id__alt_names__icontains=query) | Q(brand_id__name__icontains=query)
+            queries = Q(
+                name__icontains=query) | Q(
+                fibre__icontains=query) | Q(
+                thickness_id__name__icontains=query) | Q(
+                thickness_id__alt_names__icontains=query) | Q(
+                    brand_id__name__icontains=query)
             product_list = product_list.filter(queries)
         if 'brand' in request.GET:
             brands = request.GET['brand']
@@ -105,28 +117,30 @@ def AllProducts(request):
             prices = request.GET['price']
 
             if prices == '(0,2)':
-                pp = (Q(price__range=(0.0, 2.00)) & Q(on_promotion=False)) | (
-                    Q(price__range=(0.01/discount_adjust, 2.00/discount_adjust)) & Q(on_promotion=True))
+                pp = (Q(price__range=(0.0, 2.00)) & Q(on_promotion=False)) | (Q(price__range=(
+                    0.01 / discount_adjust, 2.00 / discount_adjust)) & Q(on_promotion=True))
                 product_list = product_list.filter(pp)
 
             elif prices == '(2,4)':
-                pp = (Q(price__range=(2.01, 4.00)) & Q(on_promotion=False)) | (
-                    Q(price__range=(2.01/discount_adjust, 4.00/discount_adjust)) & Q(on_promotion=True))
+                pp = (Q(price__range=(2.01, 4.00)) & Q(on_promotion=False)) | (Q(price__range=(
+                    2.01 / discount_adjust, 4.00 / discount_adjust)) & Q(on_promotion=True))
                 product_list = product_list.filter(pp)
 
             elif prices == '(4,6)':
-                pp = (Q(price__range=(4.01, 6.00)) & Q(on_promotion=False)) | (
-                    Q(price__range=(4.01/discount_adjust, 6.00/discount_adjust)) & Q(on_promotion=True))
+                pp = (Q(price__range=(4.01, 6.00)) & Q(on_promotion=False)) | (Q(price__range=(
+                    4.01 / discount_adjust, 6.00 / discount_adjust)) & Q(on_promotion=True))
                 product_list = product_list.filter(pp)
 
             elif prices == '(6,10)':
-                pp = (Q(price__range=(6.01, 10.00)) & Q(on_promotion=False)) | (
-                    Q(price__range=(6.01/discount_adjust, 10.00/discount_adjust)) & Q(on_promotion=True))
+                pp = (Q(price__range=(6.01, 10.00)) & Q(on_promotion=False)) | (Q(price__range=(
+                    6.01 / discount_adjust, 10.00 / discount_adjust)) & Q(on_promotion=True))
                 product_list = product_list.filter(pp)
 
             elif prices == '(10,20)':
                 pp = (Q(price__range=(10.01, 100.00)) & Q(on_promotion=False)) | (
-                    Q(price__range=(10.01/discount_adjust, 100.00/discount_adjust)) & Q(on_promotion=True))
+                    (Q(price__range=(
+                        10.01 / discount_adjust, 100.00 / discount_adjust))) & (
+                        Q(on_promotion=True)))
                 product_list = product_list.filter(pp)
 
         if 'sale' in request.GET:
@@ -179,7 +193,8 @@ def ProductDetail(request, slug):
 
     **Context**
     'prod' : instance of :model:`Product`
-    'colour_options' : instances of :model:`Colour_var` related to selected :model:`Product`
+    'colour_options' : instances of :model:`Colour_var`
+    related to selected :model:`Product`
     'no_colours'
     'recommend' : different yarns with the same thickness as the one detailed.
     'favourite' : related to instance of :model:`UserProfile` field `wish_list`
@@ -242,7 +257,9 @@ def update_wishlist(request, prod_id):
             current_user.save()
             product = Product.objects.get(pk=prod_id)
             messages.add_message(
-                request, messages.SUCCESS, f'Removed {product.brand_id.name} {product.name} from your favourites list')
+                request, messages.SUCCESS, f'Removed {
+                    product.brand_id.name} {
+                    product.name} from your favourites list')
         else:
             fav_list.append(str(prod_id))
             fave_list = ' '.join([str(s) for s in fav_list])
@@ -250,6 +267,8 @@ def update_wishlist(request, prod_id):
             current_user.save()
             product = Product.objects.get(pk=prod_id)
             messages.add_message(
-                request, messages.SUCCESS, f'Added {product.brand_id.name} {product.name} to your favourites list')
+                request, messages.SUCCESS, f'Added {
+                    product.brand_id.name} {
+                    product.name} to your favourites list')
 
     return HttpResponse(status=200)

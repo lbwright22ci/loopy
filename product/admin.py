@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Product, Colour_var
 
+
 # Register your models here.
 
 class ColourVarAdmin(admin.TabularInline):
@@ -34,13 +35,16 @@ def draft(modeladmin, request, queryset):
 
 class ProductAdmin(admin.ModelAdmin):
     """
-    Displays instances of :model:`Product` in the Django admin panel for editing, creating new and updating.
+    Displays instances of :model:`Product` in the Django admin panel
+    for editing, creating new and updating.
 
-    Fields in list display are: 'brand', 'name', 'thickness', 'fibre', 'price', 'on_promotion', 'visible'
+    Fields in list display are: 'brand', 'name', 'thickness', 'fibre',
+    'price', 'on_promotion', 'visible'
     Instances can be filtered by 'on_promotion', 'visible' and 'brand'
     Instances can be searched by 'brand_id', 'name', 'fibre' and 'price'
 
-    Instances can be updated in bulk to change their 'on_promotion' and 'visible' statuses.
+    Instances can be updated in bulk to change their 'on_promotion'
+    and 'visible' statuses.
     """
     inlines = (ColourVarAdmin,)
     list_display = ('brand_id', 'name', 'thickness_id',
@@ -76,18 +80,21 @@ def available(modeladmin, request, queryset):
 @admin.action(description="Mark as out of stock")
 def outofstock(modeladmin, request, queryset):
     """ Bulk action to update yarn shade to out of stock"""
-    queryset.update(in_stock=Fasle)
+    queryset.update(in_stock=False)
 
 
 @admin.register(Colour_var)
 class ColourVariantAdmin(admin.ModelAdmin):
     """
-    Displays all instances of :model:`Colour_var` for editing and updating.
+    Displays all instances of :model:`Colour_var` for
+    editing and updating.
 
-    Fields in list display are: 'product_id', 'colour_cat_id', 'low_stock', 'in_stock'
+    Fields in list display are: 'product_id', 'colour_cat_id',
+    'low_stock', 'in_stock'
     List display can be filtered by 'low_stock', 'in_stock'
     List display can be searched by 'product_id', 'colour_cat_id'
-    Instances can be updated in bulk according to their 'low stock' and 'in stock' statuses.
+    Instances can be updated in bulk according to their
+    'low stock' and 'in stock' statuses.
     """
     model = Colour_var
     list_display = ('product_id', 'colour_cat_id', 'low_stock', 'in_stock',)
