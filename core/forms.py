@@ -7,7 +7,7 @@ from checkout.models import ReviewYarns
 class DetailsForm(forms.ModelForm):
     """ Creates :form: from the :model:`core.UserProfile`
     Fields collected by the form are 'user__first_name',
-    'user__second_name' 'user__email', 'default_email'
+    'user__second_name', 'default_phone'
     """
     Phone = forms.IntegerField(required=False)
 
@@ -36,17 +36,3 @@ class AddressForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AddressForm, self).__init__(*args, **kwargs)
-
-
-class ReviewYarnForm(forms.ModelForm):
-
-    class Meta:
-        model = ReviewYarns
-        fields = ['rating', 'comment',]
-
-    def __init__(self, *args, **kwargs):
-        super(ReviewYarnForm, self).__init__(*args, **kwargs)
-        """
-        Adjust the widget attributes attached to 'comment'
-        """
-        self.fields['comment'].widget = forms.Textarea(attrs={'rows': 3})
