@@ -175,7 +175,7 @@ class HomePageSlides(models.Model):
 
     Fields available are `image`, `title`, `subtitle` and `updated on`
     """
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, default='placeholder')
     imageURL = models.URLField(max_length=1024, blank=True, null=True)
     title = models.CharField(max_length=400, blank=True)
     subtitle = models.CharField(max_length=400, blank=True)
