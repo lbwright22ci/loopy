@@ -50,7 +50,7 @@ class Colour_cat(models.Model):
 
     Fields include 'colour_name', 'image' and 'shade_type_id' """
     colour_name = models.CharField(max_length=40, unique=True)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, default='placeholder')
     shade_type_id = models.ForeignKey(
         'Shade_Type', null=True, blank=True,
         on_delete=models.SET_NULL, related_name="shade_type")
@@ -110,7 +110,7 @@ class Product(models.Model):
     sku = models.CharField(max_length=5, unique=True, blank=False)
     visible = models.BooleanField(default=False)
     on_promotion = models.BooleanField(default=False)
-    image = models.ImageField(blank=True, null=True)
+    image = models.ImageField(blank=True, null=True, default = 'placeholder')
 
     class Meta:
         ordering = ['name', 'brand_id', 'thickness_id']
