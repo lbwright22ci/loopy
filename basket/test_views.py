@@ -22,12 +22,12 @@ class TestBasketViews(TestCase):
         )
         cls.shop.save()
         cls.bulk = Announcements(
-            bulk_buy=False,
+            bulk_buy=True,
             active=True,
             lower_ball_num=10,
-            lower_discount=10,
+            lower_discount=5,
             upper_discount=20,
-            upper_ball_num=20
+            upper_ball_num=10
         )
         cls.bulk.save()
         cls.sale = SaleSettings(
@@ -136,6 +136,8 @@ class TestBasketViews(TestCase):
         response = self.client.get(reverse('view_basket'))
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"yarn1", response.content)
+        self.assertIn(b"Buy 4 more", response.content)
+                
 
     def test_update_basket(self):
         """ Verifies request to update basket"""
