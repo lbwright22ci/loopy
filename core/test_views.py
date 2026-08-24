@@ -173,7 +173,8 @@ class TestHomeViews(TestCase):
             shipping_postcode = 'postcode',
             shipping_country ='GB',
             stripe_pid = 'hjkhi98098980bhjbjh',
-            order_num = 'order_num2'
+            order_num = 'order_num2',
+            is_shipped = True
         )
         
         cls.line = YarnOrderLineitem(
@@ -189,6 +190,7 @@ class TestHomeViews(TestCase):
             comment = 'comment',
             approved = True
         )
+        cls.reviewred.save()
 
     def setUp(self):
         self.client = Client()
@@ -252,3 +254,42 @@ class TestHomeViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Shipping Address', response.content)
         self.assertIn(b'988', response.content)
+
+    def test_leave_review_page_renders(self):
+        """ Test that leave review page renders correctly """
+        self.client.login(email = 'test@test.com', password = 'password')
+        self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
+        response = self.client.get(reverse('leave_review', args=[self.order.order_num]))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b"We'd love to hear what you think", response.content)
+        self.assertIn(b'rating', response.content)
+
+    def test_submit_review(self):
+        """ test submit review"""
+        self.client.login(email = 'test@test.com', password = 'password')
+        self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
+        self.reviewred = ReviewYarns.objects.get(order = self.order)
+        post_data ={
+            'rating': 2,
+            'comment' : 'new comment',
+            'yarn': self.redyarn.id
+        }
+        response = self.client.post(reverse('submit_review', args=[self.order.order_num]), post_data)
+        self.assertEqual(response.status_code, 200)
+        self.reviewred.refresh_from_db()
+        self.assertEqual(ReviewYarns.objects.all().count(), 1)
+        self.assertNotEqual(self.reviewred.approved, True)
+        self.assertEqual(self.reviewred.rating, 2)
+
+    # def test_reorder_posts_data_to_basket_session(self):
+    #     """ test reorder posts data to basket session"""
+    #     self.client.login(email = 'test@test.com', password = 'password')
+    #     self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
+    #     post_data ={
+    #         'quantity': '2',
+    #         'colour_var' : self.redyarn.id,
+    #     }
+    #     response = self.client.post(reverse('reorder', post_data))
+    #     self.assertEqual(response.status_code, 302)
+    #     self.userprofile.refresh_from_db()
+    #     self.assertEqual(self.userprofile.temporary_basket, '{ "1" }')
