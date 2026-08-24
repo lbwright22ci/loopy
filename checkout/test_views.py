@@ -12,7 +12,7 @@ from product.models import (Product, Brand,
                             Colour_var, Shade_Type)
 from checkout.models import (Order, 
                              YarnOrderLineitem, 
-                             ReviewYarns, Refund)
+                             ReviewYarns, Shipped)
 
 # Create your tests here.
 
@@ -78,6 +78,15 @@ class TestHomeViews(TestCase):
                                              first_name = 'joe',
                                              last_name = 'bloggs',
         )
+        cls.user2 = User.objects.create_user(username = 'testuser2',
+                                             password='password2',
+                                             email ='try@two.com',
+                                             first_name = 'john',
+                                             last_name = 'doh',
+        )
+        cls.superuser = User.objects.create_superuser(username='manager',
+                                                      email='man@ager.com',
+                                                      password='pass',)
         cls.userprofile = UserProfile(
             user= cls.user,
             default_phone = 77777777,
@@ -138,7 +147,7 @@ class TestHomeViews(TestCase):
             shipping_country ='GB',
             stripe_pid = 'hjkhi98098980bhjbjh',
             order_num = 'order_num2',
-            is_shipped = True
+            is_shipped = False
         )
         
         cls.line = YarnOrderLineitem(
@@ -261,3 +270,137 @@ class TestHomeViews(TestCase):
         self.assertIn(b'gift message added', response.content)
         self.assertIn(b'Shipping Address', response.content)
         self.assertIsInstance(response.context['form'], SaveDetailsForm)
+
+    def test_render_checkout_successpage(self):
+        """ Verifies request to render checkout stage 2 content """
+        self.client.login(email="test@test.com", password='password')
+        self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
+        session = self.client.session
+        session['basket']={'1': 2}
+        session['save_details']= True
+        session.save()
+        response = self.client.get(reverse('checkout_success', args=[self.order.order_num]))
+        self.assertEqual(response.status_code, 200)
+        self.assertIn(b'A confirmation email will be sent to', response.content)
+        self.userprofile.refresh_from_db()
+        self.assertEqual(self.userprofile.temporary_basket, '{}')
+        self.assertEqual(self.userprofile.user.first_name, 'l')
+
+    def test_checkout_stage1_posts_correctly(self):
+        """ test that checkout stage one posts data to session correctly"""
+        session = self.client.session
+        session['basket']={'1': 2}
+        session.save()
+        post_data={
+            'first_name': 'name1',
+            'second_name': 'name2',
+            'phone': 77989,
+            'email':'test@test.com',
+            'billing_street_address1' : 'street',
+            'billing_street_address2' : 'street 2',
+            'billing_town' : 'town',
+            'billing_county' : 'county',
+            'billing_country' : 'GB',
+            'billing_postcode' : 'postcode',
+            'billing_shipping_same' : True
+        }
+        response = self.client.post(reverse('checkout'), post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_url=f'{reverse('checkout-ship')}')
+
+    def test_checkout_stage2_posts_correctly(self):
+        """ test that checkout stage 2 posts data to session correctly"""
+        session = self.client.session
+        session['basket']={'1': 2}
+        session['bs_same']=False
+        session.save()
+        post_data={
+            'shipping_street_address1' : 'street',
+            'shipping_street_address2' : 'street 2',
+            'shipping_town' : 'town',
+            'shipping_county' : 'county',
+            'shipping_country' : 'GB',
+            'shipping_postcode' : 'postcode',
+            'shippingClass': '0',
+            'is_gift':'on',
+            'gift_message':'this is a gift message'
+        }
+        response = self.client.post(reverse('checkout-ship'), post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_url=f'{reverse('checkout-final')}')
+
+    def test_checkout_stage3_posts_correctly(self):
+        """ test that checkout stage 3 posts data to session correctly"""
+        session = self.client.session
+        session['basket']={'1': 6}
+        session['first_name']='joe'
+        session['second_name']='bloggs'
+        session['phone']=80089
+        session['email']='test@test.com'
+        session['postage_class']=0
+        session['is_gift'] = True
+        session['gift_message'] = 'gift message added'
+        session['billing_street_address1']='street'
+        session['shipping_street_address1']='street'
+        session['billing_town']='town'
+        session['shipping_town']='town'
+        session['billing_country']='GB'
+        session['billing_postcode']='postcode'
+        session['billing_county']='county',
+        session['shipping_county']='county',
+        session['shipping_country']='GB',
+        session['shipping_postcode']='postcode'
+        session.save()
+        post_data={
+            'save_details':True,
+            'client_secret':'809090_secret80980809'
+        }
+        response = self.client.post(reverse('checkout-final'), post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Order.objects.all().count(), 2)
+        new_order = Order.objects.get(pk=2)
+        new_order_num = new_order.order_num
+        self.assertRedirects(response, expected_url=f'{reverse('checkout_success', args=[new_order_num])}')
+
+    def test_unauthenticated_user_cannot_access_cancel_order_view(self):
+        """ Test that a user who is not logged in cannot access cancel order view """
+        post_data={
+            'amount': 4.60,
+            'stripe_pid': 'hjkhi98098980bhjbjh',
+            'reason': 'customer cancelled order'
+        }
+        response = self.client.post(reverse('cancel_order', args=[self.order.order_num]), post_data)
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('cancel_order', args=[self.order.order_num])}")
+
+    def test_different_authenticated_user_cannot_access_cancel_order_view_of_another_customer(self):
+        """ Test that a logged in user in cannot access cancel order view of someone else's order """
+        self.client.login(email="try@two.com", password='password2')
+        post_data={
+            'amount': 4.60,
+            'stripe_pid': 'hjkhi98098980bhjbjh',
+            'reason': 'customer cancelled order'
+        }
+        response = self.client.post(reverse('cancel_order', args=[self.order.order_num]), post_data)
+        self.assertRedirects(response, expected_url=f"{reverse('home')}")
+
+    def test_only_superuser_can_access_shipped_view(self):
+        """ Test that only superuser can access shipped view """
+        self.client.login(email="test@test.com", password='password')
+        post_data={
+            'order': '1',
+        }
+        response = self.client.post(reverse('mark_shipped'), post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_url=f'{reverse('home')}')
+
+    def test_superuser_can_mar_order_as_shipped(self):
+        """ Test that superuser can access shipped view """
+        self.client.login(email="man@ager.com", password='pass')
+        post_data={
+            'order': '1',
+        }
+        response = self.client.post(reverse('mark_shipped'), post_data)
+        self.order.refresh_from_db()
+        self.assertEqual(self.order.is_shipped, True)
+        self.assertEqual(Shipped.objects.all().count(), 1)
+        self.assertEqual(response.status_code, 302)

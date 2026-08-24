@@ -557,53 +557,60 @@ def Cancel_order(request, order_num):
 
     order = get_object_or_404(Order, order_num=order_num)
     stripe_secret_key = settings.STRIPE_SECRET_KEY
+    user_profile = get_object_or_404(UserProfile, user=request.user)
+    user = get_object_or_404(User, id=request.user.id)
 
-    if request.POST:
-        amount = Decimal(request.POST.get('amount'))
+    if order.user_profile == user_profile or user.is_superuser:
+        if request.POST:
+            amount = Decimal(request.POST.get('amount'))
 
-        reason = request.POST.get('reason')
-        order_pid = request.POST.get('stripe_pid')
+            reason = request.POST.get('reason')
+            order_pid = request.POST.get('stripe_pid')
 
-        stripe.api_key = stripe_secret_key
+            stripe.api_key = stripe_secret_key
 
-        if reason == 'customer cancelled order':
-            rreason = 'requested_by_customer'
-            refund = stripe.Refund.create(
-                payment_intent=order_pid,
-                amount=round(amount * 100),
-                reason=rreason,
+            if reason == 'customer cancelled order':
+                rreason = 'requested_by_customer'
+                refund = stripe.Refund.create(
+                    payment_intent=order_pid,
+                    amount=round(amount * 100),
+                    reason=rreason,
+                )
+            else:
+                reason = 'admin refunded customer'
+                refund = stripe.Refund.create(
+                    payment_intent=order_pid,
+                    amount=round(amount * 100),
+                )
+            refund_pid = refund.id
+            new_refund = Refund(
+                order=order,
+                reason=reason,
+                amount=amount,
+                refund_id=refund_pid,
             )
-        else:
-            reason = 'admin refunded customer'
-            refund = stripe.Refund.create(
-                payment_intent=order_pid,
-                amount=round(amount * 100),
-            )
-        refund_pid = refund.id
-        new_refund = Refund(
-            order=order,
-            reason=reason,
-            amount=amount,
-            refund_id=refund_pid,
-        )
-        new_refund.save()
-        order.refund_status = True
-        order.save()
+            new_refund.save()
+            order.refund_status = True
+            order.save()
 
-        if reason == 'customer cancelled order':
-            messages.add_message(
-                request, messages.SUCCESS, 'We are sorry that you changed \
-                             your min about this order.  A refund has been \
-                             issued and the money \
-                             will be returned to your payment card soon.')
-            return HttpResponse(status=200)
-        else:
-            messages.add_message(
-                request, messages.SUCCESS, f'#{order_num} has been \
-                refunded £{amount}.Customer has been notified.')
+            if reason == 'customer cancelled order':
+                messages.add_message(
+                    request, messages.SUCCESS, 'We are sorry that you changed \
+                                your min about this order.  A refund has been \
+                                issued and the money \
+                                will be returned to your payment card soon.')
+                return HttpResponse(status=200)
+            else:
+                messages.add_message(
+                    request, messages.SUCCESS, f'#{order_num} has been \
+                    refunded £{amount}.Customer has been notified.')
 
             return redirect(reverse('management_orders'))
 
+    else:
+        messages.add_message(
+            request, messages.ERROR, "This page is not accessible")
+        return redirect(reverse('home'))
 
 @login_required
 def mark_shipped(request):
