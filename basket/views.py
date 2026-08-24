@@ -75,18 +75,19 @@ def add_to_basket(request):
                 basket[col_var_id] += quantity
 
                 messages.add_message(
-                    request, messages.SUCCESS, f'Updated the quantity of {
-                        col_var.product_id.brand_id.name} {
-                        col_var.product_id.name},\
-                               shade {
-                        col_var.colour_cat_id.colour_name} to {test} balls')
+                    request, messages.SUCCESS, f'Updated the quantity of \
+                        {col_var.product_id.brand_id.name} \
+                            {col_var.product_id.name},\
+                               shade \
+                                {col_var.colour_cat_id.colour_name} \
+                                    to {test} balls')
             else:
                 # can not add to basket- error message and redirect
                 messages.add_message(
                     request, messages.ERROR, f'Low stock! Unable to add \
-                          {quantity} extra balls of {
-                        col_var.product_id.brand_id.name} {
-                        col_var.product_id.name}\
+                          {quantity} extra balls of \
+                            {col_var.product_id.brand_id.name} \
+                                {col_var.product_id.name}\
                                to your basket.')
                 return redirect(redirect_url)
         else:
@@ -94,20 +95,19 @@ def add_to_basket(request):
             if test < 50:
                 basket[col_var_id] += quantity
                 messages.add_message(
-                    request, messages.SUCCESS, f'Updated the quantity of {
-                        col_var.product_id.brand_id.name} {
-                        col_var.product_id.name},\
-                               shade {
-                        col_var.colour_cat_id.colour_name} to {test} balls')
+                    request, messages.SUCCESS, f'Updated the quantity of \
+                        {col_var.product_id.brand_id.name} \
+                            {col_var.product_id.name},\
+                               shade {col_var.colour_cat_id.colour_name} \
+                                to {test} balls')
             else:
 
                 messages.add_message(
                     request,
                     messages.ERROR,
                     f'Insufficient stock! Unable to add {quantity} extra \
-                               balls of {
-                        col_var.product_id.brand_id.name} {
-                        col_var.product_id.name}\
+                               balls of {col_var.product_id.brand_id.name} \
+                                {col_var.product_id.name}\
                                to your basket.')
                 return redirect(redirect_url)
 
@@ -115,11 +115,11 @@ def add_to_basket(request):
         basket[col_var_id] = quantity
 
         messages.add_message(
-            request, messages.SUCCESS, f'Added {quantity} ball(s) of {
-                col_var.product_id.brand_id.name} {
-                col_var.product_id.name},\
-                               shade {
-                col_var.colour_cat_id.colour_name}')
+            request, messages.SUCCESS, f'Added {quantity} ball(s) of \
+                {col_var.product_id.brand_id.name} \
+                    {col_var.product_id.name},\
+                               shade \
+                                {col_var.colour_cat_id.colour_name}')
 
     request.session['basket'] = basket
 

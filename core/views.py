@@ -209,6 +209,7 @@ def reorder(request):
 
     if col_var_id in list(basket.keys()):
         if col_var.low_stock:
+            temp = basket[col_var_id]
             test = basket[col_var_id] + quantity
             if test < 10:
                 basket[col_var_id] += quantity
@@ -227,10 +228,13 @@ def reorder(request):
                                       Unable to add {quantity} extra \
                                balls of {col_var.product_id.brand_id.name} \
                                 {col_var.product_id.name}\
-                               to your basket.')
-                return redirect(reverse('view_basket'))
+                               to your basket.  You already have {temp} balls \
+                                of this yarn in your basket. Max. 10 per \
+                                    customer')
+                return redirect(reverse('customer_account'))
         else:
             test = basket[col_var_id] + quantity
+            temp = basket[col_var_id]
             if test < 50:
                 basket[col_var_id] += quantity
                 messages.add_message(
@@ -245,8 +249,10 @@ def reorder(request):
                                      stock! Unable to add {quantity} extra \
                                balls of {col_var.product_id.brand_id.name} \
                                 {col_var.product_id.name}\
-                               to your basket.')
-                return redirect(reverse('view_basket'))
+                               to your basket. You already have {temp} \
+                                balls of this yarn in your basket. Max \
+                                   50 per customer ')
+                return redirect(reverse('customer_account'))
 
     else:
         basket[col_var_id] = quantity
@@ -295,7 +301,7 @@ def leave_review(request, order_num):
     template = 'core/submit-review.html'
     return render(request, template, context)
 
-
+@login_required
 def submit_review(request, order_num):
     """
     Updates instance of :model:`checkout.ReviewYarns`.

@@ -212,6 +212,11 @@ class TestHomeViews(TestCase):
         self.assertIsInstance(response.context['address_form'], AddressForm)
         self.assertIsInstance(response.context['details_form'], DetailsForm)
 
+    def test_unauthenticated_user_cannot_access_acount_page(self):
+        """ Test that a usre who is not logged in cannot access the account page """
+        response = self.client.get(reverse('customer_account'))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('customer_account')}")
+
     def test_update_details_account_home(self):
         """ Verify that updating details via form on account page 
         operates correctly"""
@@ -231,6 +236,17 @@ class TestHomeViews(TestCase):
         self.assertNotEqual(self.user.last_name, 'bloggs')
         self.assertEqual(self.userprofile.default_phone, 999)
 
+    def test_unauthenticated_user_cannot_access_update_details_view(self):
+        """ Test that a usre who is not logged in cannot update customer details """
+        self.userprofile = UserProfile.objects.get(user__id = 1)
+        post_data = {
+            'first_name ': 'name 1',
+            'last_name' : 'name 2',
+            'Phone': 999
+        }
+        response = self.client.post(reverse('update_details'), post_data)
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('update_details')}")
+
     def test_update_address_account_home(self):
         """ Verify that updating address via form on account page 
         operates correctly"""
@@ -246,6 +262,15 @@ class TestHomeViews(TestCase):
         self.assertEqual(self.userprofile.default_street_address1, 'some street')
         self.assertNotEqual(self.userprofile.default_street_address1, 'no street')
 
+    def test_unauthenticated_user_cannot_update_address(self):
+        """ Test that a usre who is not logged in cannot update customer default address details """
+        self.userprofile = UserProfile.objects.get(user__id = 1)
+        post_data = {
+            'default_street_address1': 'some street',
+        }
+        response = self.client.post(reverse('update_address'), post_data)
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('update_address')}")
+
     def test_past_order_page_renders(self):
         """ Test that past order page renders correctly """
         self.client.login(email = 'test@test.com', password = 'password')
@@ -255,6 +280,11 @@ class TestHomeViews(TestCase):
         self.assertIn(b'Shipping Address', response.content)
         self.assertIn(b'988', response.content)
 
+    def test_unauthenticated_user_cannot_view_past_order(self):
+        """ Test that a usre who is not logged in cannot view past order """
+        response = self.client.get(reverse('past_order', args=[self.order.order_num]))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('past_order', args=[self.order.order_num])}")
+
     def test_leave_review_page_renders(self):
         """ Test that leave review page renders correctly """
         self.client.login(email = 'test@test.com', password = 'password')
@@ -263,6 +293,12 @@ class TestHomeViews(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"We'd love to hear what you think", response.content)
         self.assertIn(b'rating', response.content)
+
+    def test_unauthenticated_user_cannot_view_leave_review_page(self):
+        """ Test that a usre who is not logged in cannot view leave review page """
+        response = self.client.get(reverse('leave_review', args=[self.order.order_num]))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('leave_review', args=[self.order.order_num])}")
+
 
     def test_submit_review(self):
         """ test submit review"""
@@ -281,15 +317,14 @@ class TestHomeViews(TestCase):
         self.assertNotEqual(self.reviewred.approved, True)
         self.assertEqual(self.reviewred.rating, 2)
 
-    # def test_reorder_posts_data_to_basket_session(self):
-    #     """ test reorder posts data to basket session"""
-    #     self.client.login(email = 'test@test.com', password = 'password')
-    #     self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
-    #     post_data ={
-    #         'quantity': '2',
-    #         'colour_var' : self.redyarn.id,
-    #     }
-    #     response = self.client.post(reverse('reorder', post_data))
-    #     self.assertEqual(response.status_code, 302)
-    #     self.userprofile.refresh_from_db()
-    #     self.assertEqual(self.userprofile.temporary_basket, '{ "1" }')
+    def test_unauthenticated_user_cannot_leave_feedback(self):
+        """ Test that a usre who is not logged in cannot update or submit feedback """
+        self.userprofile = UserProfile.objects.get(user__id = 1)
+        self.reviewred = ReviewYarns.objects.get(order = self.order)
+        post_data ={
+            'rating': 2,
+            'comment' : 'new comment',
+            'yarn': self.redyarn.id
+        }
+        response = self.client.post(reverse('submit_review', args=[self.order.order_num]), post_data)
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('submit_review', args=[self.order.order_num])}")
