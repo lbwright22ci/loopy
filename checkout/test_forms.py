@@ -1,5 +1,5 @@
 from django.test import TestCase
-from .forms import SaveDetailsForm, ShippingAddressForm, ContactAndBillingForm
+from .forms import ShippingAddressForm, ContactAndBillingForm
 
 # Create your tests here.
 
