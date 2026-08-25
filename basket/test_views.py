@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 from core.models import (ShopContactInfo,
                          Announcements, SaleSettings,
                          Postage, UserProfile)
-from product.models import (Product, Brand, 
-                            Thickness, Colour_cat, 
+from product.models import (Product, Brand,
+                            Thickness, Colour_cat,
                             Colour_var, Shade_Type)
 
 # Create your tests here.
@@ -68,53 +68,53 @@ class TestBasketViews(TestCase):
         )
         cls.firstlarge.save()
 
-        cls.user = User.objects.create_user(username = 'testuser',
-                                             password='password',
-                                             email ='test@test.com',
-                                             first_name = 'joe',
-                                             last_name = 'bloggs',
-        )
+        cls.user = User.objects.create_user(username='testuser',
+                                            password='password',
+                                            email='test@test.com',
+                                            first_name='joe',
+                                            last_name='bloggs',
+                                            )
         cls.userprofile = UserProfile(
-            user= cls.user,
-            default_phone = 77777777,
-            default_street_address1 = 'no street',
-            default_town = 'birmingham',
-            wish_list = '1',
-            temporary_basket = {}
+            user=cls.user,
+            default_phone=77777777,
+            default_street_address1='no street',
+            default_town='birmingham',
+            wish_list='1',
+            temporary_basket={}
         )
-        cls.brand1= Brand(
-            name = 'drops'
+        cls.brand1 = Brand(
+            name='drops'
         )
         cls.brand1.save()
-        cls.thickness1=Thickness(
-            name = 'DK'
+        cls.thickness1 = Thickness(
+            name='DK'
         )
         cls.thickness1.save()
         cls.red = Shade_Type(
-            name = 'red'
+            name='red'
         )
         cls.red.save()
-        cls.deepred=Colour_cat(
-            colour_name = 'deep red',
-            shade_type_id = cls.red
+        cls.deepred = Colour_cat(
+            colour_name='deep red',
+            shade_type_id=cls.red
         )
         cls.deepred.save()
         cls.yarn1 = Product(
-            brand_id = cls.brand1,
-            thickness_id = cls.thickness1,
-            name = 'yarn1',
-            price = 2.30,
-            skein_weight = 50,
-            sku = 'YARN1',
-            fibre = 'acrylic',
-            visible = True
+            brand_id=cls.brand1,
+            thickness_id=cls.thickness1,
+            name='yarn1',
+            price=2.30,
+            skein_weight=50,
+            sku='YARN1',
+            fibre='acrylic',
+            visible=True
         )
         cls.yarn1.save()
         cls.redyarn = Colour_var(
-            product_id = cls.yarn1,
-            colour_cat_id = cls.deepred,
-            shade_code = 988,
-            dye_lot = 8989,
+            product_id=cls.yarn1,
+            colour_cat_id=cls.deepred,
+            shade_code=988,
+            dye_lot=8989,
         )
         cls.redyarn.save()
 
@@ -131,36 +131,41 @@ class TestBasketViews(TestCase):
         """ Verifies request to render basket view with content"""
         self.client.login(email="test@test.com", password='password')
         session = self.client.session
-        session['basket']={'1':6}
+        session['basket'] = {'1': 6}
         session.save()
         response = self.client.get(reverse('view_basket'))
         self.assertEqual(response.status_code, 200)
         self.assertIn(b"yarn1", response.content)
         self.assertIn(b"Buy 4 more", response.content)
-                
 
     def test_update_basket(self):
         """ Verifies request to update basket"""
         self.client.login(email="test@test.com", password='password')
-        self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
+        self.userprofile = UserProfile.objects.get(user__id=self.user.pk)
         session = self.client.session
-        session['basket']={'1':6}
+        session['basket'] = {'1': 6}
         session.save()
-        post_data={
+        post_data = {
             'quantity': 1,
         }
-        response = self.client.post(reverse('update_basket', args=[1]), post_data)
+        response = self.client.post(
+            reverse(
+                'update_basket',
+                args=[1]),
+            post_data)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, expected_url=f'{reverse('view_basket')}')
+        self.assertRedirects(
+            response, expected_url=f'{
+                reverse('view_basket')}')
         self.userprofile.refresh_from_db()
         self.assertEqual(self.userprofile.temporary_basket, '{"1": 1}')
 
     def test_delate_from_basket(self):
         """ Verifies request to delete from basket"""
         self.client.login(email="test@test.com", password='password')
-        self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
+        self.userprofile = UserProfile.objects.get(user__id=self.user.pk)
         session = self.client.session
-        session['basket']={'1':6}
+        session['basket'] = {'1': 6}
         session.save()
         response = self.client.post(reverse('delete_from_basket', args=[1]))
         self.assertEqual(response.status_code, 200)
@@ -170,17 +175,19 @@ class TestBasketViews(TestCase):
     def test_add_to_basket(self):
         """ Verifies request to add to basket"""
         self.client.login(email="test@test.com", password='password')
-        self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
+        self.userprofile = UserProfile.objects.get(user__id=self.user.pk)
         session = self.client.session
-        session['basket']={'1':6}
+        session['basket'] = {'1': 6}
         session.save()
-        post_data={
+        post_data = {
             'quantity': 2,
             'colour_var': 1,
-            'redirect_url':f'{reverse('view_basket')}'
+            'redirect_url': f'{reverse('view_basket')}'
         }
         response = self.client.post(reverse('add_to_basket'), post_data)
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, expected_url=f'{reverse('view_basket')}')
+        self.assertRedirects(
+            response, expected_url=f'{
+                reverse('view_basket')}')
         self.userprofile.refresh_from_db()
         self.assertEqual(self.userprofile.temporary_basket, '{"1": 8}')
