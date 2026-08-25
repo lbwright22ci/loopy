@@ -4,7 +4,7 @@
     {% csrf_token %}
     <div class="input-group">
         <button name="decrease quantity" class="decrement-qty btn btn-main " type="button"
-                data-item-id-minus="{{ item.item_id }}">
+                data-item-id-minus="{{ item.item_id }}" aria-label="decrease quantity">
             <span >
                 <i class="fas fa-minus"></i>
             </span>
