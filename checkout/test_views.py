@@ -17,7 +17,7 @@ from checkout.models import (Order,
 # Create your tests here.
 
 
-class TestHomeViews(TestCase):
+class TestCheckoutViews(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.shop = ShopContactInfo(

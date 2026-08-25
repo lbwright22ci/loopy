@@ -16,7 +16,7 @@ from checkout.models import (Order,
 # Create your tests here.
 
 
-class TestHomeViews(TestCase):
+class TestManagementViews(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.shop = ShopContactInfo(
@@ -70,47 +70,21 @@ class TestHomeViews(TestCase):
             max_weight=2
         )
         cls.firstlarge.save()
-
-        cls.slide1 = HomePageSlides.objects.create(
-            title='loopy',
-            subtitle='some text',
-            alt_text='alt text',
-        )
-
-        cls.slide2 = HomePageSlides(
-            title='loopy 2',
-            subtitle='some text',
-            alt_text='alt text',
-
-        )
-        cls.slide2.save()
-        cls.slide3 = HomePageSlides(
-            title='loopy 3',
-            subtitle='some text',
-            alt_text='alt text',
-
-        )
-        cls.slide3.save()
-        cls.slide4 = HomePageSlides(
-            title='loopy4',
-            subtitle='some text',
-            alt_text='alt text',
-
-        )
-        cls.slide4.save()
-        cls.slide5 = HomePageSlides(
-            title='loopy5',
-            subtitle='some text',
-            alt_text='alt text',
-
-        )
-        cls.slide5.save()
         cls.user = User.objects.create_user(username = 'testuser',
                                              password='password',
                                              email ='test@test.com',
                                              first_name = 'joe',
                                              last_name = 'bloggs',
         )
+        cls.user2 = User.objects.create_user(username = 'testuser2',
+                                             password='password2',
+                                             email ='try@two.com',
+                                             first_name = 'john',
+                                             last_name = 'doh',
+        )
+        cls.superuser = User.objects.create_superuser(username='manager',
+                                                      email='man@ager.com',
+                                                      password='pass',)
         cls.userprofile = UserProfile(
             user= cls.user,
             default_phone = 77777777,
@@ -180,148 +154,168 @@ class TestHomeViews(TestCase):
             quantity = 2
         )
         cls.line.save()
-        cls.reviewred = ReviewYarns(
-            order = cls.order,
-            yarn = cls.redyarn,
-            rating = 4,
-            comment = 'comment',
-            approved = True
-        )
-        cls.reviewred.save()
+
 
     def setUp(self):
         self.client = Client()
 
-    # def test_render_home_page(self):
-    #     """ Verifies request to render Home page content """
-    #     response = self.client.get(reverse('home'))
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertIn(b"Loopy", response.content)
-    #     self.assertIn(b"phone", response.content)
-        
-    # def test_render_account_home(self):
-    #     """ Verifies request to render account home page content"""
-    #     self.client.login(email = 'test@test.com', password = 'password')
-    #     response = self.client.get(reverse('customer_account'))
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertIn(b'My orders', response.content)
-    #     self.assertIn(b'My favourites', response.content)
-    #     self.assertIsInstance(response.context['address_form'], AddressForm)
-    #     self.assertIsInstance(response.context['details_form'], DetailsForm)
 
-    # def test_unauthenticated_user_cannot_access_acount_page(self):
-    #     """ Test that a usre who is not logged in cannot access the account page """
-    #     response = self.client.get(reverse('customer_account'))
-    #     self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('customer_account')}")
+    def test_unauthenicated_user_cannot_access_management_page(self):
+        """ Test that a user who is not logged in cannot access the management home page """
+        response = self.client.get(reverse('management_home'))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('management_home')}")
 
-    # def test_update_details_account_home(self):
-    #     """ Verify that updating details via form on account page 
-    #     operates correctly"""
-    #     self.client.login(email = 'test@test.com', password = 'password')
-    #     self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
-    #     post_data = {
-    #         'first_name ': 'name 1',
-    #         'last_name' : 'name 2',
-    #         'Phone': 999
-    #     }
-    #     response = self.client.post(reverse(
-    #         'update_details'), post_data)
-    #     self.assertEqual(response.status_code, 302)
-    #     self.user.refresh_from_db()
-    #     self.userprofile.refresh_from_db()
-    #     self.assertEqual(self.userprofile.user.first_name, 'name 1')
-    #     self.assertNotEqual(self.user.last_name, 'bloggs')
-    #     self.assertEqual(self.userprofile.default_phone, 999)
+    def test_non_super_user_cannot_access_management_page(self):
+        """ Test that a none super user cannot access the management home page """
+        self.client.login(email = 'test@test.com', password = 'password')
+        response = self.client.get(reverse('management_home'))
+        self.assertRedirects(response, expected_url=f"{reverse('home')}")
 
-    # def test_unauthenticated_user_cannot_access_update_details_view(self):
-    #     """ Test that a usre who is not logged in cannot update customer details """
-    #     self.userprofile = UserProfile.objects.get(user__id = 1)
-    #     post_data = {
-    #         'first_name ': 'name 1',
-    #         'last_name' : 'name 2',
-    #         'Phone': 999
-    #     }
-    #     response = self.client.post(reverse('update_details'), post_data)
-    #     self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('update_details')}")
+    def test_super_user_can_access_management_page_and_renders_correctly(self):
+        """ Test that a super user can access the management home page and it renders correctly"""
+        self.client.login(email = 'man@ager.com', password = 'pass')
+        response = self.client.get(reverse('management_home'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'management/admin-home.html')
+        self.assertTemplateNotUsed(response, 'base.html')
+        self.assertIn(b'Dashboard', response.content)
+        self.assertIn(b'Shop Settings', response.content)
 
-    # def test_update_address_account_home(self):
-    #     """ Verify that updating address via form on account page 
-    #     operates correctly"""
-    #     self.client.login(email = 'test@test.com', password = 'password')
-    #     self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
-    #     post_data = {
-    #         'default_street_address1': 'some street',
-    #     }
-    #     response = self.client.post(reverse(
-    #         'update_address'), post_data)
-    #     self.assertEqual(response.status_code, 302)
-    #     self.userprofile.refresh_from_db()
-    #     self.assertEqual(self.userprofile.default_street_address1, 'some street')
-    #     self.assertNotEqual(self.userprofile.default_street_address1, 'no street')
+    def test_unauthenicated_user_cannot_access_management_settings(self):
+        """ Test that a user who is not logged in cannot access the management settings page """
+        response = self.client.get(reverse('management_settings'))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('management_settings')}")
 
-    # def test_unauthenticated_user_cannot_update_address(self):
-    #     """ Test that a usre who is not logged in cannot update customer default address details """
-    #     self.userprofile = UserProfile.objects.get(user__id = 1)
-    #     post_data = {
-    #         'default_street_address1': 'some street',
-    #     }
-    #     response = self.client.post(reverse('update_address'), post_data)
-    #     self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('update_address')}")
+    def test_non_super_user_cannot_access_management_settings(self):
+        """ Test that a none super user cannot access the management settings page """
+        self.client.login(email = 'test@test.com', password = 'password')
+        response = self.client.get(reverse('management_settings'))
+        self.assertRedirects(response, expected_url=f"{reverse('home')}")
 
-    # def test_past_order_page_renders(self):
-    #     """ Test that past order page renders correctly """
-    #     self.client.login(email = 'test@test.com', password = 'password')
-    #     self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
-    #     response = self.client.get(reverse('past_order', args=[self.order.order_num]))
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertIn(b'Shipping Address', response.content)
-    #     self.assertIn(b'988', response.content)
+    def test_super_user_can_access_management_settings_and_renders_correctly(self):
+        """ Test that a super user can access the management settings page and it renders correctly"""
+        self.client.login(email = 'man@ager.com', password = 'pass')
+        response = self.client.get(reverse('management_settings'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'management/admin-settings.html')
+        self.assertTemplateNotUsed(response, 'base.html')
+        self.assertIsInstance(response.context['shop_form'], ShopContactInfoForm)
+        self.assertIn(b'Sale Settings', response.content)
+        self.assertIn(b'Promotions', response.content)
 
-    # def test_unauthenticated_user_cannot_view_past_order(self):
-    #     """ Test that a usre who is not logged in cannot view past order """
-    #     response = self.client.get(reverse('past_order', args=[self.order.order_num]))
-    #     self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('past_order', args=[self.order.order_num])}")
+    def test_unauthenicated_user_cannot_access_management_orders(self):
+        """ Test that a user who is not logged in cannot access the management orders page """
+        response = self.client.get(reverse('management_orders'))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('management_orders')}")
 
-    # def test_leave_review_page_renders(self):
-    #     """ Test that leave review page renders correctly """
-    #     self.client.login(email = 'test@test.com', password = 'password')
-    #     self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
-    #     response = self.client.get(reverse('leave_review', args=[self.order.order_num]))
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertIn(b"We'd love to hear what you think", response.content)
-    #     self.assertIn(b'rating', response.content)
+    def test_non_super_user_cannot_access_management_orders(self):
+        """ Test that a none super user cannot access the management orders page """
+        self.client.login(email = 'test@test.com', password = 'password')
+        response = self.client.get(reverse('management_orders'))
+        self.assertRedirects(response, expected_url=f"{reverse('home')}")
 
-    # def test_unauthenticated_user_cannot_view_leave_review_page(self):
-    #     """ Test that a usre who is not logged in cannot view leave review page """
-    #     response = self.client.get(reverse('leave_review', args=[self.order.order_num]))
-    #     self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('leave_review', args=[self.order.order_num])}")
+    def test_super_user_can_access_management_orders_page_and_renders_correctly(self):
+        """ Test that a super user can access the management orders page and it renders correctly"""
+        self.client.login(email = 'man@ager.com', password = 'pass')
+        response = self.client.get(reverse('management_orders'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'management/admin-orders.html')
+        self.assertTemplateNotUsed(response, 'base.html')
+        self.assertIn(b'order_num2', response.content)
+        self.assertIn(b'Refunded', response.content)
 
+    def test_unauthenicated_user_cannot_access_update_shopsettings_view(self):
+        """ Test that a user who is not logged in cannot access the update shop settings view """
+        response = self.client.get(reverse('update_shopsettings'))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('update_shopsettings')}")
 
-    # def test_submit_review(self):
-    #     """ test submit review"""
-    #     self.client.login(email = 'test@test.com', password = 'password')
-    #     self.userprofile = UserProfile.objects.get(user__id = self.user.pk)
-    #     self.reviewred = ReviewYarns.objects.get(order = self.order)
-    #     post_data ={
-    #         'rating': 2,
-    #         'comment' : 'new comment',
-    #         'yarn': self.redyarn.id
-    #     }
-    #     response = self.client.post(reverse('submit_review', args=[self.order.order_num]), post_data)
-    #     self.assertEqual(response.status_code, 200)
-    #     self.reviewred.refresh_from_db()
-    #     self.assertEqual(ReviewYarns.objects.all().count(), 1)
-    #     self.assertNotEqual(self.reviewred.approved, True)
-    #     self.assertEqual(self.reviewred.rating, 2)
+    def test_non_super_user_cannot_access_update_shopsettings_view(self):
+        """ Test that a none super user cannot access the update shop settings view """
+        self.client.login(email = 'test@test.com', password = 'password')
+        response = self.client.get(reverse('update_shopsettings'))
+        self.assertRedirects(response, expected_url=f"{reverse('home')}")
 
-    # def test_unauthenticated_user_cannot_leave_feedback(self):
-    #     """ Test that a usre who is not logged in cannot update or submit feedback """
-    #     self.userprofile = UserProfile.objects.get(user__id = 1)
-    #     self.reviewred = ReviewYarns.objects.get(order = self.order)
-    #     post_data ={
-    #         'rating': 2,
-    #         'comment' : 'new comment',
-    #         'yarn': self.redyarn.id
-    #     }
-    #     response = self.client.post(reverse('submit_review', args=[self.order.order_num]), post_data)
-    #     self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('submit_review', args=[self.order.order_num])}")
+    def test_unauthenicated_user_cannot_access_update_salesettings_view(self):
+        """ Test that a user who is not logged in cannot access the update sale settings view """
+        response = self.client.get(reverse('update_salesettings'))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('update_salesettings')}")
+
+    def test_non_super_user_cannot_access_update_salesettings_view(self):
+        """ Test that a none super user cannot access the update sale settings view """
+        self.client.login(email = 'test@test.com', password = 'password')
+        response = self.client.get(reverse('update_salesettings'))
+        self.assertRedirects(response, expected_url=f"{reverse('home')}")
+
+    def test_unauthenicated_user_cannot_access_update_announcements_view(self):
+        """ Test that a user who is not logged in cannot access the update announcements view """
+        response = self.client.get(reverse('update_announcements'))
+        self.assertRedirects(response, expected_url=f"{reverse('account_login')}?next={reverse('update_announcements')}")
+
+    def test_non_super_user_cannot_access_update_announcements_view(self):
+        """ Test that a none super user cannot access the update announcements view """
+        self.client.login(email = 'test@test.com', password = 'password')
+        response = self.client.get(reverse('update_announcements'))
+        self.assertRedirects(response, expected_url=f"{reverse('home')}")
+
+    def test_update_shopsettings_view_posts(self):
+        """ Verify that update shop settings view 
+        operates correctly"""
+        self.client.login(email = 'man@ager.com', password = 'pass')
+        self.shop = ShopContactInfo.objects.all()[0]
+        post_data = {
+            'shop_phone': 7777,
+            'shop_email':'new@email.com',
+            'shop_street_address1': 'new address',
+            'shop_street_address2':'',
+            'shop_town':'town',
+            'shop_county':'county',
+            'shop_country':'GB',
+            'shop_postcode':'NEW 123'
+        }
+        response = self.client.post(reverse(
+            'update_shopsettings'), post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_url=f'{reverse('management_settings')}')
+        self.shop.refresh_from_db()
+        self.assertEqual(self.shop.shop_phone, 7777)
+        self.assertNotEqual(self.shop.shop_email, 'email@email.com')
+        self.assertEqual(self.shop.shop_postcode, 'NEW 123')
+        self.assertEqual(self.shop.shop_street_address1, 'new address')
+
+    def test_update_salesettings_view_posts(self):
+        """ Verify that update sale settings view 
+        operates correctly"""
+        self.client.login(email = 'man@ager.com', password = 'pass')
+        self.sale = SaleSettings.objects.get(sale_percent = 20)
+        post_data = {
+            'sale_percent': 5,
+        }
+        response = self.client.post(reverse(
+            'update_salesettings'), post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_url=f'{reverse('management_settings')}')
+        self.sale.refresh_from_db()
+        self.assertEqual(self.sale.sale_percent, 5)
+        self.assertEqual(self.sale.active, True)
+
+    def test_update_announcements_view_posts(self):
+        """ Verify that update announcement view 
+        operates correctly"""
+        self.client.login(email = 'man@ager.com', password = 'pass')
+        self.bulk = Announcements.objects.get(lower_ball_num = 10)
+        post_data = {
+            'bulk_buy':True,
+            'lower_ball_num':0,
+            'upper_ball_num':30,
+            'lower_discount':0,
+            'upper_discount':15
+        }
+        response = self.client.post(reverse(
+            'update_announcements'), post_data)
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_url=f'{reverse('management_settings')}')
+        self.bulk.refresh_from_db()
+        self.assertEqual(self.bulk.upper_ball_num, 30)
+        self.assertNotEqual(self.bulk.lower_ball_num, 10)
+        self.assertEqual(self.bulk.bulk_buy, True)
+        self.assertEqual(self.bulk.upper_discount, 15)

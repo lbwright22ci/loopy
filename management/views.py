@@ -175,7 +175,7 @@ def update_announcements(request):
             promo.lower_discount = request.POST.get('lower_discount')
             promo.upper_discount = request.POST.get('upper_discount')
             promo.save()
-            print(promo.bulk_buy, type(promo.bulk_buy))
+
             if promo.bulk_buy:
                 messages.add_message(
                     request, messages.SUCCESS, f'Bulk buy discounts are now:\
