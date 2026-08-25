@@ -195,7 +195,7 @@
 
                                                                                         {% if product.id in favourite_list %}
                                                                                                 <a role="button" class="fav-icon" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
-                                                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
+                                                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" aria-label="remove from favourites list"
                                                                                                    data-bs-title="Remove from my wishlist">
                                                                                                         <i class="solid-heart-all fa-solid fa-heart" ></i></a>
                                                                                                 <span class="visually-hidden">Remove from my favourites list</span>
@@ -203,7 +203,7 @@
                                                                                         {% else %}
 
                                                                                                 <a class="fav-icon" role="button" data-product_id="{{ product.id }}" data-csrf="{{ csrf_token }}"
-                                                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip"
+                                                                                                   data-bs-custom-class="update-tooltip" data-bs-toggle="tooltip" aria-label="add to favourites list"
                                                                                                    data-bs-title="Add to my wishlist">
                                                                                                         <i class="open-heart-all fa-regular fa-heart" ></i> </a>
                                                                                                 <span class="visually-hidden">Add to my favourites list</span>
