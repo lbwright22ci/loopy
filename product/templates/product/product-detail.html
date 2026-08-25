@@ -119,15 +119,16 @@
 
                                                                 <div  id="quant-in" class="d-none">
                                                                         <div class="input-group div-colour-select-form">
-                                                                                <button class="decrement-qty btn btn-main " type="button" data-item-id-minus="">
+                                                                                <button name="decrease quantity"
+                                                                                 class="decrement-qty btn btn-main " type="button" data-item-id-minus="">
                                                                                         <span >
                                                                                                 <i class="fas fa-minus"></i>
                                                                                         </span>
                                                                                 </button>
-                                                                                <input class="form-control qty-input"
+                                                                                <input class="form-control qty-input" aria-label="quantity"
                                                                                        type="number" name="quantity" value="1"  min="1" data-item_id=""
                                                                                 >
-                                                                                <button class="increment-qty btn btn-main " type="button" data-item-id-plus="">
+                                                                                <button name="increase quantity" class="increment-qty btn btn-main " type="button" data-item-id-plus="">
                                                                                         <span >
                                                                                                 <i class="fas fa-plus"></i>
                                                                                         </span>
@@ -208,10 +209,10 @@
                                                         <p><span class="bold">Tension*: </span> {{ prod.knitting_tension }}</p>
                                                         <p><span class="small-text">* gives a 10 x 10 cm squre when using recommended needles </span> </p>
                                                         <p>  </p>
-                                                        <p> For patterns using this yarn, take a look at the {{ prod.brand_id.name }} website
-                                                                <a href="{{ prod.brand_id.manufacturer_patterns }}"
+                                                        <p> <a href="{{ prod.brand_id.manufacturer_patterns }}"
                                                                    aria-label="takes you to {{ prod.brand_id.name }}'s website"
-                                                                   target="_blank" rel="noopener">here</a> </p>
+                                                                   target="_blank" rel="noopener">For patterns using this yarn, take a look at the {{ prod.brand_id.name }} website
+                                                                here</a> </p>
                                                 </div>
                                         </div>
                                 </div>
@@ -386,7 +387,7 @@
                 </div>
         </div>
         <div class="to-top">
-                <a class="d-flex h-100 to-top-link" aria-label="to top of page">
+                <a class="d-flex h-100 to-top-link">
                         <i class="fa-solid fa-arrow-up"></i>
                 </a>
         </div>
