@@ -41,7 +41,7 @@ class ProductAdmin(admin.ModelAdmin):
     Fields in list display are: 'brand', 'name', 'thickness', 'fibre',
     'price', 'on_promotion', 'visible'
     Instances can be filtered by 'on_promotion', 'visible' and 'brand'
-    Instances can be searched by 'brand_id', 'name', 'fibre' and 'price'
+    Instances can be searched by 'name', 'fibre' and 'price'
 
     Instances can be updated in bulk to change their 'on_promotion'
     and 'visible' statuses.
@@ -52,7 +52,7 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ('price',)
     list_display_links = ('name',)
     list_filter = ('on_promotion', 'visible', 'brand_id')
-    search_fields = ['brand_id', 'name', 'fibre', 'price',]
+    search_fields = ['name', 'fibre', 'price',]
     actions = [onsale, offsale, draft, visible,]
 
 
