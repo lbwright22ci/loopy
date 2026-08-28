@@ -43,7 +43,7 @@ def AllProducts(request):
     'current_query'
     'current_sorting'
     """
-    queryset = Product.objects.all()
+    queryset = Product.objects.filter(visible=True)
     product_list = queryset
 
     query = None
