@@ -98,7 +98,7 @@ class ColourVariantAdmin(admin.ModelAdmin):
     """
     model = Colour_var
     list_display = ('product_id', 'colour_cat_id', 'low_stock', 'in_stock',)
-    search_fields = ['product_id', 'colour_cat_id',]
+    search_fields = ['product_id__name', 'colour_cat_id__colour_name',]
     list_filter = ('low_stock', 'in_stock',)
     list_editable = ('low_stock', 'in_stock',)
     actions = [outofstock, available, low_stock, normal_stock,]
