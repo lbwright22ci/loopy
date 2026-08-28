@@ -39,7 +39,8 @@ else:
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '.loopy-71068af4c6d0.herokuapp.com',
+    'loopy-71068af4c6d0.herokuapp.com',
+    '.herokuapp.com/admin/*'
 ]
 
 
@@ -191,7 +192,7 @@ if "USE_AWS" in os.environ:
     AWS_DEFAULT_ACL = 'public-read'
 
     AWS_QUERYSTRING_AUTH = True
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_S3_REGION_NAME}amazonaws.com'
 
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
