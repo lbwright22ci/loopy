@@ -161,11 +161,11 @@
                         <div class="col-12 text-end">
                             <p class="small-text mb-0"> Quantity: {{ item.quantity }}</p>
                             <p class="small-text mb-0"> Price: {% if item.col_var.product_id.on_promotion %}
-                                <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
+                                <span class="pre-sale-price"> £{{ item.col_var.product_id.price|floatformat:2 }}</span>
 
-                                <span class="sale-price"> £{{ item.price }}</span>
+                                <span class="sale-price"> £{{ item.price|floatformat:2 }}</span>
                             {% else %}
-                                £{{ item.price }}
+                                £{{ item.price|floatformat:2 }}
                             {% endif %}</p>
 
                             <p class="small-text mb-4 "> Subtotal: {% if item.col_var.product_id.on_promotion %}

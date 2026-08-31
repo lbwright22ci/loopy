@@ -74,9 +74,9 @@
                 <div class="row p-2 mx-2 d-md-none align-items-center justify-content-end">
                     <div class="col-6 text-end">
                         <p class="small-text"> Price: {% if item.col_var.product_id.on_promotion %}
-                            <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
+                            <span class="pre-sale-price"> £{{ item.col_var.product_id.price|floatformat:2 }}</span>
 
-                            <span class="sale-price"> £{{ item.price }}</span>
+                            <span class="sale-price"> £{{ item.price|floatformat:2 }}</span>
                         {% else %}
                             £{{ item.price }}
                         {% endif %}</p>
@@ -122,11 +122,11 @@
                                     </td>
                                     <td class="text-end">
                                         <p> {% if item.col_var.product_id.on_promotion %}
-                                            <span class="pre-sale-price"> £{{ item.col_var.product_id.price }}</span>
+                                            <span class="pre-sale-price"> £{{ item.col_var.product_id.price|floatformat:2 }}</span>
                                             <br>
-                                            <span class="sale-price"> £{{ item.price }}</span>
+                                            <span class="sale-price"> £{{ item.price|floatformat:2 }}</span>
                                         {% else %}
-                                            £{{ item.price }}
+                                            £{{ item.price|floatformat:2 }}
                                         {% endif %}</p>
                                     </td>
                                     <td class="text-end">

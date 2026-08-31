@@ -260,7 +260,7 @@ class StripeWH_Handler:
             content=f'Webhook receieved: {event['type']}',
             status=200)
 
-    def handle_refund_updated(self, event, request):
+    def handle_refund_updated(self, event):
         """
         Handles all instances of the webhook 'refund.updated'
 
@@ -300,10 +300,10 @@ class StripeWH_Handler:
                 time.sleep(1)
 
         if refund_exists:
+
             self._send_refund_order_email(refund)
             return HttpResponse(
-                content=f'Webhook receieved: {
-                    event['type']} | \
+                content=f'Webhook receieved: { event['type']} | \
                                 SUCCESS: refund exists in the database',
                 status=200)
         else:
@@ -322,25 +322,15 @@ class StripeWH_Handler:
                 refund.save()
                 order.refund_status = True
                 order.save()
-                if reason == 'customer cancelled order':
-                    messages.add_message(
-                        request, messages.SUCCESS, 'We are sorry that you changed your \
-                                                     mind about this order.  A refund has \
-                                                        been issued and the money will be \
-                                                     returned to your payment card soon.')
-                else:
-                    messages.add_message(
-                        request, messages.SUCCESS, f'#{order.order_num} has been \
-                                                 refunded £{amount}.  \
-                                                 Customer has been notified.')
+
             except Exception as e:
 
                 if refund:
                     refund.delete()
-                    return HttpResponse(
-                        content=f'Webhook receieved: {
-                            event['type']} | ERROR: {e}', status=500)
+                    return HttpResponse(content=f'Webhook receieved: \
+                                        {event['type']} | ERROR: {e}', status=500)
 
+        
         self._send_refund_order_email(refund)
         return HttpResponse(content=f'Webhook receieved: {event['type']} | \
                             refund created in database by webhook', status=200)
