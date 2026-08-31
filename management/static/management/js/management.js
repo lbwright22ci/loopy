@@ -68,7 +68,7 @@ $(document).ready(function () {
         var aS = `#amount-${pk}`;
         var eP = `#errors-${pk}`;
         var errorPara = $(eP);
-        var maxAmount = parseFloat($(this).data('max'));
+        var maxAmount = parseFloat($(this).data('max')).toFixed(2);
         var amountSubmitted = parseFloat($(aS).val());
 
         if(maxAmount < amountSubmitted ){
