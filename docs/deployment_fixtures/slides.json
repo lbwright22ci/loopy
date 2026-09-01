@@ -1,0 +1,62 @@
+[
+{
+  "model": "core.homepageslides",
+  "pk": 1,
+  "fields": {
+    "image": "yarn-basket.webp",
+    "imageURL": null,
+    "title": "Loopy",
+    "subtitle": "... the yarn shop for those passionate about knitting and crochet",
+    "updated_on": "2026-07-01T12:01:57.727Z",
+    "alt_text": "Photo of skeins of teal and peach yarn in a basket"
+  }
+},
+{
+  "model": "core.homepageslides",
+  "pk": 2,
+  "fields": {
+    "image": "handmade-lifestyle.webp",
+    "imageURL": null,
+    "title": "",
+    "subtitle": "You canÆt buy happiness, but you can buy yarn, and thatÆs pretty close",
+    "updated_on": "2026-07-01T12:01:31.308Z",
+    "alt_text": "Photo of bowl of yarn with a sofa in the background"
+  }
+},
+{
+  "model": "core.homepageslides",
+  "pk": 3,
+  "fields": {
+    "image": "colourful-balls.webp",
+    "imageURL": null,
+    "title": "",
+    "subtitle": "The secret to happiness? A hook, some yarn, and a comfy chair.",
+    "updated_on": "2026-07-01T12:00:52.074Z",
+    "alt_text": "Photo of colourful balls of yarn on a table"
+  }
+},
+{
+  "model": "core.homepageslides",
+  "pk": 4,
+  "fields": {
+    "image": "yarn-ends.webp",
+    "imageURL": null,
+    "title": "",
+    "subtitle": "Crochet: Where the only limit is your imagination (and your yarn stash).",
+    "updated_on": "2026-07-01T12:00:12.524Z",
+    "alt_text": "Photo of balls of yarn with tangled ends"
+  }
+},
+{
+  "model": "core.homepageslides",
+  "pk": 5,
+  "fields": {
+    "image": "tower-of-wool.webp",
+    "imageURL": null,
+    "title": "",
+    "subtitle": "Yarn is my spirit animal.",
+    "updated_on": "2026-07-01T11:59:52.363Z",
+    "alt_text": "Photo of a tower of balls of yarn"
+  }
+}
+]

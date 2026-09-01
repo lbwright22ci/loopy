@@ -1,0 +1,87 @@
+[
+{
+  "model": "core.postage",
+  "pk": 1,
+  "fields": {
+    "postage_cost": "4.00",
+    "postage_class": 0,
+    "parcel_size": 0,
+    "max_weight": 2,
+    "max_no_balls": 10,
+    "updated_on": "2026-06-29T12:10:55.670Z"
+  }
+},
+{
+  "model": "core.postage",
+  "pk": 2,
+  "fields": {
+    "postage_cost": "5.00",
+    "postage_class": 1,
+    "parcel_size": 0,
+    "max_weight": 2,
+    "max_no_balls": 10,
+    "updated_on": "2026-06-29T12:11:08.170Z"
+  }
+},
+{
+  "model": "core.postage",
+  "pk": 3,
+  "fields": {
+    "postage_cost": "7.00",
+    "postage_class": 0,
+    "parcel_size": 1,
+    "max_weight": 10,
+    "max_no_balls": 50,
+    "updated_on": "2026-06-29T12:11:32.463Z"
+  }
+},
+{
+  "model": "core.postage",
+  "pk": 4,
+  "fields": {
+    "postage_cost": "8.00",
+    "postage_class": 1,
+    "parcel_size": 1,
+    "max_weight": 10,
+    "max_no_balls": 50,
+    "updated_on": "2026-06-29T12:11:45.847Z"
+  }
+},
+{
+  "model": "core.announcements",
+  "pk": 1,
+  "fields": {
+    "bulk_buy": true,
+    "lower_ball_num": 10,
+    "lower_discount": 5,
+    "upper_ball_num": 20,
+    "upper_discount": 10,
+    "active": true,
+    "updated_on": "2026-06-29T13:58:29.612Z"
+  }
+},
+{
+  "model": "core.salesettings",
+  "pk": 1,
+  "fields": {
+    "sale_percent": 20,
+    "active": true,
+    "updated_on": "2026-06-29T14:16:30.417Z"
+  }
+},
+{
+  "model": "core.shopcontactinfo",
+  "pk": 1,
+  "fields": {
+    "shop_email": "loopyyarnsuk@gmail.com",
+    "shop_phone": 1234789654,
+    "shop_street_address1": "3 High Street",
+    "shop_street_address2": "",
+    "shop_town": "Birmingham",
+    "shop_county": "West Midlands",
+    "shop_country": "GB",
+    "shop_postcode": "B99 8AB",
+    "updated_on": "2026-06-29T14:38:53.780Z"
+  }
+}
+]
