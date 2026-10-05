@@ -163,24 +163,32 @@ def update_basket(request, item_id):
                             quantity field before clicking "update".')
     else:
         quantity = int(request.POST.get('quantity'))
-
         basket = request.session.get('basket', {})
         try:
-            basket[str(item_id)] = quantity
-            request.session['basket'] = basket
-
+            if quantity == 0:
+                basket.pop(str(item_id))
+                messages.add_message(
+                    request, messages.SUCCESS, f'Removed {
+                        col_var.product_id.brand_id.name} {
+                        col_var.product_id.name} in \
+                                       shade {
+                        col_var.colour_cat_id.colour_name} from your basket.')
+                request.session['basket'] = basket
+            else:
+                basket[str(item_id)] = quantity
+                request.session['basket'] = basket
+                messages.add_message( request, messages.SUCCESS, f'Updated \
+                                     {col_var.product_id.brand_id.name} \
+                                     {col_var.product_id.name} in \
+                                    shade {col_var.colour_cat_id.colour_name}\
+                                         to {quantity} balls.')
+                
             if request.user.is_authenticated:
                 current_user = UserProfile.objects.filter(user__id=request.user.id)
                 basket_string = str(basket)
                 basket_string = basket_string.replace("\'", "\"")
                 current_user.update(temporary_basket=str(basket_string))
-
-            messages.add_message(
-                request, messages.SUCCESS, f'Updated {
-                    col_var.product_id.brand_id.name} {
-                    col_var.product_id.name} in \
-                                shade {
-                    col_var.colour_cat_id.colour_name} to {quantity} balls.')
+            
         except BaseException:
             messages.add_message(
                 request, messages.ERROR, f'Unable to update the quantity of {
