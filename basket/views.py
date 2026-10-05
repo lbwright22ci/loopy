@@ -146,32 +146,48 @@ def update_basket(request, item_id):
     """
 
     col_var = get_object_or_404(Colour_var, pk=item_id)
-    quantity = int(request.POST.get('quantity'))
 
-    basket = request.session.get('basket', {})
-    try:
-        basket[str(item_id)] = quantity
-        request.session['basket'] = basket
+    if request.POST.get('quantity') == '':
+        messages.add_message(request, 
+                             messages.ERROR, f'Unable to update the quantity of \
+                                {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
+                            shade {col_var.colour_cat_id.colour_name}.\
+                                 Please make sure you enter a whole number into the \
+                            quantity field before clicking "update".')
+    elif '.' in request.POST.get('quantity'):
+        messages.add_message(request, 
+                             messages.ERROR, f'Unable to update the quantity of \
+                                {col_var.product_id.brand_id.name} {col_var.product_id.name} in \
+                            shade {col_var.colour_cat_id.colour_name}.\
+                                 Please make sure you enter a whole number into the \
+                            quantity field before clicking "update".')
+    else:
+        quantity = int(request.POST.get('quantity'))
 
-        if request.user.is_authenticated:
-            current_user = UserProfile.objects.filter(user__id=request.user.id)
-            basket_string = str(basket)
-            basket_string = basket_string.replace("\'", "\"")
-            current_user.update(temporary_basket=str(basket_string))
+        basket = request.session.get('basket', {})
+        try:
+            basket[str(item_id)] = quantity
+            request.session['basket'] = basket
 
-        messages.add_message(
-            request, messages.SUCCESS, f'Updated {
-                col_var.product_id.brand_id.name} {
-                col_var.product_id.name} in \
-                               shade {
-                col_var.colour_cat_id.colour_name} to {quantity} balls.')
-    except BaseException:
-        messages.add_message(
-            request, messages.ERROR, f'Unable to update the quantity of {
-                col_var.product_id.brand_id.name} {
-                col_var.product_id.name} in \
-                               shade {
-                col_var.colour_cat_id.colour_name} in your basket.')
+            if request.user.is_authenticated:
+                current_user = UserProfile.objects.filter(user__id=request.user.id)
+                basket_string = str(basket)
+                basket_string = basket_string.replace("\'", "\"")
+                current_user.update(temporary_basket=str(basket_string))
+
+            messages.add_message(
+                request, messages.SUCCESS, f'Updated {
+                    col_var.product_id.brand_id.name} {
+                    col_var.product_id.name} in \
+                                shade {
+                    col_var.colour_cat_id.colour_name} to {quantity} balls.')
+        except BaseException:
+            messages.add_message(
+                request, messages.ERROR, f'Unable to update the quantity of {
+                    col_var.product_id.brand_id.name} {
+                    col_var.product_id.name} in \
+                                shade {
+                    col_var.colour_cat_id.colour_name} in your basket.')
 
     return redirect(reverse('view_basket'))
 
